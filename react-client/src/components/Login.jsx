@@ -7,7 +7,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-     
+      
     }
   }
   
@@ -16,7 +16,9 @@ class Login extends React.Component {
     return (<div>
       <h1>Login Works</h1>
       <form>
+        <input value={this.state.username} onChange={(e) => {this.setState({username:e.target.value})}}/>
         
+
       </form>
      
     </div>)
