@@ -5,6 +5,9 @@ import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
 import Feed from './components/Feed.jsx';
 import data from '../dist/data';
+import ActiveLessons from './components/ActiveLessons.jsx';
+import OfferedLessons from './components/OfferedLessons.jsx';
+import PastLessons from './components/PastLessons.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; 
 import Dashboard from './components/Dashboard.jsx';
 
@@ -18,7 +21,10 @@ class App extends React.Component {
      locationData: window.sampleLocation,
      favoritesData: window.sampleService,
      serviceOfTheDay: window.serviceOfTheDay,
-     todaysTopServices: window.sampleService
+     todaysTopServices: window.sampleService,
+     userActiveLessons: window.sampleService,
+     userOfferedLessons: window.sampleService,
+     userPastLessons: window.sampleService
     }
     this.querySet = this.querySet.bind(this);
   }
@@ -37,6 +43,9 @@ class App extends React.Component {
           <Route exact path="/" render={() => <Home query={this.querySet} todaysServices={this.state.todaysTopServices}/>}/>
           <Route path="/login" render={() => <Login/>}/>
           <Route path="/signUp" render={() => <SignUp/>}/>
+          <Route path="/active" render={() => <ActiveLessons lessons={this.state.userActiveLessons}/>}/>
+          <Route path="/offered" render={() => <OfferedLessons lessons={this.state.userOfferedLessons}/>}/>
+          <Route path="/past" render={() => <PastLessons lessons={this.state.userPastLessons}/>}/>
           <Route path="/feed" render={() => <Feed services={this.state.serviceData} location={this.state.locationData}/>}/>
           <Route path="/dashboard" render={() => <Dashboard service={this.state.serviceOfTheDay} favorites={this.state.favoritesData}/>}/>
 
