@@ -1,5 +1,6 @@
 import React from 'react';
 import Navigation from './NavigationBar.jsx';
+import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 
 class Dashboard extends React.Component {
   constructor (props) {
@@ -15,7 +16,7 @@ class Dashboard extends React.Component {
         <ServiceOfTheDay service={this.props.service}/>
         <div>
           <h2>Favorites</h2>
-          <div></div>
+          <ServiceDisplay services={this.props.favorites}/>
         </div>
 
       </div>
@@ -31,13 +32,6 @@ const ServiceOfTheDay = ({service}) => (
     <button>Book Now</button>
   </div>
 );
-// const ServiceOfTheDay = ({service}) => (
-//   <div>
-//     <img/>
-//     <h1>Test</h1>
-//     <p>Description test</p>
-//     <button>Book Now</button>
-//   </div>
-// );
+
 
 export default Dashboard;
