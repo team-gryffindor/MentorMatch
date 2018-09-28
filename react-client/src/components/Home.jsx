@@ -23,6 +23,7 @@ class Home extends React.Component {
       <input value={this.state.service} onChange={(e) => this.setState({service: e.target.value}, () => this.setIndexState())} placeholder="Enter Service"/>
       <input value={this.state.location} onChange={(e) => this.setState({location: e.target.value}, () => this.setIndexState())} placeholder="Location"/>
       <button><Link to="/feed">Search</Link></button>
+      <button><Link to="/dashboard">DASHBOARD TEST</Link></button>
     </div>)
   }
 }

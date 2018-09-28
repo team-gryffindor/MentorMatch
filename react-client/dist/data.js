@@ -36,3 +36,14 @@ window.sampleService = [
 window.sampleLocation = [{
   location: 'NYC'
 }];
+
+window.serviceOfTheDay = {
+  userName: 'Alex123',
+  location: 'NYC',
+  profilePicture: 'https://source.unsplash.com/1600x900/?mountain,sunset',
+  title: 'THIS IS THE TITLE',
+  description: 'teach you how to code',
+  difficulty: 'moderate',
+  category: 'skills'
+};
+
