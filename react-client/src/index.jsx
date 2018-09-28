@@ -1,35 +1,40 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import List from './components/List.jsx';
+import Home from './components/Home.jsx';
+import Login from './components/Login.jsx'; 
+import SignUp from './components/SignUp.jsx';
+import Feed from './components/Feed.jsx';
+import data from '../dist/data';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: []
+     userInputService: '',
+     userInputLocation: '',
+     serviceData: window.sampleService,
+     locationData: window.sampleLocation
     }
+    this.querySet = this.querySet.bind(this);
   }
-
-  componentDidMount() {
-    $.ajax({
-      url: '/items', 
-      success: (data) => {
-        this.setState({
-          items: data
-        })
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
+  
+  querySet(service, location) {
+    //apollo call
   }
 
   render () {
-    return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
-    </div>)
+    return (
+      <Router>
+        <div>
+          <Route exact path="/" render={() => <Home query={this.querySet}/>}/>
+          <Route path="/login" render={() => <Login/>}/>
+          <Route path="/signUp" render={() => <SignUp/>}/>
+          <Route path="/feed" render={() => <Feed services={this.state.serviceData} location={this.state.locationData}/>}/>
+
+        </div>
+      </Router>
+    )
   }
 }
 
