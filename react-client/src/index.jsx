@@ -17,7 +17,8 @@ class App extends React.Component {
      serviceData: window.sampleService,
      locationData: window.sampleLocation,
      favoritesData: window.sampleService,
-     serviceOfTheDay: window.serviceOfTheDay
+     serviceOfTheDay: window.serviceOfTheDay,
+     todaysTopServices: window.sampleService
     }
     this.querySet = this.querySet.bind(this);
   }
@@ -25,12 +26,15 @@ class App extends React.Component {
   querySet(service, location) {
     //apollo call
   }
+  componentDidMount(){
+    //set the sate for today's top services
+  }
 
   render () {
     return (
       <Router>
         <div>
-          <Route exact path="/" render={() => <Home query={this.querySet}/>}/>
+          <Route exact path="/" render={() => <Home query={this.querySet} todaysServices={this.state.todaysTopServices}/>}/>
           <Route path="/login" render={() => <Login/>}/>
           <Route path="/signUp" render={() => <SignUp/>}/>
           <Route path="/feed" render={() => <Feed services={this.state.serviceData} location={this.state.locationData}/>}/>

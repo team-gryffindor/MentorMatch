@@ -1,4 +1,5 @@
 import React from 'react';
+import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; 
 
 class Home extends React.Component {
@@ -24,6 +25,8 @@ class Home extends React.Component {
       <input value={this.state.location} onChange={(e) => this.setState({location: e.target.value}, () => this.setIndexState())} placeholder="Location"/>
       <button><Link to="/feed">Search</Link></button>
       <button><Link to="/dashboard">DASHBOARD TEST</Link></button>
+      <h1>Today's Top Services</h1>
+      <ServiceDisplay services={this.props.todaysServices}/>
     </div>)
   }
 }
