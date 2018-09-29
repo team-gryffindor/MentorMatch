@@ -1,42 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
+import Search from './Search.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      service: '',
-      location: ''
-    };
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Mentor Match</h1>
-        <ol>
-          <button>
-            <Link to="/login">Login</Link>
-          </button>
-          <button>
-            <Link to="/signUp">Sign Up</Link>
-          </button>
-        </ol>
-        <input
-          value={this.state.service}
-          onChange={(e) => this.setState({ service: e.target.value })}
-          placeholder="Enter Service"
-        />
-        <input
-          value={this.state.location}
-          onChange={(e) => this.setState({ location: e.target.value })}
-          placeholder="Enter Location"
-        />
-        <button>Search</button>
-      </div>
-    );
-  }
-}
+const Home = (props) => (
+  <div>
+    <h1>Mentor Match</h1>
+    <ol>
+      <button>
+        <Link to="/login">Login</Link>
+      </button>
+    </ol>
+    <Search query={props.query} />
+    <h1>Today's Top Services</h1>
+    <ServiceDisplay services={props.todaysServices} />
+  </div>
+);
 
 export default Home;
