@@ -16,6 +16,8 @@ app.get('/*', function(req, res) {
 // });
 
 models.sequelize
+  // For change in schema itself, use the line below
+  //.sync({force: true})
   .sync()
   .then(() => {
     app.listen(port, () => console.log('listening on port: ', port));
