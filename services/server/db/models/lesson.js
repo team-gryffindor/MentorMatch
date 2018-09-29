@@ -13,9 +13,5 @@ const lesson = (sequelize, DataTypes) => {
     difficulty: DataTypes.STRING,
     category: DataTypes.STRING
   });
-
-  Lesson.belongsTo(User);
   return Lesson;
 };
-
-module.exports = lesson;
