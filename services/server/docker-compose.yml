@@ -1,0 +1,16 @@
+version: '2'
+services:
+  spotserver:
+    build:
+      dockerfile: Dockerfile
+    command: npm run dev
+    volumes:
+      - .:/usr/src/
+      - /usr/src/app/node_modules
+    ports:
+      - '3001:3001'
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://siriusBlack@gryffdb.cnxadruhwimk.us-east-2.rds.amazonaws.com/lessons
+      PORT: 5432
