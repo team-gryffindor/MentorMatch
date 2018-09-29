@@ -47,7 +47,7 @@ class App extends React.Component {
           <Route path="/offered" render={() => <OfferedLessons lessons={this.state.userOfferedLessons}/>}/>
           <Route path="/past" render={() => <PastLessons lessons={this.state.userPastLessons}/>}/>
           <Route path="/feed" render={() => <Feed services={this.state.serviceData} location={this.state.locationData}/>}/>
-          <Route path="/dashboard" render={() => <Dashboard service={this.state.serviceOfTheDay} favorites={this.state.favoritesData}/>}/>
+          <Route path="/dashboard" render={() => <Dashboard  query={this.querySet} service={this.state.serviceOfTheDay} favorites={this.state.favoritesData}/>}/>
 
         </div>
       </Router>

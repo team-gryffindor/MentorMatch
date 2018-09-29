@@ -1,6 +1,7 @@
 import React from 'react';
 import Navigation from './NavigationBar.jsx';
 import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
+import Search from './Search.jsx';
 
 class Dashboard extends React.Component {
   constructor (props) {
@@ -8,11 +9,11 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log('PROPS: ', this.props);
     return (
       <div>
         <h1>Mentor Match</h1>
         <Navigation/>
+        <Search query={this.props.query}/>
         <ServiceOfTheDay service={this.props.service}/>
         <div>
           <h2>Favorites</h2>
