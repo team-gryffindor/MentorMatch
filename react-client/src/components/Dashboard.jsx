@@ -12,14 +12,15 @@ class Dashboard extends React.Component {
     return (
       <div>
         <h1>Mentor Match</h1>
-        <Navigation/>
-        <Search query={this.props.query}/>
+        <div>
+          <Navigation/>
+          <Search query={this.props.query}/>
+        </div>
         <ServiceOfTheDay service={this.props.service}/>
         <div>
           <h2>Favorites</h2>
           <ServiceDisplay services={this.props.favorites}/>
         </div>
-
       </div>
     )
   }
