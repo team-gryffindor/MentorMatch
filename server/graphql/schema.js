@@ -155,6 +155,51 @@ const RootQuery = new GraphQLObjectType({
   }
 });
 
+const Mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addUser: {
+      type: UserType,
+      args: {
+        name: { type: GraphQLString },
+        imgString: { type: GraphQLString },
+        description: { type: GraphQLString },
+        location: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        // sequelize to add user
+      }
+    },
+    addLesson: {
+      type: LessonType,
+      args: {
+        name: { type: GraphQLString },
+        imgString: { type: GraphQLString },
+        description: { type: GraphQLString },
+        location: { type: GraphQLString },
+        category: { type: GraphQLString },
+        difficulty: { type: GraphQLString },
+        userId: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        // sequelize to add user
+      }
+    },
+    addReview: {
+      type: UserType,
+      args: {
+        title: { type: GraphQLString },
+        comment: { type: GraphQLString },
+        lessonId: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        // sequelize to add user
+      }
+    }
+  }
+});
+
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation: Mutation
 });
