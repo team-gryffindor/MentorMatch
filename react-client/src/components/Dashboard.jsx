@@ -2,7 +2,6 @@ import React from 'react';
 import Navigation from './NavigationBar.jsx';
 import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 import Search from './Search.jsx';
-import UserProfileInfo from './UserProfileInfo.jsx';
 
 class Dashboard extends React.Component {
   constructor (props) {
@@ -22,8 +21,6 @@ class Dashboard extends React.Component {
           <h2>Favorites</h2>
           <ServiceDisplay services={this.props.favorites}/>
         </div>
-        {/* Add user profile info componenent here */}
-        <UserProfileInfo user={this.props.user}/>
       </div>
     )
   }
