@@ -24,7 +24,13 @@ class App extends React.Component {
      todaysTopServices: window.sampleService,
      userActiveLessons: window.sampleService,
      userOfferedLessons: window.sampleService,
-     userPastLessons: window.sampleService
+     userPastLessons: window.sampleService,
+     userInfo: {
+       username: 'AC130',
+       avatar: 'https://source.unsplash.com/1600x900/?mountain,sunset',
+       location: 'Boston',
+       userDescription: 'The pro mutters. Outside a native blinks the jury. An ozone surrounds each dated custom below a dirt. The blessed bathroom peers. A supporting power stirs within the earth.'
+     }
     }
     this.querySet = this.querySet.bind(this);
   }
@@ -47,8 +53,7 @@ class App extends React.Component {
           <Route path="/offered" render={() => <OfferedLessons lessons={this.state.userOfferedLessons}/>}/>
           <Route path="/past" render={() => <PastLessons lessons={this.state.userPastLessons}/>}/>
           <Route path="/feed" render={() => <Feed services={this.state.serviceData} location={this.state.locationData}/>}/>
-          <Route path="/dashboard" render={() => <Dashboard  query={this.querySet} service={this.state.serviceOfTheDay} favorites={this.state.favoritesData}/>}/>
-
+          <Route path="/dashboard" render={() => <Dashboard  user={this.state.userInfo} query={this.querySet} service={this.state.serviceOfTheDay} favorites={this.state.favoritesData}/>}/>
         </div>
       </Router>
     )
