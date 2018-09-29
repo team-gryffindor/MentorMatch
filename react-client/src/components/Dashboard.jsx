@@ -1,0 +1,37 @@
+import React from 'react';
+import Navigation from './NavigationBar.jsx';
+import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
+
+class Dashboard extends React.Component {
+  constructor (props) {
+    super(props);
+  }
+
+  render() {
+    console.log('PROPS: ', this.props);
+    return (
+      <div>
+        <h1>Mentor Match</h1>
+        <Navigation/>
+        <ServiceOfTheDay service={this.props.service}/>
+        <div>
+          <h2>Favorites</h2>
+          <ServiceDisplay services={this.props.favorites}/>
+        </div>
+
+      </div>
+    )
+  }
+}
+
+const ServiceOfTheDay = ({service}) => (
+  <div>
+    <img src={service.profilePicture}/>
+    <h1>{service.title}</h1>
+    <p>{service.description}</p>
+    <button>Book Now</button>
+  </div>
+);
+
+
+export default Dashboard;
