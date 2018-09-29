@@ -1,5 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+const models = require('./db/index.js');
+const port = process.env.PORT || 80;
 
 var app = express();
 
@@ -9,10 +11,15 @@ app.get('/*', function(req, res) {
   res.redirect('/');
 });
 
-app.get('/', function(req, res) {
-  res.send('HELLO WORLD');
-});
+// app.get('/', function(req, res) {
+//   res.send('HELLO WORLD');
+// });
 
-app.listen(80, function() {
-  console.log('listening on port 3000!');
-});
+models.sequelize
+  .sync()
+  .then(() => {
+    app.listen(port, () => console.log('listening on port: ', port));
+  })
+  .catch((err) => {
+    console.error(err);
+  });
