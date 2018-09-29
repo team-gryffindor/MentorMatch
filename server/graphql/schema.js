@@ -1,6 +1,6 @@
 const graphql = require('graphql');
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLList } = graphql;
 
 // dummy data
 const usersEx = [
@@ -23,7 +23,6 @@ const usersEx = [
 const lessonsEx = [
   {
     id: '1',
-    userId: '1',
     name: 'tennis',
     description: 'love',
     difficulty: '3,',
@@ -33,7 +32,6 @@ const lessonsEx = [
   },
   {
     id: '2',
-    userId: '2',
     name: 'violin',
     description: 'bach',
     difficulty: '5,',
@@ -50,7 +48,26 @@ const UserType = new GraphQLObjectType({
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     city: { type: GraphQLString },
-    imgString: { type: GraphQLString }
+    imgString: { type: GraphQLString },
+    offeredLessons: {
+      type: GraphQLList(LessonType),
+      resolve(parent, args) {
+        return 'offeredLesson';
+        // sequelize query
+      }
+    },
+    consumedLessons: {
+      type: GraphQLList(LessonType),
+      resolve(parent, args) {
+        return 'consumedLesson';
+      }
+    },
+    favLessons: {
+      type: GraphQLList(LessonType),
+      resolve(parent, args) {
+        return 'favLesson';
+      }
+    }
   })
 });
 
@@ -58,20 +75,36 @@ const LessonType = new GraphQLObjectType({
   name: 'Lesson',
   fields: () => ({
     id: { type: GraphQLID },
-    userId: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     difficulty: { type: GraphQLString },
     category: { type: GraphQLString },
     location: { type: GraphQLString },
     imgString: { type: GraphQLString },
-    user: {
+    provider: {
       type: UserType,
       resolve(parent, args) {
         return usersEx.find((user) => {
           return user.id === parent.userId;
         });
       }
+    },
+    reviews: {
+      type: GraphQLList(ReviewType),
+      resolve(parent, args) {}
+    }
+  })
+});
+
+const ReviewType = new GraphQLObjectType({
+  name: 'Review',
+  fields: () => ({
+    id: { type: GraphQLID },
+    title: { type: GraphQLString },
+    comment: { type: GraphQLString },
+    lesson: {
+      type: LessonType,
+      resolve(parent, args) {}
     }
   })
 });
@@ -89,6 +122,16 @@ const RootQuery = new GraphQLObjectType({
         });
       }
     },
+    users: {
+      type: GraphQLList(UserType),
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        // queries to db
+        return usersEx.find((user) => {
+          return user.id === args.id;
+        });
+      }
+    },
     lesson: {
       type: LessonType,
       args: { id: { type: GraphQLID } },
@@ -96,6 +139,16 @@ const RootQuery = new GraphQLObjectType({
         // queries to db
         return lessonsEx.find((lesson) => {
           return lesson.id === args.id;
+        });
+      }
+    },
+    lessons: {
+      type: GraphQLList(LessonType),
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        // queries to db
+        return usersEx.find((user) => {
+          return user.id === args.id;
         });
       }
     }
