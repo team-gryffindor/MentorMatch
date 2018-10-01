@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigation from './NavigationBar.jsx';
+import Header from './Header.jsx';
 import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 import Search from './Search.jsx';
 
@@ -11,9 +11,8 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        <h1>Mentor Match</h1>
+        <Header/>
         <div>
-          <Navigation/>
           <Search query={this.props.query}/>
         </div>
         <ServiceOfTheDay service={this.props.service}/>

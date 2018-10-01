@@ -9,7 +9,7 @@ const Navigation = () => (
       <li><a><Link to="/past">Past Lessons</Link></a></li>
       <li><a><Link to="/offered">My Offered Lessons</Link></a></li>
       <li><a><Link to="/userProfile">My Profile</Link></a></li>
-
+      <li><a><Link to="/addService">Create a new service</Link></a></li>
     </ul>
   </div>
 );

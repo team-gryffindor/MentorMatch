@@ -1,27 +1,99 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; 
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import firebase from 'firebase';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
+const firebaseApp = firebase.initializeApp({
+  apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
+  authDomain: 'mentormatch-c3923.firebaseapp.com',
+  databaseURL: 'https://mentormatch-c3923.firebaseio.com',
+  projectId: 'mentormatch-c3923',
+  storageBucket: 'mentormatch-c3923.appspot.com',
+  messagingSenderId: '803398282415'
+});
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
-     
+    this.state = {
+      isSignedIn: false,
+      userInfo: null
+    };
+    this.uiConfig = {
+      signInFlow: 'popup',
+      signInOptions: [
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+      ],
+      callbacks: {
+        signInSuccessWithAuthResult: () => false
+      }
+    };
+  }
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.setState({ isSignedIn: !!user });
+      console.log('USER:', user);
+    });
+  }
+
+  render() {
+    {
+      if (!this.state.isSignedIn) {
+        return (
+          <div className="Login">
+            <h1>Welcome to </h1>
+            <div className="col-md-4" />
+            <div className="form-group col-md-4">
+              <a className="btn btn-block btn-social btn-facebook">
+                <span className="fa fa-facebook" />
+                <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
+              </a>
+              <br />
+              <p className="text-center">------------- Or -------------</p>
+              <form onSubmit={this.handleSubmit}>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={this.state.email}
+                  onChange={this.handleEmailChange}
+                  placeholder="Enter Email"
+                />
+                <input
+                  type="password"
+                  className="form-control"
+                  value={this.state.password}
+                  onChange={this.handlePassChange}
+                  placeholder="Enter Password"
+                />
+                <br />
+                <button type="submit" className="btn btn-default">
+                  Submit
+                </button>
+              </form>
+              <br />
+              <br />
+              <p>
+                Forgot Password? <Link to="/recover"> Click Here</Link>
+              </p>
+              <p>
+                Not SIgned up yet? <Link to="/signup"> Sign Up</Link>
+              </p>
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div className="Login">
+            Hello {firebaseApp.auth().currentUser.displayName}. You are now signed In!
+            <a onClick={() => firebaseApp.auth().signOut()}>Sign-out</a>
+          </div>
+        );
+      }
     }
   }
-  
-
-  render () {
-    return (<div>
-      <h1>Login Works</h1>
-      <form>
-        
-      </form>
-     
-    </div>)
-  }
 }
-
 
 export default Login;

@@ -1,11 +1,10 @@
 import React from 'react';
-import Navigation from './NavigationBar.jsx';
+import Header from './Header.jsx';
 import ServicesVerticalDisplay from './ServicesVerticalDisplay.jsx';
 
 const PastLessons = (props) => (
   <div>
-    <h1>Mentor Match</h1>
-    <Navigation/>
+    <Header/>
     <h1>Past Lessons</h1>
     <ServicesVerticalDisplay services={props.lessons}/>
   </div>
