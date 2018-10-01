@@ -11,22 +11,28 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.use(bodyParser.json());
 
+app.get('/*', function (req, res) {
+  res.sendfile(path.join(__dirname + '/../react-client/dist/index.html'));
+});
+
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   graphiql: true
 }));
 
-app.get('/*', function (req, res) {
-  res.sendfile(path.join(__dirname + '/../react-client/dist/index.html'));
-});
 
-models.db
-  // For change in schema itself, use the line below
-  //.sync
-  .sync()
-  .then(() => {
-    app.listen(port, () => console.log('listening on port: ', port));
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+
+// models.db
+//   // For change in schema itself, use the line below
+//   //.sync
+//   .sync()
+//   .then(() => {
+//     app.listen(port, () => console.log('listening on port: ', port));
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
+
+app.listen(3000, function() {
+  console.log('listening on port 3000!');
+});
