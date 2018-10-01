@@ -1,6 +1,9 @@
 import React from 'react';
+import Header from './Header.jsx';
+
 const ServiceVerticalDisplay = (props) => (
   <div>
+    <Header/>
     <ul>
       {props.services.map((service, i) => <Display service={service} key={i}/>)}
     </ul>

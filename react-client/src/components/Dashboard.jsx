@@ -3,6 +3,7 @@ import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
 
 import Navigation from './NavigationBar.jsx';
+import Header from './Header.jsx';
 import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 import Search from './Search.jsx';
 

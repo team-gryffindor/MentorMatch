@@ -4,6 +4,7 @@ const graphqlHTTP = require('express-graphql');
 const schema = require('./graphql/schema.js');
 const models = require('./db/index.js');
 const path = require('path');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -11,6 +12,8 @@ const app = express();
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.use(bodyParser.json());
+
+app.use(cors());
 
 app.use(
   '/graphql',
