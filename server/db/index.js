@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-require('dotenv').config({ path: __dirname + '../../../.env' });
+require('dotenv').config();
 
 // Connect to AWS RDS
 const db = new Sequelize(process.env.database, process.env.dbuser, process.env.dbpassword, {
