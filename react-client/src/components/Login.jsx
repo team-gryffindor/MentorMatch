@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
-import firebase from 'firebase';
+import * as firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
-firebase.initializeApp({
+const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
   authDomain: 'mentormatch-c3923.firebaseapp.com',
   databaseURL: 'https://mentormatch-c3923.firebaseio.com',
@@ -17,78 +17,82 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirect: false,
       isSignedIn: false,
-      username: '',
-      password: ''
+      userInfo: null
     };
     this.uiConfig = {
-      signIn: 'popup',
-      signInOptions: [firebase.auth.FacebookAuthProvider.PROVIDER_ID],
-      callback: {
-        signInSuccess: () => false
+      signInFlow: 'popup',
+      signInOptions: [
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+      ],
+      callbacks: {
+        signInSuccessWithAuthResult: () => false
       }
     };
-    this.authWithEmailPassword = this.authWithEmailPassword.bind(this);
-    this.authWithFacebook = this.authWithFacebook.bind(this);
   }
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       this.setState({ isSignedIn: !!user });
+      console.log('USER:', user);
     });
-  }
-  authWithEmailPassword(event) {
-    event.preventDefault();
-    console.log('authed with email', this.emailInput.value);
-  }
-
-  authWithFacebook() {
-    console.log('authed with fb');
-    console.log('This is app', app);
-    var facebookProvider = new firebase.auth.FacebookAuthProvider();
-    console.log('This is FBP', facebookProvider);
-
-    firebase
-      .auth()
-      .signInWithPopup(facebookProvider)
-      .then(
-        (result) => console.log('We are reaching this', result.user)
-        // if (error) {
-        //   console.error('Unable to connect to FB', error);
-        // } else {
-        //   console.log('YOOOOO', result.user);
-        //   // this.setState({ redirect: true });
-        // }
-      )
-      .catch((err) => {
-        console.log('Error inside FB', err);
-      });
   }
 
   render() {
-    const loginStyles = {
-      width: '90%',
-      maxWidth: '315pix',
-      margin: '20px auto',
-      border: '1px solid #ddd',
-      borderRadius: '5px',
-      padding: '10px'
-    };
-
-    if (this.state.redirect === true) {
-      return <Redirect to="/" />;
+    {
+      if (!this.state.isSignedIn) {
+        return (
+          <div className="Login">
+            <h1>Welcome to </h1>
+            <div className="col-md-4" />
+            <div className="form-group col-md-4">
+              <a className="btn btn-block btn-social btn-facebook">
+                <span className="fa fa-facebook" />
+                <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
+              </a>
+              <br />
+              <p className="text-center">------------- Or -------------</p>
+              <form onSubmit={this.handleSubmit}>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={this.state.email}
+                  onChange={this.handleEmailChange}
+                  placeholder="Enter Email"
+                />
+                <input
+                  type="password"
+                  className="form-control"
+                  value={this.state.password}
+                  onChange={this.handlePassChange}
+                  placeholder="Enter Password"
+                />
+                <br />
+                <button type="submit" className="btn btn-default">
+                  Submit
+                </button>
+              </form>
+              <br />
+              <br />
+              <p>
+                Forgot Password? <Link to="/recover"> Click Here</Link>
+              </p>
+              <p>
+                Not SIgned up yet? <Link to="/signup"> Sign Up</Link>
+              </p>
+            </div>
+          </div>
+        );
+      } else {
+        return (
+          <div className="Login">
+            Hello {firebaseApp.auth().currentUser.displayName}. You are now signed In!
+            <a onClick={() => firebaseApp.auth().signOut()}>Sign-out</a>
+          </div>
+        );
+      }
     }
-
-    return (
-      <div className="App">
-        {this.state.isSignedIn ? (
-          <div>Signed In!</div>
-        ) : (
-          <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()} />
-        )}
-      </div>
-    );
   }
 }
 

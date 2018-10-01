@@ -11,6 +11,7 @@ import PastLessons from './components/PastLessons.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
+import firebase from 'firebase';
 
 class App extends React.Component {
   constructor(props) {
