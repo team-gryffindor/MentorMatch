@@ -52,7 +52,8 @@ const LessonType = new GraphQLObjectType({
     provider: {
       type: UserType,
       resolve(parent, args) {
-        return Models.User.findById(parent.id);
+        console.log(parent.userId);
+        return Models.User.findById(parent.userId);
       }
     },
     reviews: {
@@ -96,9 +97,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
-        return usersEx.find((user) => {
-          return user.id === args.id;
-        });
+        return Models.User.findAll();
       }
     },
     lesson: {
@@ -114,7 +113,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
-        return Models.Review.findById(args.id);
+        return Models.Lesson.findAll();
       }
     }
   }
