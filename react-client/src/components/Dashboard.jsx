@@ -1,38 +1,64 @@
 import React from 'react';
+import { gql } from 'apollo-boost';
+import { graphql } from 'react-apollo';
+
+import Navigation from './NavigationBar.jsx';
 import Header from './Header.jsx';
 import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 import Search from './Search.jsx';
 
+const getUserInfoQuery = gql`
+  {
+    users {
+      name
+      description
+      cityOfResidence
+    }
+  }
+`;
 class Dashboard extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
   }
 
+  displayUsers() {
+    var data = this.props.data;
+    if (data.loading) {
+      return <div>Loading books...</div>;
+    } else {
+      return data.users.map((user) => {
+        return <li>{user.name}</li>;
+      });
+    }
+  }
   render() {
+    console.log(this.props); //checking for apollo query return
+
     return (
       <div>
-        <Header/>
+        <h1>Mentor Match</h1>
+        <ul id="user-list">{this.displayUsers()}</ul>
         <div>
-          <Search query={this.props.query}/>
+          <Navigation />
+          <Search query={this.props.query} />
         </div>
-        <ServiceOfTheDay service={this.props.service}/>
+        <ServiceOfTheDay service={this.props.service} />
         <div>
           <h2>Favorites</h2>
-          <ServiceDisplay services={this.props.favorites}/>
+          <ServiceDisplay services={this.props.favorites} />
         </div>
       </div>
-    )
+    );
   }
 }
 
-const ServiceOfTheDay = ({service}) => (
+const ServiceOfTheDay = ({ service }) => (
   <div>
-    <img src={service.profilePicture}/>
+    <img src={service.profilePicture} />
     <h1>{service.title}</h1>
     <p>{service.description}</p>
     <button>Book Now</button>
   </div>
 );
 
-
-export default Dashboard;
+export default graphql(getUserInfoQuery)(Dashboard);
