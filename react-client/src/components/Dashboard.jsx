@@ -11,7 +11,8 @@ const getUserInfoQuery = gql`
   {
     users {
       name
-      id
+      description
+      cityOfResidence
     }
   }
 `;
