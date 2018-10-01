@@ -49,6 +49,7 @@ const LessonType = new GraphQLObjectType({
     category: { type: GraphQLString },
     cityOfService: { type: GraphQLString },
     image: { type: GraphQLString },
+    date: { type: GraphQLString },
     provider: {
       type: UserType,
       resolve(parent, args) {
@@ -165,31 +166,39 @@ const Mutation = new GraphQLObjectType({
           userId: args.userId
         })
           .save()
-          .then((data) => data)
+          .then((data) => {
+            return data;
+          })
           .catch((err) => console.error(err));
       }
     },
     addReview: {
-      type: UserType,
+      type: ReviewType,
       args: {
         title: { type: GraphQLString },
         comment: { type: GraphQLString },
-        lessonId: { type: GraphQLString },
-        rating: { type: GraphQLFloat }
+        rating: { type: GraphQLFloat },
+        lessonId: { type: GraphQLID },
+        userId: { type: GraphQLID }
       },
       resolve(parent, args) {
         // sequelize to add user
         return Models.Review.build({
           title: args.title,
           comment: args.comment,
+          rating: args.rating,
           lessonId: args.lessonId,
-          rating: args.rating
+          userId: args.userId
         })
           .save()
           .then((data) => data)
           .catch((err) => console.error(err));
       }
     }
+    // addFavoriteLesson: {},
+    // removeFavoriteLesson: {},
+    // addConsumedLesson: {},
+    // removeConsumedLesson: {}
   }
 });
 
