@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "angular": "^1.6.3",
+    "apollo-boost": "^0.1.16",
     "axios": "^0.18.0",
     "body-parser": "^1.17.2",
     "commitizen": "^2.10.1",
@@ -33,6 +34,7 @@
     "mysql": "^2.13.0",
     "pg": "^7.4.3",
     "react": "^15.6.2",
+    "react-apollo": "^2.2.3",
     "react-dom": "^15.4.2",
     "react-firebaseui": "^3.0.7",
     "react-router-dom": "^4.3.1",
