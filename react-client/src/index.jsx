@@ -11,7 +11,7 @@ import PastLessons from './components/PastLessons.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
-import firebase from 'firebase';
+import AddService from './components/AddService.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -55,44 +55,16 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <Home query={this.querySet} todaysServices={this.state.todaysTopServices} />
-            )}
-          />
-          <Route path="/login" render={() => <Login />} />
-          <Route path="/signUp" render={() => <SignUp />} />
-          <Route
-            path="/active"
-            render={() => <ActiveLessons lessons={this.state.userActiveLessons} />}
-          />
-          <Route
-            path="/offered"
-            render={() => <OfferedLessons lessons={this.state.userOfferedLessons} />}
-          />
-          <Route path="/past" render={() => <PastLessons lessons={this.state.userPastLessons} />} />
-          <Route
-            path="/feed"
-            render={() => (
-              <Feed services={this.state.serviceData} location={this.state.locationData} />
-            )}
-          />
-          <Route
-            path="/dashboard"
-            render={() => (
-              <Dashboard
-                query={this.querySet}
-                service={this.state.serviceOfTheDay}
-                favorites={this.state.favoritesData}
-              />
-            )}
-          />
-          <Route
-            path="/userProfile"
-            render={() => <UserProfileInfo user={this.state.userInfo} />}
-          />
+          <Route exact path="/" render={() => <Home query={this.querySet} todaysServices={this.state.todaysTopServices}/>}/>
+          <Route path="/login" render={() => <Login/>}/>
+          <Route path="/signUp" render={() => <SignUp/>}/>
+          <Route path="/active" render={() => <ActiveLessons lessons={this.state.userActiveLessons}/>}/>
+          <Route path="/offered" render={() => <OfferedLessons lessons={this.state.userOfferedLessons}/>}/>
+          <Route path="/past" render={() => <PastLessons lessons={this.state.userPastLessons}/>}/>
+          <Route path="/feed" render={() => <Feed services={this.state.serviceData} location={this.state.locationData}/>}/>
+          <Route path="/dashboard" render={() => <Dashboard query={this.querySet} service={this.state.serviceOfTheDay} favorites={this.state.favoritesData}/>}/>
+          <Route path="/userProfile" render={() => <UserProfileInfo user={this.state.userInfo}/>}/>
+          <Route path="/addService" render={() => <AddService/>}/>
         </div>
       </Router>
     );
