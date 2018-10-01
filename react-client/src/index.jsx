@@ -11,6 +11,7 @@ import PastLessons from './components/PastLessons.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; 
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
+import AddService from './components/AddService.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -56,6 +57,7 @@ class App extends React.Component {
           <Route path="/feed" render={() => <Feed services={this.state.serviceData} location={this.state.locationData}/>}/>
           <Route path="/dashboard" render={() => <Dashboard query={this.querySet} service={this.state.serviceOfTheDay} favorites={this.state.favoritesData}/>}/>
           <Route path="/userProfile" render={() => <UserProfileInfo user={this.state.userInfo}/>}/>
+          <Route path="/addService" render={() => <AddService/>}/>
         </div>
       </Router>
     )
