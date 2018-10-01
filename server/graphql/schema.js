@@ -10,8 +10,6 @@ const {
   GraphQLFloat
 } = graphql;
 
-// dummy data
-
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
@@ -23,20 +21,19 @@ const UserType = new GraphQLObjectType({
     offeredLessons: {
       type: GraphQLList(LessonType),
       resolve(parent, args) {
-        return 'offeredLesson';
-        // sequelize query
+        return Models.Offered.findAll({ where: { userId: parent.id } });
       }
     },
     consumedLessons: {
       type: GraphQLList(LessonType),
       resolve(parent, args) {
-        return 'consumedLesson';
+        return Models.Consumed.findAll({ where: { userId: parent.id } });
       }
     },
     favLessons: {
       type: GraphQLList(LessonType),
       resolve(parent, args) {
-        return 'favLesson';
+        return Models.Favorite.findAll({ where: { userId: parent.id } });
       }
     }
   })
@@ -55,14 +52,14 @@ const LessonType = new GraphQLObjectType({
     provider: {
       type: UserType,
       resolve(parent, args) {
-        return usersEx.find((user) => {
-          return user.id === parent.userId;
-        });
+        return Models.User.findById(parent.id);
       }
     },
     reviews: {
       type: GraphQLList(ReviewType),
-      resolve(parent, args) {}
+      resolve(parent, args) {
+        return Models.Review.findAll({ where: { lessonId: parent.id } });
+      }
     }
   })
 });
@@ -76,7 +73,9 @@ const ReviewType = new GraphQLObjectType({
     rating: { type: GraphQLFloat },
     lesson: {
       type: LessonType,
-      resolve(parent, args) {}
+      resolve(parent, args) {
+        return Models.Lesson.findById(parent.lessonId);
+      }
     }
   })
 });
@@ -89,9 +88,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
-        return usersEx.find((user) => {
-          return user.id === args.id;
-        });
+        return Models.User.findById(args.id);
       }
     },
     users: {
@@ -109,9 +106,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
-        return lessonsEx.find((lesson) => {
-          return lesson.id === args.id;
-        });
+        return Models.Lesson.findById(args.id);
       }
     },
     lessons: {
@@ -119,9 +114,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
-        return usersEx.find((user) => {
-          return user.id === args.id;
-        });
+        return Models.Review.findById(args.id);
       }
     }
   }
