@@ -1,5 +1,5 @@
-const review = (sequelize, DataTypes) => {
-  const Review = sequelize.define('review', {
+const review = (db, DataTypes) => {
+  const Review = db.define('review', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,

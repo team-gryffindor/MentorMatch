@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./graphql/schema.js');
 const models = require('./db/index.js');
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 3001;
 
 const app = express();
 
@@ -18,8 +18,6 @@ app.get('/*', function(req, res) {
 });
 
 models.db
-  // For change in schema itself, use the line below
-  //.sync
   .sync()
   .then(() => {
     app.listen(port, () => console.log('listening on port: ', port));

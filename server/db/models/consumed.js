@@ -1,5 +1,5 @@
-const consumed = (sequelize, DataTypes) => {
-  const Consumed = sequelize.define('consumed', {
+const consumed = (db, DataTypes) => {
+  const Consumed = db.define('consumed', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,

@@ -1,5 +1,5 @@
-const user = (sequelize, DataTypes) => {
-  const User = sequelize.define('user', {
+const user = (db, DataTypes) => {
+  const User = db.define('user', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,

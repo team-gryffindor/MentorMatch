@@ -1,5 +1,5 @@
-const favorite = (sequelize, DataTypes) => {
-  const Favorite = sequelize.define('favorite', {
+const favorite = (db, DataTypes) => {
+  const Favorite = db.define('favorite', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,

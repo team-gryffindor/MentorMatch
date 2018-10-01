@@ -1,5 +1,5 @@
-const lesson = (sequelize, DataTypes) => {
-  const Lesson = sequelize.define('lesson', {
+const lesson = (db, DataTypes) => {
+  const Lesson = db.define('lesson', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV1,

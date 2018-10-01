@@ -1,25 +1,38 @@
 const Sequelize = require('sequelize');
 
 // Connect to AWS RDS
-const db = new Sequelize(process.env.database, process.env.dbuser, process.env.dbpassword, {
-  dialect: 'postgres',
-  host: process.env.host,
-  logging: true,
-  port: process.env.port,
-  protocol: null, //change for heroku maybe?
+// const db = new Sequelize(process.env.database, process.env.dbuser, process.env.dbpassword, {
+//   dialect: 'postgres',
+//   host: process.env.host,
+//   logging: true,
+//   port: process.env.port,
+//   protocol: null, //change for heroku maybe?
 
-  operatorsAliases: false,
+//   operatorsAliases: false,
+//   dialectOptions: {
+//     ssl: 'Amazon RDS'
+//   },
+//   pool: {
+//     max: 5,
+//     min: 0,
+//     acquire: 30000,
+//     idle: 10000
+//   },
+//   language: 'en'
+// });
+
+var db = new Sequelize('lessons',  'siriusBlack', 'buckBeak', {
+  host: 'gryffdb.cnxadruhwimk.us-east-2.rds.amazonaws.com',
+  port: 5432,
+  logging: false,
+  maxConcurrentQueries: 100,
+  dialect: 'postgres',
   dialectOptions: {
-    ssl: 'Amazon RDS'
+    ssl:'Amazon RDS'
   },
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
+  pool: { maxConnections: 5, maxIdleTime: 30},
   language: 'en'
-});
+})
 
 // Import all models
 const models = {
