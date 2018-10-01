@@ -2,8 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./graphql/schema.js');
+const config = require('dotenv').config();
 const models = require('./db/index.js');
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -11,12 +12,15 @@ app.use(express.static(__dirname + '/../react-client/dist'));
 
 app.use(bodyParser.json());
 
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  graphiql: true
-}));
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema: schema,
+    graphiql: true
+  })
+);
 
-app.get('/*', function (req, res) {
+app.get('/*', function(req, res) {
   res.sendfile(path.join(__dirname + '/../react-client/dist/index.html'));
 });
 

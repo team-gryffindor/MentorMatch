@@ -1,12 +1,11 @@
 const Sequelize = require('sequelize');
-require('dotenv').config({ path: __dirname + '../../../.env' });
 
 // Connect to AWS RDS
 const db = new Sequelize(process.env.database, process.env.dbuser, process.env.dbpassword, {
   dialect: 'postgres',
   host: process.env.host,
-  logging: true,
-  port: process.env.port,
+  logging: false,
+  port: process.env.dbport,
   protocol: null, //change for heroku maybe?
 
   operatorsAliases: false,
