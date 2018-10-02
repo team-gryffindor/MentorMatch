@@ -34,8 +34,11 @@ class Login extends React.Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      this.setState({ isSignedIn: !!user });
-      console.log('USER:', user);
+      console.log(user);
+      this.setState({
+        isSignedIn: !!user,
+        userInfo: user
+      });
     });
   }
 
@@ -87,8 +90,9 @@ class Login extends React.Component {
       } else {
         return (
           <div className="Login">
-            Hello {firebaseApp.auth().currentUser.displayName}. You are now signed In!
-            <a onClick={() => firebaseApp.auth().signOut()}>Sign-out</a>
+            {/* Hello {firebaseApp.auth().currentUser.displayName}. You are now signed In! */}
+            <Redirect to="/dashboard" userInfo={this.state.userInfo} />
+            {/* <a onClick={() => firebaseApp.auth().signOut()}>Sign-out</a> */}
           </div>
         );
       }
