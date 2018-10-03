@@ -5,7 +5,7 @@ const {
   LessonType,
   ReviewType,
   FavoriteLessonType,
-  ConsumedLessonType
+  SignupLessonType
 } = require('./types.js');
 
 const {
@@ -132,15 +132,15 @@ const Mutation = new GraphQLObjectType({
           .catch((err) => console.error(err));
       }
     },
-    addConsumedLesson: {
-      type: ConsumedLessonType,
+    addSignupLesson: {
+      type: SignupLessonType,
       args: {
         userId: { type: GraphQLID },
         lessonId: { type: GraphQLID },
         date: { type: GraphQLString }
       },
       resolve(parent, args) {
-        return Models.Consumed.build({
+        return Models.Signup.build({
           userId: args.userId,
           lessonId: args.lessonId,
           date: args.date
@@ -150,7 +150,7 @@ const Mutation = new GraphQLObjectType({
           .catch((err) => console.error(err));
       }
     }
-    // removeConsumedLesson: {}
+    // removeSignupLesson: {}
   }
 });
 

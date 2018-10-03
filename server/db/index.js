@@ -27,8 +27,7 @@ const models = {
   User: db.import('./models/user'),
   Lesson: db.import('./models/lesson'),
   Review: db.import('./models/review'),
-  Consumed: db.import('./models/consumed'),
-  Offered: db.import('./models/offered'),
+  Signup: db.import('./models/signup'),
   Favorite: db.import('./models/favorite')
 };
 
@@ -44,19 +43,16 @@ models.User.hasMany(models.Review);
 // Lesson to review is a one to many relationship
 models.Lesson.hasMany(models.Review);
 
-// Consumed is a join table for User and Lesson
-// models.User.belongsToMany(models.Lesson, { through: models.Consumed, foreignKey: 'userId' });
-// models.Lesson.belongsToMany(models.User, { through: models.Consumed, foreignKey: 'lessonId' });
+// Signup is a join table for User and Lesson
+// models.User.belongsToMany(models.Lesson, { through: models.Signup, foreignKey: 'userId' });
+// models.Lesson.belongsToMany(models.User, { through: models.Signup, foreignKey: 'lessonId' });
 
-models.Consumed.belongsTo(models.Lesson, { foreignKey: 'lessonId' });
-models.Consumed.belongsTo(models.User, { foreignKey: 'userId' });
+models.Signup.belongsTo(models.Lesson, { foreignKey: 'lessonId' });
+models.Signup.belongsTo(models.User, { foreignKey: 'userId' });
 
-// Offered is a join table for User and Lesson
-// models.User.belongsToMany(models.Lesson, { through: models.Offered });
-// models.Lesson.belongsToMany(models.User, { through: models.Offered });
 // Favorite is a join table for User and Lesson
-// models.User.belongsToMany(models.Lesson, { through: models.Favorite });
-// models.Lesson.belongsToMany(models.User, { through: models.Favorite });
+models.User.belongsToMany(models.Lesson, { through: models.Favorite });
+models.Lesson.belongsToMany(models.User, { through: models.Favorite });
 
 // Export out to be used in GraphQL
 models.db = db;

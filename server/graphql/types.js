@@ -26,10 +26,10 @@ const UserType = new GraphQLObjectType({
         return Models.Lesson.findAll({ where: { userId: parent.id } });
       }
     },
-    consumedLessons: {
+    signupLessons: {
       type: GraphQLList(LessonType),
       resolve(parent, args) {
-        return Models.Consumed.findAll({
+        return Models.Signup.findAll({
           where: { userId: parent.id },
           attributes: ['date'],
           include: { model: Models.Lesson }
@@ -104,8 +104,8 @@ const ReviewType = new GraphQLObjectType({
   })
 });
 
-const ConsumedLessonType = new GraphQLObjectType({
-  name: 'ConsumedLesson',
+const SignupLessonType = new GraphQLObjectType({
+  name: 'SignupLesson',
   fields: () => ({
     userId: { type: GraphQLID },
     lessonId: { type: GraphQLID },
@@ -125,6 +125,6 @@ module.exports = {
   UserType: UserType,
   LessonType: LessonType,
   ReviewType: ReviewType,
-  ConsumedLessonType: ConsumedLessonType,
+  SignupLessonType: SignupLessonType,
   FavoriteLessonType: FavoriteLessonType
 };

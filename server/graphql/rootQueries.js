@@ -6,7 +6,7 @@ const {
   LessonType,
   ReviewType,
   FavoriteLessonType,
-  ConsumedLessonType
+  SignupLessonType
 } = require('./types.js');
 
 const {
