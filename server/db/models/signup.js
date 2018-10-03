@@ -1,5 +1,5 @@
-const review = (sequelize, DataTypes) => {
-  const Review = sequelize.define('review', {
+const signup = (sequelize, DataTypes) => {
+  const Signup = sequelize.define('signup', {
     // id: {
     //   type: DataTypes.UUID,
     //   defaultValue: DataTypes.UUIDV1,
@@ -7,11 +7,10 @@ const review = (sequelize, DataTypes) => {
     // },
     // incrementing INTEGER id for easy development
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    rating: DataTypes.FLOAT,
-    comment: DataTypes.TEXT
+    date: DataTypes.DATE
   });
 
-  return Review;
+  return Signup;
 };
 
-module.exports = review;
+module.exports = signup;
