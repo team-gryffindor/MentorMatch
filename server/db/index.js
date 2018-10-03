@@ -45,14 +45,18 @@ models.User.hasMany(models.Review);
 models.Lesson.hasMany(models.Review);
 
 // Consumed is a join table for User and Lesson
-models.User.belongsToMany(models.Lesson, { through: models.Consumed });
-models.Lesson.belongsToMany(models.User, { through: models.Consumed });
+// models.User.belongsToMany(models.Lesson, { through: models.Consumed, foreignKey: 'userId' });
+// models.Lesson.belongsToMany(models.User, { through: models.Consumed, foreignKey: 'lessonId' });
+
+models.Consumed.belongsTo(models.Lesson, { foreignKey: 'lessonId' });
+models.Consumed.belongsTo(models.User, { foreignKey: 'userId' });
+
 // Offered is a join table for User and Lesson
-models.User.belongsToMany(models.Lesson, { through: models.Offered });
-models.Lesson.belongsToMany(models.User, { through: models.Offered });
+// models.User.belongsToMany(models.Lesson, { through: models.Offered });
+// models.Lesson.belongsToMany(models.User, { through: models.Offered });
 // Favorite is a join table for User and Lesson
-models.User.belongsToMany(models.Lesson, { through: models.Favorite });
-models.Lesson.belongsToMany(models.User, { through: models.Favorite });
+// models.User.belongsToMany(models.Lesson, { through: models.Favorite });
+// models.Lesson.belongsToMany(models.User, { through: models.Favorite });
 
 // Export out to be used in GraphQL
 models.db = db;

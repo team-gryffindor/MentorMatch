@@ -1,5 +1,6 @@
 const graphql = require('graphql');
 const Models = require('../db/index.js');
+const { Op } = require('sequelize');
 
 const {
   GraphQLObjectType,
@@ -10,6 +11,7 @@ const {
   GraphQLInt
 } = graphql;
 
+// querying multiple tables: TODO: data.dataValues.*
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
@@ -27,15 +29,30 @@ const UserType = new GraphQLObjectType({
     consumedLessons: {
       type: GraphQLList(LessonType),
       resolve(parent, args) {
-        // needs work
-        return Models.Consumed.findAll({ where: { userId: parent.id } });
+        return Models.Consumed.findAll({
+          where: { userId: parent.id },
+          attributes: ['date'],
+          include: { model: Models.Lesson }
+        })
+          .then((data) => {
+            return data.map((signup) => {
+              return { ...signup.lesson.dataValues, date: signup.dataValues.date };
+            });
+          })
+          .catch((err) => console.error(err));
       }
     },
     favoriteLessons: {
       type: GraphQLList(LessonType),
       resolve(parent, args) {
-        return Models.Favorite.findAll({ where: { userId: parent.id } })
-          .then((data) => console.log(data))
+        return Models.User.find({
+          where: { id: parent.id },
+          include: {
+            model: Models.Lesson,
+            required: false
+          }
+        })
+          .then((data) => data.dataValues.lessons)
           .catch((err) => console.error(err));
       }
     }
@@ -91,7 +108,8 @@ const ConsumedLessonType = new GraphQLObjectType({
   name: 'ConsumedLesson',
   fields: () => ({
     userId: { type: GraphQLID },
-    lessonId: { type: GraphQLID }
+    lessonId: { type: GraphQLID },
+    date: { type: GraphQLString }
   })
 });
 

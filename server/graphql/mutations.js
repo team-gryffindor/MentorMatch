@@ -122,7 +122,7 @@ const Mutation = new GraphQLObjectType({
         return Models.Favorite.destroy({
           where: {
             userId: args.userId,
-            lessonId: lessonId
+            lessonId: args.lessonId
           }
         })
           .then((data) => {
@@ -136,12 +136,14 @@ const Mutation = new GraphQLObjectType({
       type: ConsumedLessonType,
       args: {
         userId: { type: GraphQLID },
-        lessonId: { type: GraphQLID }
+        lessonId: { type: GraphQLID },
+        date: { type: GraphQLString }
       },
       resolve(parent, args) {
-        return Models.Favorite.build({
+        return Models.Consumed.build({
           userId: args.userId,
-          lessonId: lessonId
+          lessonId: args.lessonId,
+          date: args.date
         })
           .save()
           .then((data) => data)
