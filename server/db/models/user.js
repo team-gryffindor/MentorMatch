@@ -1,11 +1,12 @@
 const user = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV1,
-      primaryKey: true
-    },
-
+    // id: {
+    //   type: DataTypes.UUID,
+    //   defaultValue: DataTypes.UUIDV1,
+    //   primaryKey: true
+    // },
+    // incrementing INTEGER id for easy development
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     // firebase unique user id
     uid: {
       type: DataTypes.STRING,
