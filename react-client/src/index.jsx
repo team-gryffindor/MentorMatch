@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
+import RediSearch from './components/RediSearch.jsx';
 
 export const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql'
@@ -85,7 +86,7 @@ class App extends React.Component {
             <Route
               path="/feed"
               render={() => (
-                <Feed services={this.state.serviceData} location={this.state.locationData} />
+                <Feed services={this.state.searchResults} location={this.state.locationData} />
               )}
             />
             <Route
