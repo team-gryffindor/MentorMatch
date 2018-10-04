@@ -1,5 +1,5 @@
 import React from 'react';
-import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
+import LessonList from './LessonList.jsx';
 import Search from './Search.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Test from './Test.jsx';
@@ -15,7 +15,7 @@ const Home = (props) => (
     </ol>
     <Search query={props.query} />
     <h1>Today's Top Services</h1>
-    <ServiceDisplay services={props.todaysServices} />
+    <LessonList services={props.todaysServices} />
   </div>
 );
 

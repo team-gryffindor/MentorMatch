@@ -4,20 +4,18 @@ import { getUser } from '../../apollo/queries.js';
 
 class Test extends React.Component {
   displayTest() {
-    console.log(this.props.data);
     var data = this.props.data;
     if (data.loading) {
       return <div> Loading test ...</div>;
     } else {
-      console.log('SDJFHBSJKDFSD ', this.props.data)
-      // return (
-      //   <div>
-      //     username:
-      //     {data.user.name}
-      //     description:
-      //     {data.user.description}
-      //   </div>
-      // );
+      return (
+        <div>
+          username:
+          {data.user.name}
+          description:
+          {data.user.description}
+        </div>
+      );
     }
   }
   render() {

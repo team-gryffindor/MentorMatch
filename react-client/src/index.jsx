@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-boost';
+import ApolloClient, { gql } from 'apollo-boost';
 
+// components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
@@ -44,13 +45,14 @@ class App extends React.Component {
       userFavoritesData: favorites,
       userActiveLessons: active,
       userOfferedLessons: offered
-
-    })
+    });
   }
 
   componentDidMount() {
-    //set the sate for today's top services
+    //set the state for today's top services
   }
+
+  getUser() {}
 
   render() {
     const { authenticated, loading } = this.state;

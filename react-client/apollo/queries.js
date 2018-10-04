@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-export const getUser = gql`
+const getUser = gql`
   query($id: ID!) {
     user(id: $id) {
       name
@@ -31,7 +31,7 @@ export const getUser = gql`
   }
 `;
 
-export const getLesson = gql`
+const getLesson = gql`
   query($id: ID!) {
     lesson(id: $id) {
       title
@@ -41,3 +41,20 @@ export const getLesson = gql`
     }
   }
 `;
+
+const getLessons = gql`
+  {
+    lessons {
+      title
+      id
+      avgRating
+      numOfReviews
+      reviews {
+        title
+        rating
+      }
+    }
+  }
+`;
+
+export { getUser, getLesson, getLessons };
