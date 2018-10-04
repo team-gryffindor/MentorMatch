@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 const Feed = (props) => (
   <div>
     <h1>Feed</h1>
-    <Navigation/>
+    {/* <Navigation/> */}
     {props.services.map((service, i) => <Service service={service} key={i}/>)}
   </div>
 )

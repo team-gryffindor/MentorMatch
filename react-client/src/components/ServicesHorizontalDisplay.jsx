@@ -3,7 +3,6 @@ import Header from './Header.jsx';
 
 const ServiceDisplay = (props) => (
   <div>
-    <Header/>
     <ul>
       {props.services.map((service, i) => (
         <Display service={service} key={i} />
