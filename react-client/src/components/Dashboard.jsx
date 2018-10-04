@@ -14,24 +14,40 @@ class Dashboard extends React.Component {
     this.displayLessons = this.displayLessons.bind(this);
   }
 
-  displayUser() {
-    var data = this.props.data;
-    if (data.loading) {
-      return <div>Loading books...</div>;
-    } else {
-      return <li>{data.name}</li>;
-    }
-  }
+  // displayUser() {
+  //   var data = this.props.data;
+  //   if (data.loading) {
+  //     return <div>Loading books...</div>;
+  //   } else {
+  //     return <li>{data.name}</li>;
+  //   }
+  // }
 
   displayLessons() {
+    // console.log('DATA: ', this.props)
     var data = this.props.data;
     if (data.loading) {
-      return <div>Loading books...</div>;
+      return <div> Loading test ...</div>;
     } else {
-      return <li>{data.name}</li>;
-      console.log('PROPS: ', this.props.getUser);
       
+      var favorites = this.props.data.user.favoriteLessons;
+      var offered = this.props.data.user.offeredLessons;
+      var active = this.props.data.user.signupLessons;
+      var userInfo = this.props.user;
+      
+      console.log('DASH', favorites, offered, active, userInfo);
+      this.props.getLessonsQuery(favorites, offered, active, userInfo);
     }
+   
+
+    
+    // if (data.loading) {
+    //   return <div>Loading books...</div>;
+    // } else {
+    //   return <li>{data.name}</li>;
+    //   console.log('PROPS: ', this.props);
+      
+    // }
   }
   componentDidMount() {
     this.displayLessons();
@@ -39,12 +55,11 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    console.log('PROPS: ', this.props); //checking for apollo query return
+    // console.log('PROPS: ', this.props); //checking for apollo query return
 
     return (
       <div>
         <h1>Mentor Match</h1>
-        <ul id="user-list">{this.displayUser()}</ul>
         <div>
           <Navigation />
           <Search query={this.props.query} getLessons={this.props.getLessons}/>
@@ -69,5 +84,11 @@ const ServiceOfTheDay = ({ service }) => (
 );
 
 export default graphql(getUser, {
-  options:{ variables: { id: 1 }}
+  options: (props) => {
+    return {
+      variables: {
+        id: 1
+      }
+    };
+  }
 })(Dashboard);
