@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import { getLesson, getUser } from '../../apollo/queries.js';
 import Navigation from './NavigationBar.jsx';
 import Header from './Header.jsx';
-import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
+import LessonList from './LessonList.jsx';
 import Search from './Search.jsx';
 
 class Dashboard extends React.Component {
@@ -29,29 +29,25 @@ class Dashboard extends React.Component {
     if (data.loading) {
       return <div> Loading test ...</div>;
     } else {
-      
       var favorites = this.props.data.user.favoriteLessons;
       var offered = this.props.data.user.offeredLessons;
       var active = this.props.data.user.signupLessons;
       var userInfo = this.props.user;
-      
+
       console.log('DASH', favorites, offered, active, userInfo);
       this.props.getLessonsQuery(favorites, offered, active, userInfo);
     }
-   
 
-    
     // if (data.loading) {
     //   return <div>Loading books...</div>;
     // } else {
     //   return <li>{data.name}</li>;
     //   console.log('PROPS: ', this.props);
-      
+
     // }
   }
   componentDidMount() {
     this.displayLessons();
-
   }
 
   render() {
@@ -62,12 +58,12 @@ class Dashboard extends React.Component {
         <h1>Mentor Match</h1>
         <div>
           <Navigation />
-          <Search query={this.props.query} getLessons={this.props.getLessons}/>
+          <Search query={this.props.query} getLessons={this.props.getLessons} />
         </div>
         <ServiceOfTheDay service={this.props.service} />
         <div>
           <h2>Favorites</h2>
-          <ServiceDisplay services={this.props.favorites} />
+          <LessonList style="horizontal" />
         </div>
       </div>
     );

@@ -42,4 +42,19 @@ const getLesson = gql`
   }
 `;
 
-export { getUser, getLesson };
+const getLessons = gql`
+  {
+    lessons {
+      title
+      id
+      avgRating
+      numOfReviews
+      reviews {
+        title
+        rating
+      }
+    }
+  }
+`;
+
+export { getUser, getLesson, getLessons };
