@@ -28,34 +28,24 @@ class App extends React.Component {
       userInputLocation: '',
       serviceData: window.sampleService,
       locationData: window.sampleLocation,
-      favoritesData: window.sampleService,
+      favoritesData: [],
       serviceOfTheDay: window.serviceOfTheDay,
       todaysTopServices: window.sampleService,
-      userActiveLessons: window.sampleService,
-      userOfferedLessons: window.sampleService,
+      userActiveLessons: [],
+      userOfferedLessons: [],
       userPastLessons: window.sampleService,
-      userInfo: {
-        username: 'AC130',
-        avatar: 'https://source.unsplash.com/1600x900/?mountain,sunset',
-        location: 'Boston',
-        userDescription:
-          'The pro mutters. Outside a native blinks the jury. An ozone surrounds each dated custom below a dirt. The blessed bathroom peers. A supporting power stirs within the earth.'
-      }
+      userInfo: {}
     };
     this.getLessonsQuery = this.getLessonsQuery.bind(this);
   }
 
-  getLessonsQuery() {
-    //apollo call
-    console.log('HIT GET LESSONS');
-    var data = this.props.data;
-    console.log('DATA: ', data);
-    if (data.loading) {
-      return <div>Loading books...</div>;
-    } else {
-      console.log('HIT: ', this.props.data);
-      console.log('HIT Q: ', this.props.query);
-    }
+  getLessonsQuery(favorites, offered, active) {
+    this.setState({
+      userFavoritesData: favorites,
+      userActiveLessons: active,
+      userOfferedLessons: offered
+
+    })
   }
 
   componentDidMount() {
@@ -103,7 +93,7 @@ class App extends React.Component {
                   query={this.querySet}
                   service={this.state.serviceOfTheDay}
                   favorites={this.state.favoritesData}
-                  getLessons={this.getLessons}
+                  getLessonsQuery={this.getLessonsQuery}
                 />
               )}
             />
