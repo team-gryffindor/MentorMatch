@@ -1,27 +1,28 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
+<<<<<<< HEAD
 import { getUserInfoQuery } from '../../apollo/queries';
 import { getActiveLessonsQuery } from '../../apollo/queries.js';
+=======
+import { getUser } from '../../apollo/queries.js';
+>>>>>>> dev
 import Navigation from './NavigationBar.jsx';
 import Header from './Header.jsx';
 import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 import Search from './Search.jsx';
-
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  displayUsers() {
-    var data = this.props.data;
-    if (data.loading) {
-      return <div>Loading books...</div>;
-    } else {
-      return data.users.map((user) => {
-        return <li>{user.name}</li>;
-      });
-    }
+  displayUser() {
+    // var data = this.props.data;
+    // if (data.loading) {
+    //   return <div>Loading books...</div>;
+    // } else {
+    //   return <li>{data.name}</li>;
+    // }
   }
   render() {
     console.log(this.props.data); //checking for apollo query return
@@ -29,7 +30,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         <h1>Mentor Match</h1>
-        <ul id="user-list">{this.displayUsers()}</ul>
+        <ul id="user-list">{this.displayUser()}</ul>
         <div>
           <Navigation />
           <Search query={this.props.query} getLessons={this.props.getLessons}/>
@@ -53,4 +54,4 @@ const ServiceOfTheDay = ({ service }) => (
   </div>
 );
 
-export default graphql(getActiveLessonsQuery)(Dashboard);
+export default graphql(getUser)(Dashboard);
