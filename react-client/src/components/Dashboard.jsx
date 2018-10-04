@@ -34,6 +34,7 @@ class Dashboard extends React.Component {
       var offered = this.props.data.user.offeredLessons;
       var active = this.props.data.user.signupLessons;
       var userInfo = this.props.user;
+      
       console.log('DASH', favorites, offered, active, userInfo);
       this.props.getLessonsQuery(favorites, offered, active, userInfo);
     }
