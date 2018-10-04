@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient from 'apollo-boost';
+import { client } from './apollo';
 import { ApolloProvider } from 'react-apollo';
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
@@ -14,10 +14,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
-
-const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql'
-});
 
 class App extends React.Component {
   constructor(props) {

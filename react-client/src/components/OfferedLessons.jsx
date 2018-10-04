@@ -1,12 +1,18 @@
 import React from 'react';
-import Header from './Header.jsx';
-import ServicesVerticalDisplay from './ServicesVerticalDisplay.jsx';
+import { Mutation } from 'react-apollo';
+import { updateCurrentUser } from '/Users/Arjun/Documents/gryffindor/react-client/src/graphql/index.js';
 
-const OfferedServices = (props) => (
-  <div>
-    <Header/>
-    <h1>Offered Lessons</h1>
-    <ServicesVerticalDisplay services={props.lessons}/>
-  </div>
-);
+class OfferedServices extends React.Component {
+
+  render() {
+    return (
+      <Mutation mutation={updateCurrentUser}>
+        {updateCurrentUser => (
+          <li  onClick={() => updateCurrentUser({ variables: { name: 'Kobe'} })}>Add Kobe</li>
+        )}
+      </Mutation>
+    );
+  }
+}
+
 export default OfferedServices;
