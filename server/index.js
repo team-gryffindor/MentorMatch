@@ -1,29 +1,42 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-// UNCOMMENT THE DATABASE YOU'D LIKE TO USE
-// var items = require('../database-mysql');
-// var items = require('../database-mongo');
-//test
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const graphqlHTTP = require('express-graphql');
+const schema = require('./graphql/schema.js');
+const models = require('./db/index.js');
+const path = require('path');
+const cors = require('cors');
+require('dotenv').config();
 
-// UNCOMMENT FOR REACT
-// app.use(express.static(__dirname + '/../react-client/dist'));
+const app = express();
 
-// UNCOMMENT FOR ANGULAR
-// app.use(express.static(__dirname + '/../angular-client'));
-// app.use(express.static(__dirname + '/../node_modules'));
+app.use(express.static(__dirname + '/../react-client/dist'));
 
-app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
+app.use(bodyParser.json());
+
+app.use(cors());
+
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema: schema,
+    graphiql: true
+  })
+);
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname + '/../react-client/dist/index.html'));
+});
+
+models.db
+  // For change in schema itself, use the line below
+  //.sync
+  .sync()
+  .then(() => {
+    // hardcoded because using variable port not working
+    app.listen(process.env.SERVER_PORT, () =>
+      console.log('listening on port: ', process.env.SERVER_PORT)
+    );
+  })
+  .catch((err) => {
+    console.error(err);
   });
-});
-
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
-});
-
