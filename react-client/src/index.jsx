@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import ApolloClient from 'apollo-boost';
+
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
@@ -15,7 +16,7 @@ import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql'
 });
 
