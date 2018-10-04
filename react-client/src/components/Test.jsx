@@ -22,7 +22,7 @@ class Test extends React.Component {
   render() {
     return (
       <div>
-        <h1>TEST {this.displayTest()}</h1>
+        <h1 onClick={() => this.displayTest()}>TEST </h1>
       </div>
     );
   }

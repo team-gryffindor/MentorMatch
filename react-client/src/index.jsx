@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-boost';
+import ApolloClient, { gql } from 'apollo-boost';
 
+// components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
@@ -43,14 +44,17 @@ class App extends React.Component {
       }
     };
     this.querySet = this.querySet.bind(this);
+    this.getUser = this.getUser.bind(this);
   }
 
   querySet(service, location) {
     //apollo call
   }
   componentDidMount() {
-    //set the sate for today's top services
+    //set the state for today's top services
   }
+
+  getUser() {}
 
   render() {
     const { authenticated, loading } = this.state;

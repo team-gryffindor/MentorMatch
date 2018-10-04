@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-export const AddUser = gql`
+const AddUser = gql`
   mutation($name: String!, $description: String!, $cityOfResidence: String!, $image: String!) {
     addUser(
       name: $name
@@ -17,7 +17,7 @@ export const AddUser = gql`
   }
 `;
 
-export const AddLesson = gql`
+const AddLesson = gql`
   mutation(
     $title: String!
     $description: String!
@@ -46,7 +46,7 @@ export const AddLesson = gql`
   }
 `;
 
-export const AddReview = gql`
+const AddReview = gql`
   mutation($title: String!, $comment: String!, $rating: Number!, $lessonId: ID!, $userId: ID!) {
     addReview(
       title: $title
@@ -62,7 +62,7 @@ export const AddReview = gql`
   }
 `;
 
-export const AddSignupLesson = gql`
+const AddSignupLesson = gql`
   mutation($userId: ID!, $lessonId: ID!, $date: String!) {
     addSignupLesson(userId: $userId, lessonId: $lessonId, date: $date) {
       userId
@@ -72,7 +72,7 @@ export const AddSignupLesson = gql`
   }
 `;
 
-export const AddFavoriteLesson = gql`
+const AddFavoriteLesson = gql`
   mutation($userId: ID!, $lessonId: ID!) {
     addSignupLesson(userId: $userId, lessonId: $lessonId) {
       userId
@@ -80,3 +80,5 @@ export const AddFavoriteLesson = gql`
     }
   }
 `;
+
+export { AddUser, AddLesson, AddReview, AddSignupLesson, AddFavoriteLesson };
