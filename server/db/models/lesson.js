@@ -12,7 +12,9 @@ const lesson = (sequelize, DataTypes) => {
     image: DataTypes.STRING,
     title: DataTypes.STRING,
     difficulty: DataTypes.STRING,
-    category: DataTypes.STRING
+    category: DataTypes.STRING,
+    avgRating: { type: DataTypes.FLOAT, defaultValue: 0 },
+    numOfReviews: { type: DataTypes.INTEGER, defaultValue: 0 }
   });
   return Lesson;
 };
