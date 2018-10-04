@@ -1,5 +1,6 @@
 import React from 'react';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import axios from 'axios';
 
 class RediSearch extends React.Component {
   constructor(props) {
@@ -8,17 +9,13 @@ class RediSearch extends React.Component {
       query: '',
       results: []
     };
-    this.setIndexState = this.setIndexState.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  setIndexState() {
-    this.props.query(this.state.service, this.state.location);
-  }
-
   // handle input onchange event (update stock state)
   handleInputChange(evt) {
+    console.log(evt.target.value);
     this.setState({ query: evt.target.value });
   }
 
@@ -27,37 +24,33 @@ class RediSearch extends React.Component {
     axios
       .get('/search', { params: { q: this.state.query } })
       .then(({ data }) => {
+        console.log('GETTING QUERY RESULTS', data);
         this.setState({ results: data });
       })
       .catch((err) => {
         console.error(err);
-        this.setState({
-          valid: false
-        });
       });
   }
 
   render() {
+    console.log('SEARCH RESULTS', this.state.results);
     return (
       <div>
         <form>
-          <input
-            type="text"
-            placeholder="Search"
-            name="query"
-            autocomplete="off"
-            onChange={this.handleInputChange}
-          />
-          <p class="desc">Try "express", "redis", "hacker" ...</p>
+          <input type="text" placeholder="Search" name="query" onChange={this.handleInputChange} />
+          <p className="desc">Try "express", "redis", "hacker" ...</p>
         </form>
         <button
           onClick={(evt) => {
             this.handleClick();
           }}
-        />
+        >
+          SEARCH
+        </button>
         <ul>
-          props.state.results.map((entry) => (<li>{entry}</li>
-          ));
+          {this.state.results.map((entry) => (
+            <li>{entry}</li>
+          ))}
         </ul>
       </div>
     );

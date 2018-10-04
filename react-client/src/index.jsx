@@ -60,55 +60,54 @@ class App extends React.Component {
     }
 
     return (
-      <RediSearch />
-      // <ApolloProvider client={client}>
-      //   <Router>
-      //     <div>
-      //       <Route
-      //         exact
-      //         path="/"
-      //         render={() => (
-      //           <Home query={this.querySet} todaysServices={this.state.todaysTopServices} />
-      //         )}
-      //       />
-      //       <Route path="/login" render={() => <Login />} />
-      //       <Route path="/signUp" render={() => <SignUp />} />
-      //       <Route
-      //         path="/active"
-      //         render={() => <ActiveLessons lessons={this.state.userActiveLessons} />}
-      //       />
-      //       <Route
-      //         path="/offered"
-      //         render={() => <OfferedLessons lessons={this.state.userOfferedLessons} />}
-      //       />
-      //       <Route
-      //         path="/past"
-      //         render={() => <PastLessons lessons={this.state.userPastLessons} />}
-      //       />
-      //       <Route
-      //         path="/feed"
-      //         render={() => (
-      //           <Feed services={this.state.serviceData} location={this.state.locationData} />
-      //         )}
-      //       />
-      //       <Route
-      //         path="/dashboard"
-      //         render={() => (
-      //           <Dashboard
-      //             query={this.querySet}
-      //             service={this.state.serviceOfTheDay}
-      //             favorites={this.state.favoritesData}
-      //           />
-      //         )}
-      //       />
-      //       <Route
-      //         path="/userProfile"
-      //         render={() => <UserProfileInfo user={this.state.userInfo} />}
-      //       />
-      //       <Route path="/addService" render={() => <AddService />} />
-      //     </div>
-      //   </Router>
-      // </ApolloProvider>
+      <ApolloProvider client={client}>
+        <Router>
+          <div>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Home query={this.querySet} todaysServices={this.state.todaysTopServices} />
+              )}
+            />
+            <Route path="/login" render={() => <Login />} />
+            <Route path="/signUp" render={() => <SignUp />} />
+            <Route
+              path="/active"
+              render={() => <ActiveLessons lessons={this.state.userActiveLessons} />}
+            />
+            <Route
+              path="/offered"
+              render={() => <OfferedLessons lessons={this.state.userOfferedLessons} />}
+            />
+            <Route
+              path="/past"
+              render={() => <PastLessons lessons={this.state.userPastLessons} />}
+            />
+            <Route
+              path="/feed"
+              render={() => (
+                <Feed services={this.state.serviceData} location={this.state.locationData} />
+              )}
+            />
+            <Route
+              path="/dashboard"
+              render={() => (
+                <Dashboard
+                  query={this.querySet}
+                  service={this.state.serviceOfTheDay}
+                  favorites={this.state.favoritesData}
+                />
+              )}
+            />
+            <Route
+              path="/userProfile"
+              render={() => <UserProfileInfo user={this.state.userInfo} />}
+            />
+            <Route path="/addService" render={() => <AddService />} />
+          </div>
+        </Router>
+      </ApolloProvider>
     );
   }
 }
