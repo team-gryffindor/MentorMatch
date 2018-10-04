@@ -12,7 +12,9 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
     }
 
     setIndexState() {
-      this.props.query(this.state.service, this.state.location);
+      console.log('HIT IN SEARCH');
+      console.log(this.props.getLessons)
+      // this.props.getLessons();
     }
 
     render() {
@@ -21,7 +23,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
           <form>
             <input value={this.state.service} onChange={(e) => this.setState({userInputService: e.target.value}, () => this.setIndexState())} placeholder="Enter Service"/>
             <input value={this.state.location} onChange={(e) => this.setState({userInputLocation: e.target.value}, () => this.setIndexState())} placeholder="Location"/>
-            <button><Link to="/feed">Search</Link></button>
+            <button onClick={() => this.setIndexState()}><Link to="/feed">Search</Link></button>
             <button><Link to="/dashboard">DASHBOARD TEST</Link></button>
           </form>
         </div>
