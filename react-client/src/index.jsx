@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-boost';
+import ApolloClient, { gql } from 'apollo-boost';
 
+// components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
@@ -29,36 +30,33 @@ class App extends React.Component {
       userInputLocation: '',
       serviceData: window.sampleService,
       locationData: window.sampleLocation,
-      favoritesData: window.sampleService,
+      userFavoritesData: [],
       serviceOfTheDay: window.serviceOfTheDay,
       todaysTopServices: window.sampleService,
-      userActiveLessons: window.sampleService,
-      userOfferedLessons: window.sampleService,
+      userActiveLessons: [],
+      userOfferedLessons: [],
       userPastLessons: window.sampleService,
-      userInfo: {
-        username: 'AC130',
-        avatar: 'https://source.unsplash.com/1600x900/?mountain,sunset',
-        location: 'Boston',
-        userDescription:
-          'The pro mutters. Outside a native blinks the jury. An ozone surrounds each dated custom below a dirt. The blessed bathroom peers. A supporting power stirs within the earth.'
-      }
+      userInfo: {}
     };
-    this.querySet = this.querySet.bind(this);
+    this.getLessonsQuery = this.getLessonsQuery.bind(this);
   }
 
-  querySet(service, location) {
-    //apollo call
+  getLessonsQuery(favorites, offered, active) {
+    this.setState({
+      userFavoritesData: favorites,
+      userActiveLessons: active,
+      userOfferedLessons: offered
+    });
   }
+
   componentDidMount() {
-    //set the sate for today's top services
+    //set the state for today's top services
   }
+
+  getUser() {}
 
   render() {
     const { authenticated, loading } = this.state;
-
-    if (loading) {
-      return <p>Loading...</p>;
-    }
 
     return (
       <ApolloProvider client={client}>
@@ -97,7 +95,8 @@ class App extends React.Component {
                 <Dashboard
                   query={this.querySet}
                   service={this.state.serviceOfTheDay}
-                  favorites={this.state.favoritesData}
+                  favorites={this.state.userFavoritesData}
+                  getLessonsQuery={this.getLessonsQuery}
                 />
               )}
             />
