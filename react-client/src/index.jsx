@@ -42,22 +42,28 @@ class App extends React.Component {
           'The pro mutters. Outside a native blinks the jury. An ozone surrounds each dated custom below a dirt. The blessed bathroom peers. A supporting power stirs within the earth.'
       }
     };
-    this.querySet = this.querySet.bind(this);
+    this.getLessonsQuery = this.getLessonsQuery.bind(this);
   }
 
-  querySet(service, location) {
+  getLessonsQuery() {
     //apollo call
+    console.log('HIT GET LESSONS');
+    var data = this.props.data;
+    console.log('DATA: ', data);
+    if (data.loading) {
+      return <div>Loading books...</div>;
+    } else {
+      console.log('HIT: ', this.props.data);
+      console.log('HIT Q: ', this.props.query);
+    }
   }
+
   componentDidMount() {
     //set the sate for today's top services
   }
 
   render() {
     const { authenticated, loading } = this.state;
-
-    if (loading) {
-      return <p>Loading...</p>;
-    }
 
     return (
       <ApolloProvider client={client}>
@@ -97,6 +103,7 @@ class App extends React.Component {
                   query={this.querySet}
                   service={this.state.serviceOfTheDay}
                   favorites={this.state.favoritesData}
+                  getLessons={this.getLessons}
                 />
               )}
             />
