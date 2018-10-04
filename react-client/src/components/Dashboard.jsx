@@ -1,21 +1,12 @@
 import React from 'react';
-import { gql } from 'apollo-boost';
 import { graphql } from 'react-apollo';
-
+import { getUserInfoQuery } from '../../apollo/queries';
 import Navigation from './NavigationBar.jsx';
 import Header from './Header.jsx';
 import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 import Search from './Search.jsx';
 
-const getUserInfoQuery = gql`
-  {
-    users {
-      name
-      description
-      cityOfResidence
-    }
-  }
-`;
+
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
