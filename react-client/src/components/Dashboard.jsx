@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import { getUserInfoQuery } from '../../apollo/queries';
+import { getActiveLessonsQuery } from '../../apollo/queries.js';
 import Navigation from './NavigationBar.jsx';
 import Header from './Header.jsx';
 import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
@@ -23,7 +24,7 @@ class Dashboard extends React.Component {
     }
   }
   render() {
-    console.log(this.props); //checking for apollo query return
+    console.log(this.props.data); //checking for apollo query return
 
     return (
       <div>
@@ -31,7 +32,7 @@ class Dashboard extends React.Component {
         <ul id="user-list">{this.displayUsers()}</ul>
         <div>
           <Navigation />
-          <Search query={this.props.query} />
+          <Search query={this.props.query} getLessons={this.props.getLessons}/>
         </div>
         <ServiceOfTheDay service={this.props.service} />
         <div>
@@ -52,4 +53,4 @@ const ServiceOfTheDay = ({ service }) => (
   </div>
 );
 
-export default graphql(getUserInfoQuery)(Dashboard);
+export default graphql(getActiveLessonsQuery)(Dashboard);

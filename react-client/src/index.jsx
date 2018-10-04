@@ -15,6 +15,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
+import { getActiveLessonsQuery } from '../apollo/queries.js';
+import { graphql } from 'react-apollo';
 
 export const client = new ApolloClient({
   uri: 'http://localhost:3000/graphql'
@@ -42,12 +44,22 @@ class App extends React.Component {
           'The pro mutters. Outside a native blinks the jury. An ozone surrounds each dated custom below a dirt. The blessed bathroom peers. A supporting power stirs within the earth.'
       }
     };
-    this.querySet = this.querySet.bind(this);
+    this.getLessons = this.getLessons.bind(this);
   }
 
-  querySet(service, location) {
+  getLessons() {
     //apollo call
+    console.log('HIT GET LESSONS');
+    var data = this.props.data;
+    console.log('DATA: ', data);
+    if (data.loading) {
+      return <div>Loading books...</div>;
+    } else {
+      console.log('HIT: ', this.props.data);
+      console.log('HIT Q: ', this.props.query);
+    }
   }
+
   componentDidMount() {
     //set the sate for today's top services
   }
@@ -97,6 +109,7 @@ class App extends React.Component {
                   query={this.querySet}
                   service={this.state.serviceOfTheDay}
                   favorites={this.state.favoritesData}
+                  getLessons={this.getLessons}
                 />
               )}
             />
@@ -111,5 +124,6 @@ class App extends React.Component {
     );
   }
 }
+export default graphql(getActiveLessonsQuery)(App);
 
 ReactDOM.render(<App />, document.getElementById('app'));

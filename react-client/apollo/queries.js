@@ -11,3 +11,15 @@ export const getUserInfoQuery = gql`
   }
 `;
 
+export const getActiveLessonsQuery = gql`
+{
+  lessons {
+    title
+    description
+    difficulty
+    avgRating
+    image
+  }
+}
+`;
+
