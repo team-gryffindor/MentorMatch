@@ -1,11 +1,6 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
-<<<<<<< HEAD
-import { getUserInfoQuery } from '../../apollo/queries';
-import { getActiveLessonsQuery } from '../../apollo/queries.js';
-=======
 import { getUser } from '../../apollo/queries.js';
->>>>>>> dev
 import Navigation from './NavigationBar.jsx';
 import Header from './Header.jsx';
 import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
