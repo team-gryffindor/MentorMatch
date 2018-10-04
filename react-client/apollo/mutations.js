@@ -61,3 +61,22 @@ export const AddReview = gql`
     }
   }
 `;
+
+export const AddSignupLesson = gql`
+  mutation($userId: ID!, $lessonId: ID!, $date: String!) {
+    addSignupLesson(userId: $userId, lessonId: $lessonId, date: $date) {
+      userId
+      lessonId
+      date
+    }
+  }
+`;
+
+export const AddFavoriteLesson = gql`
+  mutation($userId: ID!, $lessonId: ID!) {
+    addSignupLesson(userId: $userId, lessonId: $lessonId) {
+      userId
+      lessonId
+    }
+  }
+`;
