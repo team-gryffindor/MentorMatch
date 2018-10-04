@@ -88,7 +88,7 @@ class App extends React.Component {
             <Route
               path="/feed"
               render={() => (
-                <Feed services={this.state.serviceData} location={this.state.locationData} />
+                <Feed services={this.state.searchResults} location={this.state.locationData} />
               )}
             />
             <Route

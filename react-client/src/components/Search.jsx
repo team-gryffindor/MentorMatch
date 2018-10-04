@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       serviceQuery: '',
-      locationQuery: '',
-      results: []
+      locationQuery: ''
     };
     this.handleServiceInputChange = this.handleServiceInputChange.bind(this);
     this.handleLocationInputChange = this.handleLocationInputChange.bind(this);
@@ -17,6 +17,7 @@ class Search extends React.Component {
   // handle input onchange event (update stock state)
   handleServiceInputChange(evt) {
     this.setState({ serviceQuery: evt.target.value });
+    console.log(this.state.serviceQuery);
   }
 
   // handle input onchange event (update stock state)
@@ -43,7 +44,7 @@ class Search extends React.Component {
         <form>
           <input
             value={this.state.service}
-            onChange={this.handleInputChange}
+            onChange={this.handleServiceInputChange}
             placeholder="Enter Service"
           />
           <input
@@ -53,7 +54,7 @@ class Search extends React.Component {
             }
             placeholder="Location"
           />
-          <button>
+          <button onClick={props.handleClick}>
             <Link to="/feed">Search</Link>
           </button>
           <button>
@@ -69,4 +70,5 @@ class Search extends React.Component {
     );
   }
 }
+
 export default Search;
