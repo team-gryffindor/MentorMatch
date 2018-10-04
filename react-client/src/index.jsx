@@ -28,7 +28,7 @@ class App extends React.Component {
       userInputLocation: '',
       serviceData: window.sampleService,
       locationData: window.sampleLocation,
-      favoritesData: [],
+      userFavoritesData: [],
       serviceOfTheDay: window.serviceOfTheDay,
       todaysTopServices: window.sampleService,
       userActiveLessons: [],
@@ -92,7 +92,7 @@ class App extends React.Component {
                 <Dashboard
                   query={this.querySet}
                   service={this.state.serviceOfTheDay}
-                  favorites={this.state.favoritesData}
+                  favorites={this.state.userFavoritesData}
                   getLessonsQuery={this.getLessonsQuery}
                 />
               )}

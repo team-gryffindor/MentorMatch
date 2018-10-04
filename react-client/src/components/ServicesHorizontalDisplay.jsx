@@ -3,19 +3,19 @@ import Header from './Header.jsx';
 
 const ServiceDisplay = (props) => (
   <div>
-    <ul>
       {props.services.map((service, i) => (
         <Display service={service} key={i} />
       ))}
-    </ul>
   </div>
 );
 
 const Display = ({ service }) => (
-  <li>
-    <img src={service.profilePicture} />
+  <div>
+    <img src={service.profilePicture}/>
     <h1>{service.title}</h1>
-  </li>
+    <p>Description: {service.description}</p>
+    <p>Difficulty: {service.difficulty}</p>
+  </div>
 );
 
 export default ServiceDisplay;
