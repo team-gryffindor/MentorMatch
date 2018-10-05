@@ -17,7 +17,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSignedIn: false,
+      //isSignedIn: false,
       userInfo: null
     };
     this.uiConfig = {
@@ -46,7 +46,7 @@ class Login extends React.Component {
 
   render() {
     {
-      if (!this.state.isSignedIn) {
+      if (this.props.isLoggedIn === false) {
         return (
           <div className="Login">
             <h1>Welcome to </h1>

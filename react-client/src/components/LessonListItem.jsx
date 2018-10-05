@@ -1,16 +1,16 @@
-// import React from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-// const LessonListItem = ({ lesson }) => (
-//   <div>
-//     {/* <img src={props.profilePicture} />
-//     <h1>{props.title}</h1>
-//     <p>Description: {props.description}</p>
-//     <p>Difficulty: {props.difficulty}</p> */}
-//     <h1>
-//       LESSON ITEM
-//       {lesson.title}
-//     </h1>
-//   </div>
-// );
+const LessonListItem = ({ lesson }) => (
+  <div>
+    <Link to={{ pathname: `/lessoncontent/${lesson.id}`, state: { lesson: lesson } }}>
+      <h3> {lesson.title}</h3>
+    </Link>
+    <span>
+      rating: {lesson.avgRating} <br /> {lesson.numOfReviews} reviews
+    </span>
+    <p>{lesson.description}</p>
+  </div>
+);
 
-// export default LessonListItem;
+export default LessonListItem;

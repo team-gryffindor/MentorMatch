@@ -21,8 +21,7 @@ import PastLessons from './components/PastLessons.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
-import RediSearch from './components/RediSearch.jsx';
-// import SearchBar from './components/SearchBar';
+import LessonContent from './components/LessonContent.jsx';
 
 const cache = new InMemoryCache();
 
@@ -33,13 +32,14 @@ const stateLink = withClientState({
     Mutation: {
       updateUserInfo: (
         _,
-        { theUserName, theDescription, theCityOfResidence, theImage },
+        { theUserId, theUserName, theDescription, theCityOfResidence, theImage },
         { cache }
       ) => {
         client.writeData({
           data: {
             mentorMatch: {
               __typename: 'mentorMatch',
+              userId: theUserId,
               username: theUserName,
               description: theDescription,
               cityOfResidence: theCityOfResidence,
@@ -94,7 +94,12 @@ class App extends React.Component {
             />
             <Route
               path="/login"
-              render={() => <Login handleUserLoggingIn={this.handleUserLoggingIn} />}
+              render={() => (
+                <Login
+                  handleUserLoggingIn={this.handleUserLoggingIn}
+                  isLoggedIn={this.state.isLoggedIn}
+                />
+              )}
             />
             {/* <Route path="/signUp" render={() => <SignUp />} /> */}
             <Route path="/active" render={() => <ActiveLessons />} />
@@ -110,8 +115,16 @@ class App extends React.Component {
                 />
               )}
             />
-            {/* <Route path="/userProfile" render={() => <UserProfileInfo />} /> */}
-            {/* <Route path="/addService" render={() => <AddService />} /> */}
+            <Route path="/userProfile" render={() => <UserProfileInfo />} />
+            <Route path="/addService" render={() => <AddService />} />
+            <Route
+              exact
+              path="/lessoncontent/:lessonId"
+              render={({ location }) => {
+                let lesson = location.state.lesson;
+                return <LessonContent lesson={lesson} id={lesson.id} />;
+              }}
+            />
           </div>
         </Router>
       </ApolloProvider>

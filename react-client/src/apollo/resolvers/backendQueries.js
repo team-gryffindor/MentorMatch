@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 const GET_USER = gql`
   query($id: ID!) {
@@ -12,6 +12,8 @@ const GET_USER = gql`
         difficulty
         description
         date
+        avgRating
+        numOfReviews
       }
       signupLessons {
         id
@@ -19,6 +21,8 @@ const GET_USER = gql`
         difficulty
         description
         date
+        avgRating
+        numOfReviews
       }
       favoriteLessons {
         id
@@ -26,6 +30,8 @@ const GET_USER = gql`
         difficulty
         description
         date
+        avgRating
+        numOfReviews
       }
     }
   }
@@ -47,8 +53,12 @@ const GET_LESSONS = gql`
     lessons {
       title
       id
+      description
       avgRating
       numOfReviews
+      provider {
+        name
+      }
       reviews {
         title
         rating
@@ -138,4 +148,13 @@ const ADD_FAVORITE_LESSON = gql`
   }
 `;
 
-export { GET_USER, GET_LESSON, GET_LESSONS, ADD_USER, ADD_LESSON, ADD_REVIEW, ADD_SIGNUP_LESSON, ADD_FAVORITE_LESSON };
+export {
+  GET_USER,
+  GET_LESSON,
+  GET_LESSONS,
+  ADD_USER,
+  ADD_LESSON,
+  ADD_REVIEW,
+  ADD_SIGNUP_LESSON,
+  ADD_FAVORITE_LESSON
+};

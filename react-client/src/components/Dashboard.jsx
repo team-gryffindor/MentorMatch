@@ -1,11 +1,15 @@
 import React from 'react';
 import Navigation from './NavigationBar.jsx';
 // import Header from './Header.jsx';
-// import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
-import SearchBar from './SearchBar.jsx';
+import Search from './Search.jsx';
+import FeaturedLesson from './FeaturedLesson.jsx';
+import UserLessonList from './UserLessonList.jsx';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     console.log('dashboard shown');
     return (
@@ -14,34 +18,23 @@ class Dashboard extends React.Component {
           <Link to="/">Mentor Match</Link>
         </h1>
         <div>
-          {/* <ServiceOfTheDay service={this.props.service} /> */}
           <div>
-            <div>
-              <Navigation
-                isLoggedIn={this.props.isLoggedIn}
-                handleUserLoggingIn={this.props.handleUserLoggingIn}
-              />
-              <SearchBar />
-            </div>
-            {/* <ServiceOfTheDay service={this.props.service} /> */}
-            <div>
-              <h2>Favorites</h2>
-              {/* <LessonList services={props.todaysServices} /> */}
-            </div>
+            <Navigation
+              isLoggedIn={this.props.isLoggedIn}
+              handleUserLoggingIn={this.props.handleUserLoggingIn}
+            />
+            <Search />
+          </div>
+          <FeaturedLesson />
+          <div>
+            <h2>Favorites</h2>
+            {/* {lessontype tells it to render favorites, offered, or signups} */}
+            <UserLessonList lessonType="favoriteLessons" />
           </div>
         </div>
       </div>
     );
   }
 }
-
-// const ServiceOfTheDay = ({ service }) => (
-//   <div>
-//     <img src={service.profilePicture} />
-//     <h1>{service.title}</h1>
-//     <p>{service.description}</p>
-//     <button>Book Now</button>
-//   </div>
-// );
 
 export default Dashboard;
