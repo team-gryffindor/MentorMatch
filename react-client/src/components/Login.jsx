@@ -38,8 +38,10 @@ class Login extends React.Component {
       this.setState({
         isSignedIn: !!user,
         userInfo: user
-      });
-    });
+      }, () => {
+      this.props.handleUserLoggingIn
+    }) 
+    })
   }
 
   render() {
@@ -89,10 +91,11 @@ class Login extends React.Component {
         );
       } else {
         return (
+
+
+          
           <div className="Login">
-            {/* Hello {firebaseApp.auth().currentUser.displayName}. You are now signed In! */}
             <Redirect to="/dashboard" userInfo={this.state.userInfo} />
-            {/* <a onClick={() => firebaseApp.auth().signOut()}>Sign-out</a> */}
           </div>
         );
       }
