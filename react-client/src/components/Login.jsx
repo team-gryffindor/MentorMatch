@@ -39,7 +39,7 @@ class Login extends React.Component {
         isSignedIn: !!user,
         userInfo: user
       }, () => {
-      this.props.handleUserLoggingIn
+      this.props.handleUserLoggingIn()
     }) 
     })
   }
@@ -91,9 +91,6 @@ class Login extends React.Component {
         );
       } else {
         return (
-
-
-          
           <div className="Login">
             <Redirect to="/dashboard" userInfo={this.state.userInfo} />
           </div>

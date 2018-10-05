@@ -20,11 +20,17 @@ class Dashboard extends React.Component {
           </div>
           {/* <ServiceOfTheDay service={this.props.service} /> */}
           <div>
-            <h2>Favorites</h2>
-            {/* <LessonList services={props.todaysServices} /> */}
-          </div>
-        </div>
-      </div>
+            <div>
+            <Navigation isLoggedIn={this.props.isLoggedIn} handleUserLoggingIn={this.props.handleUserLoggingIn}/> 
+              <Search />
+            </div>
+            {/* <ServiceOfTheDay service={this.props.service} /> */}
+            <div>
+              <h2>Favorites</h2>
+              {/* <LessonList services={props.todaysServices} /> */}
+            </div>
+         </div>
+    </div>
     );
   }
 }
