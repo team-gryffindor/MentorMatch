@@ -10,28 +10,27 @@ class FeedListItem extends React.Component {
   }
 
   displayLessonInfo() {
-    console.log('DATA IN LIST ITEM', this.props.data);
     lessonId = this.props.lessonId;
     var data = this.props.data;
     if (data.loading) {
-      return <div> Loading lesson ...</div>;
+      return;
+      // return <div> Loading lesson ...</div>;
     } else {
-      console.log('SDJFHBSJKDFSD ', this.props.data);
       return (
         <div>
-          title: {data.lesson.title}
-          description: {data.lesson.description}
-          cityOfService: {data.lesson.cityOfService}
-          category: {data.lesson.category}
-          difficulty: {data.lesson.difficulty}
-          avgRating: {data.lesson.avgRating}
-          numOfReviews: {data.lesson.numOfReviews}
+          <p>title: {data.lesson.title}</p>
+          <p>description: {data.lesson.description}</p>
+          <p>cityOfService: {data.lesson.cityOfService}</p>
+          <p>category: {data.lesson.category}</p>
+          <p>difficulty: {data.lesson.difficulty}</p>
+          <p>avgRating: {data.lesson.avgRating}</p>
+          <p>numOfReviews: {data.lesson.numOfReviews}</p> <br />
         </div>
       );
     }
   }
   render() {
-    return <div>LESSON {this.displayLessonInfo()}</div>;
+    return <div>{this.displayLessonInfo()}</div>;
   }
 }
 

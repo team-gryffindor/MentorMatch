@@ -18,7 +18,7 @@ class Feed extends React.Component {
         <div>
           <h1>Feed</h1>
           <SearchBar />
-          FEEDLIST NEEDS TO BE SHOWN
+          {/* FEEDLIST NEEDS TO BE SHOWN */}
           {/* <Navigation/> */}
           <FeedList lessonIds={this.props.location.state.lessonIds} />
         </div>
@@ -29,7 +29,7 @@ class Feed extends React.Component {
           <h1>Feed</h1>
           <SearchBar />
           {/* <Navigation/> */}
-          NOTHING TO SHOW
+          NO RESULTS
         </div>
       );
     }

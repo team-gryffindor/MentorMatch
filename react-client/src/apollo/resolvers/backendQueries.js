@@ -42,6 +42,9 @@ const GET_LESSON = gql`
     lesson(id: $id) {
       title
       description
+      cityOfService
+      category
+      difficulty
       avgRating
       numOfReviews
     }

@@ -87,11 +87,11 @@ class SearchBar extends React.Component {
             <Link to={{ pathname: '/feed', state: { lessonIds: this.state.results } }}>Search</Link>
           </button>
         </form>
-        <ul>
+        {/* <ul>
           {this.state.results.map((entry) => (
             <li>{entry}</li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     );
   }
