@@ -1,20 +1,11 @@
 import React from 'react';
 import Navigation from './NavigationBar.jsx';
-<<<<<<< HEAD
-// import Header from './Header.jsx';
-// import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
-=======
 import Header from './Header.jsx';
 import LessonList from './LessonList.jsx';
->>>>>>> dev
 import Search from './Search.jsx';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class Dashboard extends React.Component {
-<<<<<<< HEAD
-  
-  
-=======
   constructor(props) {
     super(props);
 
@@ -57,7 +48,6 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.displayLessons();
   }
->>>>>>> dev
 
   render() {
     return (
