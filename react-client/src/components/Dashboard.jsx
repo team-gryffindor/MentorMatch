@@ -18,8 +18,8 @@ class Dashboard extends React.Component {
         </h1>
         <div>
           <div>
-            {/* <Navigation /> */}
-            {/* <Search /> */}
+            <Navigation isLoggedIn={this.props.isLoggedIn} handleUserLoggingIn={this.props.handleUserLoggingIn}/> 
+            <Search />
           </div>
           <FeaturedLesson />
           <div>

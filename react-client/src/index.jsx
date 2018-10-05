@@ -94,7 +94,12 @@ class App extends React.Component {
             />
             <Route
               path="/login"
-              render={() => <Login handleUserLoggingIn={this.handleUserLoggingIn} />}
+              render={() => (
+                <Login
+                  handleUserLoggingIn={this.handleUserLoggingIn}
+                  isLoggedIn={this.state.isLoggedIn}
+                />
+              )}
             />
             {/* <Route path="/signUp" render={() => <SignUp />} /> */}
             <Route path="/active" render={() => <ActiveLessons />} />
@@ -110,8 +115,8 @@ class App extends React.Component {
                 />
               )}
             />
-            {/* <Route path="/userProfile" render={() => <UserProfileInfo />} /> */}
-            {/* <Route path="/addService" render={() => <AddService />} /> */}
+            <Route path="/userProfile" render={() => <UserProfileInfo />} />
+            <Route path="/addService" render={() => <AddService />} />
             <Route
               exact
               path="/lessoncontent/:lessonId"
