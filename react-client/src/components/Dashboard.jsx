@@ -15,7 +15,7 @@ class Dashboard extends React.Component {
       <h1><Link to='/'>Mentor Match</Link></h1>
           <div>
             <div>
-              {/* <Navigation /> */}
+            <Navigation isLoggedIn={this.props.isLoggedIn} handleUserLoggingIn={this.props.handleUserLoggingIn}/> 
               <Search />
             </div>
             {/* <ServiceOfTheDay service={this.props.service} /> */}
