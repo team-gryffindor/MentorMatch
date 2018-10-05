@@ -1,5 +1,5 @@
 import React from 'react';
-// import Navigation from './NavigationBar.jsx';
+import Navigation from './NavigationBar.jsx';
 // import Header from './Header.jsx';
 import Search from './Search.jsx';
 import FeaturedLesson from './FeaturedLesson.jsx';
@@ -18,8 +18,8 @@ class Dashboard extends React.Component {
         </h1>
         <div>
           <div>
-            {/* <Navigation /> */}
-            {/* <Search /> */}
+            <Navigation isLoggedIn={this.props.isLoggedIn} handleUserLoggingIn={this.props.handleUserLoggingIn}/> 
+            <Search />
           </div>
           <FeaturedLesson />
           <div>

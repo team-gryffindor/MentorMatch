@@ -4,25 +4,42 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
 const Navigation = (props) => {
-  let isLoggedIn = <li><a><button onClick={() => {firebase.auth().signOut().then(() => props.handleUserLoggingIn())}}>
+  // Navbar for for mvp
+  // return (
+  //   <div>
+  //     <ul>
+  //     <li><a><button onClick={() => props.handleUserLoggingIn()}><Link to="/login">Login</Link></button></a></li>
+  //     <li><a><button onClick={() => {firebase.auth().signOut().then(() => props.handleUserLoggingIn())}}><Link to='/'>Logout!</Link></button></a></li>
+  //     </ul>
+  //   </div>
+  // )
+  //----------------------
+  let loggedIn = <li><a><button onClick={() => {firebase.auth().signOut().then(() => props.handleUserLoggingIn())}}>
     <Link to='/'>Logout!</Link></button></a></li>;
-  let isLoggedOut = <li><a><button><Link to="/login">Login</Link></button></a></li>
 
-  if (props.isLoggedIn) {
+  let loggedOut = <li><a><button ><Link to="/login">Login</Link></button></a></li>
+
+  if (props.isLoggedIn === true) {
     return ( 
     <div>
       <ul>
-        {isLoggedIn}
+        {loggedIn}
+        {/* <li><a><Link to="/userProfile">My Profile</Link></a></li> */}
+        <li><a><Link to="/addService">Create a new service</Link></a></li>
+        <li><a><Link to="/userProfile">My Profile</Link></a></li>
+        <li><a><Link to="/dashboard">Dashboard</Link></a></li>
       </ul>
     </div>)
-  } else {
-    return (
-    <div>
-      <ul>
-       {isLoggedOut}
-      </ul>
-    </div>
-    )}
+  } else if (props.isLoggedIn === false) {
+    return ( 
+      <div>
+        <ul>
+          {loggedOut} 
+        </ul>
+      </div>)
+  }
+
+//----------------------Original iteration of navbar with user logged in
   // return (
   // <div>
   //   <ul>

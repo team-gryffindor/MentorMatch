@@ -1,8 +1,11 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 const LessonListItem = ({ lesson }) => (
   <div>
-    <h3> {lesson.title}</h3>
+    <Link to={{ pathname: `/lessoncontent/${lesson.id}`, state: { lesson: lesson } }}>
+      <h3> {lesson.title}</h3>
+    </Link>
     <span>
       rating: {lesson.avgRating} <br /> {lesson.numOfReviews} reviews
     </span>

@@ -21,6 +21,7 @@ import PastLessons from './components/PastLessons.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
+import LessonContent from './components/LessonContent.jsx';
 
 const cache = new InMemoryCache();
 
@@ -93,7 +94,12 @@ class App extends React.Component {
             />
             <Route
               path="/login"
-              render={() => <Login handleUserLoggingIn={this.handleUserLoggingIn} />}
+              render={() => (
+                <Login
+                  handleUserLoggingIn={this.handleUserLoggingIn}
+                  isLoggedIn={this.state.isLoggedIn}
+                />
+              )}
             />
             {/* <Route path="/signUp" render={() => <SignUp />} /> */}
             <Route path="/active" render={() => <ActiveLessons />} />
