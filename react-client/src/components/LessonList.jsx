@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header.jsx';
 import LessonListItem from './LessonListItem.jsx';
 import { graphql, Query } from 'react-apollo';
-import { getLessons } from '../../apollo/queries.js';
+import { GET_LESSONS } from '../apollo/resolvers/backendQueries.js';
 import { database } from 'firebase';
 
 class LessonList extends React.Component {
@@ -31,4 +31,4 @@ class LessonList extends React.Component {
   }
 }
 
-export default graphql(getLessons)(LessonList);
+export default graphql(GET_LESSONS)(LessonList);
