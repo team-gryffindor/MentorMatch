@@ -1,12 +1,20 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
-import { getLesson, getUser } from '../../apollo/queries.js';
 import Navigation from './NavigationBar.jsx';
+<<<<<<< HEAD
+// import Header from './Header.jsx';
+// import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
+=======
 import Header from './Header.jsx';
 import LessonList from './LessonList.jsx';
+>>>>>>> dev
 import Search from './Search.jsx';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class Dashboard extends React.Component {
+<<<<<<< HEAD
+  
+  
+=======
   constructor(props) {
     super(props);
 
@@ -49,12 +57,26 @@ class Dashboard extends React.Component {
   componentDidMount() {
     this.displayLessons();
   }
+>>>>>>> dev
 
   render() {
-    // console.log('PROPS: ', this.props); //checking for apollo query return
-
     return (
       <div>
+<<<<<<< HEAD
+      <h1><Link to='/'>Mentor Match</Link></h1>
+          <div>
+            <div>
+              <Navigation />
+              <Search />
+            </div>
+            {/* <ServiceOfTheDay service={this.props.service} /> */}
+            <div>
+              <h2>Favorites</h2>
+              {/* <ServiceDisplay services={this.props.favorites} /> */}
+            </div>
+         </div>
+    </div>
+=======
         <h1>Mentor Match</h1>
         <div>
           <Navigation />
@@ -66,6 +88,7 @@ class Dashboard extends React.Component {
           <LessonList style="horizontal" />
         </div>
       </div>
+>>>>>>> dev
     );
   }
 }
@@ -79,12 +102,7 @@ const ServiceOfTheDay = ({ service }) => (
   </div>
 );
 
-export default graphql(getUser, {
-  options: (props) => {
-    return {
-      variables: {
-        id: 1
-      }
-    };
-  }
-})(Dashboard);
+export default Dashboard;
+
+
+//

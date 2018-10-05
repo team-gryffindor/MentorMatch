@@ -8,40 +8,62 @@ import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
 import Feed from './components/Feed.jsx';
-import data from '../dist/data';
 import ActiveLessons from './components/ActiveLessons.jsx';
 import OfferedLessons from './components/OfferedLessons.jsx';
 import PastLessons from './components/PastLessons.jsx';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
 import RediSearch from './components/RediSearch.jsx';
 
-export const client = new ApolloClient({
-  uri: 'http://localhost:3000/graphql'
+const cache = new InMemoryCache();
+
+const stateLink = withClientState({
+  cache,
+  defaults: localStateDefaults,
+  resolvers: {
+    Mutation: {
+      updateUserInfo: (
+        _,
+        { theUserName, theDescription, theCityOfResidence, theImage },
+        { cache }
+      ) => {
+        client.writeData({
+          data: {
+            mentorMatch: {
+              __typename: 'mentorMatch',
+              username: theUserName,
+              description: theDescription,
+              cityOfResidence: theCityOfResidence,
+              image: theImage
+            }
+          }
+        });
+      }
+    }
+  }
+});
+
+const client = new ApolloClient({
+  link: ApolloLink.from([
+    stateLink,
+    new HttpLink({
+      uri: '/graphql'
+    })
+  ]),
+  cache: cache
 });
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userInputService: '',
-      userInputLocation: '',
-      serviceData: window.sampleService,
-      locationData: window.sampleLocation,
-      userFavoritesData: [],
-      serviceOfTheDay: window.serviceOfTheDay,
-      todaysTopServices: window.sampleService,
-      userActiveLessons: [],
-      userOfferedLessons: [],
-      userPastLessons: window.sampleService,
-      userInfo: {}
+      isLoggedIn: false
     };
-    this.getLessonsQuery = this.getLessonsQuery.bind(this);
+    this.handleUserLoggingIn = this.handleUserLoggingIn.bind(this);
   }
 
-  getLessonsQuery(favorites, offered, active) {
+  handleUserLoggingIn() {
     this.setState({
       userFavoritesData: favorites,
       userActiveLessons: active,
@@ -56,54 +78,25 @@ class App extends React.Component {
   getUser() {}
 
   render() {
-    const { authenticated, loading } = this.state;
-
     return (
       <ApolloProvider client={client}>
         <Router>
           <div>
+            <Route exact path="/" render={() => <Home />} />
             <Route
-              exact
-              path="/"
-              render={() => (
-                <Home query={this.querySet} todaysServices={this.state.todaysTopServices} />
-              )}
+              path="/login"
+              render={() => <Login handleUserLoggingIn={this.handleUserLoggingIn} />}
             />
-            <Route path="/login" render={() => <Login />} />
             <Route path="/signUp" render={() => <SignUp />} />
-            <Route
-              path="/active"
-              render={() => <ActiveLessons lessons={this.state.userActiveLessons} />}
-            />
-            <Route
-              path="/offered"
-              render={() => <OfferedLessons lessons={this.state.userOfferedLessons} />}
-            />
-            <Route
-              path="/past"
-              render={() => <PastLessons lessons={this.state.userPastLessons} />}
-            />
-            <Route
-              path="/feed"
-              render={() => (
-                <Feed services={this.state.searchResults} location={this.state.locationData} />
-              )}
-            />
+            <Route path="/active" render={() => <ActiveLessons />} />
+            <Route path="/offered" render={() => <OfferedLessons />} />
+            <Route path="/past" render={() => <PastLessons />} />
+            <Route path="/feed" render={() => <Feed />} />
             <Route
               path="/dashboard"
-              render={() => (
-                <Dashboard
-                  query={this.querySet}
-                  service={this.state.serviceOfTheDay}
-                  favorites={this.state.userFavoritesData}
-                  getLessonsQuery={this.getLessonsQuery}
-                />
-              )}
+              render={() => <Dashboard isLoggedIn={this.state.isLoggedIn} />}
             />
-            <Route
-              path="/userProfile"
-              render={() => <UserProfileInfo user={this.state.userInfo} />}
-            />
+            <Route path="/userProfile" render={() => <UserProfileInfo />} />
             <Route path="/addService" render={() => <AddService />} />
           </div>
         </Router>

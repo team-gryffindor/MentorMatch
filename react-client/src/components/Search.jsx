@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Query } from 'react-apollo';
+import { GET_LESSONS } from '/Users/Arjun/Documents/gryffindor/react-client/src/apollo/resolvers/backendQueries.js';
 import axios from 'axios';
 
 class Search extends React.Component {
@@ -65,6 +67,24 @@ class Search extends React.Component {
             <li>{entry}</li>
           ))}
         </ul>
+        <Query query={GET_LESSONS}>
+          {({ loading, error, data }) => {
+            if (error) return <h1>Error...</h1>;
+            if (loading || !data) return <h1>Loading...</h1>;
+            return (
+              <ul>
+                {data.lessons.map((lesson) => {
+                  return (
+                    <div>
+                      <h1>{lesson.title}</h1>
+                      <h2>{lesson.avgRating}</h2>
+                    </div>
+                  );
+                })}
+              </ul>
+            );
+          }}
+        </Query>
       </div>
     );
   }
