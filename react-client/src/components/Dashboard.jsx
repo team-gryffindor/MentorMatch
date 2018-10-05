@@ -14,23 +14,23 @@ class Dashboard extends React.Component {
           <Link to="/">Mentor Match</Link>
         </h1>
         <div>
-          <div>
-            {/* <Navigation /> */}
-            <SearchBar />
-          </div>
           {/* <ServiceOfTheDay service={this.props.service} /> */}
           <div>
             <div>
-            <Navigation isLoggedIn={this.props.isLoggedIn} handleUserLoggingIn={this.props.handleUserLoggingIn}/> 
-              <Search />
+              <Navigation
+                isLoggedIn={this.props.isLoggedIn}
+                handleUserLoggingIn={this.props.handleUserLoggingIn}
+              />
+              <SearchBar />
             </div>
             {/* <ServiceOfTheDay service={this.props.service} /> */}
             <div>
               <h2>Favorites</h2>
               {/* <LessonList services={props.todaysServices} /> */}
             </div>
-         </div>
-    </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }

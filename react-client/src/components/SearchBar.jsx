@@ -3,43 +3,50 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-let results = [];
-
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       serviceQuery: '',
       locationQuery: '',
-      redirect: false,
-      results: []
+      results: [],
+      redirect: false
     };
+    this.results = [];
     this.handleServiceInputChange = this.handleServiceInputChange.bind(this);
     this.handleLocationInputChange = this.handleLocationInputChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.search = this.search.bind(this);
+    this.initResults = this.initResults.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.initResults();
+  }
+
+  initResults() {
+    this.setState({ results: [] });
+  }
 
   // handle input onchange event (update stock state)
   handleServiceInputChange(evt) {
-    this.setState({ serviceQuery: evt.target.value });
+    this.setState({ serviceQuery: evt.target.value }, this.search);
     console.log(this.state.serviceQuery);
   }
 
   // handle input onchange event (update stock state)
   handleLocationInputChange(evt) {
-    this.setState({ locationQuery: evt.target.value });
+    this.setState({ locationQuery: evt.target.value }, this.search);
   }
 
-  handleClick() {
+  search() {
+    console.log('CLICK TRIGGERED!');
     // call this within call to get stock api
     axios
       .get('/search', { params: { q: this.state.serviceQuery + ' ' + this.state.locationQuery } })
       .then(({ data }) => {
         console.log('GETTING QUERY RESULTS', data);
         this.setState({ results: data });
-        // results = data;
+        // this.results = data;
       })
       .catch((err) => {
         console.error(err);
@@ -47,17 +54,21 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    console.log(results);
-    if (this.state.redirect) {
-      return (
-        <Redirect
-          to={{
-            pathname: '/feed',
-            state: { lessonIds: this.state.results }
-          }}
-        />
-      );
-    }
+    // if (!this.state.redirect) {
+    //   // console.log('REDIRECTING', this.state.results);
+    //   // return (
+    //   //   <Redirect
+    //   //     // to={{
+    //   //     //   pathname: '/feed',
+    //   //     //   state: { lessonIds: this.state.results }
+    //   //     // }}
+    //   //     // to={{ pathname: '/feed' }}
+    //   //     to={{ pathname: '/feed', state: { lessonIds: this.state.results } }}
+    //   //   />
+    //   // );
+    //   return;
+    // } else {
+    console.log('HIT BEFORE RENDER', this.state.results);
     return (
       <div>
         <form>
@@ -71,20 +82,20 @@ class SearchBar extends React.Component {
             onChange={this.handleLocationInputChange}
             placeholder="Location"
           />
-          <button onClick={this.handleClick}>
-            Search
+          <button>
             {/* <Link to="/feed">Search</Link> */}
-            {/* <Link to={{ pathname: '/feed', state: { lessonIds: results } }}>Search</Link> */}
+            <Link to={{ pathname: '/feed', state: { lessonIds: this.state.results } }}>Search</Link>
           </button>
         </form>
         <ul>
-          {results.map((entry) => (
+          {this.state.results.map((entry) => (
             <li>{entry}</li>
           ))}
         </ul>
       </div>
     );
   }
+  // }
 }
 
 export default SearchBar;

@@ -7,7 +7,7 @@ import { database } from 'firebase';
 const FeedList = ({ lessonIds }) => (
   <div>
     {lessonIds.map((lessonId) => {
-      <FeedListItem lesson={lessonId} />;
+      return <FeedListItem lessonId={lessonId} />;
     })}
   </div>
 );

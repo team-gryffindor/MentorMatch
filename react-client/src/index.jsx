@@ -4,7 +4,7 @@ import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { HttpLink } from 'apollo-link-http';
 import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
@@ -22,6 +22,7 @@ import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
 import RediSearch from './components/RediSearch.jsx';
+// import SearchBar from './components/SearchBar';
 
 const cache = new InMemoryCache();
 
@@ -99,7 +100,7 @@ class App extends React.Component {
             <Route path="/active" render={() => <ActiveLessons />} />
             {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
             {/* <Route path="/past" render={() => <PastLessons />}/> */}
-            <Route path="/feed" render={() => <Feed />} />
+            <Route path="/feed" render={(props) => <Feed {...props} />} />
             <Route
               path="/dashboard"
               render={() => (

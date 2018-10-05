@@ -2,9 +2,16 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import { GET_LESSON } from '../apollo/resolvers/backendQueries.js';
 
+let lessonId;
+
 class FeedListItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   displayLessonInfo() {
-    console.log(this.props.data);
+    console.log('DATA IN LIST ITEM', this.props.data);
+    lessonId = this.props.lessonId;
     var data = this.props.data;
     if (data.loading) {
       return <div> Loading lesson ...</div>;
@@ -24,12 +31,13 @@ class FeedListItem extends React.Component {
     }
   }
   render() {
-    return <div>{this.displayLessonInfo()}</div>;
+    return <div>LESSON {this.displayLessonInfo()}</div>;
   }
 }
 
 export default graphql(GET_LESSON, {
   options: (props) => {
+    // console.log('LESSONID IN FEEDLISTITEM', props.lessonId);
     return { variables: { id: props.lessonId } };
   }
 })(FeedListItem);
