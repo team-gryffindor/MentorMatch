@@ -2,29 +2,29 @@ import React from 'react';
 import Navigation from './NavigationBar.jsx';
 // import Header from './Header.jsx';
 // import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
-import Search from './Search.jsx';
+import SearchBar from './SearchBar.jsx';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
 class Dashboard extends React.Component {
-  
-  
-
   render() {
+    console.log('dashboard shown');
     return (
       <div>
-      <h1><Link to='/'>Mentor Match</Link></h1>
+        <h1>
+          <Link to="/">Mentor Match</Link>
+        </h1>
+        <div>
           <div>
-            <div>
-              <Navigation />
-              <Search />
-            </div>
-            {/* <ServiceOfTheDay service={this.props.service} /> */}
-            <div>
-              <h2>Favorites</h2>
-              {/* <LessonList services={props.todaysServices} /> */}
-            </div>
-         </div>
-    </div>
+            {/* <Navigation /> */}
+            <SearchBar />
+          </div>
+          {/* <ServiceOfTheDay service={this.props.service} /> */}
+          <div>
+            <h2>Favorites</h2>
+            {/* <LessonList services={props.todaysServices} /> */}
+          </div>
+        </div>
+      </div>
     );
   }
 }
@@ -39,4 +39,3 @@ class Dashboard extends React.Component {
 // );
 
 export default Dashboard;
-

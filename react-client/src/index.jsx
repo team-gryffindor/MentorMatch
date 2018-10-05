@@ -90,7 +90,7 @@ class App extends React.Component {
             {/* <Route path="/active" render={() => <ActiveLessons />} /> */}
             {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
             {/* <Route path="/past" render={() => <PastLessons />}/> */}
-            {/* <Route path="/feed" render={() => (<Feed />)}/> */}
+            <Route path="/feed" render={() => <Feed />} />
             <Route
               path="/dashboard"
               render={() => <Dashboard isLoggedIn={this.state.isLoggedIn} />}

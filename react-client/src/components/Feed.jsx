@@ -1,15 +1,20 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import Navigation from './NavigationBar.jsx';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-// import LessonList from './LessonList.jsx';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Navigation from './NavigationBar.jsx';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import FeedList from './FeedList.jsx';
+import SearchBar from './SearchBar.jsx';
 
-// const Feed = (props) => (
-//   <div>
-//     <h1>Feed</h1>
-//     {/* <Navigation/> */}
-//     <LessonList style="vertical" />
-//   </div>
-// );
+const Feed = ({ lessonIds }) => {
+  console.log('FEED RESULTS', lessonIds);
+  return (
+    <div>
+      <h1>Feed</h1>
+      <SearchBar />
+      {/* <Navigation/> */}
+      <FeedList />
+    </div>
+  );
+};
 
-// export default Feed;
+export default Feed;
