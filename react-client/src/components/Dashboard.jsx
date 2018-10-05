@@ -1,53 +1,30 @@
 import React from 'react';
-import { gql } from 'apollo-boost';
-import { graphql } from 'react-apollo';
-
 import Navigation from './NavigationBar.jsx';
-import Header from './Header.jsx';
-import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
+// import Header from './Header.jsx';
+// import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 import Search from './Search.jsx';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 
-const getUserInfoQuery = gql`
-  {
-    users {
-      name
-      description
-      cityOfResidence
-    }
-  }
-`;
 class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  
+  
 
-  displayUsers() {
-    var data = this.props.data;
-    if (data.loading) {
-      return <div>Loading books...</div>;
-    } else {
-      return data.users.map((user) => {
-        return <li>{user.name}</li>;
-      });
-    }
-  }
   render() {
-    console.log(this.props); //checking for apollo query return
-
     return (
       <div>
-        <h1>Mentor Match</h1>
-        <ul id="user-list">{this.displayUsers()}</ul>
-        <div>
-          <Navigation />
-          <Search query={this.props.query} />
-        </div>
-        <ServiceOfTheDay service={this.props.service} />
-        <div>
-          <h2>Favorites</h2>
-          <ServiceDisplay services={this.props.favorites} />
-        </div>
-      </div>
+      <h1><Link to='/'>Mentor Match</Link></h1>
+          <div>
+            <div>
+              <Navigation />
+              <Search />
+            </div>
+            {/* <ServiceOfTheDay service={this.props.service} /> */}
+            <div>
+              <h2>Favorites</h2>
+              {/* <ServiceDisplay services={this.props.favorites} /> */}
+            </div>
+         </div>
+    </div>
     );
   }
 }
@@ -61,4 +38,7 @@ const ServiceOfTheDay = ({ service }) => (
   </div>
 );
 
-export default graphql(getUserInfoQuery)(Dashboard);
+export default Dashboard;
+
+
+//

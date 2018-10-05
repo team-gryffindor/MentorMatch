@@ -1,104 +1,89 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { client } from './apollo';
 import { ApolloProvider } from 'react-apollo';
+import ApolloClient from 'apollo-boost';
+import { ApolloLink } from 'apollo-link';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { HttpLink } from 'apollo-link-http';
+import { withClientState } from 'apollo-link-state';
+import localStateDefaults from './apollo/defaults';
+import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries'; 
+
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
 import Feed from './components/Feed.jsx';
-import data from '../dist/data';
 import ActiveLessons from './components/ActiveLessons.jsx';
 import OfferedLessons from './components/OfferedLessons.jsx';
 import PastLessons from './components/PastLessons.jsx';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
+
+
+const cache = new InMemoryCache();
+
+const stateLink = withClientState({
+  cache,
+  defaults: localStateDefaults,
+  resolvers: {
+    Mutation: {
+      updateUserInfo: (_, { theUserName, theDescription, theCityOfResidence, theImage }, { cache }) => {
+        client.writeData({ data: { mentorMatch: {
+          __typename:'mentorMatch',
+          username: theUserName,
+          description: theDescription,
+          cityOfResidence: theCityOfResidence,
+          image: theImage
+          } 
+         }  
+        });
+        }
+    }
+  },
+});
+
+const client = new ApolloClient({
+  link: ApolloLink.from([
+    stateLink,
+    new HttpLink({
+      uri: '/graphql'
+    })
+  ]),
+  cache: cache,
+});
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userInputService: '',
-      userInputLocation: '',
-      serviceData: window.sampleService,
-      locationData: window.sampleLocation,
-      favoritesData: window.sampleService,
-      serviceOfTheDay: window.serviceOfTheDay,
-      todaysTopServices: window.sampleService,
-      userActiveLessons: window.sampleService,
-      userOfferedLessons: window.sampleService,
-      userPastLessons: window.sampleService,
-      userInfo: {
-        username: 'AC130',
-        avatar: 'https://source.unsplash.com/1600x900/?mountain,sunset',
-        location: 'Boston',
-        userDescription:
-          'The pro mutters. Outside a native blinks the jury. An ozone surrounds each dated custom below a dirt. The blessed bathroom peers. A supporting power stirs within the earth.'
-      }
+      isLoggedIn: false 
     };
-    this.querySet = this.querySet.bind(this);
+   this.handleUserLoggingIn = this.handleUserLoggingIn.bind(this);
   }
 
-  querySet(service, location) {
-    //apollo call
-  }
-  componentDidMount() {
-    //set the sate for today's top services
+  handleUserLoggingIn() {
+    this.setState({
+      isLoggedIn: !this.state.isLoggedIn
+    })
   }
 
   render() {
-    const { authenticated, loading } = this.state;
-
-    if (loading) {
-      return <p>Loading...</p>;
-    }
-
     return (
       <ApolloProvider client={client}>
         <Router>
           <div>
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <Home query={this.querySet} todaysServices={this.state.todaysTopServices} />
-              )}
-            />
-            <Route path="/login" render={() => <Login />} />
+            <Route exact path="/" render={() => <Home/>} />
+            <Route path="/login" render={() => <Login handleUserLoggingIn={this.handleUserLoggingIn}/>} />
             <Route path="/signUp" render={() => <SignUp />} />
-            <Route
-              path="/active"
-              render={() => <ActiveLessons lessons={this.state.userActiveLessons} />}
-            />
-            <Route
-              path="/offered"
-              render={() => <OfferedLessons lessons={this.state.userOfferedLessons} />}
-            />
-            <Route
-              path="/past"
-              render={() => <PastLessons lessons={this.state.userPastLessons} />}
-            />
-            <Route
-              path="/feed"
-              render={() => (
-                <Feed services={this.state.serviceData} location={this.state.locationData} />
-              )}
-            />
-            <Route
-              path="/dashboard"
-              render={() => (
-                <Dashboard
-                  query={this.querySet}
-                  service={this.state.serviceOfTheDay}
-                  favorites={this.state.favoritesData}
-                />
-              )}
-            />
-            <Route
-              path="/userProfile"
-              render={() => <UserProfileInfo user={this.state.userInfo} />}
-            />
+            <Route path="/active" render={() => <ActiveLessons />} />
+            <Route path="/offered" render={() => <OfferedLessons />} />
+            <Route path="/past" render={() => <PastLessons />}/>
+            <Route path="/feed" render={() => (<Feed />)}/>
+            <Route path="/dashboard" render={() => (<Dashboard isLoggedIn={this.state.isLoggedIn}/>)} />
+            <Route path="/userProfile" render={() => <UserProfileInfo />} />
             <Route path="/addService" render={() => <AddService />} />
           </div>
         </Router>
@@ -108,3 +93,4 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+

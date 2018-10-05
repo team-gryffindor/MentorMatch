@@ -1,5 +1,7 @@
 const graphql = require('graphql');
 const Models = require('../db/index.js');
+const Sequelize = require('sequelize');
+
 const {
   UserType,
   LessonType,
@@ -61,10 +63,7 @@ const Mutation = new GraphQLObjectType({
           cityOfService: args.cityOfService,
           difficulty: args.difficulty,
           image: args.image,
-          userId: args.userId,
-          // TODO: refactor later for database to handle default values
-          avgRating: 0,
-          numOfReviews: 0
+          userId: args.userId
         })
           .save()
           .then((data) => {
@@ -92,7 +91,22 @@ const Mutation = new GraphQLObjectType({
           userId: args.userId
         })
           .save()
-          .then((data) => data)
+          .then((data) => {
+            return Promise.all([Models.Lesson.findById(data.dataValues.lessonId), data]);
+          })
+          .then((data) => {
+            let lesson = data[0];
+            let rating = data[1];
+            lesson.updateAttributes({
+              numOfReviews: lesson.dataValues.numOfReviews + 1,
+              avgRating: updateRating(
+                lesson.dataValues.numOfReviews,
+                lesson.dataValues.avgRating,
+                rating.dataValues.rating
+              )
+            });
+            return rating;
+          })
           .catch((err) => console.error(err));
       }
     },
@@ -153,5 +167,10 @@ const Mutation = new GraphQLObjectType({
     // removeSignupLesson: {}
   }
 });
+
+const updateRating = (q, avg, r) => {
+  let result = (q * avg + r) / (q + 1);
+  return result;
+};
 
 module.exports = Mutation;

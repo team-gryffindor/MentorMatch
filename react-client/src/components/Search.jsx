@@ -1,19 +1,28 @@
 import React from 'react';
-import { Query, Mutation } from 'react-apollo';
-import { withState } from 'recompose';
-import { gql } from 'apollo-boost';
-import { getUsersQuery } from '../graphql';
+import { Query } from 'react-apollo';
+import { GET_LESSONS } from '/Users/Arjun/Documents/gryffindor/react-client/src/apollo/resolvers/backendQueries.js';
 
 const Search = () => (
-  <Query query={getUsersQuery}>
+  <Query query={GET_LESSONS}>
     {({ loading, error, data }) => {
       if (error) return <h1>Error...</h1>;
       if (loading || !data) return <h1>Loading...</h1>;
-
-      return <h1>{data.mentorMatch.currentUsers}</h1>
-
+      return (
+      <ul>
+        {data.lessons.map((lesson) => {
+          return (
+            <div>
+              <h1>{lesson.title}</h1>
+              <h2>{lesson.avgRating}</h2>
+            </div>
+          )
+    
+        })}
+      </ul>
+      )
     }}
   </Query>
 );
 
 export default Search;
+

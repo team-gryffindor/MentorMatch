@@ -7,7 +7,8 @@ const review = (sequelize, DataTypes) => {
     // },
     // incrementing INTEGER id for easy development
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    rating: DataTypes.FLOAT,
+    title: DataTypes.TEXT,
+    rating: DataTypes.SMALLINT,
     comment: DataTypes.TEXT
   });
 
