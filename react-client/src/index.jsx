@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
+<<<<<<< HEAD
 import ApolloClient from 'apollo-boost';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -9,7 +10,11 @@ import { HttpLink } from 'apollo-link-http';
 import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
 import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries'; 
+=======
+import ApolloClient, { gql } from 'apollo-boost';
+>>>>>>> dev
 
+// components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
@@ -66,10 +71,25 @@ class App extends React.Component {
 
   handleUserLoggingIn() {
     this.setState({
+<<<<<<< HEAD
       isLoggedIn: !this.state.isLoggedIn
     })
   }
 
+=======
+      userFavoritesData: favorites,
+      userActiveLessons: active,
+      userOfferedLessons: offered
+    });
+  }
+
+  componentDidMount() {
+    //set the state for today's top services
+  }
+
+  getUser() {}
+
+>>>>>>> dev
   render() {
     return (
       <ApolloProvider client={client}>

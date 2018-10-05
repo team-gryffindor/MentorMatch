@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const getUser = gql`
+const GET_USER = gql`
   query($id: ID!) {
     user(id: $id) {
       name
@@ -57,7 +57,7 @@ const GET_LESSONS = gql`
   }
 `;
 
-const AddUser = gql`
+const ADD_USER = gql`
   mutation($name: String!, $description: String!, $cityOfResidence: String!, $image: String!) {
     addUser(
       name: $name
@@ -74,7 +74,7 @@ const AddUser = gql`
   }
 `;
 
-const AddLesson = gql`
+const ADD_LESSON = gql`
   mutation(
     $title: String!
     $description: String!
@@ -103,7 +103,7 @@ const AddLesson = gql`
   }
 `;
 
-const AddReview = gql`
+const ADD_REVIEW = gql`
   mutation($title: String!, $comment: String!, $rating: Number!, $lessonId: ID!, $userId: ID!) {
     addReview(
       title: $title
@@ -119,7 +119,7 @@ const AddReview = gql`
   }
 `;
 
-const AddSignupLesson = gql`
+const ADD_SIGNUP_LESSON = gql`
   mutation($userId: ID!, $lessonId: ID!, $date: String!) {
     addSignupLesson(userId: $userId, lessonId: $lessonId, date: $date) {
       userId
@@ -129,7 +129,7 @@ const AddSignupLesson = gql`
   }
 `;
 
-const AddFavoriteLesson = gql`
+const ADD_FAVORITE_LESSON = gql`
   mutation($userId: ID!, $lessonId: ID!) {
     addSignupLesson(userId: $userId, lessonId: $lessonId) {
       userId
@@ -138,4 +138,4 @@ const AddFavoriteLesson = gql`
   }
 `;
 
-export { getUser, GET_LESSON, GET_LESSONS, AddUser, AddLesson, AddReview, AddSignupLesson, AddFavoriteLesson };
+export { GET_USER, GET_LESSON, GET_LESSONS, ADD_USER, ADD_LESSON, ADD_REVIEW, ADD_SIGNUP_LESSON, ADD_FAVORITE_LESSON };
