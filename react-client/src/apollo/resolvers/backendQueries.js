@@ -99,15 +99,17 @@ const ADD_LESSON = gql`
   ) {
     addLesson(
       title: $title
-      cityOfService: $cityOfService
       description: $description
-      category: $category
+      cityOfService: $cityOfService
+      image: $image
       difficulty: $difficulty
       userId: $userId
+      category: $category
     ) {
       title
       description
       cityOfService
+      image
       category
       difficulty
       avgRating

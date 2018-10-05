@@ -17,14 +17,14 @@ const Navigation = (props) => {
   let loggedIn = <li><a><button onClick={() => {firebase.auth().signOut().then(() => props.handleUserLoggingIn())}}>
     <Link to='/'>Logout!</Link></button></a></li>;
 
-  let loggedOut = <li><a><button onClick={() => props.handleUserLoggingIn()}><Link to="/login">Login</Link></button></a></li>
+  let loggedOut = <li><a><button ><Link to="/login">Login</Link></button></a></li>
 
   if (props.isLoggedIn === true) {
     return ( 
     <div>
       <ul>
         {loggedIn}
-        <li><a><Link to="/userProfile">My Profile</Link></a></li>
+        {/* <li><a><Link to="/userProfile">My Profile</Link></a></li> */}
         <li><a><Link to="/addService">Create a new service</Link></a></li>
         <li><a><Link to="/userProfile">My Profile</Link></a></li>
         <li><a><Link to="/dashboard">Dashboard</Link></a></li>
