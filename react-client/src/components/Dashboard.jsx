@@ -10,22 +10,42 @@ class Dashboard extends React.Component {
   
 
   render() {
-    return (
-      <div>
-      <h1><Link to='/'>Mentor Match</Link></h1>
-          <div>
+    if (this.props.isLoggedIn) {
+      return (
+        <div>
+        <h1><Link to='/'>Mentor Match</Link></h1>
             <div>
-            <Navigation isLoggedIn={this.props.isLoggedIn} handleUserLoggingIn={this.props.handleUserLoggingIn}/> 
-              <Search />
-            </div>
-            {/* <ServiceOfTheDay service={this.props.service} /> */}
-            <div>
-              <h2>Favorites</h2>
-              {/* <LessonList services={props.todaysServices} /> */}
-            </div>
-         </div>
-    </div>
-    );
+              <div>
+              <Navigation isLoggedIn={this.props.isLoggedIn} handleUserLoggingIn={this.props.handleUserLoggingIn}/> 
+                <Search />
+              </div>
+              {/* <ServiceOfTheDay service={this.props.service} /> */}
+              <div>
+                <h2>Favorites</h2>
+                {/* <LessonList services={props.todaysServices} /> */}
+              </div>
+           </div>
+      </div>
+      );
+    } else {
+      return (<Redirect to='/'/>)
+    }
+    // return (
+    //   <div>
+    //   <h1><Link to='/'>Mentor Match</Link></h1>
+    //       <div>
+    //         <div>
+    //         <Navigation isLoggedIn={this.props.isLoggedIn} handleUserLoggingIn={this.props.handleUserLoggingIn}/> 
+    //           <Search />
+    //         </div>
+    //         {/* <ServiceOfTheDay service={this.props.service} /> */}
+    //         <div>
+    //           <h2>Favorites</h2>
+    //           {/* <LessonList services={props.todaysServices} /> */}
+    //         </div>
+    //      </div>
+    // </div>
+    // );
   }
 }
 

@@ -19,7 +19,7 @@ class Home extends React.Component {
     return(
       <div>
         <h1>Mentor Match</h1>
-        <Navigation isLoggedIn={this.props.isLoggedIn} handleUserLoggingIn={this.handleUserLoggingIn}/> 
+        <Navigation isLoggedIn={this.props.isLoggedIn} handleUserLoggingIn={this.props.handleUserLoggingIn}/> 
 
         {/* <Search query={props.query} /> */}
         <h1>Today's Top Services</h1>
