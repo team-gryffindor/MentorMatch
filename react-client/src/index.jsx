@@ -1,7 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient, { gql } from 'apollo-boost';
+import ApolloClient from 'apollo-boost';
+import { ApolloLink } from 'apollo-link';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { HttpLink } from 'apollo-link-http';
+import { withClientState } from 'apollo-link-state';
+import localStateDefaults from './apollo/defaults';
+import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries';
 
 // components
 import Home from './components/Home.jsx';
@@ -65,17 +72,9 @@ class App extends React.Component {
 
   handleUserLoggingIn() {
     this.setState({
-      userFavoritesData: favorites,
-      userActiveLessons: active,
-      userOfferedLessons: offered
+      isLoggedIn: !this.state.isLoggedIn
     });
   }
-
-  componentDidMount() {
-    //set the state for today's top services
-  }
-
-  getUser() {}
 
   render() {
     return (
@@ -87,17 +86,17 @@ class App extends React.Component {
               path="/login"
               render={() => <Login handleUserLoggingIn={this.handleUserLoggingIn} />}
             />
-            <Route path="/signUp" render={() => <SignUp />} />
-            <Route path="/active" render={() => <ActiveLessons />} />
-            <Route path="/offered" render={() => <OfferedLessons />} />
-            <Route path="/past" render={() => <PastLessons />} />
-            <Route path="/feed" render={() => <Feed />} />
+            {/* <Route path="/signUp" render={() => <SignUp />} /> */}
+            {/* <Route path="/active" render={() => <ActiveLessons />} /> */}
+            {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
+            {/* <Route path="/past" render={() => <PastLessons />}/> */}
+            {/* <Route path="/feed" render={() => (<Feed />)}/> */}
             <Route
               path="/dashboard"
               render={() => <Dashboard isLoggedIn={this.state.isLoggedIn} />}
             />
-            <Route path="/userProfile" render={() => <UserProfileInfo />} />
-            <Route path="/addService" render={() => <AddService />} />
+            {/* <Route path="/userProfile" render={() => <UserProfileInfo />} /> */}
+            {/* <Route path="/addService" render={() => <AddService />} /> */}
           </div>
         </Router>
       </ApolloProvider>
