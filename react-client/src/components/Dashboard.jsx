@@ -1,5 +1,5 @@
 import React from 'react';
-import Navigation from './NavigationBar.jsx';
+// import Navigation from './NavigationBar.jsx';
 // import Header from './Header.jsx';
 // import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 import Search from './Search.jsx';
@@ -15,7 +15,7 @@ class Dashboard extends React.Component {
       <h1><Link to='/'>Mentor Match</Link></h1>
           <div>
             <div>
-              <Navigation />
+              {/* <Navigation /> */}
               <Search />
             </div>
             {/* <ServiceOfTheDay service={this.props.service} /> */}

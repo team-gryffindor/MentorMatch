@@ -84,7 +84,7 @@ class App extends React.Component {
             {/* <Route path="/past" render={() => <PastLessons />}/> */}
             {/* <Route path="/feed" render={() => (<Feed />)}/> */}
             <Route path="/dashboard" render={() => (<Dashboard isLoggedIn={this.state.isLoggedIn}/>)} />
-            {/* <Route path="/userProfile" render={() => <UserProfileInfo />} /> */}
+            <Route path="/userProfile" render={() => <UserProfileInfo />} />
             {/* <Route path="/addService" render={() => <AddService />} /> */}
           </div>
         </Router>
@@ -94,4 +94,9 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+
+
+
+
 
