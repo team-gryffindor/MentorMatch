@@ -7,7 +7,8 @@ class Search extends React.Component {
     super(props);
     this.state = {
       serviceQuery: '',
-      locationQuery: ''
+      locationQuery: '',
+      results: []
     };
     this.handleServiceInputChange = this.handleServiceInputChange.bind(this);
     this.handleLocationInputChange = this.handleLocationInputChange.bind(this);
@@ -54,7 +55,7 @@ class Search extends React.Component {
             }
             placeholder="Location"
           />
-          <button onClick={props.handleClick}>
+          <button onClick={this.handleClick}>
             <Link to="/feed">Search</Link>
           </button>
           <button>
