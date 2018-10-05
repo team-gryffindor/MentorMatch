@@ -21,6 +21,7 @@ import PastLessons from './components/PastLessons.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
+import LessonContent from './components/LessonContent.jsx';
 
 const cache = new InMemoryCache();
 
@@ -111,6 +112,14 @@ class App extends React.Component {
             />
             {/* <Route path="/userProfile" render={() => <UserProfileInfo />} /> */}
             {/* <Route path="/addService" render={() => <AddService />} /> */}
+            <Route
+              exact
+              path="/lessoncontent/:lessonId"
+              render={({ location }) => {
+                let lesson = location.state.lesson;
+                return <LessonContent lesson={lesson} id={lesson.id} />;
+              }}
+            />
           </div>
         </Router>
       </ApolloProvider>

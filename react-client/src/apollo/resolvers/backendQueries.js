@@ -53,8 +53,12 @@ const GET_LESSONS = gql`
     lessons {
       title
       id
+      description
       avgRating
       numOfReviews
+      provider {
+        name
+      }
       reviews {
         title
         rating
