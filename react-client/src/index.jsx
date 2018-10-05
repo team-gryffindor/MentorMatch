@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { HttpLink } from 'apollo-link-http';
 import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
-import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries'; 
+import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries';
 
 // components
 import Home from './components/Home.jsx';
@@ -22,7 +22,6 @@ import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddService from './components/AddService.jsx';
 
-
 const cache = new InMemoryCache();
 
 const stateLink = withClientState({
@@ -30,19 +29,26 @@ const stateLink = withClientState({
   defaults: localStateDefaults,
   resolvers: {
     Mutation: {
-      updateUserInfo: (_, { theUserName, theDescription, theCityOfResidence, theImage }, { cache }) => {
-        client.writeData({ data: { mentorMatch: {
-          __typename:'mentorMatch',
-          username: theUserName,
-          description: theDescription,
-          cityOfResidence: theCityOfResidence,
-          image: theImage
-          } 
-         }  
+      updateUserInfo: (
+        _,
+        { theUserId, theUserName, theDescription, theCityOfResidence, theImage },
+        { cache }
+      ) => {
+        client.writeData({
+          data: {
+            mentorMatch: {
+              __typename: 'mentorMatch',
+              userId: theUserId,
+              username: theUserName,
+              description: theDescription,
+              cityOfResidence: theCityOfResidence,
+              image: theImage
+            }
+          }
         });
-        }
+      }
     }
-  },
+  }
 });
 
 const client = new ApolloClient({
@@ -52,23 +58,22 @@ const client = new ApolloClient({
       uri: '/graphql'
     })
   ]),
-  cache: cache,
+  cache: cache
 });
-
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false 
+      isLoggedIn: false
     };
-   this.handleUserLoggingIn = this.handleUserLoggingIn.bind(this);
+    this.handleUserLoggingIn = this.handleUserLoggingIn.bind(this);
   }
 
   handleUserLoggingIn() {
     this.setState({
       isLoggedIn: !this.state.isLoggedIn
-    })
+    });
   }
 
   render() {
@@ -94,4 +99,3 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
-
