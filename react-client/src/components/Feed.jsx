@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Navigation from './NavigationBar.jsx';
+import Search from './Search.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import LessonList from './LessonList.jsx';
 
 const Feed = (props) => (
   <div>
+    <Search />
     <h1>Feed</h1>
     {/* <Navigation/> */}
     <LessonList style="vertical" />

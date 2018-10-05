@@ -29,7 +29,7 @@ class Search extends React.Component {
   handleClick() {
     // call this within call to get stock api
     axios
-      .get('/search', { params: { q: this.state.serviceQuery } })
+      .get('/search', { params: { q: this.state.serviceQuery + ' ' + this.state.locationQuery } })
       .then(({ data }) => {
         console.log('GETTING QUERY RESULTS', data);
         this.setState({ results: data });
@@ -50,9 +50,7 @@ class Search extends React.Component {
           />
           <input
             value={this.state.location}
-            onChange={(e) =>
-              this.setState({ userInputLocation: e.target.value }, () => this.setIndexState())
-            }
+            onChange={this.handleLocationInputChange}
             placeholder="Location"
           />
           <button onClick={this.handleClick}>
