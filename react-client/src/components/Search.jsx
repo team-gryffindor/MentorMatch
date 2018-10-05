@@ -1,6 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
-import { GET_LESSONS } from '/Users/Arjun/Documents/gryffindor/react-client/src/apollo/resolvers/backendQueries.js';
+import { GET_LESSONS } from '../apollo/resolvers/backendQueries.js';
 
 const Search = () => (
   <Query query={GET_LESSONS}>
