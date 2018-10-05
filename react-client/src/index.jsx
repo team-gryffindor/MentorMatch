@@ -81,36 +81,16 @@ class App extends React.Component {
       <ApolloProvider client={client}>
         <Router>
           <div>
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <Home
-                  isLoggedIn={this.state.isLoggedIn}
-                  handleUserLoggingIn={this.handleUserLoggingIn}
-                />
-              )}
-            />
-            <Route
-              path="/login"
-              render={() => <Login handleUserLoggingIn={this.handleUserLoggingIn} />}
-            />
+            <Route exact path="/" render={() => <Home isLoggedIn={this.state.isLoggedIn} handleUserLoggingIn={this.handleUserLoggingIn}/>} />
+            <Route path="/login" render={() => <Login handleUserLoggingIn={this.handleUserLoggingIn} isLoggedIn={this.state.isLoggedIn}/>} />
             {/* <Route path="/signUp" render={() => <SignUp />} /> */}
             <Route path="/active" render={() => <ActiveLessons />} />
             {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
             {/* <Route path="/past" render={() => <PastLessons />}/> */}
             {/* <Route path="/feed" render={() => (<Feed />)}/> */}
-            <Route
-              path="/dashboard"
-              render={() => (
-                <Dashboard
-                  isLoggedIn={this.state.isLoggedIn}
-                  handleUserLoggingIn={this.handleUserLoggingIn}
-                />
-              )}
-            />
-            {/* <Route path="/userProfile" render={() => <UserProfileInfo />} /> */}
-            {/* <Route path="/addService" render={() => <AddService />} /> */}
+            <Route path="/dashboard" render={() => (<Dashboard isLoggedIn={this.state.isLoggedIn} handleUserLoggingIn={this.handleUserLoggingIn}/>)} />
+            <Route path="/userProfile" render={() => <UserProfileInfo />} />
+            <Route path="/addService" render={() => <AddService />} />
           </div>
         </Router>
       </ApolloProvider>
