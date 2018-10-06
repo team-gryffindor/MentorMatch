@@ -1,5 +1,4 @@
 import React from 'react';
-import ReviewList from './ReviewList.jsx';
 
 const LessonContent = ({ lesson }) => (
   <div>
@@ -9,7 +8,6 @@ const LessonContent = ({ lesson }) => (
     <span>
       rating: {lesson.avgRating} <br /> {lesson.numOfReviews} reviews
     </span>
-    <ReviewList reviews={lesson.reviews} />
   </div>
 );
 
