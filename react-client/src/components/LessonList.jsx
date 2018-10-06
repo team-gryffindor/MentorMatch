@@ -11,13 +11,13 @@ class LessonList extends React.Component {
   }
 
   displayList() {
-    let lessons = this.props.data;
-    if (lessons.loading) {
+    if (this.props.data.loading) {
       return <div> Loading test ...</div>;
     } else {
+      let lessons = this.props.data.lessons;
       return (
         <div className={this.props.style}>
-          {lessons.lessons.map((lesson, i) => (
+          {lessons.map((lesson, i) => (
             <LessonListItem lesson={lesson} key={i} />
           ))}
           {console.log(lessons)}
