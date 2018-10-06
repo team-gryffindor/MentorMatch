@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import { ApolloLink } from 'apollo-link';
@@ -14,7 +15,7 @@ import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries';
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
 import SignUp from './components/SignUp.jsx';
-import Feed from './components/Feed.jsx';
+import SearchFeed from './components/SearchFeed.jsx';
 import ActiveLessons from './components/ActiveLessons.jsx';
 import OfferedLessons from './components/OfferedLessons.jsx';
 import PastLessons from './components/PastLessons.jsx';
@@ -105,7 +106,7 @@ class App extends React.Component {
             <Route path="/active" render={() => <ActiveLessons />} />
             {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
             {/* <Route path="/past" render={() => <PastLessons />}/> */}
-            {/* <Route path="/feed" render={() => (<Feed />)}/> */}
+            <Route path="/feed" render={() => <SearchFeed />} />
             <Route
               path="/dashboard"
               render={() => (
