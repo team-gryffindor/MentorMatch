@@ -10,7 +10,7 @@ const user = (sequelize, DataTypes) => {
     // firebase unique user id
     // TODO: wait for signup
     uid: {
-      type: DataTypes.UUID,
+      type: DataTypes.STRING,
       unique: true
       // primaryKey: true
     },
