@@ -20,7 +20,7 @@ import OfferedLessons from './components/OfferedLessons.jsx';
 import PastLessons from './components/PastLessons.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
-import AddService from './components/AddService.jsx';
+import AddLesson from './components/AddLesson.jsx';
 import LessonContent from './components/LessonContent.jsx';
 import ProfilePage from './components/ProfilePage.jsx';
 
@@ -122,7 +122,7 @@ class App extends React.Component {
               path="/lessonContent/:lessonId"
               render={({ location }) => <LessonContent lesson={location.state.lesson} />}
             />
-            <Route path="/addService" render={() => <AddService />} />
+            <Route path="/AddLesson" render={() => <AddLesson />} />
           </div>
         </Router>
       </ApolloProvider>

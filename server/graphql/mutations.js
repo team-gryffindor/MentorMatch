@@ -52,7 +52,7 @@ const Mutation = new GraphQLObjectType({
         cityOfService: { type: GraphQLString },
         category: { type: GraphQLString },
         difficulty: { type: GraphQLString },
-        userId: { type: GraphQLString }
+        userId: { type: GraphQLID }
       },
       resolve(parent, args) {
         // sequelize to add user
