@@ -31,7 +31,6 @@ class LessonListItem extends React.Component {
                 <StarRatings
                   rating={Number(data.lesson.avgRating.toFixed(2))}
                   starRatedColor="blue"
-                  changeRating={this.changeRating}
                   numberOfStars={5}
                   starDimension="15px"
                   starSpacing="1px"
