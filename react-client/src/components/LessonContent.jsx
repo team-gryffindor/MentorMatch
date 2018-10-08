@@ -4,6 +4,8 @@ import ReviewList from './ReviewList.jsx';
 const LessonContent = ({ lesson }) => (
   <div>
     <h1>{lesson.title}</h1>
+    {console.log(lesson)}
+      <span>{lesson.provider.name}</span>
     <div>
       <label>description
         <p>{lesson.description}</p>
@@ -24,6 +26,11 @@ const LessonContent = ({ lesson }) => (
         <p>{lesson.category}</p>
       </label>
     </div>
+    <div>
+       <h1>Reviews</h1>
+        <ReviewList reviews={lesson.reviews}/>
+    </div>
+    
   </div>
 );
 

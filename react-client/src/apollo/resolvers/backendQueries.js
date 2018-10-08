@@ -46,6 +46,14 @@ const GET_LESSON = gql`
       category
       difficulty
       avgRating
+      provider {
+        name
+      }
+      reviews {
+        title
+        comment
+        rating
+      }
       numOfReviews
     }
   }
