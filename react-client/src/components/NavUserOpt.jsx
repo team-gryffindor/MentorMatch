@@ -18,9 +18,9 @@ const NavUserOpt = (prop) => (
           <i className="fas fa-user" />
         </a>
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a className="dropdown-item" href="#">
+          <a className="dropdown-item" href="#"><Link to='/userProfile'>
             Profile
-          </a>
+            </Link></a>
           <div className="dropdown-divider" />
           <a
             className="dropdown-item"

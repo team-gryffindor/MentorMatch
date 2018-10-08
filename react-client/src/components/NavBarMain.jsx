@@ -20,7 +20,7 @@ class NavBarMain extends React.Component {
         <NavLogo />
         {this.props.currentPath !== '/' && <NavSearchBar />}
         {this.props.isLoggedIn ? (
-          <NavUserOpt handleUserLoggingIn={handleUserLoggingIn} />
+          <NavUserOpt handleUserLoggingIn={this.props.handleUserLoggingIn} />
         ) : (
           <NavGuestOpt />
         )}
