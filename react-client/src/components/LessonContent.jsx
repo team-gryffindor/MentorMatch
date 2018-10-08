@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewList from './ReviewList.jsx';
+import WriteReview from './WriteReview.jsx';
 
 class LessonContent extends React.Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class LessonContent extends React.Component {
           rating: {this.props.lesson.avgRating} <br /> {this.props.lesson.numOfReviews} reviews
         </span>
         <ReviewList reviews={this.props.lesson.reviews} />
+        {console.log(this.props.lesson.id)}
+        <WriteReview />
       </div>
     );
   }

@@ -77,7 +77,7 @@ const Mutation = new GraphQLObjectType({
       args: {
         title: { type: GraphQLString },
         comment: { type: GraphQLString },
-        rating: { type: GraphQLFloat },
+        rating: { type: GraphQLInt },
         lessonId: { type: GraphQLID },
         userId: { type: GraphQLID }
       },

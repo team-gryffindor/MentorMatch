@@ -123,7 +123,7 @@ class App extends React.Component {
               path="/lessonContent/:lessonId"
               render={({ location }) => <LessonContent lesson={location.state.lesson} />}
             />
-            <Route path="/AddLesson" render={() => <AddLesson />} />
+            <Route path="/addLesson" render={() => <AddLesson />} />
           </div>
         </Router>
       </ApolloProvider>
