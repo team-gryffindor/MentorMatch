@@ -20,8 +20,8 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSignedIn: false,
-      uID: null
+      // isSignedIn: false,
+      // uID: null
     };
     this.uiConfig = {
       signInFlow: 'popup',
@@ -40,7 +40,7 @@ class Login extends React.Component {
     firebase.auth().onAuthStateChanged((user) => {
       console.log(user);
       if(user === null){
-        
+        this.props.handleUserLoggingIn(false, null);
       } else {
         this.props.handleUserLoggingIn(true, user.uid);
       }
@@ -51,7 +51,7 @@ class Login extends React.Component {
 
   render() {
     {
-      if (this.state.isSignedIn === false) {
+      if (this.props.isLoggedIn === false) {
         return (
           <div className="Login">
             <h1>Welcome to </h1>
@@ -65,41 +65,46 @@ class Login extends React.Component {
             </div>
           </div>
         );
-      } else if (this.state.isSignedIn === true){
+      } else if (this.props.isLoggedIn === true) {
         return (
-          <div>
-              <Query query={GET_USER} variables={{ id: this.state.uID }}>
-                {({ loading, error, data }) => {
-                  if (error) return <h1>error</h1>;
-                  if (loading) {
-                    return <div> Loading test ...</div>;
-                  } else {
-                      if(data.id === null) {
-                        return <Redirect to="/signup" />
-                      } else {
-                        const userid = data.id
-                    return (
-                      <Mutation mutation={UPDATE_USER_INFO}>
-                          {(updateUserInfo, { data }) => (
-                            updateUserInfo({variables: { userId: userId, username: data.name, description: data.description, cityOfResidence: data.city, image: data.image}})
-
-                          )}
-                      </Mutation>
-                      );
-                    }
-                }
-                }}
-                      
-              </Query>
-            <div className="Login">
-            <Redirect to={{
-                pathname: '/dashboard',
-                state: { firebaseId: this.state.uID }
-            }} />
+          // <div>
+          //   <Query query={GET_USER} variables={{ id: this.state.uID }}>
+          //     {({ loading, error, data }) => {
+          //       if (error) return <h1>error</h1>;
+          //       if (loading) {
+          //         return <div> Loading test ...</div>;
+          //       } else {
+          //         if (data.id === null) {
+          //           return <Redirect to="/signup" />;
+          //         } else {
+          //           const userid = data.id;
+          //           return (
+          //             <Mutation mutation={UPDATE_USER_INFO}>
+          //               {(updateUserInfo, { data }) =>
+          //                 updateUserInfo({
+          //                   variables: {
+          //                     userId: userId,
+          //                     username: data.name,
+          //                     description: data.description,
+          //                     cityOfResidence: data.city,
+          //                     image: data.image
+          //                   }
+          //                 })
+          //               }
+          //             </Mutation>
+          //           );
+          //         }
+          //       }
+          //     }}
+          //   </Query>
+          //   <div className="Login">
+            // <Redirect to={{
+            //     pathname: '/dashboard',
+            //     state: { firebaseId: this.state.uID }
+            // }} />
               <Redirect to="/dashboard" userInfo={this.state.userInfo} />
-            </div>
-          </div>
-         
+          //   </div>
+          // </div>
         );
       }
     }
@@ -107,5 +112,3 @@ class Login extends React.Component {
 }
 
 export default Login;
-
-

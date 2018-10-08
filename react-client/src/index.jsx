@@ -20,9 +20,11 @@ import OfferedLessons from './components/OfferedLessons.jsx';
 import PastLessons from './components/PastLessons.jsx';
 import Dashboard from './components/Dashboard.jsx';
 import UserProfileInfo from './components/UserProfileInfo.jsx';
-import AddService from './components/AddService.jsx';
+import AddLesson from './components/AddLesson.jsx';
 import LessonContent from './components/LessonContent.jsx';
 import ProfilePage from './components/ProfilePage.jsx';
+import NavBarMain from './components/NavBarMain.jsx';
+import NavigationBar from './components/NavigationBar.jsx';
 
 const cache = new InMemoryCache();
 
@@ -74,6 +76,7 @@ class App extends React.Component {
   }
 
   handleUserLoggingIn(boolean, firebaseID) {
+    console.log('USER IS LOGGED IN AND FIREBASE PASSED')
     this.setState({
       isLoggedIn: boolean,
       firebaseID: firebaseID
@@ -86,6 +89,11 @@ class App extends React.Component {
       <ApolloProvider client={client}>
         <Router>
           <div>
+            <NavBarMain
+              isLoggedIn={this.state.isLoggedIn}
+              handleUserLoggingIn={this.handleUserLoggingIn}
+            />
+            {/* <NavigationBar /> */}
             <Route
               exact
               path="/"
@@ -125,7 +133,7 @@ class App extends React.Component {
               path="/lessonContent/:lessonId"
               render={({ location }) => <LessonContent lesson={location.state.lesson} />}
             />
-            <Route path="/addService" render={() => <AddService />} />
+            <Route path="/addLesson" render={() => <AddLesson />} />
           </div>
         </Router>
       </ApolloProvider>

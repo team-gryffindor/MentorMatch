@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header.jsx';
-import LessonListItem from './LessonListItem.jsx';
+import UserLessonListItem from './UserLessonListItem.jsx';
 import { graphql, Query } from 'react-apollo';
 import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries.js';
 import { GET_USER } from '../apollo/resolvers/backendQueries.js';
@@ -14,7 +14,7 @@ class UserLessonList extends React.Component {
   render() {
     // figure out date filter
     return (
-      <Query query={GET_USER} variables={{ id: this.props.userId }}>
+      <Query query={GET_USER} variables={{ id: String(this.props.userId) }}>
         {({ loading, error, data }) => {
           if (error) return <h1>error</h1>;
           if (loading) {
@@ -24,26 +24,26 @@ class UserLessonList extends React.Component {
             if (this.props.lessonType === 'signupLessons') {
               if (this.props.upcoming) {
                 return (
-                  <div className={this.props.style}>
+                  <div className={`${this.props.style} list-group`}>
                     {lessons.filter((lesson) => lesson.date > Date.now()).map((lesson, i) => (
-                      <LessonListItem lesson={lesson} key={i} />
+                      <UserLessonListItem lesson={lesson} key={i} />
                     ))}
                   </div>
                 );
               } else {
                 return (
-                  <div className={this.props.style}>
+                  <div className={`${this.props.style} list-group`}>
                     {lessons.filter((lesson) => lesson.date < Date.now()).map((lesson, i) => (
-                      <LessonListItem lesson={lesson} key={i} />
+                      <UserLessonListItem lesson={lesson} key={i} />
                     ))}
                   </div>
                 );
               }
             }
             return (
-              <div className={this.props.style}>
+              <div className={`${this.props.style} list-group`}>
                 {lessons.map((lesson, i) => (
-                  <LessonListItem lesson={lesson} key={i} />
+                  <UserLessonListItem lesson={lesson} key={i} />
                 ))}
               </div>
             );
