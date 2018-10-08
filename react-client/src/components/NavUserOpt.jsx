@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
+import {Link} from 'react-router-dom';
 
 const NavUserOpt = (prop) => (
   <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
