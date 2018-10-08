@@ -90,7 +90,7 @@ class App extends React.Component {
               isLoggedIn={this.state.isLoggedIn}
               handleUserLoggingIn={this.handleUserLoggingIn}
             />
-            <NavigationBar />
+            {/* <NavigationBar /> */}
             <Route
               exact
               path="/"

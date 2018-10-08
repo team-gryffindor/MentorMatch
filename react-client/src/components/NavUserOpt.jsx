@@ -30,7 +30,7 @@ const NavUserOpt = (prop) => (
                 .then(() => prop.handleUserLoggingIn());
             }}
           >
-            Logout
+            <Link to={{ pathname: '/' }}>Logout</Link>
           </a>
         </div>
       </li>
