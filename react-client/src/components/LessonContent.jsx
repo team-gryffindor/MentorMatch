@@ -3,13 +3,27 @@ import ReviewList from './ReviewList.jsx';
 
 const LessonContent = ({ lesson }) => (
   <div>
-    <h2>{lesson.title}</h2>
-    <h4>{lesson.provider.name}</h4>
-    <p>{lesson.description}</p>
-    <span>
-      rating: {lesson.avgRating} <br /> {lesson.numOfReviews} reviews
-    </span>
-    <ReviewList reviews={lesson.reviews} />
+    <h1>{lesson.title}</h1>
+    <div>
+      <label>description
+        <p>{lesson.description}</p>
+      </label>
+    </div>
+    <div>
+      <label>Category: 
+        <p>{lesson.category}</p>
+      </label>
+    </div>
+    <div>
+      <label>Location: 
+        <p>{lesson.cityOfService}</p>
+      </label>
+    </div>
+    <div>
+      <label>Difficulty: 
+        <p>{lesson.category}</p>
+      </label>
+    </div>
   </div>
 );
 
