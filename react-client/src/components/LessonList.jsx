@@ -13,15 +13,15 @@ class LessonList extends React.Component {
   displayList() {
     let lessons = this.props.data;
     if (lessons.loading) {
-      return <div> Loading test ...</div>;
+      return <div> Loading ...</div>;
     } else {
       return (
-        <div className={this.props.style}>
+        <ul className={`list-group ${this.props.style}`}>
           {lessons.lessons.map((lesson, i) => (
             <LessonListItem lesson={lesson} key={i} />
           ))}
           {console.log(lessons)}
-        </div>
+        </ul>
       );
     }
   }
