@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider, Mutation } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -76,13 +76,12 @@ class App extends React.Component {
   }
 
   handleUserLoggingIn(boolean, firebaseID) {
-    console.log('USER IS LOGGED IN AND FIREBASE PASSED')
+    console.log('USER IS LOGGED IN AND FIREBASE PASSED');
     this.setState({
       isLoggedIn: boolean,
       firebaseID: firebaseID
     });
   }
-
 
   render() {
     return (
@@ -107,13 +106,19 @@ class App extends React.Component {
             <Route
               path="/login"
               render={() => (
-                <Login
-                  handleUserLoggingIn={this.handleUserLoggingIn}
-                  isLoggedIn={this.state.isLoggedIn}
-                />
+                <Mutation mutation={UPDATE_USER_INFO}>
+                  {(updateUserInfo) => (
+                    <Login
+                      updateUserInfo={updateUserInfo}
+                      handleUserLoggingIn={this.handleUserLoggingIn}
+                      isLoggedIn={this.state.isLoggedIn}
+                      uid={this.state.firebaseID}
+                    />
+                  )}
+                </Mutation>
               )}
             />
-            <Route path="/signUp" render={() => <SignUp firebaseID={this.state.firebaseID}/>} />
+            <Route path="/signUp" render={() => <SignUp firebaseID={this.state.firebaseID} />} />
             <Route path="/active" render={() => <ActiveLessons />} />
             {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
             {/* <Route path="/past" render={() => <PastLessons />}/> */}

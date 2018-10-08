@@ -59,6 +59,19 @@ const GET_USER = gql`
   }
 `;
 
+const CHECK_USER = gql`
+  query($uid: ID!) {
+    checkUser(uid: $uid) {
+      id
+      uid
+      name
+      description
+      image
+      cityOfResidence
+    }
+  }
+`;
+
 const GET_LESSON = gql`
   query($id: ID!) {
     lesson(id: $id) {
@@ -185,6 +198,7 @@ const ADD_FAVORITE_LESSON = gql`
 
 export {
   GET_USER,
+  CHECK_USER,
   GET_LESSON,
   GET_LESSONS,
   ADD_USER,
