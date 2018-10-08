@@ -1,18 +1,43 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Query } from 'react-apollo';
+import { GET_LESSON } from '../apollo/resolvers/backendQueries.js';
+import { Link } from 'react-router-dom';
 
-const LessonListItem = ({ lesson }) => (
-  <li className="list-group-item">
-    <Link to={{ pathname: `/lessoncontent/${lesson.id}`, state: { lesson: lesson } }}>
-      <h5 className="mb-1"> {lesson.title}</h5>
-      <small>
-        {lesson.avgRating}
-        /5.0
-      </small>
-      <small>{lesson.numOfReviews} reviews</small>
-      <p>{lesson.description}</p>
-    </Link>
-  </li>
-);
+class LessonListItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <Query query={GET_LESSON} variables={{ id: this.props.lessonId }}>
+        {({ loading, error, data }) => {
+          if (error) return <p>Error! Could not retrieve the results.</p>;
+          if (loading || !data) return <p>Loading Results...</p>;
+          return (
+            <Link
+              to={{
+                pathname: `/lessoncontent/${this.props.lessonId}`,
+                state: { lesson: data.lesson }
+              }}
+            >
+              <div className="list-group-item list-group-item-action flex-column align-items-start">
+                <div className="d-flex w-100 justify-content-between">
+                  <h5 className="mb-1">{data.lesson.title}</h5>
+                  <small className="text-muted">{data.lesson.cityOfService}</small>
+                </div>
+                <p className="mb-1">{data.lesson.description}</p>
+                <small className="text-muted">
+                  {data.lesson.avgRating}
+                  /5.0 of {data.lesson.numOfReviews} Reviews{' '}
+                </small>
+              </div>
+            </Link>
+          );
+        }}
+      </Query>
+    );
+  }
+}
 
 export default LessonListItem;

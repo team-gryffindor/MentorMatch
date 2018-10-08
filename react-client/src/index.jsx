@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { HttpLink } from 'apollo-link-http';
 import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
@@ -118,6 +118,11 @@ class App extends React.Component {
               )}
             />
             <Route path="/userProfile" render={() => <ProfilePage />} />
+            {/* example of how to pass props to a Route */}
+            <Route
+              path="/lessonContent/:lessonId"
+              render={({ location }) => <LessonContent lesson={location.state.lesson} />}
+            />
             <Route path="/addService" render={() => <AddService />} />
           </div>
         </Router>
