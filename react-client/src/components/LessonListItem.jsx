@@ -17,7 +17,7 @@ class LessonListItem extends React.Component {
           return (
             <Link
               to={{
-                pathname: `/lessoncontent/${this.props.lessonId}`,
+                pathname: `/lessonContent/${this.props.lessonId}`,
                 state: { lesson: data.lesson }
               }}
             >

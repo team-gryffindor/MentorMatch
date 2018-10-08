@@ -23,7 +23,7 @@ class Home extends React.Component {
         {/* <Search query={props.query} /> */}
         <h1>Today's Top Services</h1>
         {/* currently grabbing all lessons */}
-        <LessonList style="horizontal" />
+        <LessonList style="horizontal" lessonIds={['3', '18']} />
       </div>
     );
   }

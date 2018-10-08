@@ -14,6 +14,13 @@ const GET_USER = gql`
         date
         avgRating
         numOfReviews
+        provider {
+          name
+        }
+        reviews {
+          title
+          rating
+        }
       }
       signupLessons {
         id
@@ -23,6 +30,13 @@ const GET_USER = gql`
         date
         avgRating
         numOfReviews
+        provider {
+          name
+        }
+        reviews {
+          title
+          rating
+        }
       }
       favoriteLessons {
         id
@@ -32,6 +46,13 @@ const GET_USER = gql`
         date
         avgRating
         numOfReviews
+        provider {
+          name
+        }
+        reviews {
+          title
+          rating
+        }
       }
     }
   }
@@ -47,6 +68,13 @@ const GET_LESSON = gql`
       difficulty
       avgRating
       numOfReviews
+      provider {
+        name
+      }
+      reviews {
+        title
+        rating
+      }
     }
   }
 `;
