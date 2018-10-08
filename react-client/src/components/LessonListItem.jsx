@@ -2,6 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import { GET_LESSON } from '../apollo/resolvers/backendQueries.js';
 import { Link } from 'react-router-dom';
+import StarRatings from 'react-star-ratings';
 
 class LessonListItem extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class LessonListItem extends React.Component {
         {({ loading, error, data }) => {
           if (error) return <p>Error! Could not retrieve the results.</p>;
           if (loading || !data) return <p>Loading Results...</p>;
+          console.log(typeof Number(data.lesson.avgRating.toFixed(2)));
           return (
             <Link
               to={{
@@ -28,8 +30,17 @@ class LessonListItem extends React.Component {
                 </div>
                 <p className="mb-1">{data.lesson.description}</p>
                 <small className="text-muted">
+                  <StarRatings
+                    rating={Number(data.lesson.avgRating.toFixed(2))}
+                    starRatedColor="blue"
+                    changeRating={this.changeRating}
+                    numberOfStars={5}
+                    starDimension="15px"
+                    starSpacing="1px"
+                    name="rating"
+                  />
                   {data.lesson.avgRating.toFixed(2)}
-                  /5.0 of {data.lesson.numOfReviews} Reviews{' '}
+                  /5.00 of {data.lesson.numOfReviews} Reviews{' '}
                 </small>
               </div>
             </Link>
