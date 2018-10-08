@@ -24,6 +24,7 @@ class FeedListItem extends React.Component {
           <p>category: {data.lesson.category}</p>
           <p>difficulty: {data.lesson.difficulty}</p>
           <p>avgRating: {data.lesson.avgRating}</p>
+          <p>WTF</p>
           <p>numOfReviews: {data.lesson.numOfReviews}</p> <br />
         </div>
       );
