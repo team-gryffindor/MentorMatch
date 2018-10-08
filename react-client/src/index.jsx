@@ -68,16 +68,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-      usrId: 2
+      firebaseID: null
     };
     this.handleUserLoggingIn = this.handleUserLoggingIn.bind(this);
   }
 
-  handleUserLoggingIn() {
+  handleUserLoggingIn(boolean, firebaseID) {
     this.setState({
-      isLoggedIn: !this.state.isLoggedIn
+      isLoggedIn: boolean,
+      firebaseID: firebaseID
     });
   }
+
 
   render() {
     return (
@@ -103,7 +105,7 @@ class App extends React.Component {
                 />
               )}
             />
-            {/* <Route path="/signUp" render={() => <SignUp />} /> */}
+            <Route path="/signUp" render={() => <SignUp firebaseID={this.state.firebaseID}/>} />
             <Route path="/active" render={() => <ActiveLessons />} />
             {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
             {/* <Route path="/past" render={() => <PastLessons />}/> */}

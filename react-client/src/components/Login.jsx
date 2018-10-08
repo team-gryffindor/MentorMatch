@@ -39,19 +39,15 @@ class Login extends React.Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       console.log(user);
-      this.setState({
-        isSignedIn: !!user,
-        uID: user.uid
-      }) 
+      if(user === null){
+        
+      } else {
+        this.props.handleUserLoggingIn(true, user.uid);
+      }
     })
   }
 
-  handleLogOut() {
-    this.setState({
-      isSignedIn: false,
-      userInfo: null 
-    })
-  }
+  
 
   render() {
     {
@@ -96,6 +92,10 @@ class Login extends React.Component {
                       
               </Query>
             <div className="Login">
+            <Redirect to={{
+                pathname: '/dashboard',
+                state: { firebaseId: this.state.uID }
+            }} />
               <Redirect to="/dashboard" userInfo={this.state.userInfo} />
             </div>
           </div>
