@@ -71,31 +71,32 @@ class SearchBar extends React.Component {
     console.log('HIT BEFORE RENDER', this.state.results);
     return (
       <div>
-        <form>
+        <form className="form-inline my-2 my-lg-0">
           <input
+            className="form-control mr-sm-2"
+            type="keywords"
+            placeholder="Lesson"
+            aria-label="Lesson"
             value={this.state.service}
             onChange={this.handleServiceInputChange}
-            placeholder="Lesson Name"
           />
           <input
+            className="form-control mr-sm-2"
+            type="location"
+            placeholder="Location"
+            aria-label="Location"
             value={this.state.location}
             onChange={this.handleLocationInputChange}
-            placeholder="Location"
           />
-          <button>
-            {/* <Link to="/feed">Search</Link> */}
-            <Link to={{ pathname: '/feed', state: { lessonIds: this.state.results } }}>Search</Link>
+          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+            <Link to={{ pathname: '/feed', state: { lessonIds: this.state.results } }}>
+              <i className="fas fa-search" /> Search
+            </Link>
           </button>
         </form>
-        {/* <ul>
-          {this.state.results.map((entry) => (
-            <li>{entry}</li>
-          ))}
-        </ul> */}
       </div>
     );
   }
-  // }
 }
 
 export default SearchBar;
