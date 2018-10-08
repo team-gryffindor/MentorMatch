@@ -35,13 +35,16 @@ class Login extends React.Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       console.log(user);
-      this.setState({
-        isSignedIn: !!user,
-        userInfo: user
-      }, () => {
-      this.props.handleUserLoggingIn()
-    }) 
-    })
+      this.setState(
+        {
+          isSignedIn: !!user,
+          userInfo: user
+        },
+        () => {
+          this.props.handleUserLoggingIn();
+        }
+      );
+    });
   }
 
   render() {

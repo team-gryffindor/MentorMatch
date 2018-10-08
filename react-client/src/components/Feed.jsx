@@ -34,7 +34,6 @@ class Feed extends React.Component {
     // }
     return (
       <div>
-        <NavBarMain />
         <h1>Search Results for {} </h1>
         <LessonList lessonIds={['3', '18']} />
       </div>
