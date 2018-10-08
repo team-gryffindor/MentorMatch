@@ -42,15 +42,15 @@ class Login extends React.Component {
       this.setState({
         isSignedIn: !!user,
         uID: user.uid
-      }) 
-    })
+      });
+    });
   }
 
   handleLogOut() {
     this.setState({
       isSignedIn: false,
-      userInfo: null 
-    })
+      userInfo: null
+    });
   }
 
   render() {
@@ -69,37 +69,42 @@ class Login extends React.Component {
             </div>
           </div>
         );
-      } else if (this.state.isSignedIn === true){
+      } else if (this.state.isSignedIn === true) {
         return (
           <div>
-              <Query query={GET_USER} variables={{ id: this.state.uID }}>
-                {({ loading, error, data }) => {
-                  if (error) return <h1>error</h1>;
-                  if (loading) {
-                    return <div> Loading test ...</div>;
+            <Query query={GET_USER} variables={{ id: this.state.uID }}>
+              {({ loading, error, data }) => {
+                if (error) return <h1>error</h1>;
+                if (loading) {
+                  return <div> Loading test ...</div>;
+                } else {
+                  if (data.id === null) {
+                    return <Redirect to="/signup" />;
                   } else {
-                      if(data.id === null) {
-                        return <Redirect to="/signup" />
-                      } else {
-                        const userid = data.id
+                    const userid = data.id;
                     return (
                       <Mutation mutation={UPDATE_USER_INFO}>
-                          {(updateUserInfo, { data }) => (
-                            updateUserInfo({variables: { userId: userId, username: data.name, description: data.description, cityOfResidence: data.city, image: data.image}})
-
-                          )}
+                        {(updateUserInfo, { data }) =>
+                          updateUserInfo({
+                            variables: {
+                              userId: userId,
+                              username: data.name,
+                              description: data.description,
+                              cityOfResidence: data.city,
+                              image: data.image
+                            }
+                          })
+                        }
                       </Mutation>
-                      );
-                    }
+                    );
+                  }
                 }
-                }}
-                      
-              </Query>
+              }}
+            </Query>
             <div className="Login">
               <Redirect to="/dashboard" userInfo={this.state.userInfo} />
             </div>
           </div>
-         
         );
       }
     }
@@ -107,5 +112,3 @@ class Login extends React.Component {
 }
 
 export default Login;
-
-

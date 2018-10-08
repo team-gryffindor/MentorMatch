@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 const GET_USER = gql`
   query($id: ID!) {
     user(id: $id) {
+      id
       name
       description
       image
@@ -14,6 +15,13 @@ const GET_USER = gql`
         date
         avgRating
         numOfReviews
+        provider {
+          name
+        }
+        reviews {
+          title
+          rating
+        }
       }
       signupLessons {
         id
@@ -23,6 +31,13 @@ const GET_USER = gql`
         date
         avgRating
         numOfReviews
+        provider {
+          name
+        }
+        reviews {
+          title
+          rating
+        }
       }
       favoriteLessons {
         id
@@ -32,6 +47,13 @@ const GET_USER = gql`
         date
         avgRating
         numOfReviews
+        provider {
+          name
+        }
+        reviews {
+          title
+          rating
+        }
       }
     }
   }
@@ -40,6 +62,7 @@ const GET_USER = gql`
 const GET_LESSON = gql`
   query($id: ID!) {
     lesson(id: $id) {
+      id
       title
       description
       cityOfService
@@ -47,6 +70,13 @@ const GET_LESSON = gql`
       difficulty
       avgRating
       numOfReviews
+      provider {
+        name
+      }
+      reviews {
+        title
+        rating
+      }
     }
   }
 `;
@@ -119,7 +149,7 @@ const ADD_LESSON = gql`
 `;
 
 const ADD_REVIEW = gql`
-  mutation($title: String!, $comment: String!, $rating: Number!, $lessonId: ID!, $userId: ID!) {
+  mutation($title: String!, $comment: String!, $rating: Int!, $lessonId: ID!, $userId: ID!) {
     addReview(
       title: $title
       comment: $comment

@@ -38,27 +38,24 @@ class Home extends React.Component {
         <NavLand />
         <SearchBar />
         <h1>Top Services</h1>
-        
+
         <Query query={GET_LESSONS}>
           {({ loading, error, data }) => {
             if (error) return <h1>Error...</h1>;
             if (loading || !data) return <h1>Loading...</h1>;
             return (
               <ul>
-                {
-                  data.lessons.map((lesson) => {
+                {data.lessons.map((lesson) => {
                   if (lesson.avgRating > 3) {
-                    return <LessonListItem lessonId={lesson.id} key={lesson.id}/>;
+                    return <LessonListItem lessonId={lesson.id} key={lesson.id} />;
                   }
-                 })}
+                })}
               </ul>
             );
           }}
         </Query>
-    
       </div>
-      
-    )
+    );
   }
 }
 
@@ -66,9 +63,13 @@ const NavLand = () => (
   <div>
     <h1>Mentor Match</h1>
     <ul>
-      <li><Link to='/login'>Login</Link></li>
-      <li><Link to='/signup'>Sign Up</Link></li>
+      <li>
+        <Link to="/login">Login</Link>
+      </li>
+      <li>
+        <Link to="/signup">Sign Up</Link>
+      </li>
     </ul>
   </div>
-)
+);
 export default Home;
