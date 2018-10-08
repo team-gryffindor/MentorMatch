@@ -28,7 +28,7 @@ class LessonListItem extends React.Component {
                 </div>
                 <p className="mb-1">{data.lesson.description}</p>
                 <small className="text-muted">
-                  {data.lesson.avgRating}
+                  {data.lesson.avgRating.toFixed(2)}
                   /5.0 of {data.lesson.numOfReviews} Reviews{' '}
                 </small>
               </div>
