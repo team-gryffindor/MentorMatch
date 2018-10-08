@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const NavUserOpt = (prop) => (
   <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -31,7 +31,7 @@ const NavUserOpt = (prop) => (
                 .then(() => prop.handleUserLoggingIn());
             }}
           >
-            <Link to={{ pathname: '/' }}>Logout</Link>
+            <Link to="/">Logout</Link>
           </a>
         </div>
       </li>
