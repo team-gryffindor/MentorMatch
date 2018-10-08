@@ -1,10 +1,12 @@
 import React from 'react';
 // import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 // import LessonList from './LessonList.jsx';
-import Search from './Search.jsx';
+import SearchBar from './SearchBar.jsx';
 import Navigation from './NavigationBar.jsx';
 import LessonList from './LessonList.jsx';
+import LessonListItem from './LessonListItem.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { GET_LESSONS } from '../apollo/resolvers/backendQueries.js';
 import { Query } from 'react-apollo';
 
 //This componenet could be a functional componenet and not requrie storing state at all
@@ -12,7 +14,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      topLessons: []
     };
   }
 
@@ -34,10 +36,26 @@ class Home extends React.Component {
     return (
       <div>
         <NavLand />
-        {/* Searchbar component goes here */}
+        <SearchBar />
         <h1>Top Services</h1>
-        {/* Need to change LessonList to display top services not just all lessons in our DB */}
-        <Query
+        
+        <Query query={GET_LESSONS}>
+          {({ loading, error, data }) => {
+            if (error) return <h1>Error...</h1>;
+            if (loading || !data) return <h1>Loading...</h1>;
+            return (
+              <ul>
+                {
+                  data.lessons.map((lesson) => {
+                  if (lesson.avgRating > 3) {
+                    return <LessonListItem lessonId={lesson.id} key={lesson.id}/>;
+                  }
+                 })}
+              </ul>
+            );
+          }}
+        </Query>
+    
       </div>
       
     )
