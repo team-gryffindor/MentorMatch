@@ -5,12 +5,14 @@ import Search from './Search.jsx';
 import Navigation from './NavigationBar.jsx';
 import LessonList from './LessonList.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Query } from 'react-apollo';
 
 //This componenet could be a functional componenet and not requrie storing state at all
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+
     };
   }
 
@@ -35,7 +37,7 @@ class Home extends React.Component {
         {/* Searchbar component goes here */}
         <h1>Top Services</h1>
         {/* Need to change LessonList to display top services not just all lessons in our DB */}
-        <LessonList />
+        <Query
       </div>
       
     )
