@@ -7,12 +7,27 @@ import NavSearchBar from './NavSearchBar.jsx';
 import NavGuestOpt from './NavGuestOpt.jsx';
 import NavUserOpt from './NavUserOpt.jsx';
 
-const NavBarMain = ({ isLoggedIn, handleUserLoggingIn }) => (
-  <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-    <NavLogo />
-    <NavSearchBar />
-    {isLoggedIn ? <NavUserOpt handleUserLoggingIn={handleUserLoggingIn} /> : <NavGuestOpt />}
-  </nav>
-);
+class NavBarMain extends React.Component {
+  constructor(props) {
+    super(props);
+    // ({ isHome, isLoggedIn, handleUserLoggingIn }) => (
+  }
+
+  render() {
+    console.log('current path', this.props.currentPath);
+    return (
+      <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+        <NavLogo />
+        {this.props.currentPath !== '/' && <NavSearchBar />}
+        {this.props.isLoggedIn ? (
+          <NavUserOpt handleUserLoggingIn={this.props.handleUserLoggingIn} />
+        ) : (
+          <NavGuestOpt />
+        )}
+      </nav>
+    );
+  }
+}
+// let isHome={this.props.location.pathname === '/'};
 
 export default NavBarMain;

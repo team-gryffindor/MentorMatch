@@ -84,14 +84,22 @@ class App extends React.Component {
   }
 
   render() {
+    // console.log('CURRENT LOCATION', this.props.location.pathname);
     return (
       <ApolloProvider client={client}>
         <Router>
           <div>
-            <NavBarMain
-              isLoggedIn={this.state.isLoggedIn}
-              handleUserLoggingIn={this.handleUserLoggingIn}
+            <Route
+              path="/"
+              render={({ location }) => (
+                <NavBarMain
+                  isLoggedIn={this.state.isLoggedIn}
+                  handleUserLoggingIn={this.handleUserLoggingIn}
+                  currentPath={location.pathname}
+                />
+              )}
             />
+
             {/* <NavigationBar /> */}
             <Route
               exact

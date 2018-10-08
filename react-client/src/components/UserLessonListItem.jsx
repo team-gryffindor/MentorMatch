@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import StarRatings from 'react-star-ratings';
 
 const UserLessonListItem = ({ lesson }) => (
   <div>
@@ -10,10 +11,15 @@ const UserLessonListItem = ({ lesson }) => (
           <small className="text-muted">{lesson.cityOfService}</small>
         </div>
         <p className="mb-1">{lesson.description}</p>
-        <small className="text-muted">
-          {lesson.avgRating}
-          /5.0 of {lesson.numOfReviews} Reviews{' '}
-        </small>
+        <StarRatings
+          rating={Number(lesson.avgRating.toFixed(2))}
+          starRatedColor="blue"
+          numberOfStars={5}
+          starDimension="15px"
+          starSpacing="1px"
+          name="rating"
+        />
+        <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
       </div>
     </Link>
   </div>

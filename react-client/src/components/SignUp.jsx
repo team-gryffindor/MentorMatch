@@ -16,22 +16,73 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      //   <Mutation>
-
-      //   </Mutation>
-      //   <div>
-      //     <h1>^ Sign UP ^</h1>
-      //     <form onSubmit={onSubmit}>
-      //       <label>
-      //         <input name="email" type="email" placeholder="Email" />
-      //       </label>
-      //       <label>
-      //         <input name="password" type="password" placeholder="Password" />
-      //       </label>
-      //       <button type="submit">Sign Up</button>
-      //     </form>
-      //   </div>
-      <h1>Sign up</h1>
+      <Mutation mutation={ADD_LESSON}>
+        {(addLesson) => (
+          <div>
+            <p>Create a Lesson! {console.log(addLesson)}</p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                addLesson({
+                  variables: {
+                    title: this.state.title,
+                    description: this.state.description,
+                    cityOfService: this.state.cityOfService,
+                    image: this.state.image,
+                    difficulty: this.state.difficulty,
+                    userId: userID,
+                    category: this.state.category
+                  }
+                });
+              }}
+            >
+              Title:
+              <input
+                value={this.state.title}
+                onChange={(e) => {
+                  this.setState({ title: e.target.value });
+                }}
+              />
+              Description:
+              <input
+                value={this.state.description}
+                onChange={(e) => {
+                  this.setState({ description: e.target.value });
+                }}
+              />
+              City:
+              <input
+                value={this.state.cityOfService}
+                onChange={(e) => {
+                  this.setState({ cityOfService: e.target.value });
+                }}
+              />
+              Difficulty:
+              <input
+                value={this.state.difficulty}
+                onChange={(e) => {
+                  this.setState({ difficulty: e.target.value });
+                }}
+              />
+              Category:
+              <input
+                value={this.state.category}
+                onChange={(e) => {
+                  this.setState({ category: e.target.value });
+                }}
+              />
+              img:
+              <input
+                value={this.state.image}
+                onChange={(e) => {
+                  this.setState({ image: e.target.value });
+                }}
+              />
+              <button type="submit">Create Lesson!</button>
+            </form>
+          </div>
+        )}
+      </Mutation>
     );
   }
 }
