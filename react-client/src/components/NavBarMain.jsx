@@ -19,27 +19,9 @@ const NavBarMain = (props) => (
       <span className="navbar-toggler-icon" />
     </button>
 
-    <form className="form-inline my-2 my-lg-0">
-      <input
-        className="form-control mr-sm-2"
-        type="keywords"
-        placeholder="Lesson"
-        aria-label="Lesson"
-      />
-      <input
-        className="form-control mr-sm-2"
-        type="location"
-        placeholder="Location"
-        aria-label="Location"
-      />
-      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-        <i className="fas fa-search" />
-      </button>
-    </form>
-
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mr-auto">
-        <li className="nav-item dropdown">
+        {/* <li className="nav-item dropdown">
           <a
             className="nav-link dropdown-toggle"
             href="#"
@@ -63,16 +45,95 @@ const NavBarMain = (props) => (
               Something else here
             </a>
           </div>
-        </li>
-        <li>
+        </li> */}
+        <li className="navbar-item">
           <a class="nav-link" href="#">
-            <i className="fas fa-sign-out-alt" />
+            Profile
+          </a>
+        </li>
+        <li className="navbar-item">
+          <a className="nav-link" href="#">
+            <button className="btn btn-outline-secondary my-2 my-sm-0" type="submit">
+              Logout
+            </button>
+            {/* <i className="fas fa-sign-out-alt" /> */}
           </a>
         </li>
       </ul>
+      <form className="form-inline my-2 my-lg-0">
+        <input
+          className="form-control mr-sm-2"
+          type="keywords"
+          placeholder="Lesson"
+          aria-label="Lesson"
+        />
+        <input
+          className="form-control mr-sm-2"
+          type="location"
+          placeholder="Location"
+          aria-label="Location"
+        />
+        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+          <i className="fas fa-search" />
+        </button>
+      </form>
     </div>
   </nav>
 );
+
+// class Navigation extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       view: 'home'
+//     };
+//     this.changeNav = this.changeNav.bind(this);
+//     this.changeView = this.changeView.bind(this);
+//   }
+
+//   changeView(e, string) {
+//     e.preventDefault();
+
+//     this.setState(
+//       {
+//         view: string
+//       },
+//       () => console.log('change nav state')
+//     );
+//   }
+
+//   changeNav() {
+//     const { view } = this.state;
+//     if (view === 'home') {
+//       return (
+//         <div>
+//           <ul>
+//             <li>
+//               <Link to="/login">
+//                 <p onClick={(e) => this.changeView(e, 'login')}>Login</p>
+//               </Link>
+//             </li>
+//             <li>
+//               <Link to="/signUp">Sign Up</Link>
+//             </li>
+//           </ul>
+//         </div>
+//       );
+//     } else if (view === 'login') {
+//       return (
+//         <div>
+//           <ul>
+//             <li>LOGIN</li>
+//           </ul>
+//         </div>
+//       );
+//     }
+//   }
+
+//   render() {
+//     return <div>{this.changeNav()}</div>;
+//   }
+// }
 
 //   {/* let loggedIn = (
 //     <li>
