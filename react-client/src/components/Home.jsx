@@ -35,7 +35,7 @@ class Home extends React.Component {
 
     return (
       <div>
-        <NavLand />
+        {/* <NavLand /> */}
         <SearchBar />
         <h1>Top Services</h1>
 

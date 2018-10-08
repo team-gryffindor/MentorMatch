@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Navigation from './NavigationBar.jsx';
+import NavBarMain from './NavBarMain.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import LessonList from './LessonList.jsx';
 import SearchBar from './SearchBar.jsx';
@@ -34,7 +34,6 @@ class Feed extends React.Component {
     // }
     return (
       <div>
-        {/* TODO: include navbar here */}
         <h1>Search Results for {} </h1>
         <LessonList lessonIds={['3', '18']} />
       </div>

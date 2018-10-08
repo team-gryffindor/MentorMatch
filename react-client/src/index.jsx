@@ -23,6 +23,8 @@ import UserProfileInfo from './components/UserProfileInfo.jsx';
 import AddLesson from './components/AddLesson.jsx';
 import LessonContent from './components/LessonContent.jsx';
 import ProfilePage from './components/ProfilePage.jsx';
+import NavBarMain from './components/NavBarMain.jsx';
+import NavigationBar from './components/NavigationBar.jsx';
 
 const cache = new InMemoryCache();
 
@@ -84,6 +86,11 @@ class App extends React.Component {
       <ApolloProvider client={client}>
         <Router>
           <div>
+            <NavBarMain
+              isLoggedIn={this.state.isLoggedIn}
+              handleUserLoggingIn={this.handleUserLoggingIn}
+            />
+            {/* <NavigationBar /> */}
             <Route
               exact
               path="/"
@@ -103,7 +110,7 @@ class App extends React.Component {
                 />
               )}
             />
-            {/* <Route path="/signUp" render={() => <SignUp />} /> */}
+            {/* <Route path="/signup" render={() => <SignUp />} /> */}
             <Route path="/active" render={() => <ActiveLessons />} />
             {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
             {/* <Route path="/past" render={() => <PastLessons />}/> */}
