@@ -12,27 +12,42 @@ class UserLessonList extends React.Component {
     super(props);
   }
   render() {
+    // figure out date filter
     return (
-      <Query query={GET_USER_INFO}>
-        {({ data }) => {
-          return (
-            <Query query={GET_USER} variables={{ id: data.mentorMatch.userId }}>
-              {({ loading, error, data }) => {
-                if (error) return <h1>error</h1>;
-                if (loading) {
-                  return <div> Loading test ...</div>;
-                } else {
-                  return (
-                    <div className={this.props.style}>
-                      {data.user[this.props.lessonType].map((lesson, i) => (
-                        <LessonListItem lesson={lesson} key={i} />
-                      ))}
-                    </div>
-                  );
-                }
-              }}
-            </Query>
-          );
+      <Query query={GET_USER} variables={{ id: this.props.userId }}>
+        {({ loading, error, data }) => {
+          if (error) return <h1>error</h1>;
+          if (loading) {
+            return <div> Loading test ...</div>;
+          } else {
+            let lessons = data.user[this.props.lessonType];
+            if (this.props.lessonType === 'signupLessons') {
+              if (this.props.upcoming) {
+                return (
+                  <div className={this.props.style}>
+                    {lessons.filter((lesson) => lesson.date > Date.now()).map((lesson, i) => (
+                      <LessonListItem lesson={lesson} key={i} />
+                    ))}
+                  </div>
+                );
+              } else {
+                return (
+                  <div className={this.props.style}>
+                    {lessons.filter((lesson) => lesson.date < Date.now()).map((lesson, i) => (
+                      <LessonListItem lesson={lesson} key={i} />
+                    ))}
+                  </div>
+                );
+              }
+            }
+            return (
+              <div className={this.props.style}>
+                {lessons.map((lesson, i) => (
+                  <LessonListItem lesson={lesson} key={i} />
+                ))}
+              </div>
+            );
+          }
         }}
       </Query>
     );
