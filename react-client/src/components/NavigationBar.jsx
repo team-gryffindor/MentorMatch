@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; 
 
 
@@ -14,8 +14,8 @@ const Navigation = (props) => {
   //   </div>
   // )
   //----------------------
-  let loggedIn = <li><a><button onClick={() => {firebase.auth().signOut().then(() => props.handleUserLoggingIn())}}>
-    <Link to='/'>Logout!</Link></button></a></li>;
+  // let loggedIn = <li><a><button onClick={() => {firebase.auth().signOut().then(() => props.handleUserLoggingIn())}}>
+    // <Link to='/'>Logout!</Link></button></a></li>
 
   let loggedOut = <li><a><button ><Link to="/login">Login</Link></button></a></li>
 
