@@ -67,7 +67,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      usrId: 2
     };
     this.handleUserLoggingIn = this.handleUserLoggingIn.bind(this);
   }

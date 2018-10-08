@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Query, Mutation } from 'react-apollo';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { UPDATE_USER_INFO } from '../apollo/resolvers/clientSideQueries';
+import { GET_USER } from '../apollo/resolvers/backendQueries';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
@@ -17,14 +20,15 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //isSignedIn: false,
-      userInfo: null
+      isSignedIn: false,
+      uID: null
     };
     this.uiConfig = {
       signInFlow: 'popup',
       signInOptions: [
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
       ],
       callbacks: {
         signInSuccessWithAuthResult: () => false
@@ -37,16 +41,21 @@ class Login extends React.Component {
       console.log(user);
       this.setState({
         isSignedIn: !!user,
-        userInfo: user
-      }, () => {
-      this.props.handleUserLoggingIn()
-    }) 
+        uID: user.uid
+      }) 
+    })
+  }
+
+  handleLogOut() {
+    this.setState({
+      isSignedIn: false,
+      userInfo: null 
     })
   }
 
   render() {
     {
-      if (this.props.isLoggedIn === false) {
+      if (this.state.isSignedIn === false) {
         return (
           <div className="Login">
             <h1>Welcome to </h1>
@@ -57,43 +66,40 @@ class Login extends React.Component {
                 <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
               </a>
               <br />
-              <p className="text-center">------------- Or -------------</p>
-              <form onSubmit={this.handleSubmit}>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={this.state.email}
-                  onChange={this.handleEmailChange}
-                  placeholder="Enter Email"
-                />
-                <input
-                  type="password"
-                  className="form-control"
-                  value={this.state.password}
-                  onChange={this.handlePassChange}
-                  placeholder="Enter Password"
-                />
-                <br />
-                <button type="submit" className="btn btn-default">
-                  Submit
-                </button>
-              </form>
-              <br />
-              <br />
-              <p>
-                Forgot Password? <Link to="/recover"> Click Here</Link>
-              </p>
-              <p>
-                Not SIgned up yet? <Link to="/signup"> Sign Up</Link>
-              </p>
             </div>
           </div>
         );
-      } else {
+      } else if (this.state.isSignedIn === true){
         return (
-          <div className="Login">
-            <Redirect to="/dashboard" userInfo={this.state.userInfo} />
+          <div>
+              <Query query={GET_USER} variables={{ id: this.state.uID }}>
+                {({ loading, error, data }) => {
+                  if (error) return <h1>error</h1>;
+                  if (loading) {
+                    return <div> Loading test ...</div>;
+                  } else {
+                      if(data.id === null) {
+                        return <Redirect to="/signup" />
+                      } else {
+                        const userid = data.id
+                    return (
+                      <Mutation mutation={UPDATE_USER_INFO}>
+                          {(updateUserInfo, { data }) => (
+                            updateUserInfo({variables: { userId: userId, username: data.name, description: data.description, cityOfResidence: data.city, image: data.image}})
+
+                          )}
+                      </Mutation>
+                      );
+                    }
+                }
+                }}
+                      
+              </Query>
+            <div className="Login">
+              <Redirect to="/dashboard" userInfo={this.state.userInfo} />
+            </div>
           </div>
+         
         );
       }
     }
@@ -101,3 +107,5 @@ class Login extends React.Component {
 }
 
 export default Login;
+
+
