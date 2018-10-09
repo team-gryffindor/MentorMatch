@@ -33,7 +33,7 @@ class Home extends React.Component {
     // );
 
     return (
-      <div>
+      <div className="container">
         {/* <NavLand /> */}
         <SearchBar />
         <h1>Top Services</h1>

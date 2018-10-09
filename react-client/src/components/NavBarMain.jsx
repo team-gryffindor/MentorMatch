@@ -14,17 +14,22 @@ class NavBarMain extends React.Component {
   }
 
   render() {
-    console.log('current path', this.props.currentPath);
     return (
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-        <NavLogo />
-        {this.props.currentPath !== '/' && <NavSearchBar />}
-        {this.props.isLoggedIn ? (
-          <NavUserOpt handleLogin={this.props.handleLogin} />
-        ) : (
-          <NavGuestOpt />
-        )}
-      </nav>
+      <div>
+        <nav
+          className="navbar navbar-expand-md navbar-light"
+          style={{ backgroundColor: 'transparent' }}
+        >
+          <NavLogo />
+          {this.props.currentPath !== '/' && <NavSearchBar />}
+          {this.props.isLoggedIn ? (
+            <NavUserOpt handleLogin={this.props.handleLogin} />
+          ) : (
+            <NavGuestOpt />
+          )}
+        </nav>
+        <hr />
+      </div>
     );
   }
 }

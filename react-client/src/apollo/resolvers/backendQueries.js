@@ -17,10 +17,18 @@ const GET_USER = gql`
         numOfReviews
         provider {
           name
+          cityOfResidence
+          description
+          image
         }
         reviews {
           title
           rating
+          user {
+            name
+            image
+            cityOfResidence
+          }
         }
       }
       signupLessons {
@@ -33,10 +41,18 @@ const GET_USER = gql`
         numOfReviews
         provider {
           name
+          cityOfResidence
+          description
+          image
         }
         reviews {
           title
           rating
+          user {
+            name
+            image
+            cityOfResidence
+          }
         }
       }
       favoriteLessons {
@@ -49,10 +65,18 @@ const GET_USER = gql`
         numOfReviews
         provider {
           name
+          cityOfResidence
+          description
+          image
         }
         reviews {
           title
           rating
+          user {
+            name
+            image
+            cityOfResidence
+          }
         }
       }
     }
@@ -85,10 +109,18 @@ const GET_LESSON = gql`
       numOfReviews
       provider {
         name
+        cityOfResidence
+        description
+        image
       }
       reviews {
         title
         rating
+        user {
+          name
+          image
+          cityOfResidence
+        }
       }
     }
   }
@@ -104,6 +136,9 @@ const GET_LESSONS = gql`
       numOfReviews
       provider {
         name
+        cityOfResidence
+        description
+        image
       }
       reviews {
         title

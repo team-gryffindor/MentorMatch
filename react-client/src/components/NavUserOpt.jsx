@@ -19,10 +19,10 @@ const NavUserOpt = (prop) => (
         </a>
 
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a className="dropdown-item" href="#">
+          <a className="dropdown-item">
             <Link to="/dashboard">Dashboard</Link>
           </a>
-          <a className="dropdown-item" href="#">
+          <a className="dropdown-item">
             <Link to="/userProfile">Profile</Link>
           </a>
           <div className="dropdown-divider" />

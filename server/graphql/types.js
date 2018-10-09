@@ -101,6 +101,13 @@ const ReviewType = new GraphQLObjectType({
       resolve(parent, args) {
         return Models.Lesson.findById(parent.lessonId);
       }
+    },
+    user: {
+      type: UserType,
+      resolve(parent, args) {
+        console.log('USERID OF REVIEW', parent.userId);
+        return Models.User.findById(parent.userId);
+      }
     }
   })
 });

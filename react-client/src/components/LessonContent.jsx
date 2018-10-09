@@ -1,6 +1,7 @@
 import React from 'react';
 import ReviewList from './ReviewList.jsx';
 import WriteReview from './WriteReview.jsx';
+import LessonDetailHeader from './LessonDetailHeader.jsx';
 
 class LessonContent extends React.Component {
   constructor(props) {
@@ -8,17 +9,19 @@ class LessonContent extends React.Component {
   }
 
   render() {
+    // console.log(this.props.lesson);
     return (
-      <div>
-        <h2>{this.props.lesson.title}</h2>
-        <h4>{this.props.lesson.provider.name}</h4>
-        <p>{this.props.lesson.description}</p>
-        <span>
-          rating: {this.props.lesson.avgRating} <br /> {this.props.lesson.numOfReviews} reviews
-        </span>
+      <div className="container" style={{ marginBottom: '30px' }}>
+        <LessonDetailHeader lesson={this.props.lesson} />
+        <h3>
+          {this.props.lesson.numOfReviews} reviews from people who took{' '}
+          {this.props.lesson.provider.name}
+          's lesson
+          <br />
+        </h3>
         <ReviewList reviews={this.props.lesson.reviews} />
         {console.log(this.props.lesson.id)}
-        <WriteReview />
+        {/* <WriteReview /> */}
       </div>
     );
   }
