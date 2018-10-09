@@ -1,7 +1,7 @@
 import React from 'react';
-import ReviewList from './ReviewList.jsx';
-import WriteReview from './WriteReview.jsx';
 import LessonDetailHeader from './LessonDetailHeader.jsx';
+import Map from './Map.jsx';
+import Reviews from './Reviews.jsx';
 
 class LessonContent extends React.Component {
   constructor(props) {
@@ -13,15 +13,9 @@ class LessonContent extends React.Component {
     return (
       <div className="container" style={{ marginBottom: '30px' }}>
         <LessonDetailHeader lesson={this.props.lesson} />
-        <h3>
-          {this.props.lesson.numOfReviews} reviews from people who took{' '}
-          {this.props.lesson.provider.name}
-          's lesson
-          <br />
-        </h3>
-        <ReviewList reviews={this.props.lesson.reviews} />
-        {console.log(this.props.lesson.id)}
-        {/* <WriteReview /> */}
+        <Map style={{ height: '80vh', width: '100%' }} />
+        {/* <SimpleMap location={this.props.lesson.cityOfService} /> */}
+        <Reviews lesson={this.props.lesson} />
       </div>
     );
   }

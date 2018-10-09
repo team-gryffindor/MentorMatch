@@ -41,6 +41,7 @@
     "express": "^4.15.0",
     "express-graphql": "^0.6.12",
     "firebase": "^5.5.2",
+    "google-map-react": "^1.0.9",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
     "jquery": "^3.3.1",
