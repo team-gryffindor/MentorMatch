@@ -9,7 +9,7 @@ class WriteReview extends React.Component {
     this.state = {
       title: '',
       comment: '',
-      rating: null
+      rating: 0
     };
   }
   render() {
