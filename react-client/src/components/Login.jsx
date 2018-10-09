@@ -4,8 +4,8 @@ import { Query, Mutation } from 'react-apollo';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { UPDATE_USER_INFO } from '../apollo/resolvers/clientSideQueries';
-import { GET_USER } from '../apollo/resolvers/backendQueries';
+import { UPDATE_USER_INFO, GET_USER_INFO } from '../apollo/resolvers/clientSideQueries';
+import { CHECK_USER, GET_USER } from '../apollo/resolvers/backendQueries';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
@@ -34,22 +34,46 @@ class Login extends React.Component {
         signInSuccessWithAuthResult: () => false
       }
     };
+    this.updateUser = this.updateUser.bind(this);
   }
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       console.log(user);
-      if(user === null){
+      if (user === null) {
         this.props.handleUserLoggingIn(false, null);
       } else {
         this.props.handleUserLoggingIn(true, user.uid);
       }
-    })
+    });
   }
 
-  
+  updateUser(user) {
+    this.props.updateUserInfo({
+      variables: {
+        userId: user.id,
+        username: user.name,
+        description: user.description,
+        cityOfResidence: user.city,
+        image: user.image
+      }
+    });
+  }
 
   render() {
+
+    const updateCache = (cache, { data: { uid } }) => {
+      const { userId } = cache.readQuery({ query: GET_USER_INFO })
+      console.log('UPDATE CACHE USER ID: ',userId)
+      cache.writeQuery({
+        query: GET_USER_INFO,
+        data: {
+          userId: uid
+
+        }
+      })
+    }
+
     {
       if (this.props.isLoggedIn === false) {
         return (
@@ -66,45 +90,26 @@ class Login extends React.Component {
           </div>
         );
       } else if (this.props.isLoggedIn === true) {
+      
         return (
-          // <div>
-          //   <Query query={GET_USER} variables={{ id: this.state.uID }}>
-          //     {({ loading, error, data }) => {
-          //       if (error) return <h1>error</h1>;
-          //       if (loading) {
-          //         return <div> Loading test ...</div>;
-          //       } else {
-          //         if (data.id === null) {
-          //           return <Redirect to="/signup" />;
-          //         } else {
-          //           const userid = data.id;
-          //           return (
-          //             <Mutation mutation={UPDATE_USER_INFO}>
-          //               {(updateUserInfo, { data }) =>
-          //                 updateUserInfo({
-          //                   variables: {
-          //                     userId: userId,
-          //                     username: data.name,
-          //                     description: data.description,
-          //                     cityOfResidence: data.city,
-          //                     image: data.image
-          //                   }
-          //                 })
-          //               }
-          //             </Mutation>
-          //           );
-          //         }
-          //       }
-          //     }}
-          //   </Query>
-          //   <div className="Login">
-            // <Redirect to={{
-            //     pathname: '/dashboard',
-            //     state: { firebaseId: this.state.uID }
-            // }} />
-              <Redirect to="/dashboard" userInfo={this.state.userInfo} />
-          //   </div>
-          // </div>
+          <div>
+            {/* <Query query={CHECK_USER} variables={{ id: this.props.uid }}>
+              {({ error, loading, data }) => {
+                if (error) return 'ERROR';
+                if (loading) return 'Loading...';
+
+                return <div>GOTTEM</div>
+              }}
+            </Query> */}
+            <Query query={CHECK_USER} variables={{ id: this.props.mentormatch.User }}>
+              {({ checkUser }) => {
+               if ( checkUser !== this.props.mentormatch.userId) {
+                 console.log('NOT EQUAL')
+               }
+              }}
+            </Query>
+            
+          </div>
         );
       }
     }
