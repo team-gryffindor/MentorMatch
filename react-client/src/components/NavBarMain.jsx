@@ -15,15 +15,21 @@ class NavBarMain extends React.Component {
 
   render() {
     return (
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-        <NavLogo />
-        {this.props.currentPath !== '/' && <NavSearchBar />}
-        {this.props.isLoggedIn ? (
-          <NavUserOpt handleUserLoggingIn={this.props.handleUserLoggingIn} />
-        ) : (
-          <NavGuestOpt />
-        )}
-      </nav>
+      <div>
+        <nav
+          className="navbar navbar-expand-md navbar-light"
+          style={{ backgroundColor: 'transparent' }}
+        >
+          <NavLogo />
+          {this.props.currentPath !== '/' && <NavSearchBar />}
+          {this.props.isLoggedIn ? (
+            <NavUserOpt handleUserLoggingIn={this.props.handleUserLoggingIn} />
+          ) : (
+            <NavGuestOpt />
+          )}
+        </nav>
+        <hr />
+      </div>
     );
   }
 }

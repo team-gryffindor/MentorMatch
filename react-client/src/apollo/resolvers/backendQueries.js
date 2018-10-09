@@ -24,6 +24,11 @@ const GET_USER = gql`
         reviews {
           title
           rating
+          user {
+            name
+            image
+            cityOfResidence
+          }
         }
       }
       signupLessons {
@@ -43,6 +48,11 @@ const GET_USER = gql`
         reviews {
           title
           rating
+          user {
+            name
+            image
+            cityOfResidence
+          }
         }
       }
       favoriteLessons {
@@ -62,6 +72,11 @@ const GET_USER = gql`
         reviews {
           title
           rating
+          user {
+            name
+            image
+            cityOfResidence
+          }
         }
       }
     }
@@ -91,6 +106,7 @@ const GET_LESSON = gql`
         user {
           name
           image
+          cityOfResidence
         }
       }
     }

@@ -14,17 +14,8 @@ class Dashboard extends React.Component {
     console.log('dashboard shown');
     return (
       <div className="container">
-        <h1>
-          <Link to="/">Mentor Match</Link>
-        </h1>
         <div>
-          <div>
-            {/* <Navigation
-              isLoggedIn={this.props.isLoggedIn}
-              handleUserLoggingIn={this.props.handleUserLoggingIn}
-            />
-            <Search /> */}
-          </div>
+          <div />
           <FeaturedLesson />
           <div>
             <h2>Favorites</h2>
