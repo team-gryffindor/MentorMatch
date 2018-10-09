@@ -14,7 +14,6 @@ class NavBarMain extends React.Component {
   }
 
   render() {
-    console.log('current path', this.props.currentPath);
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-dark">
         <NavLogo />
