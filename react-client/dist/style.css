@@ -12,3 +12,9 @@
 .lesson-detail-header-margin-top {
   margin-top: 20px;
 }
+
+.reviewer-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
