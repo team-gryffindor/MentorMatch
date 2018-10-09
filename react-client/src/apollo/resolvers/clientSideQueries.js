@@ -28,7 +28,7 @@ export const UPDATE_USER_INFO = gql`
 `;
 export const GET_USER_INFO = gql`
   query {
-    mentorMatch @client {
+    userInfo @client {
       userId
       username
       description

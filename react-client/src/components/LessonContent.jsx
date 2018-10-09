@@ -21,7 +21,7 @@ class LessonContent extends React.Component {
         </h3>
         <ReviewList reviews={this.props.lesson.reviews} />
         {console.log(this.props.lesson.id)}
-        {/* <WriteReview /> */}
+        <WriteReview lessonId={this.props.lesson.id} />
       </div>
     );
   }
