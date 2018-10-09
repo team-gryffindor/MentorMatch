@@ -1,13 +1,10 @@
 import React from 'react';
-// import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
-// import LessonList from './LessonList.jsx';
-import SearchBar from './SearchBar.jsx';
-import Navigation from './NavigationBar.jsx';
-import LessonList from './LessonList.jsx';
-import LessonListItem from './LessonListItem.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { GET_LESSONS } from '../apollo/resolvers/backendQueries.js';
 import { Query } from 'react-apollo';
+
+import SearchHome from './SearchHome.jsx';
+import LessonList from './LessonList.jsx';
 
 //This componenet could be a functional componenet and not requrie storing state at all
 class Home extends React.Component {
@@ -20,26 +17,26 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        {/* <NavLand /> */}
-        <SearchBar />
-        <h1>Top Services</h1>
+      <div>
+        <SearchHome />
+        <div className="container">
+          <h1>Top Services</h1>
 
-        <Query query={GET_LESSONS}>
-          {({ loading, error, data }) => {
-            if (error) return <small>Error...</small>;
-            if (loading || !data) return <small>Loading...</small>;
-            return (
-              <ul>
-                {data.lessons.map((lesson) => {
-                  if (lesson.avgRating > 3) {
-                    return <LessonListItem lessonId={lesson.id} key={lesson.id} />;
-                  }
-                })}
-              </ul>
-            );
-          }}
-        </Query>
+          <Query query={GET_LESSONS}>
+            {({ loading, error, data }) => {
+              if (error) return <small>Error...</small>;
+              if (loading || !data) return <small>Loading...</small>;
+              let lessonIds = data.lessons
+                .filter((lesson) => {
+                  return lesson.avgRating > 3;
+                })
+                .map((lesson) => {
+                  return lesson.id;
+                });
+              return <LessonList lessonIds={lessonIds} />;
+            }}
+          </Query>
+        </div>
       </div>
     );
   }

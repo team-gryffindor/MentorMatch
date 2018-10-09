@@ -32,7 +32,7 @@ const NavUserOpt = (prop) => (
               firebase
                 .auth()
                 .signOut()
-                .then(() => prop.handleUserLoggingIn());
+                .then(() => prop.handleLogin());
             }}
           >
             <Link to="/">Logout</Link>

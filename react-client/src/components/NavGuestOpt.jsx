@@ -1,4 +1,6 @@
 import React from 'react';
+import { Query } from 'react-apollo';
+import { CHECK_USER, GET_USER } from '../apollo/resolvers/backendQueries';
 
 const NavGuestOpt = (prop) => (
   <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">

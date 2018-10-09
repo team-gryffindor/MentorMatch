@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { UPDATE_USER_INFO } from '../apollo/resolvers/clientSideQueries';
-import { GET_USER } from '../apollo/resolvers/backendQueries';
+import { UPDATE_USER_INFO, GET_USER_INFO } from '../apollo/resolvers/clientSideQueries';
+import { CHECK_USER, GET_USER } from '../apollo/resolvers/backendQueries';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
@@ -22,6 +22,8 @@ class Login extends React.Component {
     this.state = {
       // isSignedIn: false,
       // uID: null
+      redirect: false,
+      uid: null
     };
     this.uiConfig = {
       signInFlow: 'popup',
@@ -38,20 +40,59 @@ class Login extends React.Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user);
-      if(user === null){
-        this.props.handleUserLoggingIn(false, null);
+      if (user) {
+        return Promise.all([
+          this.props.client.query({
+            query: CHECK_USER,
+            variables: {
+              uid: user.uid
+            }
+          }),
+          user.uid
+        ])
+          .then((data) => {
+            let user = data[0].data.checkUser;
+            console.log(user);
+            if (!user) {
+              // redirect to signup
+              this.setState({
+                redirect: true,
+                uid: data[1]
+              });
+              return <Redirect to="/signUp" uid={data[1]} />;
+            }
+            return this.props.client.writeData({
+              data: {
+                userInfo: {
+                  __typename: 'userInfo',
+                  userId: user.id,
+                  username: user.name,
+                  description: user.description,
+                  cityOfResidence: user.cityOfResidence,
+                  image: user.image,
+                  uid: user.uid
+                }
+              }
+            });
+            // test
+          })
+          .then((redirect) => {
+            if (redirect) {
+              return redirect;
+            }
+            this.props.handleLogin(true);
+          })
+          .catch((err) => console.error(err));
       } else {
-        this.props.handleUserLoggingIn(true, user.uid);
+        this.props.handleLogin(false);
       }
-    })
+    });
   }
-
-  
 
   render() {
     {
-      if (this.props.isLoggedIn === false) {
+      // this needs work, need to toggle state and log out
+      if (!this.props.isLoggedIn && !this.state.redirect) {
         return (
           <div className="Login">
             <h1>Welcome to </h1>
@@ -65,50 +106,14 @@ class Login extends React.Component {
             </div>
           </div>
         );
-      } else if (this.props.isLoggedIn === true) {
-        return (
-          // <div>
-          //   <Query query={GET_USER} variables={{ id: this.state.uID }}>
-          //     {({ loading, error, data }) => {
-          //       if (error) return <h1>error</h1>;
-          //       if (loading) {
-          //         return <div> Loading test ...</div>;
-          //       } else {
-          //         if (data.id === null) {
-          //           return <Redirect to="/signup" />;
-          //         } else {
-          //           const userid = data.id;
-          //           return (
-          //             <Mutation mutation={UPDATE_USER_INFO}>
-          //               {(updateUserInfo, { data }) =>
-          //                 updateUserInfo({
-          //                   variables: {
-          //                     userId: userId,
-          //                     username: data.name,
-          //                     description: data.description,
-          //                     cityOfResidence: data.city,
-          //                     image: data.image
-          //                   }
-          //                 })
-          //               }
-          //             </Mutation>
-          //           );
-          //         }
-          //       }
-          //     }}
-          //   </Query>
-          //   <div className="Login">
-            // <Redirect to={{
-            //     pathname: '/dashboard',
-            //     state: { firebaseId: this.state.uID }
-            // }} />
-              <Redirect to="/dashboard" userInfo={this.state.userInfo} />
-          //   </div>
-          // </div>
-        );
+      } else if (this.state.redirect) {
+        return <Redirect to={{ pathname: '/signUp', state: { uid: this.state.uid } }} />;
+      } else {
+        return <Redirect to="/dashboard" />;
       }
     }
   }
 }
-
-export default Login;
+// this.props.client.query
+// this.props.mutate({})
+export default withApollo(Login);
