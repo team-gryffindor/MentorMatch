@@ -83,6 +83,19 @@ const GET_USER = gql`
   }
 `;
 
+const CHECK_USER = gql`
+  query($uid: ID!) {
+    checkUser(uid: $uid) {
+      id
+      uid
+      name
+      description
+      image
+      cityOfResidence
+    }
+  }
+`;
+
 const GET_LESSON = gql`
   query($id: ID!) {
     lesson(id: $id) {
@@ -136,18 +149,26 @@ const GET_LESSONS = gql`
 `;
 
 const ADD_USER = gql`
-  mutation($name: String!, $description: String!, $cityOfResidence: String!, $image: String!) {
+  mutation(
+    $name: String!
+    $description: String!
+    $cityOfResidence: String!
+    $image: String!
+    $uid: ID!
+  ) {
     addUser(
       name: $name
       description: $description
       cityOfResidence: $cityOfResidence
       image: $image
+      uid: $uid
     ) {
       name
       description
       cityOfResidence
       image
       id
+      uid
     }
   }
 `;
@@ -220,6 +241,7 @@ const ADD_FAVORITE_LESSON = gql`
 
 export {
   GET_USER,
+  CHECK_USER,
   GET_LESSON,
   GET_LESSONS,
   ADD_USER,

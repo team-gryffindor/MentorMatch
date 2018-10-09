@@ -25,6 +25,7 @@ const Mutation = new GraphQLObjectType({
     addUser: {
       type: UserType,
       args: {
+        uid: { type: GraphQLID },
         name: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
@@ -33,6 +34,7 @@ const Mutation = new GraphQLObjectType({
       resolve(parent, args) {
         // sequelize to add user
         return Models.User.build({
+          uid: args.uid,
           name: args.name,
           image: args.image,
           description: args.description,
