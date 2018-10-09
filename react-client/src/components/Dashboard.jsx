@@ -13,9 +13,6 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1>
-          <Link to="/">Mentor Match</Link>
-        </h1>
         <div>
           <div />
           <FeaturedLesson />
