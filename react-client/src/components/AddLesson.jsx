@@ -25,7 +25,7 @@ class AddLesson extends React.Component {
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          let userID = data.mentorMatch.userId;
+          let userID = data.userInfo.userId;
           return (
             <Mutation mutation={ADD_LESSON}>
               {(addLesson) => (

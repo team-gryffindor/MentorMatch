@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
+import { ADD_USER } from '../apollo/resolvers/backendQueries.js';
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      city: '',
+      cityOfResidence: '',
       description: '',
       image: ''
     };
@@ -16,31 +17,29 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <Mutation mutation={ADD_LESSON}>
-        {(addLesson) => (
+      <Mutation mutation={ADD_USER}>
+        {(addUser) => (
           <div>
-            <p>Create a Lesson! {console.log(addLesson)}</p>
+            <h1>Sign Up! {console.log('props', this.props.uid)}</h1>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                addLesson({
+                addUser({
                   variables: {
-                    title: this.state.title,
+                    name: this.state.username,
                     description: this.state.description,
-                    cityOfService: this.state.cityOfService,
+                    cityOfResidence: this.state.cityOfResidence,
                     image: this.state.image,
-                    difficulty: this.state.difficulty,
-                    userId: userID,
-                    category: this.state.category
+                    uid: this.props.uid
                   }
                 });
               }}
             >
-              Title:
+              Name:
               <input
-                value={this.state.title}
+                value={this.state.username}
                 onChange={(e) => {
-                  this.setState({ title: e.target.value });
+                  this.setState({ username: e.target.value });
                 }}
               />
               Description:
@@ -52,23 +51,9 @@ class SignUp extends React.Component {
               />
               City:
               <input
-                value={this.state.cityOfService}
+                value={this.state.cityOfResidence}
                 onChange={(e) => {
-                  this.setState({ cityOfService: e.target.value });
-                }}
-              />
-              Difficulty:
-              <input
-                value={this.state.difficulty}
-                onChange={(e) => {
-                  this.setState({ difficulty: e.target.value });
-                }}
-              />
-              Category:
-              <input
-                value={this.state.category}
-                onChange={(e) => {
-                  this.setState({ category: e.target.value });
+                  this.setState({ cityOfResidence: e.target.value });
                 }}
               />
               img:
@@ -78,7 +63,7 @@ class SignUp extends React.Component {
                   this.setState({ image: e.target.value });
                 }}
               />
-              <button type="submit">Create Lesson!</button>
+              <button type="submit">Sign Up!</button>
             </form>
           </div>
         )}

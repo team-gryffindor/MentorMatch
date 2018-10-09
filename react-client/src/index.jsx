@@ -24,7 +24,6 @@ import AddLesson from './components/AddLesson.jsx';
 import LessonContent from './components/LessonContent.jsx';
 import ProfilePage from './components/ProfilePage.jsx';
 import NavBarMain from './components/NavBarMain.jsx';
-import NavigationBar from './components/NavigationBar.jsx';
 
 const cache = new InMemoryCache();
 
@@ -38,10 +37,10 @@ const stateLink = withClientState({
         { theUserId, theUserName, theDescription, theCityOfResidence, theImage },
         { cache }
       ) => {
-        client.writeData({
+        cache.writeData({
           data: {
-            mentorMatch: {
-              __typename: 'mentorMatch',
+            userInfo: {
+              __typename: 'userInfo',
               userId: theUserId,
               username: theUserName,
               description: theDescription,
@@ -54,6 +53,8 @@ const stateLink = withClientState({
     }
   }
 });
+
+// RTqbQEMIb9gLB8wTZheYtz6a1LI3
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -69,17 +70,15 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
-      firebaseID: null
+      isLoggedIn: false
     };
-    this.handleUserLoggingIn = this.handleUserLoggingIn.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleUserLoggingIn(boolean, firebaseID) {
+  handleLogin(boolean) {
     console.log('USER IS LOGGED IN AND FIREBASE PASSED');
     this.setState({
-      isLoggedIn: boolean,
-      firebaseID: firebaseID
+      isLoggedIn: boolean
     });
   }
 
@@ -94,7 +93,8 @@ class App extends React.Component {
               render={({ location }) => (
                 <NavBarMain
                   isLoggedIn={this.state.isLoggedIn}
-                  handleUserLoggingIn={this.handleUserLoggingIn}
+                  firebaseID={this.state.firebaseID}
+                  handleLogin={this.handleLogin}
                   currentPath={location.pathname}
                 />
               )}
@@ -105,10 +105,7 @@ class App extends React.Component {
               exact
               path="/"
               render={() => (
-                <Home
-                  isLoggedIn={this.state.isLoggedIn}
-                  handleUserLoggingIn={this.handleUserLoggingIn}
-                />
+                <Home isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
               )}
             />
             <Route
@@ -118,7 +115,7 @@ class App extends React.Component {
                   {(updateUserInfo) => (
                     <Login
                       updateUserInfo={updateUserInfo}
-                      handleUserLoggingIn={this.handleUserLoggingIn}
+                      handleLogin={this.handleLogin}
                       isLoggedIn={this.state.isLoggedIn}
                       uid={this.state.firebaseID}
                     />
@@ -126,7 +123,12 @@ class App extends React.Component {
                 </Mutation>
               )}
             />
-            <Route path="/signUp" render={() => <SignUp firebaseID={this.state.firebaseID} />} />
+            <Route
+              path="/signUp"
+              render={({ location }) => (
+                <SignUp uid={location.state.uid} firebaseID={this.state.firebaseID} />
+              )}
+            />
             <Route path="/active" render={() => <ActiveLessons />} />
             {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
             {/* <Route path="/past" render={() => <PastLessons />}/> */}
@@ -134,10 +136,7 @@ class App extends React.Component {
             <Route
               path="/dashboard"
               render={() => (
-                <Dashboard
-                  isLoggedIn={this.state.isLoggedIn}
-                  handleUserLoggingIn={this.handleUserLoggingIn}
-                />
+                <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
               )}
             />
             <Route path="/userProfile" render={() => <ProfilePage />} />

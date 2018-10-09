@@ -21,7 +21,7 @@ class Dashboard extends React.Component {
           <div>
             {/* <Navigation
               isLoggedIn={this.props.isLoggedIn}
-              handleUserLoggingIn={this.props.handleUserLoggingIn}
+              handleLogin={this.props.handleLogin}
             />
             <Search /> */}
           </div>

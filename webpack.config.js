@@ -8,16 +8,20 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR
   },
-  module : {
-    loaders : [
+  module: {
+    loaders: [
       {
-        test : /\.jsx?/,
-        include : SRC_DIR,
-        loader : 'babel-loader',      
+        test: /\.jsx?/,
+        include: SRC_DIR,
+        loader: 'babel-loader',
         query: {
           presets: ['react', 'es2015'],
-          plugins: ["transform-decorators-legacy", "transform-es2015-destructuring", "transform-object-rest-spread"]
-       }
+          plugins: [
+            'transform-decorators-legacy',
+            'transform-es2015-destructuring',
+            'transform-object-rest-spread'
+          ]
+        }
       }
     ]
   }
