@@ -22,11 +22,7 @@ module.exports = {
             'transform-object-rest-spread'
           ]
         }
-      }
-    ]
-  },
-  module: {
-    loaders: [
+      },
       {
         test: /\.(png|jpg)$/,
         loader: 'url?limit=25000'
