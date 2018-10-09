@@ -24,6 +24,7 @@ import AddLesson from './components/AddLesson.jsx';
 import LessonContent from './components/LessonContent.jsx';
 import ProfilePage from './components/ProfilePage.jsx';
 import NavBarMain from './components/NavBarMain.jsx';
+import Calendar from './components/Calendar.jsx';
 
 const cache = new InMemoryCache();
 
@@ -146,6 +147,7 @@ class App extends React.Component {
               render={({ location }) => <LessonContent lesson={location.state.lesson} />}
             />
             <Route path="/addLesson" render={() => <AddLesson />} />
+            <Route path="/calendar" render={() => <Calendar />} />
           </div>
         </Router>
       </ApolloProvider>
