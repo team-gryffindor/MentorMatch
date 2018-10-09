@@ -6,7 +6,7 @@ const LessonDetailHeader = ({ lesson }) => {
   return (
     <div className="lesson-detail-header-margin-top">
       <div className="jumbotron">
-        <span className="badge badge-pill badge-info">{lesson.category}</span>
+        <span className="badge badge-pill badge-primary">{lesson.category}</span>
         <div className="d-flex w-100 justify-content-between">
           <h1 className="display-4">{lesson.title}</h1>
           <small className="text">
@@ -22,9 +22,9 @@ const LessonDetailHeader = ({ lesson }) => {
         <hr className="my-4" />
         <MentorInfo provider={lesson.provider} />
         <p className="lead text-right">
-          <a className="btn btn-info btn-lg" href="#" role="button">
+          <button className="btn btn-highlight btn-lg" href="#" role="button">
             Book Now
-          </a>
+          </button>
         </p>
       </div>
     </div>

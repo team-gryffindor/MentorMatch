@@ -88,8 +88,11 @@ class SearchBar extends React.Component {
             value={this.state.location}
             onChange={this.handleLocationInputChange}
           />
-          <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-            <Link to={{ pathname: '/feed', state: { lessonIds: this.state.results } }}>
+          <button className="btn btn-primary my-2 my-sm-0" type="submit">
+            <Link
+              to={{ pathname: '/feed', state: { lessonIds: this.state.results } }}
+              style={{ textDecoration: 'none', color: 'white' }}
+            >
               <i className="fas fa-search" /> Search
             </Link>
           </button>
