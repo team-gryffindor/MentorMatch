@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const UPDATE_USER_INFO = gql`
-  mutation(
+  mutation updateUserInfo(
     $theUserId: ID!
     $theUserName: String!
     $theDescription: String!

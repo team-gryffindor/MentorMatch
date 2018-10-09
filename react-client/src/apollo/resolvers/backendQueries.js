@@ -100,6 +100,20 @@ const GET_LESSONS = gql`
   }
 `;
 
+const CHECK_USER = gql`
+  query($uid: ID!) {
+    checkUser(uid: $uid) {
+      id
+      uid
+      name
+      description
+      image
+      cityOfResidence
+    }
+  }
+`;
+
+
 const ADD_USER = gql`
   mutation($name: String!, $description: String!, $cityOfResidence: String!, $image: String!) {
     addUser(
@@ -187,6 +201,7 @@ export {
   GET_USER,
   GET_LESSON,
   GET_LESSONS,
+  CHECK_USER,
   ADD_USER,
   ADD_LESSON,
   ADD_REVIEW,

@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Query, Mutation } from 'react-apollo';
+import { Query, Mutation, ApolloConsumer } from 'react-apollo';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { UPDATE_USER_INFO } from '../apollo/resolvers/clientSideQueries';
-import { GET_USER } from '../apollo/resolvers/backendQueries';
+import { CHECK_USER } from '../apollo/resolvers/backendQueries';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
@@ -67,44 +67,64 @@ class Login extends React.Component {
         );
       } else if (this.props.isLoggedIn === true) {
         return (
-          // <div>
-          //   <Query query={GET_USER} variables={{ id: this.state.uID }}>
-          //     {({ loading, error, data }) => {
-          //       if (error) return <h1>error</h1>;
-          //       if (loading) {
-          //         return <div> Loading test ...</div>;
-          //       } else {
-          //         if (data.id === null) {
-          //           return <Redirect to="/signup" />;
-          //         } else {
-          //           const userid = data.id;
-          //           return (
-          //             <Mutation mutation={UPDATE_USER_INFO}>
-          //               {(updateUserInfo, { data }) =>
-          //                 updateUserInfo({
-          //                   variables: {
-          //                     userId: userId,
-          //                     username: data.name,
-          //                     description: data.description,
-          //                     cityOfResidence: data.city,
-          //                     image: data.image
-          //                   }
-          //                 })
-          //               }
-          //             </Mutation>
-          //           );
-          //         }
-          //       }
-          //     }}
-          //   </Query>
-          //   <div className="Login">
-            // <Redirect to={{
-            //     pathname: '/dashboard',
-            //     state: { firebaseId: this.state.uID }
-            // }} />
-              <Redirect to="/dashboard" userInfo={this.state.userInfo} />
-          //   </div>
-          // </div>
+          
+            // <Query query={CHECK_USER} variables={{ uid: this.props.uid }}>
+            //   {({ loading, error, data }) => {
+            //     if (error) return <h1>error</h1>;
+            //     if (loading) {
+            //       return <div> Loading test ...</div>;
+            //     } else {
+            //       console.log('login', data);
+            //       if (data.checkUser === null) {
+            //         return <Redirect to="/signup" />;
+            //       } else {
+            //         console.log('login2', data);
+            //         let user = data.checkUser;
+            //         console.log(user);
+                   
+            //         return (
+            //           <div>
+            //             <h1>logged in</h1>
+                    //   <ApolloConsumer>
+                    //     {console.log('This is being hit')}
+                    //   {client => (
+                    //      client.writeData({ mentorMatch: { userId: 5,
+                    //       username: 'Alan',
+                    //       description: 'Apollo State Mgmt ftw',
+                    //       cityOfResidence: 'NYC',
+                    //       image: 'https://media.giphy.com/media/xTiTnqUxyWbsAXq7Ju/giphy.gif' 
+                        
+                    //      }})
+                    //   )}
+                    // </ApolloConsumer>
+
+                     <div>
+                        <Mutation mutation={UPDATE_USER_INFO}>
+                          {(updateUserInfo) => {
+                            // console.log(updateUserInfo);
+                            updateUserInfo({
+                              variables: {
+                                userId: 5,
+                                username: 'Alan',
+                                description: 'Apollo State Mgmt ftw',
+                                cityOfResidence: 'NYC',
+                                image: 'https://media.giphy.com/media/xTiTnqUxyWbsAXq7Ju/giphy.gif'
+                              }
+                            });
+                          }}
+                        </Mutation>
+                        <Redirect to="/dashboard" />
+                     </div>
+            //             {/* <Query query={GET_USER_INFO}>
+            //               {({ loading, error, data }) => console.log(data)}
+            //             </Query> */}
+            //           </div>
+            //         );
+            //       }
+            //     }
+            //   }}
+            // </Query>
+        
         );
       }
     }
