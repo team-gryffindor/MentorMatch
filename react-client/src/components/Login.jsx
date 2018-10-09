@@ -36,7 +36,6 @@ class Login extends React.Component {
         signInSuccessWithAuthResult: () => false
       }
     };
-    this.updateUser = this.updateUser.bind(this);
   }
 
   componentDidMount() {
@@ -91,19 +90,6 @@ class Login extends React.Component {
   }
 
   render() {
-
-    const updateCache = (cache, { data: { uid } }) => {
-      const { userId } = cache.readQuery({ query: GET_USER_INFO })
-      console.log('UPDATE CACHE USER ID: ',userId)
-      cache.writeQuery({
-        query: GET_USER_INFO,
-        data: {
-          userId: uid
-
-        }
-      })
-    }
-
     {
       // this needs work, need to toggle state and log out
       if (!this.props.isLoggedIn && !this.state.redirect) {
