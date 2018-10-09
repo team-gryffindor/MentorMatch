@@ -76,13 +76,12 @@ class App extends React.Component {
   }
 
   handleUserLoggingIn(boolean, firebaseID) {
-    console.log('USER IS LOGGED IN AND FIREBASE PASSED')
+    console.log('USER IS LOGGED IN AND FIREBASE PASSED');
     this.setState({
       isLoggedIn: boolean,
       firebaseID: firebaseID
     });
   }
-
 
   render() {
     // console.log('CURRENT LOCATION', this.props.location.pathname);
@@ -121,7 +120,7 @@ class App extends React.Component {
                 />
               )}
             />
-            <Route path="/signUp" render={() => <SignUp firebaseID={this.state.firebaseID}/>} />
+            <Route path="/signUp" render={() => <SignUp firebaseID={this.state.firebaseID} />} />
             <Route path="/active" render={() => <ActiveLessons />} />
             {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
             {/* <Route path="/past" render={() => <PastLessons />}/> */}

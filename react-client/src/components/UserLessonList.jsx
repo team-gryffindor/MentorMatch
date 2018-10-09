@@ -18,9 +18,10 @@ class UserLessonList extends React.Component {
         {({ loading, error, data }) => {
           if (error) return <h1>error</h1>;
           if (loading) {
-            return <div> Loading test ...</div>;
+            return <div> Loading lessons ...</div>;
           } else {
             let lessons = data.user[this.props.lessonType];
+            console.log('LESSONS IN PROFILE', lessons);
             if (this.props.lessonType === 'signupLessons') {
               if (this.props.upcoming) {
                 return (

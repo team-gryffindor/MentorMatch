@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
   render() {
     console.log('dashboard shown');
     return (
-      <div>
+      <div className="container">
         <h1>
           <Link to="/">Mentor Match</Link>
         </h1>
