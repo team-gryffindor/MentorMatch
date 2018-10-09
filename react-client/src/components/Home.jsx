@@ -19,20 +19,6 @@ class Home extends React.Component {
   }
 
   render() {
-    // return (
-    //   <div>
-    //     <h1>Mentor Match</h1>
-    //     <Navigation
-    //       isLoggedIn={this.props.isLoggedIn}
-    //       handleUserLoggingIn={this.handleUserLoggingIn}
-    //     />
-    //     {/* <Search query={props.query} /> */}
-    //     <h1>Today's Top Services</h1>
-    //     {/* currently grabbing all lessons */}
-    //     <LessonList style="horizontal" />
-    //   </div>
-    // );
-
     return (
       <div className="container">
         {/* <NavLand /> */}
@@ -41,8 +27,8 @@ class Home extends React.Component {
 
         <Query query={GET_LESSONS}>
           {({ loading, error, data }) => {
-            if (error) return <h1>Error...</h1>;
-            if (loading || !data) return <h1>Loading...</h1>;
+            if (error) return <small>Error...</small>;
+            if (loading || !data) return <small>Loading...</small>;
             return (
               <ul>
                 {data.lessons.map((lesson) => {
