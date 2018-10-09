@@ -18,7 +18,7 @@ class ProfilePage extends React.Component {
         {({ loading, error, data }) => {
           if (error) return <h1>Error...</h1>;
           if (loading || !data) return <h1>Loading...</h1>;
-          let user = data.mentorMatch;
+          let user = data.userInfo;
           return (
             <div>
               <h1>Profile Page</h1>

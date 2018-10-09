@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
+import { ADD_USER } from '../apollo/resolvers/backendQueries.js';
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      city: '',
+      cityOfResidence: '',
       description: '',
       image: ''
     };
@@ -16,73 +17,57 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <Mutation mutation={ADD_LESSON}>
-              {(addLesson) => (
-                <div>
-                  <p>Create a Lesson! {console.log(addLesson)}</p>
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      addLesson({
-                        variables: {
-                          title: this.state.title,
-                          description: this.state.description,
-                          cityOfService: this.state.cityOfService,
-                          image: this.state.image,
-                          difficulty: this.state.difficulty,
-                          userId: userID,
-                          category: this.state.category
-                        }
-                      });
-                    }}
-                  >
-                    Title:
-                    <input
-                      value={this.state.title}
-                      onChange={(e) => {
-                        this.setState({ title: e.target.value });
-                      }}
-                    />
-                    Description:
-                    <input
-                      value={this.state.description}
-                      onChange={(e) => {
-                        this.setState({ description: e.target.value });
-                      }}
-                    />
-                    City:
-                    <input
-                      value={this.state.cityOfService}
-                      onChange={(e) => {
-                        this.setState({ cityOfService: e.target.value });
-                      }}
-                    />
-                    Difficulty:
-                    <input
-                      value={this.state.difficulty}
-                      onChange={(e) => {
-                        this.setState({ difficulty: e.target.value });
-                      }}
-                    />
-                    Category:
-                    <input
-                      value={this.state.category}
-                      onChange={(e) => {
-                        this.setState({ category: e.target.value });
-                      }}
-                    />
-                    img:
-                    <input
-                      value={this.state.image}
-                      onChange={(e) => {
-                        this.setState({ image: e.target.value });
-                      }}
-                    />
-                    <button type="submit">Create Lesson!</button>
-                  </form>
-                </div>
-              )}
-            </Mutation>
+      <Mutation mutation={ADD_USER}>
+        {(addUser) => (
+          <div>
+            <h1>Sign Up! {console.log('props', this.props.uid)}</h1>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                addUser({
+                  variables: {
+                    name: this.state.username,
+                    description: this.state.description,
+                    cityOfResidence: this.state.cityOfResidence,
+                    image: this.state.image,
+                    uid: this.props.uid
+                  }
+                });
+              }}
+            >
+              Name:
+              <input
+                value={this.state.username}
+                onChange={(e) => {
+                  this.setState({ username: e.target.value });
+                }}
+              />
+              Description:
+              <input
+                value={this.state.description}
+                onChange={(e) => {
+                  this.setState({ description: e.target.value });
+                }}
+              />
+              City:
+              <input
+                value={this.state.cityOfResidence}
+                onChange={(e) => {
+                  this.setState({ cityOfResidence: e.target.value });
+                }}
+              />
+              img:
+              <input
+                value={this.state.image}
+                onChange={(e) => {
+                  this.setState({ image: e.target.value });
+                }}
+              />
+              <button type="submit">Sign Up!</button>
+            </form>
+          </div>
+        )}
+      </Mutation>
     );
   }
 }
