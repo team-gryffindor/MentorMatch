@@ -15,7 +15,7 @@ const NavSearchBar = (props) => (
         placeholder="Location"
         aria-label="Location"
       />
-      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+      <button className="btn btn-outline-info my-2 my-sm-0" type="submit">
         <i className="fas fa-search" />
       </button>
     </form>

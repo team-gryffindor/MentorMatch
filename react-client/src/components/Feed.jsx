@@ -33,7 +33,7 @@ class Feed extends React.Component {
     //   }
     // }
     return (
-      <div>
+      <div className="container">
         <h1>Search Results for {} </h1>
         <LessonList lessonIds={['3', '18']} />
       </div>

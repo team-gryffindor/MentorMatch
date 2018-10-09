@@ -17,6 +17,9 @@ const GET_USER = gql`
         numOfReviews
         provider {
           name
+          cityOfResidence
+          description
+          image
         }
         reviews {
           title
@@ -33,6 +36,9 @@ const GET_USER = gql`
         numOfReviews
         provider {
           name
+          cityOfResidence
+          description
+          image
         }
         reviews {
           title
@@ -49,6 +55,9 @@ const GET_USER = gql`
         numOfReviews
         provider {
           name
+          cityOfResidence
+          description
+          image
         }
         reviews {
           title
@@ -72,10 +81,17 @@ const GET_LESSON = gql`
       numOfReviews
       provider {
         name
+        cityOfResidence
+        description
+        image
       }
       reviews {
         title
         rating
+        user {
+          name
+          image
+        }
       }
     }
   }
@@ -91,6 +107,9 @@ const GET_LESSONS = gql`
       numOfReviews
       provider {
         name
+        cityOfResidence
+        description
+        image
       }
       reviews {
         title
