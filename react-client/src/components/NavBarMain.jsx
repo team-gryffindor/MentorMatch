@@ -10,20 +10,26 @@ import NavUserOpt from './NavUserOpt.jsx';
 class NavBarMain extends React.Component {
   constructor(props) {
     super(props);
-    // ({ isHome, isLoggedIn, handleUserLoggingIn }) => (
+    // ({ isHome, isLoggedIn, handleLogin }) => (
   }
 
   render() {
     return (
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-        <NavLogo />
-        {this.props.currentPath !== '/' && <NavSearchBar />}
-        {this.props.isLoggedIn ? (
-          <NavUserOpt handleUserLoggingIn={this.props.handleUserLoggingIn} />
-        ) : (
-          <NavGuestOpt />
-        )}
-      </nav>
+      <div>
+        <nav
+          className="navbar navbar-expand-md navbar-light"
+          style={{ backgroundColor: 'transparent' }}
+        >
+          <NavLogo />
+          {this.props.currentPath !== '/' && <NavSearchBar />}
+          {this.props.isLoggedIn ? (
+            <NavUserOpt handleLogin={this.props.handleLogin} />
+          ) : (
+            <NavGuestOpt />
+          )}
+        </nav>
+        <hr />
+      </div>
     );
   }
 }

@@ -13,13 +13,14 @@ class WriteReview extends React.Component {
     };
   }
   render() {
-    // figure out how to pull lessonid and userid
+    // TODO: need to refetch??
     return (
       <Query query={GET_USER_INFO}>
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
-          let userID = data.mentorMatch.userId;
+          let user = data.userInfo;
+          console.log(this.props.lessonId);
           return (
             <Mutation mutation={ADD_REVIEW}>
               {(addReview) => (
@@ -34,8 +35,8 @@ class WriteReview extends React.Component {
                           comment: this.state.comment,
                           // TODO: restrict user using stars or something
                           rating: Number(this.state.rating),
-                          lessonId: 1,
-                          userId: 2
+                          lessonId: this.props.lessonId,
+                          userId: user.userId
                         }
                       });
                     }}

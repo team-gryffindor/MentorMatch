@@ -24,6 +24,11 @@ const GET_USER = gql`
         reviews {
           title
           rating
+          user {
+            name
+            image
+            cityOfResidence
+          }
         }
       }
       signupLessons {
@@ -43,6 +48,11 @@ const GET_USER = gql`
         reviews {
           title
           rating
+          user {
+            name
+            image
+            cityOfResidence
+          }
         }
       }
       favoriteLessons {
@@ -62,8 +72,26 @@ const GET_USER = gql`
         reviews {
           title
           rating
+          user {
+            name
+            image
+            cityOfResidence
+          }
         }
       }
+    }
+  }
+`;
+
+const CHECK_USER = gql`
+  query($uid: ID!) {
+    checkUser(uid: $uid) {
+      id
+      uid
+      name
+      description
+      image
+      cityOfResidence
     }
   }
 `;
@@ -91,6 +119,7 @@ const GET_LESSON = gql`
         user {
           name
           image
+          cityOfResidence
         }
       }
     }
@@ -134,18 +163,26 @@ const CHECK_USER = gql`
 
 
 const ADD_USER = gql`
-  mutation($name: String!, $description: String!, $cityOfResidence: String!, $image: String!) {
+  mutation(
+    $name: String!
+    $description: String!
+    $cityOfResidence: String!
+    $image: String!
+    $uid: ID!
+  ) {
     addUser(
       name: $name
       description: $description
       cityOfResidence: $cityOfResidence
       image: $image
+      uid: $uid
     ) {
       name
       description
       cityOfResidence
       image
       id
+      uid
     }
   }
 `;
@@ -216,8 +253,11 @@ const ADD_FAVORITE_LESSON = gql`
   }
 `;
 
+
+
 export {
   GET_USER,
+  CHECK_USER,
   GET_LESSON,
   GET_LESSONS,
   CHECK_USER,

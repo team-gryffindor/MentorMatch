@@ -2,7 +2,6 @@ import React from 'react';
 // import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
 // import LessonList from './LessonList.jsx';
 import SearchBar from './SearchBar.jsx';
-import Navigation from './NavigationBar.jsx';
 import LessonList from './LessonList.jsx';
 import LessonListItem from './LessonListItem.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
@@ -24,7 +23,7 @@ class Home extends React.Component {
     //     <h1>Mentor Match</h1>
     //     <Navigation
     //       isLoggedIn={this.props.isLoggedIn}
-    //       handleUserLoggingIn={this.handleUserLoggingIn}
+    //       handleLogin={this.handleLogin}
     //     />
     //     {/* <Search query={props.query} /> */}
     //     <h1>Today's Top Services</h1>

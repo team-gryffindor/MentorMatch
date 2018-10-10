@@ -3,7 +3,7 @@ import React from 'react';
 const NavLogo = (props) => (
   <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
     <a className="navbar-brand" href="/">
-      MentorMatch
+      <img className="logo-img" src={'../MM-Logo-Depth.png'} width={30} />
     </a>
     <button
       className="navbar-toggler"

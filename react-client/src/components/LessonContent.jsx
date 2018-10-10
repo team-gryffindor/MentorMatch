@@ -11,7 +11,7 @@ class LessonContent extends React.Component {
   render() {
     // console.log(this.props.lesson);
     return (
-      <div className="container">
+      <div className="container" style={{ marginBottom: '30px' }}>
         <LessonDetailHeader lesson={this.props.lesson} />
         <h3>
           {this.props.lesson.numOfReviews} reviews from people who took{' '}
@@ -21,7 +21,7 @@ class LessonContent extends React.Component {
         </h3>
         <ReviewList reviews={this.props.lesson.reviews} />
         {console.log(this.props.lesson.id)}
-        <WriteReview />
+        <WriteReview lessonId={this.props.lesson.id} />
       </div>
     );
   }

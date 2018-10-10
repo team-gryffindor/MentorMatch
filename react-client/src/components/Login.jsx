@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Query, Mutation, ApolloConsumer } from 'react-apollo';
+import { Query, Mutation, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { UPDATE_USER_INFO } from '../apollo/resolvers/clientSideQueries';
-import { CHECK_USER } from '../apollo/resolvers/backendQueries';
+import { UPDATE_USER_INFO, GET_USER_INFO } from '../apollo/resolvers/clientSideQueries';
+import { CHECK_USER, GET_USER } from '../apollo/resolvers/backendQueries';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
@@ -20,7 +20,10 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      // isSignedIn: false,
+      // uID: null
+      redirect: false,
+      uid: null
     };
     this.uiConfig = {
       signInFlow: 'popup',
@@ -37,19 +40,59 @@ class Login extends React.Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user);
-      if(user){
-        console.log('THIS IS REACHED')
-        this.props.handleUserLoggingIn(true, user.uid);
-      } 
-    })
+      if (user) {
+        return Promise.all([
+          this.props.client.query({
+            query: CHECK_USER,
+            variables: {
+              uid: user.uid
+            }
+          }),
+          user.uid
+        ])
+          .then((data) => {
+            let user = data[0].data.checkUser;
+            console.log(user);
+            if (!user) {
+              // redirect to signup
+              this.setState({
+                redirect: true,
+                uid: data[1]
+              });
+              return <Redirect to="/signUp" uid={data[1]} />;
+            }
+            return this.props.client.writeData({
+              data: {
+                userInfo: {
+                  __typename: 'userInfo',
+                  userId: user.id,
+                  username: user.name,
+                  description: user.description,
+                  cityOfResidence: user.cityOfResidence,
+                  image: user.image,
+                  uid: user.uid
+                }
+              }
+            });
+            // test
+          })
+          .then((redirect) => {
+            if (redirect) {
+              return redirect;
+            }
+            this.props.handleLogin(true);
+          })
+          .catch((err) => console.error(err));
+      } else {
+        this.props.handleLogin(false);
+      }
+    });
   }
-
-  
 
   render() {
     {
-      if (this.props.isLoggedIn === false) {
+      // this needs work, need to toggle state and log out
+      if (!this.props.isLoggedIn && !this.state.redirect) {
         return (
           <div className="Login">
             <h1>Welcome to </h1>
@@ -63,76 +106,14 @@ class Login extends React.Component {
             </div>
           </div>
         );
-      } else if (this.props.isLoggedIn === true) {
-        return (
-          
-            <Query query={CHECK_USER} variables={{ uid: this.props.uid }}>
-              {({ loading, error, data }) => {
-                if (error) return <h1>error</h1>;
-                if (loading) {
-                  return <div> Loading test ...</div>;
-                } else {
-                  console.log('login', data);
-                  if (data.checkUser === null) {
-                    return <Redirect to="/signup" />;
-                  } else {
-                    console.log('login2', data);
-                    let user = data.checkUser;
-                    console.log(user);
-                   
-            //         return (
-            //           <div>
-            //             <h1>logged in</h1>
-                    //   <ApolloConsumer>
-                    //     {console.log('This is being hit')}
-                    //   {client => (
-                    //      client.writeData({
-                    //       data: {
-                    //         mentorMatch: {
-                    //           __typename: 'mentorMatch',
-                    //           userId: 5,
-                    //           username: 'youngAlan',
-                    //           description: 'love riding bikes',
-                    //           cityOfResidence: 'NYC',
-                    //           image: 'https://media.giphy.com/media/xTiTnqUxyWbsAXq7Ju/giphy.gif'
-                    //         }
-                    //       }
-                    //     })
-                    //   )}
-                    // </ApolloConsumer>
-
-                    
-                        // <Mutation mutation={UPDATE_USER_INFO} >
-                        //   {updateUserInfo => (
-                        //     // console.log(updateUserInfo);
-                        //     <li className="sidebar-item" onClick={() => updateUserInfo({ variables: { userId: '123',
-                        //                                                                               username: 'Alan',
-                        //                                                                               description: 'Apollo State Mgmt ftw',
-                        //                                                                               cityOfResidence: 'NYC',
-                        //                                                                               image: 'https://media.giphy.com/media/xTiTnqUxyWbsAXq7Ju/giphy.gif'} 
-                        //                                                                             }).then(() => {
-                        //                                                                               console.log('SUCESSSS!')
-                        //                                                                             }).catch((err) => {
-                        //                                                                               console.log("EROROROROROR", err)
-                        //                                                                             })}>React</li>
-                              
-                        //   )}
-                        // </Mutation>
-                     
-                        {/* <Query query={GET_USER_INFO}>
-                          {({ loading, error, data }) => console.log(data)}
-                        </Query> */}
-            //           </div>
-            //         );
-                  }
-                }
-              }}
-            </Query>
-        
-        );
+      } else if (this.state.redirect) {
+        return <Redirect to={{ pathname: '/signUp', state: { uid: this.state.uid } }} />;
+      } else {
+        return <Redirect to="/dashboard" />;
       }
     }
   }
 }
-
-export default Login;
+// this.props.client.query
+// this.props.mutate({})
+export default withApollo(Login);

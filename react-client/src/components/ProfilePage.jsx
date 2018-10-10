@@ -15,31 +15,29 @@ class ProfilePage extends React.Component {
 
   render() {
     return (
-    
-        <Query query={GET_USER_INFO}>
-          {({ loading, error, data }) => {
-            if (error) return <h1>Error...</h1>;
-            if (loading || !data) return <h1>Loading...</h1>;
-            let user = data.mentorMatch;
-            return (
-              <div>
-                <NavProfile></NavProfile>
-                  <h1>Welcome {user.username}!</h1>
-                  <UserProfileInfo user={user} />
-                  <h3>Offered </h3>
-                  <UserLessonList userId={user.userId} lessonType="offeredLessons" />
-                  <h3>Upcoming Lessons </h3>
-                  <UserLessonList userId={user.userId} lessonType="signupLessons" upcoming={true} />
-                  <h3>Taken Lessons </h3>
-                  <UserLessonList userId={user.userId} lessonType="signupLessons" upcoming={false} />
-                  <h3>Favorite Lessons </h3>
-                  <UserLessonList userId={user.userId} lessonType="favoriteLessons" />
-              
-              </div>
-            );
-          }}
-        </Query>
-    
+      <Query query={GET_USER_INFO}>
+        {({ loading, error, data }) => {
+          if (error) return <h1>Error...</h1>;
+          if (loading || !data) return <h1>Loading...</h1>;
+          let user = data.userInfo;
+          console.log(data);
+          return (
+            <div>
+              <NavProfile></NavProfile>
+              <h1>Profile Page</h1>
+              <UserProfileInfo user={user} />
+              <h3>Offered </h3>
+              <UserLessonList userId={user.userId} lessonType="offeredLessons" />
+              <h3>Upcoming Lessons </h3>
+              <UserLessonList userId={user.userId} lessonType="signupLessons" upcoming={true} />
+              <h3>Taken Lessons </h3>
+              <UserLessonList userId={user.userId} lessonType="signupLessons" upcoming={false} />
+              <h3>Favorite Lessons </h3>
+              <UserLessonList userId={user.userId} lessonType="favoriteLessons" />
+            </div>
+          );
+        }}
+      </Query>
     );
   }
 }
