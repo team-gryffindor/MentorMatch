@@ -13,12 +13,25 @@ const FeaturedLesson = (props) => {
         if (loading) {
           return <div> Loading test ...</div>;
         } else {
+          console.log(data);
           return (
-            <div>
+            <div className='jumbotron'>
               {/* <img src={service.profilePicture} /> */}
-              <h1>{data.lesson.title}</h1>
-              <p>{data.lesson.description}</p>
-              <button>Book Now</button>
+              <h1 className="display-4">{data.lesson.title}</h1>
+              <small className="text">
+                <p style={{ textAlign: 'right' }}>
+                  Location: {data.lesson.cityOfService}
+                  <br />
+                  Difficulty: {data.lesson.difficulty}
+                </p>
+              </small>
+              <p className="lead">{data.lesson.description}</p>
+              <h2> Offered by {data.lesson.provider.name}</h2>
+              <p className="lead text-right">
+                <button className="btn btn-highlight btn-lg" href="#" role="button">
+                  Book Now
+                </button>
+              </p>
             </div>
           );
         }
