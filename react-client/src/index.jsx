@@ -61,6 +61,7 @@ const client = new ApolloClient({
   link: ApolloLink.from([
     stateLink,
     new HttpLink({
+      url: 'http:localhost:3000/',
       uri: '/graphql'
     })
   ]),
@@ -84,7 +85,6 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log('CURRENT LOCATION', this.props.location.pathname);
     return (
       <ApolloProvider client={client}>
         <Router>
@@ -110,6 +110,16 @@ class App extends React.Component {
               )}
             />
             <Route
+                path="/login"
+                render={() => (
+                  <Login
+                    handleUserLoggingIn={this.handleUserLoggingIn}
+                    isLoggedIn={this.state.isLoggedIn}
+                
+                  />
+                )}
+              />
+            {/* <Route
               path="/login"
               render={() => (
                 <Mutation mutation={UPDATE_USER_INFO}>
@@ -123,7 +133,7 @@ class App extends React.Component {
                   )}
                 </Mutation>
               )}
-            />
+                  />*/}
             <Route
               path="/signUp"
               render={({ location }) => (
@@ -142,6 +152,7 @@ class App extends React.Component {
             />
             <Route path="/userProfile" render={() => <ProfilePage />} />
             {/* example of how to pass props to a Route */}
+          
             <Route
               path="/lessonContent/:lessonId"
               render={({ location }) => <LessonContent lesson={location.state.lesson} />}
