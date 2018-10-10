@@ -3,45 +3,41 @@ import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/rea
 import { Redirect } from 'react-router-dom';
 
 
-const NavProfile = () => {
+const NavProfile = ({ handleProfileViewChange }) => {
   return (
   <SideNav
       onSelect={(selected) => {
         console.log('SELECTED:', selected)
-       if(selected === "home"){
-         console.log('Blah ')
-         return( <Redirect to="/dashboard"/>)
-        
-       }
+        handleProfileViewChange(selected)
       }}
   >
       <SideNav.Toggle />
       <SideNav.Nav defaultSelected="home">
           <NavItem eventKey="home">
               <NavIcon>
-                  <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
+                  <i className="fa fa-fw fa-home" style={{ fontSize: '2.00em' }} />
               </NavIcon>
               <NavText>
                   Home
               </NavText>
           </NavItem>
-          <NavItem eventKey="Offered">
+          <NavItem eventKey="offeredLessons">
               <NavIcon>
-                  <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
+                  <i className="fa fa-fw fa-line-chart" style={{ fontSize: '2.00em' }} />
               </NavIcon>
               <NavText>
                   Offered
               </NavText>
           </NavItem>
-          <NavItem eventKey="Upcoming">
+          <NavItem eventKey="upcomingLessons">
               <NavIcon>
-                  <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
+                  <i className="fa fa-fw fa-line-chart" style={{ fontSize: '2.00em' }} />
               </NavIcon>
               <NavText>
                   Upcoming
               </NavText>
           </NavItem>
-          <NavItem eventKey="Taken">
+          <NavItem eventKey="takenLessons">
               <NavIcon>
                   <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
               </NavIcon>
@@ -49,9 +45,9 @@ const NavProfile = () => {
                   Taken
               </NavText>
           </NavItem>
-          <NavItem eventKey="Favorites">
+          <NavItem eventKey="favoriteLessons">
               <NavIcon>
-                  <i className="fa fa-fw fa-line-chart" style={{ fontSize: '1.75em' }} />
+                  <i className="fa fa-fw fa-line-chart" style={{ fontSize: '2.00em' }} />
               </NavIcon>
               <NavText>
                   Favorites

@@ -9,7 +9,7 @@ import { HttpLink } from 'apollo-link-http';
 import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
 import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries';
-import { Mutation } from 'react-apollo';
+
 // components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
@@ -133,7 +133,7 @@ class App extends React.Component {
                   )}
                 </Mutation>
               )}
-            />
+                  />*/}
             <Route
               path="/signUp"
               render={({ location }) => (

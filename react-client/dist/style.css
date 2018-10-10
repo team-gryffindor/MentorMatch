@@ -44,12 +44,12 @@ hr {
 }
 .sidenav---sidenav---_2tBP {
   position: absolute;
-  top: 100px;
+  top: 56px;
   bottom: 0;
   left: 0;
   z-index: 1006;
   min-width: 64px;
-  background: #db3d44;
+  background: #0088ff;
   -webkit-transition: min-width 0.15s;
   -moz-transition: min-width 0.15s;
   -o-transition: min-width 0.15s;
