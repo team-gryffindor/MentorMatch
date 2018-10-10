@@ -26,6 +26,8 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
+        console.log('This is hit, in server/user')
+
         return Models.User.findById(args.id);
       }
     },
@@ -34,6 +36,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
+        console.log('This is hit, in server/userS')
         return Models.User.findAll();
       }
     },
@@ -42,6 +45,8 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
+        console.log('This is hit, in server/lesson')
+
         return Models.Lesson.findById(args.id);
       }
     },
@@ -50,6 +55,8 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
+        console.log('This is hit, in server/lessons')
+
         return Models.Lesson.findAll();
       }
     }

@@ -20,8 +20,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // isSignedIn: false,
-      // uID: null
+      
     };
     this.uiConfig = {
       signInFlow: 'popup',
@@ -39,11 +38,10 @@ class Login extends React.Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       console.log(user);
-      if(user === null){
-        this.props.handleUserLoggingIn(false, null);
-      } else {
+      if(user){
+        console.log('THIS IS REACHED')
         this.props.handleUserLoggingIn(true, user.uid);
-      }
+      } 
     })
   }
 
@@ -68,19 +66,19 @@ class Login extends React.Component {
       } else if (this.props.isLoggedIn === true) {
         return (
           
-            // <Query query={CHECK_USER} variables={{ uid: this.props.uid }}>
-            //   {({ loading, error, data }) => {
-            //     if (error) return <h1>error</h1>;
-            //     if (loading) {
-            //       return <div> Loading test ...</div>;
-            //     } else {
-            //       console.log('login', data);
-            //       if (data.checkUser === null) {
-            //         return <Redirect to="/signup" />;
-            //       } else {
-            //         console.log('login2', data);
-            //         let user = data.checkUser;
-            //         console.log(user);
+            <Query query={CHECK_USER} variables={{ uid: this.props.uid }}>
+              {({ loading, error, data }) => {
+                if (error) return <h1>error</h1>;
+                if (loading) {
+                  return <div> Loading test ...</div>;
+                } else {
+                  console.log('login', data);
+                  if (data.checkUser === null) {
+                    return <Redirect to="/signup" />;
+                  } else {
+                    console.log('login2', data);
+                    let user = data.checkUser;
+                    console.log(user);
                    
             //         return (
             //           <div>
@@ -88,42 +86,48 @@ class Login extends React.Component {
                     //   <ApolloConsumer>
                     //     {console.log('This is being hit')}
                     //   {client => (
-                    //      client.writeData({ mentorMatch: { userId: 5,
-                    //       username: 'Alan',
-                    //       description: 'Apollo State Mgmt ftw',
-                    //       cityOfResidence: 'NYC',
-                    //       image: 'https://media.giphy.com/media/xTiTnqUxyWbsAXq7Ju/giphy.gif' 
-                        
-                    //      }})
+                    //      client.writeData({
+                    //       data: {
+                    //         mentorMatch: {
+                    //           __typename: 'mentorMatch',
+                    //           userId: 5,
+                    //           username: 'youngAlan',
+                    //           description: 'love riding bikes',
+                    //           cityOfResidence: 'NYC',
+                    //           image: 'https://media.giphy.com/media/xTiTnqUxyWbsAXq7Ju/giphy.gif'
+                    //         }
+                    //       }
+                    //     })
                     //   )}
                     // </ApolloConsumer>
 
-                     <div>
-                        <Mutation mutation={UPDATE_USER_INFO}>
-                          {(updateUserInfo) => {
-                            // console.log(updateUserInfo);
-                            updateUserInfo({
-                              variables: {
-                                userId: 5,
-                                username: 'Alan',
-                                description: 'Apollo State Mgmt ftw',
-                                cityOfResidence: 'NYC',
-                                image: 'https://media.giphy.com/media/xTiTnqUxyWbsAXq7Ju/giphy.gif'
-                              }
-                            });
-                          }}
-                        </Mutation>
-                        <Redirect to="/dashboard" />
-                     </div>
-            //             {/* <Query query={GET_USER_INFO}>
-            //               {({ loading, error, data }) => console.log(data)}
-            //             </Query> */}
+                    
+                        // <Mutation mutation={UPDATE_USER_INFO} >
+                        //   {updateUserInfo => (
+                        //     // console.log(updateUserInfo);
+                        //     <li className="sidebar-item" onClick={() => updateUserInfo({ variables: { userId: '123',
+                        //                                                                               username: 'Alan',
+                        //                                                                               description: 'Apollo State Mgmt ftw',
+                        //                                                                               cityOfResidence: 'NYC',
+                        //                                                                               image: 'https://media.giphy.com/media/xTiTnqUxyWbsAXq7Ju/giphy.gif'} 
+                        //                                                                             }).then(() => {
+                        //                                                                               console.log('SUCESSSS!')
+                        //                                                                             }).catch((err) => {
+                        //                                                                               console.log("EROROROROROR", err)
+                        //                                                                             })}>React</li>
+                              
+                        //   )}
+                        // </Mutation>
+                     
+                        {/* <Query query={GET_USER_INFO}>
+                          {({ loading, error, data }) => console.log(data)}
+                        </Query> */}
             //           </div>
             //         );
-            //       }
-            //     }
-            //   }}
-            // </Query>
+                  }
+                }
+              }}
+            </Query>
         
         );
       }

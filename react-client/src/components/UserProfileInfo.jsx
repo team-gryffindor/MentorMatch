@@ -15,6 +15,7 @@ class UserProfileInfo extends React.Component {
         <ul>
           <div>
             <img src={this.props.user.image} className="img-responsive" />
+            {console.log('ARJUN:',this.props.user)}
             <h2>Hello {this.props.user.username}</h2>
           </div>
           <h2>{this.props.user.cityOfResidence}</h2>

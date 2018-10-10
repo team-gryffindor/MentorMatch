@@ -15,11 +15,11 @@ export const UPDATE_USER_INFO = gql`
       theCityOfResidence: $theCityOfResidence
       theImage: $theImage
     ) @client {
-      userId
-      username
-      description
-      cityOfResidence
-      image
+        userId
+        username
+        description
+        cityOfResidence
+        image
     }
   }
 `;

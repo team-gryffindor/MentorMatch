@@ -21,7 +21,7 @@ const Navigation = (props) => {
             firebase
               .auth()
               .signOut()
-              .then(() => props.handleUserLoggingIn());
+              .then(() => props.handleUserLoggingIn(false, null));
           }}
         >
           <Link to="/">Logout!</Link>

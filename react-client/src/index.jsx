@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-boost';
+import { ApolloClient } from 'apollo-client';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { HttpLink } from 'apollo-link-http';
 import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
 import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries';
-
+import { Mutation } from 'react-apollo';
 // components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
@@ -59,6 +59,7 @@ const client = new ApolloClient({
   link: ApolloLink.from([
     stateLink,
     new HttpLink({
+      url: 'http:localhost:3000/',
       uri: '/graphql'
     })
   ]),
@@ -84,7 +85,6 @@ class App extends React.Component {
   }
 
   render() {
-    // console.log('CURRENT LOCATION', this.props.location.pathname);
     return (
       <ApolloProvider client={client}>
         <Router>
@@ -112,6 +112,16 @@ class App extends React.Component {
               )}
             />
             <Route
+                path="/login"
+                render={() => (
+                  <Login
+                    handleUserLoggingIn={this.handleUserLoggingIn}
+                    isLoggedIn={this.state.isLoggedIn}
+                
+                  />
+                )}
+              />
+            {/* <Route
               path="/login"
               render={() => (
                 <Login
@@ -119,7 +129,7 @@ class App extends React.Component {
                   isLoggedIn={this.state.isLoggedIn}
                 />
               )}
-            />
+            /> */}
             <Route path="/signUp" render={() => <SignUp firebaseID={this.state.firebaseID} />} />
             <Route path="/active" render={() => <ActiveLessons />} />
             {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
@@ -136,6 +146,7 @@ class App extends React.Component {
             />
             <Route path="/userProfile" render={() => <ProfilePage />} />
             {/* example of how to pass props to a Route */}
+          
             <Route
               path="/lessonContent/:lessonId"
               render={({ location }) => <LessonContent lesson={location.state.lesson} />}

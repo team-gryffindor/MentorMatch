@@ -34,10 +34,12 @@ class Home extends React.Component {
     // );
 
     return (
+      
       <div className="container">
         {/* <NavLand /> */}
         <SearchBar />
         <h1>Top Services</h1>
+        
 
         <Query query={GET_LESSONS}>
           {({ loading, error, data }) => {

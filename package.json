@@ -22,6 +22,7 @@
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "@trendmicro/react-sidenav": "^0.4.5",
     "angular": "^1.6.3",
     "apollo": "^1.9.2",
     "apollo-boost": "^0.1.16",
