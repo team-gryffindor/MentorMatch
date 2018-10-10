@@ -19,7 +19,7 @@ class ProfilePage extends React.Component {
           if (error) return <h1>Error...</h1>;
           if (loading || !data) return <h1>Loading...</h1>;
           let user = data.userInfo;
-          console.log(data);
+          console.log('Profile page', user);
           return (
             <div>
               <h1>Profile Page</h1>

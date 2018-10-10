@@ -10,18 +10,16 @@ const FeaturedLesson = (props) => {
     <Query query={GET_LESSON} variables={{ id: 1 }}>
       {({ loading, error, data }) => {
         if (error) return <h1>error</h1>;
-        if (loading) {
-          return <div> Loading test ...</div>;
-        } else {
-          return (
-            <div>
-              {/* <img src={service.profilePicture} /> */}
-              <h1>{data.lesson.title}</h1>
-              <p>{data.lesson.description}</p>
-              <button>Book Now</button>
-            </div>
-          );
-        }
+        if (loading) return <div> Loading test ...</div>;
+        console.log('featured lesson', data);
+        return (
+          <div>
+            {/* <img src={service.profilePicture} /> */}
+            <h1>{data.lesson.title}</h1>
+            <p>{data.lesson.description}</p>
+            <button>Book Now</button>
+          </div>
+        );
       }}
     </Query>
   );
