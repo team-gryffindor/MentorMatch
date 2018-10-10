@@ -6,7 +6,8 @@ const {
   LessonType,
   ReviewType,
   FavoriteLessonType,
-  SignupLessonType
+  SignupLessonType,
+  LocationType
 } = require('./types.js');
 
 const {
@@ -59,6 +60,20 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         // queries to db
         return Models.Lesson.findAll();
+      }
+    },
+    location: {
+      type: LocationType,
+      args: {
+        address: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        var query = args.address.replace(' ', '+');
+        return fetch(
+          `${process.env.MAP_BASE_URL}/json?address=${query}&key=${process.env.MAP_API_KEY}`
+        )
+          .then((res) => res.json())
+          .then((json) => json.location);
       }
     }
   }

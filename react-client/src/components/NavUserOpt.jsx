@@ -25,6 +25,9 @@ const NavUserOpt = (prop) => (
           <a className="dropdown-item">
             <Link to="/userProfile">Profile</Link>
           </a>
+          <a className="dropdown-item">
+            <Link to="/calendar">Calendar</Link>
+          </a>
           <div className="dropdown-divider" />
           <a
             className="dropdown-item"
