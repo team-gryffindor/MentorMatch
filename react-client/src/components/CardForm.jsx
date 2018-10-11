@@ -67,7 +67,7 @@ class _SplitForm extends React.Component {
             {...createOptions(this.props.fontSize)}
           />
         </label>
-        <br/>
+   
         <label>
           Expiration date
           <CardExpiryElement
@@ -78,7 +78,7 @@ class _SplitForm extends React.Component {
             {...createOptions(this.props.fontSize)}
           />
         </label>
-        <br/>
+   
         <label>
           CVC
           <CardCVCElement
@@ -89,7 +89,7 @@ class _SplitForm extends React.Component {
             {...createOptions(this.props.fontSize)}
           />
         </label>
-        <br/>
+   
         <label>
           Postal code
           <PostalCodeElement

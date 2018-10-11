@@ -4,8 +4,8 @@ import { Elements } from 'react-stripe-elements';
 
 
 class Checkout extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       elementFontSize: window.innerWidth < 450 ? '14px' : '18px',
     };
