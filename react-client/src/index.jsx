@@ -9,7 +9,8 @@ import { HttpLink } from 'apollo-link-http';
 import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
 import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries';
-
+import { StripeProvider } from 'react-stripe-elements';
+import { STRIPE_KEY } from '../config.js';
 // components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
@@ -25,6 +26,7 @@ import LessonContent from './components/LessonContent.jsx';
 import ProfilePage from './components/ProfilePage.jsx';
 import NavBarMain from './components/NavBarMain.jsx';
 import Calendar from './components/Calendar.jsx';
+import Checkout from './components/Checkout.jsx';
 
 const cache = new InMemoryCache();
 
@@ -87,6 +89,7 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
+        <StripeProvider apiKey={STRIPE_KEY}>
         <Router>
           <div>
             <Route
@@ -109,17 +112,8 @@ class App extends React.Component {
                 <Home isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
               )}
             />
+            
             <Route
-                path="/login"
-                render={() => (
-                  <Login
-                    handleUserLoggingIn={this.handleUserLoggingIn}
-                    isLoggedIn={this.state.isLoggedIn}
-                
-                  />
-                )}
-              />
-            {/* <Route
               path="/login"
               render={() => (
                 <Mutation mutation={UPDATE_USER_INFO}>
@@ -133,7 +127,7 @@ class App extends React.Component {
                   )}
                 </Mutation>
               )}
-                  />*/}
+                  />
             <Route
               path="/signUp"
               render={({ location }) => (
@@ -159,8 +153,14 @@ class App extends React.Component {
             />
             <Route path="/addLesson" render={() => <AddLesson />} />
             <Route path="/calendar" render={() => <Calendar />} />
-          </div>
+            <Route path="/checkout" render={() => <Checkout/>} /> 
+            </div>
+       
+          
         </Router>
+        
+          
+        </StripeProvider>
       </ApolloProvider>
     );
   }
