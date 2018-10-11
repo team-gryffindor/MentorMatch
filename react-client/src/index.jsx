@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider, Mutation } from 'react-apollo';
+import { ApolloProvider, Query, Mutation } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
 import { ApolloLink } from 'apollo-link';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -8,7 +8,8 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { HttpLink } from 'apollo-link-http';
 import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
-import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries';
+import { UPDATE_USER_INFO, GET_USER_INFO } from './apollo/resolvers/clientSideQueries';
+import { GET_USER } from './apollo/resolvers/backendQueries';
 import { StripeProvider } from 'react-stripe-elements';
 // import { STRIPE_KEY } from '../config.js';
 // components
@@ -150,7 +151,46 @@ class App extends React.Component {
 
               <Route
                 path="/lessonContent/:lessonId"
-                render={({ location }) => <LessonContent lesson={location.state.lesson} />}
+                render={({ location }) => (
+                  <Query query={GET_USER_INFO} className="container">
+                    {({ loading, error, data }) => {
+                      if (error) return <h1>Error...</h1>;
+                      if (loading || !data) return <h1>Loading...</h1>;
+                      return (
+                        <Query query={GET_USER} variables={{ id: data.userInfo.userId }}>
+                          {({ loading, error, data }) => {
+                            if (error) return <h1>Error...</h1>;
+                            if (loading || !data) return <h1>Loading...</h1>;
+                            let favorite = false;
+                            let userFavorites = data.user.favoriteLessons;
+                            for (let i = 0; i < userFavorites.length; i++) {
+                              if (userFavorites[i].id === location.state.lesson.id) {
+                                favorite = true;
+                                break;
+                              }
+                            }
+                            let booked = false;
+                            let scheduled = data.user.signupLessons;
+                            for (let i = 0; i < scheduled.length; i++) {
+                              if (scheduled[i].id === location.state.lesson.id) {
+                                booked = true;
+                                break;
+                              }
+                            }
+                            return (
+                              <LessonContent
+                                userId={data.user.id}
+                                lesson={location.state.lesson}
+                                isFavorite={favorite}
+                                isBooked={booked}
+                              />
+                            );
+                          }}
+                        </Query>
+                      );
+                    }}
+                  </Query>
+                )}
               />
               <Route path="/addLesson" render={() => <AddLesson />} />
               <Route path="/calendar" render={() => <Calendar />} />

@@ -96,6 +96,16 @@ const CHECK_USER = gql`
   }
 `;
 
+const GET_USER_FAVORITES = gql`
+  query($id: ID!) {
+    user(id: $id) {
+      favoriteLessons {
+        id
+      }
+    }
+  }
+`;
+
 const GET_LESSON = gql`
   query($id: ID!) {
     lesson(id: $id) {
@@ -230,25 +240,44 @@ const ADD_SIGNUP_LESSON = gql`
   }
 `;
 
-const ADD_FAVORITE_LESSON = gql`
+const DELETE_SIGNUP_LESSON = gql`
   mutation($userId: ID!, $lessonId: ID!) {
-    addSignupLesson(userId: $userId, lessonId: $lessonId) {
+    deleteSignupLesson(userId: $userId, lessonId: $lessonId) {
       userId
       lessonId
     }
   }
 `;
 
+const ADD_FAVORITE_LESSON = gql`
+  mutation($userId: ID!, $lessonId: ID!) {
+    addFavoriteLesson(userId: $userId, lessonId: $lessonId) {
+      userId
+      lessonId
+    }
+  }
+`;
 
+const DELETE_FAVORITE_LESSON = gql`
+  mutation($userId: ID!, $lessonId: ID!) {
+    deleteFavoriteLesson(userId: $userId, lessonId: $lessonId) {
+      userId
+      lessonId
+    }
+  }
+`;
 
 export {
   GET_USER,
   CHECK_USER,
+  GET_USER_FAVORITES,
   GET_LESSON,
   GET_LESSONS,
   ADD_USER,
   ADD_LESSON,
   ADD_REVIEW,
   ADD_SIGNUP_LESSON,
-  ADD_FAVORITE_LESSON
+  ADD_FAVORITE_LESSON,
+  DELETE_FAVORITE_LESSON,
+  DELETE_SIGNUP_LESSON
 };

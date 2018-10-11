@@ -165,6 +165,23 @@ const Mutation = new GraphQLObjectType({
           .then((data) => data)
           .catch((err) => console.error(err));
       }
+    },
+    deleteSignupLesson: {
+      type: SignupLessonType,
+      args: {
+        userId: { type: GraphQLID },
+        lessonId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Models.Signup.destroy({
+          where: {
+            userId: args.userId,
+            lessonId: args.lessonId
+          }
+        })
+          .then((data) => data)
+          .catch((err) => console.error(err));
+      }
     }
     // removeSignupLesson: {}
   }
