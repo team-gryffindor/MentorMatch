@@ -7,8 +7,8 @@ const {
   LessonType,
   ReviewType,
   FavoriteLessonType,
-  SignupLessonType,
-  LocationType
+  SignupLessonType
+  // LocationType
 } = require('./types.js');
 
 const {
@@ -69,32 +69,32 @@ const RootQuery = new GraphQLObjectType({
 
         return Models.Lesson.findAll();
       }
-    },
-    location: {
-      type: LocationType,
-      args: {
-        address: { type: GraphQLString }
-      },
-      resolve(parent, args) {
-        var query = args.address.split(' ').join('+');
-        console.log(
-          'ADDRESS',
-          `${process.env.MAP_BASE_URL}/json?address=${query}&key=${process.env.MAP_API_KEY}`
-        );
-        return axios
-          .get(`${process.env.MAP_BASE_URL}/json?`, {
-            headers: {
-              address: args.address,
-              key: process.env.MAP_API_KEY
-            }
-          })
-          .then((res) => {
-            console.log('RES', res);
-            res.send;
-          })
-          .then((json) => json)
-          .catch((err) => console.error(err));
-      }
+      // },
+      // location: {
+      //   type: LocationType,
+      //   args: {
+      //     address: { type: GraphQLString }
+      //   },
+      //   resolve(parent, args) {
+      //     var query = args.address.split(' ').join('+');
+      //     console.log(
+      //       'ADDRESS',
+      //       `${process.env.MAP_BASE_URL}/json?address=${query}&key=${process.env.MAP_API_KEY}`
+      //     );
+      //     return axios
+      //       .get(`${process.env.MAP_BASE_URL}/json?`, {
+      //         headers: {
+      //           address: args.address,
+      //           key: process.env.MAP_API_KEY
+      //         }
+      //       })
+      //       .then((res) => {
+      //         console.log('RES', res);
+      //         res.send;
+      //       })
+      //       .then((json) => json)
+      //       .catch((err) => console.error(err));
+      //   }
     }
   }
 });
