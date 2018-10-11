@@ -1,4 +1,5 @@
 const graphql = require('graphql');
+const axios = require('axios');
 const Models = require('../db/index.js');
 
 const {
@@ -27,6 +28,8 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
+        console.log('This is hit, in server/user');
+
         return Models.User.findById(args.id);
       }
     },
@@ -43,6 +46,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
+        console.log('This is hit, in server/userS');
         return Models.User.findAll();
       }
     },
@@ -51,6 +55,8 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
+        console.log('This is hit, in server/lesson');
+
         return Models.Lesson.findById(args.id);
       }
     },
@@ -59,6 +65,8 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
+        console.log('This is hit, in server/lessons');
+
         return Models.Lesson.findAll();
       }
     },
@@ -68,12 +76,24 @@ const RootQuery = new GraphQLObjectType({
         address: { type: GraphQLString }
       },
       resolve(parent, args) {
-        var query = args.address.replace(' ', '+');
-        return fetch(
+        var query = args.address.split(' ').join('+');
+        console.log(
+          'ADDRESS',
           `${process.env.MAP_BASE_URL}/json?address=${query}&key=${process.env.MAP_API_KEY}`
-        )
-          .then((res) => res.json())
-          .then((json) => json.location);
+        );
+        return axios
+          .get(`${process.env.MAP_BASE_URL}/json?`, {
+            headers: {
+              address: args.address,
+              key: process.env.MAP_API_KEY
+            }
+          })
+          .then((res) => {
+            console.log('RES', res);
+            res.send;
+          })
+          .then((json) => json)
+          .catch((err) => console.error(err));
       }
     }
   }

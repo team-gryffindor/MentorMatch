@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { ADD_USER } from '../apollo/resolvers/backendQueries.js';
 
+import Geosuggest from 'react-geosuggest';
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -56,6 +58,7 @@ class SignUp extends React.Component {
                   this.setState({ cityOfResidence: e.target.value });
                 }}
               />
+              {/* <Geosuggest /> */}
               img:
               <input
                 value={this.state.image}

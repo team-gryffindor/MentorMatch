@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchBar from './SearchBar.jsx';
+import SearchBarHome from './SearchBarHome.jsx';
 // import Unsplash from 'unsplash-js';
 
 // const unsplash = new Unsplash({
@@ -17,8 +17,8 @@ import SearchBar from './SearchBar.jsx';
 
 const SearchHome = (props) => (
   <div className="home-search flex-column">
-    <div className="d-flex w-100 justify-content-center vertical-center">
-      <SearchBar />
+    <div className="d-flex w-100 justify-content-center vertical-center container">
+      <SearchBarHome />
     </div>
   </div>
 );
