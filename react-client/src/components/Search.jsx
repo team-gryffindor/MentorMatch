@@ -1,31 +1,40 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; 
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Query } from 'react-apollo';
+import { GET_LESSONS } from '../apollo/resolvers/backendQueries.js';
+import axios from 'axios';
+import SearchBar from './SearchBar.jsx';
 
-  class Search extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { 
-        userInputService: '',
-        userInputLocation: '',
-      }
-      this.setIndexState = this.setIndexState.bind(this);
-    }
-
-    setIndexState() {
-      this.props.query(this.state.service, this.state.location);
-    }
-
-    render() {
-      return (
-        <div>
-          <form>
-            <input value={this.state.service} onChange={(e) => this.setState({userInputService: e.target.value}, () => this.setIndexState())} placeholder="Enter Service"/>
-            <input value={this.state.location} onChange={(e) => this.setState({userInputLocation: e.target.value}, () => this.setIndexState())} placeholder="Location"/>
-            <button><Link to="/feed">Search</Link></button>
-            <button><Link to="/dashboard">DASHBOARD TEST</Link></button>
-          </form>
-        </div>
-      )
-    }
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
   }
+
+  render() {
+    return (
+      <div>
+        <SearchBar />
+        <Query query={GET_LESSONS}>
+          {({ loading, error, data }) => {
+            if (error) return <h1>Error...</h1>;
+            if (loading || !data) return <h1>Loading...</h1>;
+            return (
+              <ul>
+                {data.lessons.map((lesson) => {
+                  return (
+                    <div>
+                      <h1>{lesson.title}</h1>
+                      <h2>{lesson.avgRating}</h2>
+                    </div>
+                  );
+                })}
+              </ul>
+            );
+          }}
+        </Query>
+      </div>
+    );
+  }
+}
+
 export default Search;

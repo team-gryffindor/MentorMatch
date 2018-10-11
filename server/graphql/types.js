@@ -16,6 +16,7 @@ const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     id: { type: GraphQLID },
+    uid: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     cityOfResidence: { type: GraphQLString },
@@ -100,6 +101,13 @@ const ReviewType = new GraphQLObjectType({
       resolve(parent, args) {
         return Models.Lesson.findById(parent.lessonId);
       }
+    },
+    user: {
+      type: UserType,
+      resolve(parent, args) {
+        console.log('USERID OF REVIEW', parent.userId);
+        return Models.User.findById(parent.userId);
+      }
     }
   })
 });
@@ -121,10 +129,52 @@ const FavoriteLessonType = new GraphQLObjectType({
   })
 });
 
+// const LocationType = new GraphQLObjectType({
+//   name: 'Location',
+//   description: 'Location information of corresponding address from Google Maps Geocode API',
+//   fields: () => ({
+//     // addressComponents: {
+//     //   type: GraphQLList(AddressType),
+//     //   resolve(parent, args) {
+//     //     parent.results.address_components;
+//     //   }
+//     // },
+//     formattedAddress: {
+//       type: GraphQLString,
+//       resolve(parent, args) {
+//         parent.results.formatted_address;
+//       }
+//     },
+//     latitude: {
+//       type: GraphQLString,
+//       resolve(parent, args) {
+//         parent.results.geometry.location.lat;
+//       }
+//     },
+//     longitude: {
+//       type: GraphQLString,
+//       resolve(parent, args) {
+//         parent.results.geometry.location.lng;
+//       }
+//     }
+//   })
+// });
+
+// const AddressType = new GraphQLObjectType({
+//   name: 'Address',
+//   description: 'Address component from geocode data retrieval',
+//   fields: () => ({
+//     longName: GraphQLString,
+//     shortName: GraphQLString
+//   })
+// });
+
 module.exports = {
   UserType: UserType,
   LessonType: LessonType,
   ReviewType: ReviewType,
   SignupLessonType: SignupLessonType,
   FavoriteLessonType: FavoriteLessonType
+  // LocationType: LocationType,
+  // AddressType: AddressType
 };

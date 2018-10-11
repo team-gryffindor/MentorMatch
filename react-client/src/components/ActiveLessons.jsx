@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from './Header.jsx';
-import ServicesVerticalDisplay from './ServicesVerticalDisplay.jsx';
+import LessonList from './LessonList.jsx';
 
 const ActiveLessons = (props) => (
   <div>
-    <Header/>
+    <h1>HELLO</h1>
+    {/* <Header />
     <h1>Active Lessons</h1>
-    <ServicesVerticalDisplay services={props.lessons}/>
+    <LessonList style="horizontal" /> */}
   </div>
 );
 export default ActiveLessons;

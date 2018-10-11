@@ -25,6 +25,7 @@ const Mutation = new GraphQLObjectType({
     addUser: {
       type: UserType,
       args: {
+        uid: { type: GraphQLID },
         name: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
@@ -33,6 +34,7 @@ const Mutation = new GraphQLObjectType({
       resolve(parent, args) {
         // sequelize to add user
         return Models.User.build({
+          uid: args.uid,
           name: args.name,
           image: args.image,
           description: args.description,
@@ -52,7 +54,7 @@ const Mutation = new GraphQLObjectType({
         cityOfService: { type: GraphQLString },
         category: { type: GraphQLString },
         difficulty: { type: GraphQLString },
-        userId: { type: GraphQLString }
+        userId: { type: GraphQLID }
       },
       resolve(parent, args) {
         // sequelize to add user
@@ -77,7 +79,7 @@ const Mutation = new GraphQLObjectType({
       args: {
         title: { type: GraphQLString },
         comment: { type: GraphQLString },
-        rating: { type: GraphQLFloat },
+        rating: { type: GraphQLInt },
         lessonId: { type: GraphQLID },
         userId: { type: GraphQLID }
       },
@@ -160,6 +162,23 @@ const Mutation = new GraphQLObjectType({
           date: args.date
         })
           .save()
+          .then((data) => data)
+          .catch((err) => console.error(err));
+      }
+    },
+    deleteSignupLesson: {
+      type: SignupLessonType,
+      args: {
+        userId: { type: GraphQLID },
+        lessonId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Models.Signup.destroy({
+          where: {
+            userId: args.userId,
+            lessonId: args.lessonId
+          }
+        })
           .then((data) => data)
           .catch((err) => console.error(err));
       }

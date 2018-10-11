@@ -1,52 +1,44 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
-import { getUser } from '../../apollo/queries.js';
-import Navigation from './NavigationBar.jsx';
-import Header from './Header.jsx';
-import ServiceDisplay from './ServicesHorizontalDisplay.jsx';
-import Search from './Search.jsx';
+// import Navigation from './NavigationBar.jsx';
+// import Header from './Header.jsx';
+// import Search from './Search.jsx';
+import FeaturedLesson from './FeaturedLesson.jsx';
+import UserLessonList from './UserLessonList.jsx';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { Query } from 'react-apollo';
+import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries.js';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
   }
-
-  displayUser() {
-    // var data = this.props.data;
-    // if (data.loading) {
-    //   return <div>Loading books...</div>;
-    // } else {
-    //   return <li>{data.name}</li>;
-    // }
-  }
   render() {
-    console.log(this.props); //checking for apollo query return
-
     return (
-      <div>
-        <h1>Mentor Match</h1>
-        <ul id="user-list">{this.displayUser()}</ul>
-        <div>
-          <Navigation />
-          <Search query={this.props.query} />
-        </div>
-        <ServiceOfTheDay service={this.props.service} />
-        <div>
-          <h2>Favorites</h2>
-          <ServiceDisplay services={this.props.favorites} />
-        </div>
-      </div>
+      <Query query={GET_USER_INFO}>
+        {({ loading, error, data }) => {
+          if (error) return <h1>error</h1>;
+          if (loading || !data) return <div> Loading test ...</div>;
+          console.log('dashboard client query', data.userInfo);
+          return (
+            <div className="container">
+              <div>
+                <div />
+                <FeaturedLesson />
+                <div>
+                  <h2>Favorites</h2>
+                  {/* {lessontype tells it to render favorites, offered, or signups} 
+                          userId hard coded for now, we should decide which components to 
+                          actually query the cache */}
+                  <UserLessonList lessonType="favoriteLessons" userId={2} />
+                  <h2>Recommendations</h2>
+                </div>
+              </div>
+            </div>
+          );
+        }}
+      </Query>
     );
   }
 }
 
-const ServiceOfTheDay = ({ service }) => (
-  <div>
-    <img src={service.profilePicture} />
-    <h1>{service.title}</h1>
-    <p>{service.description}</p>
-    <button>Book Now</button>
-  </div>
-);
-
-export default graphql(getUser)(Dashboard);
+export default Dashboard;

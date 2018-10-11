@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Query, Mutation, withApollo } from 'react-apollo';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { UPDATE_USER_INFO, GET_USER_INFO } from '../apollo/resolvers/clientSideQueries';
+import { CHECK_USER, GET_USER } from '../apollo/resolvers/backendQueries';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
@@ -17,14 +20,17 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSignedIn: false,
-      userInfo: null
+      // isSignedIn: false,
+      // uID: null
+      redirect: false,
+      uid: null
     };
     this.uiConfig = {
       signInFlow: 'popup',
       signInOptions: [
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
       ],
       callbacks: {
         signInSuccessWithAuthResult: () => false
@@ -34,17 +40,59 @@ class Login extends React.Component {
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user);
-      this.setState({
-        isSignedIn: !!user,
-        userInfo: user
-      });
+      if (user) {
+        return Promise.all([
+          this.props.client.query({
+            query: CHECK_USER,
+            variables: {
+              uid: user.uid
+            }
+          }),
+          user.uid
+        ])
+          .then((data) => {
+            let user = data[0].data.checkUser;
+            console.log(user);
+            if (!user) {
+              // redirect to signup
+              this.setState({
+                redirect: true,
+                uid: data[1]
+              });
+              return <Redirect to="/signUp" uid={data[1]} />;
+            }
+            return this.props.client.writeData({
+              data: {
+                userInfo: {
+                  __typename: 'userInfo',
+                  userId: user.id,
+                  username: user.name,
+                  description: user.description,
+                  cityOfResidence: user.cityOfResidence,
+                  image: user.image,
+                  uid: user.uid
+                }
+              }
+            });
+            // test
+          })
+          .then((redirect) => {
+            if (redirect) {
+              return redirect;
+            }
+            this.props.handleLogin(true);
+          })
+          .catch((err) => console.error(err));
+      } else {
+        this.props.handleLogin(false);
+      }
     });
   }
 
   render() {
     {
-      if (!this.state.isSignedIn) {
+      // this needs work, need to toggle state and log out
+      if (!this.props.isLoggedIn && !this.state.redirect) {
         return (
           <div className="Login">
             <h1>Welcome to </h1>
@@ -55,49 +103,17 @@ class Login extends React.Component {
                 <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
               </a>
               <br />
-              <p className="text-center">------------- Or -------------</p>
-              <form onSubmit={this.handleSubmit}>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={this.state.email}
-                  onChange={this.handleEmailChange}
-                  placeholder="Enter Email"
-                />
-                <input
-                  type="password"
-                  className="form-control"
-                  value={this.state.password}
-                  onChange={this.handlePassChange}
-                  placeholder="Enter Password"
-                />
-                <br />
-                <button type="submit" className="btn btn-default">
-                  Submit
-                </button>
-              </form>
-              <br />
-              <br />
-              <p>
-                Forgot Password? <Link to="/recover"> Click Here</Link>
-              </p>
-              <p>
-                Not SIgned up yet? <Link to="/signup"> Sign Up</Link>
-              </p>
             </div>
           </div>
         );
+      } else if (this.state.redirect) {
+        return <Redirect to={{ pathname: '/signUp', state: { uid: this.state.uid } }} />;
       } else {
-        return (
-          <div className="Login">
-            {/* Hello {firebaseApp.auth().currentUser.displayName}. You are now signed In! */}
-            <Redirect to="/dashboard" userInfo={this.state.userInfo} />
-            {/* <a onClick={() => firebaseApp.auth().signOut()}>Sign-out</a> */}
-          </div>
-        );
+        return <Redirect to="/dashboard" />;
       }
     }
   }
 }
-
-export default Login;
+// this.props.client.query
+// this.props.mutate({})
+export default withApollo(Login);
