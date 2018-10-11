@@ -11,7 +11,7 @@ import localStateDefaults from './apollo/defaults';
 import { UPDATE_USER_INFO, GET_USER_INFO } from './apollo/resolvers/clientSideQueries';
 import { GET_USER } from './apollo/resolvers/backendQueries';
 import { StripeProvider } from 'react-stripe-elements';
-// import { STRIPE_KEY } from '../config.js';
+
 // components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';

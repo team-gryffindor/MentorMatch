@@ -90,9 +90,3 @@ const LessonDetailHeader = ({
 
 export default LessonDetailHeader;
 
-{
-  /* <button className="btn btn-highlight btn-lg" href="#" role="button" onClick={() => {this.setState({bookNow:true})}}>
-              Book Now
-            </button>
-            {this.state.bookNow ? <Checkout/> : null} */
-}
