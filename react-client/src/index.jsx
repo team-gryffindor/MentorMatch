@@ -10,7 +10,8 @@ import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
 import { UPDATE_USER_INFO, GET_USER_INFO } from './apollo/resolvers/clientSideQueries';
 import { GET_USER } from './apollo/resolvers/backendQueries';
-
+import { StripeProvider } from 'react-stripe-elements';
+// import { STRIPE_KEY } from '../config.js';
 // components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
@@ -26,6 +27,7 @@ import LessonContent from './components/LessonContent.jsx';
 import ProfilePage from './components/ProfilePage.jsx';
 import NavBarMain from './components/NavBarMain.jsx';
 import Calendar from './components/Calendar.jsx';
+import Checkout from './components/Checkout.jsx';
 
 const cache = new InMemoryCache();
 
@@ -86,111 +88,116 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(process.env.STRIPE_KEY);
     return (
       <ApolloProvider client={client}>
-        <Router>
-          <div>
-            <Route
-              path="/"
-              render={({ location }) => (
-                <NavBarMain
-                  isLoggedIn={this.state.isLoggedIn}
-                  firebaseID={this.state.firebaseID}
-                  handleLogin={this.handleLogin}
-                  currentPath={location.pathname}
-                />
-              )}
-            />
+        <StripeProvider apiKey={process.env.STRIPE_KEY}>
+          <Router>
+            <div>
+              <Route
+                path="/"
+                render={({ location }) => (
+                  <NavBarMain
+                    isLoggedIn={this.state.isLoggedIn}
+                    firebaseID={this.state.firebaseID}
+                    handleLogin={this.handleLogin}
+                    currentPath={location.pathname}
+                  />
+                )}
+              />
 
-            {/* <NavigationBar /> */}
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <Home isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
-              )}
-            />
-            <Route
-              path="/login"
-              render={() => (
-                <Mutation mutation={UPDATE_USER_INFO}>
-                  {(updateUserInfo) => (
-                    <Login
-                      updateUserInfo={updateUserInfo}
-                      handleLogin={this.handleLogin}
-                      isLoggedIn={this.state.isLoggedIn}
-                      uid={this.state.firebaseID}
-                    />
-                  )}
-                </Mutation>
-              )}
-            />
-            <Route
-              path="/signUp"
-              render={({ location }) => (
-                <SignUp uid={location.state.uid} firebaseID={this.state.firebaseID} />
-              )}
-            />
-            <Route path="/active" render={() => <ActiveLessons />} />
-            {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
-            {/* <Route path="/past" render={() => <PastLessons />}/> */}
-            <Route path="/feed" render={(props) => <Feed {...props} />} />
-            <Route
-              path="/dashboard"
-              render={() => (
-                <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
-              )}
-            />
-            <Route path="/userProfile" render={() => <ProfilePage />} />
-            {/* example of how to pass props to a Route */}
+              {/* <NavigationBar /> */}
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <Home isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
+                )}
+              />
 
-            <Route
-              path="/lessonContent/:lessonId"
-              render={({ location }) => (
-                <Query query={GET_USER_INFO} className="container">
-                  {({ loading, error, data }) => {
-                    if (error) return <h1>Error...</h1>;
-                    if (loading || !data) return <h1>Loading...</h1>;
-                    return (
-                      <Query query={GET_USER} variables={{ id: data.userInfo.userId }}>
-                        {({ loading, error, data }) => {
-                          if (error) return <h1>Error...</h1>;
-                          if (loading || !data) return <h1>Loading...</h1>;
-                          let favorite = false;
-                          let userFavorites = data.user.favoriteLessons;
-                          for (let i = 0; i < userFavorites.length; i++) {
-                            if (userFavorites[i].id === location.state.lesson.id) {
-                              favorite = true;
-                              break;
+              <Route
+                path="/login"
+                render={() => (
+                  <Mutation mutation={UPDATE_USER_INFO}>
+                    {(updateUserInfo) => (
+                      <Login
+                        updateUserInfo={updateUserInfo}
+                        handleLogin={this.handleLogin}
+                        isLoggedIn={this.state.isLoggedIn}
+                        uid={this.state.firebaseID}
+                      />
+                    )}
+                  </Mutation>
+                )}
+              />
+              <Route
+                path="/signUp"
+                render={({ location }) => (
+                  <SignUp uid={location.state.uid} firebaseID={this.state.firebaseID} />
+                )}
+              />
+              <Route path="/active" render={() => <ActiveLessons />} />
+              {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
+              {/* <Route path="/past" render={() => <PastLessons />}/> */}
+              <Route path="/feed" render={(props) => <Feed {...props} />} />
+              <Route
+                path="/dashboard"
+                render={() => (
+                  <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
+                )}
+              />
+              <Route path="/userProfile" render={() => <ProfilePage />} />
+              {/* example of how to pass props to a Route */}
+
+              <Route
+                path="/lessonContent/:lessonId"
+                render={({ location }) => (
+                  <Query query={GET_USER_INFO} className="container">
+                    {({ loading, error, data }) => {
+                      if (error) return <h1>Error...</h1>;
+                      if (loading || !data) return <h1>Loading...</h1>;
+                      return (
+                        <Query query={GET_USER} variables={{ id: data.userInfo.userId }}>
+                          {({ loading, error, data }) => {
+                            if (error) return <h1>Error...</h1>;
+                            if (loading || !data) return <h1>Loading...</h1>;
+                            let favorite = false;
+                            let userFavorites = data.user.favoriteLessons;
+                            for (let i = 0; i < userFavorites.length; i++) {
+                              if (userFavorites[i].id === location.state.lesson.id) {
+                                favorite = true;
+                                break;
+                              }
                             }
-                          }
-                          let booked = false;
-                          let scheduled = data.user.signupLessons;
-                          for (let i = 0; i < scheduled.length; i++) {
-                            if (scheduled[i].id === location.state.lesson.id) {
-                              booked = true;
-                              break;
+                            let booked = false;
+                            let scheduled = data.user.signupLessons;
+                            for (let i = 0; i < scheduled.length; i++) {
+                              if (scheduled[i].id === location.state.lesson.id) {
+                                booked = true;
+                                break;
+                              }
                             }
-                          }
-                          return (
-                            <LessonContent
-                              userId={data.user.id}
-                              lesson={location.state.lesson}
-                              isFavorite={favorite}
-                              isBooked={booked}
-                            />
-                          );
-                        }}
-                      </Query>
-                    );
-                  }}
-                </Query>
-              )}
-            />
-            <Route path="/addLesson" render={() => <AddLesson />} />
-            <Route path="/calendar" render={() => <Calendar />} />
-          </div>
-        </Router>
+                            return (
+                              <LessonContent
+                                userId={data.user.id}
+                                lesson={location.state.lesson}
+                                isFavorite={favorite}
+                                isBooked={booked}
+                              />
+                            );
+                          }}
+                        </Query>
+                      );
+                    }}
+                  </Query>
+                )}
+              />
+              <Route path="/addLesson" render={() => <AddLesson />} />
+              <Route path="/calendar" render={() => <Calendar />} />
+              <Route path="/checkout" render={() => <Checkout />} />
+            </div>
+          </Router>
+        </StripeProvider>
       </ApolloProvider>
     );
   }

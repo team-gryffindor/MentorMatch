@@ -13,7 +13,6 @@ class Dashboard extends React.Component {
     super(props);
   }
   render() {
-    // TODO: make query to apollo cache to get userId
     return (
       <Query query={GET_USER_INFO}>
         {({ loading, error, data }) => {

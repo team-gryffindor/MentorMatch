@@ -1,10 +1,10 @@
 import React from 'react';
-import ReviewList from './ReviewList.jsx';
-import WriteReview from './WriteReview.jsx';
 import LessonDetailHeader from './LessonDetailHeader.jsx';
 import { Query } from 'react-apollo';
 import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries.js';
 import { GET_USER_FAVORITES } from '../apollo/resolvers/backendQueries.js';
+import Map from './Map.jsx';
+import Reviews from './Reviews.jsx';
 
 class LessonContent extends React.Component {
   constructor(props) {
@@ -48,9 +48,11 @@ class LessonContent extends React.Component {
           <br />
         </h3>
 
-        <ReviewList reviews={this.props.lesson.reviews} />
+        <Map style={{ height: '80vh', width: '100%' }} />
+        {/* <SimpleMap location={this.props.lesson.cityOfService} /> */}
+        <Reviews lesson={this.props.lesson} />
         {console.log(this.props.lesson.id)}
-        <WriteReview lessonId={this.props.lesson.id} />
+        {/* <WriteReview lessonId={this.props.lesson.id} /> */}
       </div>
     );
     // Moved this into index.js
