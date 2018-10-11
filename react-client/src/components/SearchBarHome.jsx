@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Geosuggest from 'react-geosuggest';
 
-class SearchBar extends React.Component {
+class SearchBarHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -81,15 +81,22 @@ class SearchBar extends React.Component {
             value={this.state.service}
             onChange={this.handleServiceInputChange}
           />
-          <input
+          {/* <input
             className="form-control mr-sm-2"
             type="location"
             placeholder="Location"
             aria-label="Location"
             value={this.state.location}
             onChange={this.handleLocationInputChange}
+          /> */}
+          <Geosuggest
+            placeholder={'Location'}
+            onSuggestSelect={(suggest) => {
+              console.log(suggest);
+              this.setState({ locationQuery: suggest.description });
+            }}
+            value={this.state.locationQuery}
           />
-          <Geosuggest placeholder={'Location'} onSuggestSelect={this.onSuggestSelect} />
           <button className="btn btn-primary my-2 my-sm-0" type="submit">
             <Link
               to={{ pathname: '/feed', state: { lessonIds: this.state.results } }}
@@ -104,4 +111,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+export default SearchBarHome;

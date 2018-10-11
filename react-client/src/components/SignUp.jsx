@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { ADD_USER } from '../apollo/resolvers/backendQueries.js';
 
+import Geosuggest from 'react-geosuggest';
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +22,7 @@ class SignUp extends React.Component {
       <Mutation mutation={ADD_USER}>
         {(addUser) => (
           <div>
-            <h1>Sign Up! {console.log('props', this.props.uid)}</h1>
+            <h1>Sign Up!</h1>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -39,6 +41,7 @@ class SignUp extends React.Component {
               <input
                 value={this.state.username}
                 onChange={(e) => {
+                  console.log('CITY', this.state.cityOfResidence);
                   this.setState({ username: e.target.value });
                 }}
               />
@@ -46,20 +49,25 @@ class SignUp extends React.Component {
               <input
                 value={this.state.description}
                 onChange={(e) => {
+                  console.log('CITY', this.state.cityOfResidence);
                   this.setState({ description: e.target.value });
                 }}
               />
               City:
-              <input
-                value={this.state.cityOfResidence}
-                onChange={(e) => {
-                  this.setState({ cityOfResidence: e.target.value });
+              <Geosuggest
+                placeholder={'City of Residence'}
+                onSuggestSelect={(suggest) => {
+                  console.log('CITY', typeof suggest.description);
+                  this.setState({ cityOfResidence: suggest.description });
                 }}
+                types={['geocode']}
+                value={this.state.cityOfResidence}
               />
-              img:
+              Link to your image:
               <input
                 value={this.state.image}
                 onChange={(e) => {
+                  console.log('CITY', this.state.cityOfResidence);
                   this.setState({ image: e.target.value });
                 }}
               />

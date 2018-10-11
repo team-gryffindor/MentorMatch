@@ -1,6 +1,19 @@
 var path = require('path');
 var SRC_DIR = path.join(__dirname, '/react-client/src');
 var DIST_DIR = path.join(__dirname, '/react-client/dist');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
+
+// call dotenv and it will return an Object with a parsed key
+const env = dotenv.config().parsed;
+
+// reduce it to a nice object, the same as before
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
+
+console.log('envKEYS', envKeys);
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
@@ -19,7 +32,8 @@ module.exports = {
           plugins: [
             'transform-decorators-legacy',
             'transform-es2015-destructuring',
-            'transform-object-rest-spread'
+            'transform-object-rest-spread',
+            'transform-class-properties'
           ]
         }
       },
@@ -33,5 +47,6 @@ module.exports = {
         loaders: ['style-loader', 'css-loader'],
       }
     ]
-  }
+  },
+  plugins: [new webpack.DefinePlugin(envKeys)]
 };
