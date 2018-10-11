@@ -18,20 +18,6 @@ class Home extends React.Component {
   }
 
   render() {
-    // return (
-    //   <div>
-    //     <h1>Mentor Match</h1>
-    //     <Navigation
-    //       isLoggedIn={this.props.isLoggedIn}
-    //       handleLogin={this.handleLogin}
-    //     />
-    //     {/* <Search query={props.query} /> */}
-    //     <h1>Today's Top Services</h1>
-    //     {/* currently grabbing all lessons */}
-    //     <LessonList style="horizontal" />
-    //   </div>
-    // );
-
     return (
       <div className="container">
         {/* <NavLand /> */}

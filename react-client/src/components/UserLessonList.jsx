@@ -21,7 +21,6 @@ class UserLessonList extends React.Component {
             return <div> Loading lessons ...</div>;
           } else {
             let lessons = data.user[this.props.lessonType];
-            console.log('LESSONS IN PROFILE', lessons);
             if (this.props.lessonType === 'signupLessons') {
               if (this.props.upcoming) {
                 return (
