@@ -1,34 +1,78 @@
 import React from 'react';
 import MentorInfo from './MentorInfo.jsx';
+import Checkout from './Checkout.jsx';
 
-const LessonDetailHeader = ({ lesson }) => {
-  console.log(lesson);
-  return (
-    <div className="lesson-detail-header-margin-top">
-      <div className="jumbotron">
-        <span className="badge badge-pill badge-primary">{lesson.category}</span>
-        <div className="d-flex w-100 justify-content-between">
-          <h1>{lesson.title}</h1>
-          <small className="text">
-            <p style={{ textAlign: 'right' }}>
-              Location: {lesson.cityOfService}
-              <br />
-              Difficulty: {lesson.difficulty}
-            </p>
-          </small>
+
+class LessonDetailHeader extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      bookNow: false 
+    }
+  }
+
+  render() {
+    const { lesson } = this.props; 
+    return (
+      <div className="lesson-detail-header-margin-top">
+        <div className="jumbotron">
+          <span className="badge badge-pill badge-primary">{lesson.category}</span>
+          <div className="d-flex w-100 justify-content-between">
+            <h1>{lesson.title}</h1>
+            <small className="text">
+              <p style={{ textAlign: 'right' }}>
+                Location: {lesson.cityOfService}
+                <br />
+                Difficulty: {lesson.difficulty}
+              </p>
+            </small>
+          </div>
+          <h4>About your Lesson</h4>
+          <p className="lead">{lesson.description}</p>
+          <hr className="my-4" />
+          <MentorInfo provider={lesson.provider} />
+          <p className="lead text-right">
+            <button className="btn btn-highlight btn-lg" href="#" role="button" onClick={() => {this.setState({bookNow:true})}}>
+              Book Now
+            </button>
+            {this.state.bookNow ? <Checkout/> : null}
+          </p>
         </div>
-        <h4>About your Lesson</h4>
-        <p className="lead">{lesson.description}</p>
-        <hr className="my-4" />
-        <MentorInfo provider={lesson.provider} />
-        <p className="lead text-right">
-          <button className="btn btn-highlight btn-lg" href="#" role="button">
-            Book Now
-          </button>
-        </p>
       </div>
-    </div>
-  );
-};
+    );
+
+  }
+}
+
+// const LessonDetailHeader = ({ lesson }) => {
+//   console.log(lesson);
+//   return (
+//     <div className="lesson-detail-header-margin-top">
+//       <div className="jumbotron">
+//         <span className="badge badge-pill badge-primary">{lesson.category}</span>
+//         <div className="d-flex w-100 justify-content-between">
+//           <h1>{lesson.title}</h1>
+//           <small className="text">
+//             <p style={{ textAlign: 'right' }}>
+//               Location: {lesson.cityOfService}
+//               <br />
+//               Difficulty: {lesson.difficulty}
+//             </p>
+//           </small>
+//         </div>
+//         <h4>About your Lesson</h4>
+//         <p className="lead">{lesson.description}</p>
+//         <hr className="my-4" />
+//         <MentorInfo provider={lesson.provider} />
+//         <p className="lead text-right">
+//           <button className="btn btn-highlight btn-lg" href="#" role="button" onClick={() => {this.setState({bookNow:true})}}>
+//             Book Now
+//           </button>
+//           {this.state.bookNow ? <Checkout/> : null}
+//         </p>
+//       </div>
+//     </div>
+//   );
+// };
 
 export default LessonDetailHeader;

@@ -1,4 +1,5 @@
 const graphql = require('graphql');
+const axios = require('axios');
 const Models = require('../db/index.js');
 
 const {
@@ -7,6 +8,7 @@ const {
   ReviewType,
   FavoriteLessonType,
   SignupLessonType
+  // LocationType
 } = require('./types.js');
 
 const {
@@ -26,7 +28,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
-        console.log('This is hit, in server/user')
+        console.log('This is hit, in server/user');
 
         return Models.User.findById(args.id);
       }
@@ -44,7 +46,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
-        console.log('This is hit, in server/userS')
+        console.log('This is hit, in server/userS');
         return Models.User.findAll();
       }
     },
@@ -53,7 +55,7 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
-        console.log('This is hit, in server/lesson')
+        console.log('This is hit, in server/lesson');
 
         return Models.Lesson.findById(args.id);
       }
@@ -63,10 +65,36 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // queries to db
-        console.log('This is hit, in server/lessons')
+        console.log('This is hit, in server/lessons');
 
         return Models.Lesson.findAll();
       }
+      // },
+      // location: {
+      //   type: LocationType,
+      //   args: {
+      //     address: { type: GraphQLString }
+      //   },
+      //   resolve(parent, args) {
+      //     var query = args.address.split(' ').join('+');
+      //     console.log(
+      //       'ADDRESS',
+      //       `${process.env.MAP_BASE_URL}/json?address=${query}&key=${process.env.MAP_API_KEY}`
+      //     );
+      //     return axios
+      //       .get(`${process.env.MAP_BASE_URL}/json?`, {
+      //         headers: {
+      //           address: args.address,
+      //           key: process.env.MAP_API_KEY
+      //         }
+      //       })
+      //       .then((res) => {
+      //         console.log('RES', res);
+      //         res.send;
+      //       })
+      //       .then((json) => json)
+      //       .catch((err) => console.error(err));
+      //   }
     }
   }
 });

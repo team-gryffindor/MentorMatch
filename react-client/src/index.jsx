@@ -10,7 +10,7 @@ import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
 import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries';
 import { StripeProvider } from 'react-stripe-elements';
-
+// import { STRIPE_KEY } from '../config.js';
 // components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
@@ -87,79 +87,76 @@ class App extends React.Component {
   }
 
   render() {
+    console.log(process.env.STRIPE_KEY);
     return (
       <ApolloProvider client={client}>
-        <StripeProvider apiKey='pk_test_KwGwzrhZ1Wro2WvgtivIiCFX'>
-        <Router>
-          <div>
-            <Route
-              path="/"
-              render={({ location }) => (
-                <NavBarMain
-                  isLoggedIn={this.state.isLoggedIn}
-                  firebaseID={this.state.firebaseID}
-                  handleLogin={this.handleLogin}
-                  currentPath={location.pathname}
-                />
-              )}
-            />
-
-            {/* <NavigationBar /> */}
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <Home isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
-              )}
-            />
-            
-            <Route
-              path="/login"
-              render={() => (
-                <Mutation mutation={UPDATE_USER_INFO}>
-                  {(updateUserInfo) => (
-                    <Login
-                      updateUserInfo={updateUserInfo}
-                      handleLogin={this.handleLogin}
-                      isLoggedIn={this.state.isLoggedIn}
-                      uid={this.state.firebaseID}
-                    />
-                  )}
-                </Mutation>
-              )}
+        <StripeProvider apiKey={process.env.STRIPE_KEY}>
+          <Router>
+            <div>
+              <Route
+                path="/"
+                render={({ location }) => (
+                  <NavBarMain
+                    isLoggedIn={this.state.isLoggedIn}
+                    firebaseID={this.state.firebaseID}
+                    handleLogin={this.handleLogin}
+                    currentPath={location.pathname}
                   />
-            <Route
-              path="/signUp"
-              render={({ location }) => (
-                <SignUp uid={location.state.uid} firebaseID={this.state.firebaseID} />
-              )}
-            />
-            <Route path="/active" render={() => <ActiveLessons />} />
-            {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
-            {/* <Route path="/past" render={() => <PastLessons />}/> */}
-            <Route path="/feed" render={(props) => <Feed {...props} />} />
-            <Route
-              path="/dashboard"
-              render={() => (
-                <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
-              )}
-            />
-            <Route path="/userProfile" render={() => <ProfilePage />} />
-            {/* example of how to pass props to a Route */}
-          
-            <Route
-              path="/lessonContent/:lessonId"
-              render={({ location }) => <LessonContent lesson={location.state.lesson} />}
-            />
-            <Route path="/addLesson" render={() => <AddLesson />} />
-            <Route path="/calendar" render={() => <Calendar />} />
-            <Route path="/checkout" render={() => <Checkout/>} /> 
+                )}
+              />
+
+              {/* <NavigationBar /> */}
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <Home isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
+                )}
+              />
+
+              <Route
+                path="/login"
+                render={() => (
+                  <Mutation mutation={UPDATE_USER_INFO}>
+                    {(updateUserInfo) => (
+                      <Login
+                        updateUserInfo={updateUserInfo}
+                        handleLogin={this.handleLogin}
+                        isLoggedIn={this.state.isLoggedIn}
+                        uid={this.state.firebaseID}
+                      />
+                    )}
+                  </Mutation>
+                )}
+              />
+              <Route
+                path="/signUp"
+                render={({ location }) => (
+                  <SignUp uid={location.state.uid} firebaseID={this.state.firebaseID} />
+                )}
+              />
+              <Route path="/active" render={() => <ActiveLessons />} />
+              {/* <Route path="/offered" render={() => <OfferedLessons />} /> */}
+              {/* <Route path="/past" render={() => <PastLessons />}/> */}
+              <Route path="/feed" render={(props) => <Feed {...props} />} />
+              <Route
+                path="/dashboard"
+                render={() => (
+                  <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
+                )}
+              />
+              <Route path="/userProfile" render={() => <ProfilePage />} />
+              {/* example of how to pass props to a Route */}
+
+              <Route
+                path="/lessonContent/:lessonId"
+                render={({ location }) => <LessonContent lesson={location.state.lesson} />}
+              />
+              <Route path="/addLesson" render={() => <AddLesson />} />
+              <Route path="/calendar" render={() => <Calendar />} />
+              <Route path="/checkout" render={() => <Checkout />} />
             </div>
-       
-          
-        </Router>
-        
-          
+          </Router>
         </StripeProvider>
       </ApolloProvider>
     );

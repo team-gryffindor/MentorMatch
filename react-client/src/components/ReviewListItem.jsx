@@ -5,7 +5,6 @@ import StarRatings from 'react-star-ratings';
 // TODO: include user info for each review
 // name, cityOfResidence
 const ReviewListItem = ({ review }) => {
-  console.log('REVIEW', review.user);
   return (
     <div className="list-group-item flex-column align-items-start">
       <div className="d-flex w-100 justify-content-start">
