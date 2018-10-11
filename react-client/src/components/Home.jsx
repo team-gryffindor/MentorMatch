@@ -16,7 +16,7 @@ class Home extends React.Component {
       topLessons: []
     };
   }
-
+  
   render() {
     // return (
     //   <div>

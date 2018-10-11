@@ -1,12 +1,14 @@
 import React from 'react';
 import dateFns from 'date-fns';
+import CalendarEvents from './CalendarEvents.jsx';
 
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       currentMonth: new Date(),
-      selectedDate: new Date()
+      selectedDate: new Date(),
+      newEvent: false
     }
     this.renderHeader = this.renderHeader.bind(this);
     this.renderDays = this.renderDays.bind(this);
@@ -79,6 +81,7 @@ class Calendar extends React.Component {
             onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
           >
             <span className="number">{formattedDate}</span>
+
             <span className="bg">{formattedDate}</span>
           </div>
         );
@@ -95,8 +98,14 @@ class Calendar extends React.Component {
   };
 
   onDateClick(day) {
+
+    // this.setState({
+    //   selectedDate: day
+    // });
+    console.log(day);
     this.setState({
-      selectedDate: day
+      selectedDate: day,
+      newEvent: true
     });
   };
 
@@ -113,11 +122,23 @@ class Calendar extends React.Component {
   };
 
   render() {
+    let scheduleEvent;
+    
+    if (typeof this.props.event === 'object') {
+      console.log('IT IS THERE');
+      scheduleEvent = <h1>Pick a date and a time to schedule this lesson</h1>;
+    }
+    if (this.state.newEvent === true) {
+      return (<CalendarEvents event={this.props.event} day={this.state.selectedDate}/>);
+    }
     return (
-      <div className="calendar">
-        {this.renderHeader()}
-        {this.renderDays()}
-        {this.renderCells()}
+      <div>
+        {scheduleEvent}
+        <div className="calendar">
+          {this.renderHeader()}
+          {this.renderDays()}
+          {this.renderCells()}
+        </div>
       </div>
     )
   }

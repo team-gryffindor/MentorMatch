@@ -4,19 +4,34 @@ import React from 'react';
 // import Search from './Search.jsx';
 import FeaturedLesson from './FeaturedLesson.jsx';
 import UserLessonList from './UserLessonList.jsx';
+import DayPicker from './DayPicker.jsx';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import Calendar from './Calendar.jsx';
+
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      event: {}
+    }
+    // this.setBookingDate = this.setBookingDate.bind(this);
   }
+
+  // setBookingDate(evt, event) {
+  //   evt.preventDefault();
+  //   this.props.
+  //   this.setState({
+  //     event: event
+  //   }, () => this.props.scheduleEvent(event))
+  // }
   render() {
     console.log('dashboard shown');
     return (
       <div className="container">
         <div>
           <div />
-          <FeaturedLesson />
+          <FeaturedLesson scheduleEvent={this.props.scheduleEvent}/>
           <div>
             <h2>Favorites</h2>
             {/* {lessontype tells it to render favorites, offered, or signups} 

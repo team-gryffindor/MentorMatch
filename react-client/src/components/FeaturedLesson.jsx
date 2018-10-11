@@ -28,7 +28,7 @@ const FeaturedLesson = (props) => {
               <p className="lead">{data.lesson.description}</p>
               <h2> Offered by {data.lesson.provider.name}</h2>
               <p className="lead text-right">
-                <button className="btn btn-highlight btn-lg" href="#" role="button">
+                <button className="btn btn-highlight btn-lg" href="#" role="button" onClick={(evt) => props.scheduleEvent(data.lesson)}>
                   Book Now
                 </button>
               </p>

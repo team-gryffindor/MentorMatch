@@ -72,9 +72,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      eventToSchedule: ''
     };
     this.handleLogin = this.handleLogin.bind(this);
+    this.scheduleEvent = this.scheduleEvent.bind(this);
+  }
+
+  scheduleEvent(event) {
+    this.setState({
+      eventToSchedule: event
+    },() => console.log('SCHEDULING EVENT: ', this.state.eventToSchedule));
   }
 
   handleLogin(boolean) {
@@ -109,17 +117,8 @@ class App extends React.Component {
                 <Home isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
               )}
             />
+          
             <Route
-                path="/login"
-                render={() => (
-                  <Login
-                    handleUserLoggingIn={this.handleUserLoggingIn}
-                    isLoggedIn={this.state.isLoggedIn}
-                
-                  />
-                )}
-              />
-            {/* <Route
               path="/login"
               render={() => (
                 <Mutation mutation={UPDATE_USER_INFO}>
@@ -133,7 +132,7 @@ class App extends React.Component {
                   )}
                 </Mutation>
               )}
-                  />*/}
+                  />
             <Route
               path="/signUp"
               render={({ location }) => (
@@ -147,7 +146,7 @@ class App extends React.Component {
             <Route
               path="/dashboard"
               render={() => (
-                <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
+                <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} scheduleEvent={this.scheduleEvent}/>
               )}
             />
             <Route path="/userProfile" render={() => <ProfilePage />} />
@@ -158,7 +157,7 @@ class App extends React.Component {
               render={({ location }) => <LessonContent lesson={location.state.lesson} />}
             />
             <Route path="/addLesson" render={() => <AddLesson />} />
-            <Route path="/calendar" render={() => <Calendar />} />
+            <Route path="/calendar" render={() => <Calendar event={this.state.eventToSchedule}/>} />
           </div>
         </Router>
       </ApolloProvider>
