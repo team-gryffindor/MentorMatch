@@ -15,11 +15,12 @@ module.exports = {
         include: SRC_DIR,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015'],
+          presets: ['react', 'es2015' ],
           plugins: [
             'transform-decorators-legacy',
             'transform-es2015-destructuring',
-            'transform-object-rest-spread'
+            'transform-object-rest-spread',
+            'transform-class-properties'
           ]
         }
       },
