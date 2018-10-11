@@ -2,17 +2,16 @@ import React from 'react';
 import MentorInfo from './MentorInfo.jsx';
 import Checkout from './Checkout.jsx';
 
-
 class LessonDetailHeader extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      bookNow: false 
-    }
+      bookNow: false
+    };
   }
 
   render() {
-    const { lesson } = this.props; 
+    const { lesson } = this.props;
     return (
       <div className="lesson-detail-header-margin-top">
         <div className="jumbotron">
@@ -32,15 +31,21 @@ class LessonDetailHeader extends React.Component {
           <hr className="my-4" />
           <MentorInfo provider={lesson.provider} />
           <p className="lead text-right">
-            <button className="btn btn-highlight btn-lg" href="#" role="button" onClick={() => {this.setState({bookNow:true})}}>
+            <button
+              className="btn btn-highlight btn-lg"
+              href="#"
+              role="button"
+              onClick={() => {
+                this.setState({ bookNow: true });
+              }}
+            >
               Book Now
             </button>
-            {this.state.bookNow ? <Checkout/> : null}
+            {this.state.bookNow ? <Checkout /> : null}
           </p>
         </div>
       </div>
     );
-
   }
 }
 

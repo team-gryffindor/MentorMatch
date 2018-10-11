@@ -89,7 +89,14 @@ class SearchBarHome extends React.Component {
             value={this.state.location}
             onChange={this.handleLocationInputChange}
           /> */}
-          <Geosuggest placeholder={'Location'} onSuggestSelect={this.onSuggestSelect} />
+          <Geosuggest
+            placeholder={'Location'}
+            onSuggestSelect={(suggest) => {
+              console.log(suggest);
+              this.setState({ locationQuery: suggest.description });
+            }}
+            value={this.state.locationQuery}
+          />
           <button className="btn btn-primary my-2 my-sm-0" type="submit">
             <Link
               to={{ pathname: '/feed', state: { lessonIds: this.state.results } }}
