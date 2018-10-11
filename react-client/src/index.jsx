@@ -10,7 +10,7 @@ import { withClientState } from 'apollo-link-state';
 import localStateDefaults from './apollo/defaults';
 import { UPDATE_USER_INFO } from './apollo/resolvers/clientSideQueries';
 import { StripeProvider } from 'react-stripe-elements';
-import { STRIPE_KEY } from '../config.js';
+
 // components
 import Home from './components/Home.jsx';
 import Login from './components/Login.jsx';
@@ -89,7 +89,7 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <StripeProvider apiKey={STRIPE_KEY}>
+        <StripeProvider apiKey='pk_test_KwGwzrhZ1Wro2WvgtivIiCFX'>
         <Router>
           <div>
             <Route
