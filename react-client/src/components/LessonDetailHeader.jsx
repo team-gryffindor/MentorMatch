@@ -26,7 +26,7 @@ const LessonDetailHeader = ({
       <div className="jumbotron">
         <span className="badge badge-pill badge-primary">{lesson.category}</span>
         <div className="d-flex w-100 justify-content-between">
-          <h1 className="display-4">{lesson.title}</h1>
+          <h1>{lesson.title}</h1>
           <small className="text">
             <p style={{ textAlign: 'right' }}>
               Location: {lesson.cityOfService}
