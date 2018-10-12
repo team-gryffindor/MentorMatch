@@ -8,6 +8,8 @@ const lesson = (sequelize, DataTypes) => {
     // incrementing INTEGER id for easy development
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     cityOfService: DataTypes.STRING,
+    lat: DataTypes.FLOAT,
+    lng: DataTypes.FLOAT,
     description: DataTypes.TEXT,
     image: DataTypes.STRING,
     title: DataTypes.STRING,
