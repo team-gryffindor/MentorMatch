@@ -1,5 +1,6 @@
 import React from 'react';
 import { Query } from 'react-apollo';
+import { Link } from 'react-router-dom';
 import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries.js';
 import UserProfileInfo from './UserProfileInfo.jsx';
 import UserLessonList from './UserLessonList.jsx';
@@ -35,9 +36,12 @@ class ProfilePage extends React.Component {
                 <NavProfile handleProfileViewChange={this.handleProfileViewChange} />
                 <h1>Profile Page</h1>
                 <UserProfileInfo user={user} />
-                {view === 'offered' ? (
+                {view === 'offeredLessons' ? (
                   <div>
-                    <h3>Offered</h3>
+                    <h3>Offered Lessons</h3>
+                    <button>
+                      <Link to="/addLesson">Add Lesson!</Link>
+                    </button>
                     <UserLessonList userId={user.userId} lessonType="offeredLessons" />
                   </div>
                 ) : null}
