@@ -5,24 +5,20 @@ import { Query, Mutation } from 'react-apollo';
 import Geosuggest from 'react-geosuggest';
 
 class AddLesson extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: '',
-      description: '',
-      cityOfService: '',
-      image: '',
-      difficulty: '',
-      userId: '',
-      category: '',
-      lng: 0,
-      ltd: 0
-    };
-  }
-  submitForm(e) {
-    this.setState({});
-  }
+  state = {
+    title: '',
+    description: '',
+    cityOfService: '',
+    image: '',
+    difficulty: '',
+    userId: '',
+    category: '',
+    lng: 0,
+    ltd: 0
+  };
+
   render() {
+    let { title, description, cityOfService, image, difficulty, category } = this.state;
     return (
       <Query query={GET_USER_INFO}>
         {({ loading, error, data }) => {
@@ -39,38 +35,32 @@ class AddLesson extends React.Component {
                       e.preventDefault();
                       addLesson({
                         variables: {
-                          title: this.state.title,
-                          description: this.state.description,
-                          cityOfService: this.state.cityOfService,
-                          image: this.state.image,
-                          difficulty: this.state.difficulty,
+                          title: title,
+                          description: description,
+                          cityOfService: cityOfService,
+                          image: image,
+                          difficulty: difficulty,
                           userId: userID,
-                          category: this.state.category
+                          category: category
                         }
                       });
                     }}
                   >
                     Title:
                     <input
-                      value={this.state.title}
+                      value={title}
                       onChange={(e) => {
                         this.setState({ title: e.target.value });
                       }}
                     />
                     Description:
                     <input
-                      value={this.state.description}
+                      value={description}
                       onChange={(e) => {
                         this.setState({ description: e.target.value });
                       }}
                     />
                     City:
-                    {/* <input
-                      value={this.state.cityOfService}
-                      onChange={(e) => {
-                        this.setState({ cityOfService: e.target.value });
-                      }}
-                    /> */}
                     <Geosuggest
                       placeholder={'Location of Lesson'}
                       onSuggestSelect={(select) => {
@@ -84,21 +74,21 @@ class AddLesson extends React.Component {
                     />
                     Difficulty:
                     <input
-                      value={this.state.difficulty}
+                      value={difficulty}
                       onChange={(e) => {
                         this.setState({ difficulty: e.target.value });
                       }}
                     />
                     Category:
                     <input
-                      value={this.state.category}
+                      value={category}
                       onChange={(e) => {
                         this.setState({ category: e.target.value });
                       }}
                     />
                     img:
                     <input
-                      value={this.state.image}
+                      value={image}
                       onChange={(e) => {
                         this.setState({ image: e.target.value });
                       }}
