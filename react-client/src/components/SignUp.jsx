@@ -71,11 +71,16 @@ class SignUp extends React.Component {
                   placeholder={'City of Residence'}
                   onSuggestSelect={(suggest) => {
                     console.log('CITY', typeof suggest.description);
-                    this.setState({
-                      cityOfResidence: suggest.description,
-                      lat: suggest.location.lat,
-                      lng: suggest.location.lng
-                    });
+                    this.setState(
+                      {
+                        cityOfResidence: suggest.description,
+                        lat: suggest.location.lat,
+                        lng: suggest.location.lng
+                      },
+                      () => {
+                        console.log(this.state.lat, this.state.lng);
+                      }
+                    );
                   }}
                   types={['geocode']}
                   value={this.state.cityOfResidence}
