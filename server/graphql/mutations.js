@@ -60,7 +60,8 @@ const Mutation = new GraphQLObjectType({
         lng: { type: GraphQLFloat },
         category: { type: GraphQLString },
         difficulty: { type: GraphQLString },
-        userId: { type: GraphQLID }
+        userId: { type: GraphQLID },
+        price: { type: GraphQLFloat }
       },
       resolve(parent, args) {
         // sequelize to add user
@@ -73,7 +74,8 @@ const Mutation = new GraphQLObjectType({
           lng: args.lng,
           difficulty: args.difficulty,
           image: args.image,
-          userId: args.userId
+          userId: args.userId,
+          price: args.price
         })
           .save()
           .then((data) => {
@@ -190,8 +192,22 @@ const Mutation = new GraphQLObjectType({
           .then((data) => data)
           .catch((err) => console.error(err));
       }
-    }
+    },
     // removeSignupLesson: {}
+    deleteLesson: {
+      type: LessonType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Models.Lesson.update({ isActive: false }, { where: { id: args.id } })
+          .then((data) => {
+            console.log('updated lesson', data);
+            return data;
+          })
+          .catch((err) => console.error(err));
+      }
+    }
   }
 });
 

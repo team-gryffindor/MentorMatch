@@ -39,6 +39,8 @@ const LessonDetailHeader = ({
           <Mutation mutation={mutateFav}>
             {(mutateFavorite) => (
               <button
+                type="button"
+                className="btn btn-default"
                 onClick={() => {
                   mutateFavorite({
                     variables: {
@@ -50,7 +52,7 @@ const LessonDetailHeader = ({
                   });
                 }}
               >
-                {isFavorite ? 'Favorite!' : 'not favorite'}
+                {isFavorite ? <i className="fas fa-star" /> : <i className="far fa-star" />}
               </button>
             )}
           </Mutation>
