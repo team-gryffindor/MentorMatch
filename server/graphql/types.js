@@ -9,7 +9,8 @@ const {
   GraphQLID,
   GraphQLList,
   GraphQLFloat,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLBoolean
 } = graphql;
 
 // querying multiple tables: TODO: data.dataValues.*
@@ -101,6 +102,8 @@ const LessonType = new GraphQLObjectType({
     },
     image: { type: GraphQLString },
     date: { type: GraphQLString },
+    isActive: { type: GraphQLBoolean },
+    price: { type: GraphQLFloat },
     provider: {
       type: UserType,
       resolve(parent, args) {

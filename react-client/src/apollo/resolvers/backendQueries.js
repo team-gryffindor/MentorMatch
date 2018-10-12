@@ -37,6 +37,9 @@ const GET_USER = gql`
             types
           }
         }
+        cityOfService
+        lat
+        lng
       }
       signupLessons {
         id
@@ -61,6 +64,16 @@ const GET_USER = gql`
             cityOfResidence
           }
         }
+        location {
+          addressComponents {
+            long_name
+            short_name
+            types
+          }
+        }
+        cityOfService
+        lat
+        lng
       }
       favoriteLessons {
         id
@@ -85,6 +98,16 @@ const GET_USER = gql`
             cityOfResidence
           }
         }
+        location {
+          addressComponents {
+            long_name
+            short_name
+            types
+          }
+        }
+        cityOfService
+        lat
+        lng
       }
     }
   }
@@ -209,6 +232,7 @@ const ADD_LESSON = gql`
     $category: String!
     $lat: Float!
     $lng: Float!
+    $price: Float!
   ) {
     addLesson(
       title: $title
@@ -220,6 +244,7 @@ const ADD_LESSON = gql`
       category: $category
       lat: $lat
       lng: $lng
+      price: $price
     ) {
       title
       description
@@ -231,6 +256,7 @@ const ADD_LESSON = gql`
       numOfReviews
       lat
       lng
+      price
     }
   }
 `;
@@ -288,6 +314,14 @@ const DELETE_FAVORITE_LESSON = gql`
   }
 `;
 
+const DELETE_LESSON = gql`
+  mutation($id: ID!) {
+    deleteLesson(id: $id) {
+      isActive
+    }
+  }
+`;
+
 export {
   GET_USER,
   CHECK_USER,
@@ -300,5 +334,6 @@ export {
   ADD_SIGNUP_LESSON,
   ADD_FAVORITE_LESSON,
   DELETE_FAVORITE_LESSON,
-  DELETE_SIGNUP_LESSON
+  DELETE_SIGNUP_LESSON,
+  DELETE_LESSON
 };

@@ -18,6 +18,7 @@ class AddLesson extends React.Component {
       category: '',
       lng: 0,
       ltd: 0,
+      price: 1,
       redirect: false
     };
   }
@@ -52,7 +53,8 @@ class AddLesson extends React.Component {
                             image: this.state.image,
                             difficulty: this.state.difficulty,
                             userId: userID,
-                            category: this.state.category
+                            category: this.state.category,
+                            price: Number(this.state.price)
                           }
                         })
                           .then((data) => {
@@ -71,10 +73,18 @@ class AddLesson extends React.Component {
                         }}
                       />
                       Description:
-                      <input
+                      <textarea
                         value={this.state.description}
                         onChange={(e) => {
                           this.setState({ description: e.target.value });
+                        }}
+                      />
+                      Price:
+                      <input
+                        value={this.state.price}
+                        type="number"
+                        onChange={(e) => {
+                          this.setState({ price: e.target.value });
                         }}
                       />
                       City:
