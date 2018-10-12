@@ -63,17 +63,20 @@ class SignUp extends React.Component {
                   }}
                 />
                 City:
-                <input
-                  value={this.state.cityOfResidence}
-                  onChange={(e) => {
-                    this.setState({ cityOfResidence: e.target.value });
+                <Geosuggest
+                  placeholder={'City of Residence'}
+                  onSuggestSelect={(suggest) => {
+                    console.log('CITY', typeof suggest.description);
+                    this.setState({ cityOfResidence: suggest.description });
                   }}
+                  types={['geocode']}
+                  value={this.state.cityOfResidence}
                 />
-                {/* <Geosuggest /> */}
-                img:
+                Link to your image:
                 <input
                   value={this.state.image}
                   onChange={(e) => {
+                    console.log('CITY', this.state.cityOfResidence);
                     this.setState({ image: e.target.value });
                   }}
                 />
