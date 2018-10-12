@@ -14,7 +14,6 @@ class SimpleMap extends React.Component {
   }
 
   render() {
-    console.log('API KEY FOR MAP', process.env.MAP_API_KEY);
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '100vh', width: '100%', marginBottom: '30px' }}>

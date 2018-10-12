@@ -1,5 +1,6 @@
 import React from 'react';
 import MentorInfo from './MentorInfo.jsx';
+import Checkout from './Checkout.jsx';
 import { Mutation } from 'react-apollo';
 import {
   ADD_FAVORITE_LESSON,
@@ -7,6 +8,7 @@ import {
   ADD_SIGNUP_LESSON,
   DELETE_SIGNUP_LESSON
 } from '../apollo/resolvers/backendQueries.js';
+
 
 const LessonDetailHeader = ({
   lesson,
@@ -82,6 +84,7 @@ const LessonDetailHeader = ({
               </button>
             )}
           </Mutation>
+          <Checkout/>
         </p>
       </div>
     </div>

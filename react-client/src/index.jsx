@@ -88,7 +88,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(process.env.STRIPE_KEY);
     return (
       <ApolloProvider client={client}>
         <StripeProvider apiKey={process.env.STRIPE_KEY}>

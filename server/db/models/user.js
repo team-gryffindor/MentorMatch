@@ -18,6 +18,8 @@ const user = (sequelize, DataTypes) => {
     image: DataTypes.STRING,
     description: DataTypes.TEXT,
     cityOfResidence: DataTypes.STRING
+    // latitude: DataTypes.FLOAT,
+    // longitude: DataTypes.FLOAT
   });
 
   return User;
