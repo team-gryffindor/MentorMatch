@@ -4,7 +4,6 @@ import React from 'react';
 // import Search from './Search.jsx';
 import FeaturedLesson from './FeaturedLesson.jsx';
 import UserLessonList from './UserLessonList.jsx';
-import DayPicker from './DayPicker.jsx';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries.js';
@@ -18,13 +17,13 @@ class Dashboard extends React.Component {
     // this.setBookingDate = this.setBookingDate.bind(this);
   }
 
-  // setBookingDate(evt, event) {
-  //   evt.preventDefault();
-  //   this.props.
-  //   this.setState({
-  //     event: event
-  //   }, () => this.props.scheduleEvent(event))
-  // }
+  setBookingDate = (evt, event) => {
+    evt.preventDefault();
+    this.setState({
+      event: event
+    }, () => this.props.scheduleEvent(event))
+  }
+
   render() {
     return (
       <Query query={GET_USER_INFO}>
@@ -36,7 +35,7 @@ class Dashboard extends React.Component {
             <div className="container">
               <div>
                 <div />
-                <FeaturedLesson />
+                <FeaturedLesson setBookingDate={this.setBookingDate}/>
                 <div>
                   <h2>Favorites</h2>
                   {/* {lessontype tells it to render favorites, offered, or signups} 

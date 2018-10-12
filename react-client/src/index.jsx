@@ -150,7 +150,7 @@ class App extends React.Component {
               <Route
                 path="/dashboard"
                 render={() => (
-                  <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
+                  <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} scheduleEvent={this.scheduleEvent}/>
                 )}
               />
               <Route path="/userProfile" render={() => <ProfilePage />} />

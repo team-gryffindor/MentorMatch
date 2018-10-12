@@ -1,7 +1,5 @@
 import React from 'react';
-
-import TimePicker from 'react-time-picker';
-
+import DateTime from 'react-datetime';
 
 class CalendarEvents extends React.Component {
   constructor(props) {
@@ -50,8 +48,8 @@ class CalendarEvents extends React.Component {
     return (
       <div>
         <h1>Hellur</h1>
-        <TimePicker />
-      
+        
+        <DateTime />
         {/* {this.displayEvents()} */}
       </div>
     )
