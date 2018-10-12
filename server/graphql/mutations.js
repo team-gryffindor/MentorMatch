@@ -29,7 +29,9 @@ const Mutation = new GraphQLObjectType({
         name: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
-        cityOfResidence: { type: GraphQLString }
+        cityOfResidence: { type: GraphQLString },
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat }
       },
       resolve(parent, args) {
         // sequelize to add user
@@ -38,7 +40,9 @@ const Mutation = new GraphQLObjectType({
           name: args.name,
           image: args.image,
           description: args.description,
-          cityOfResidence: args.cityOfResidence
+          cityOfResidence: args.cityOfResidence,
+          lat: args.lat,
+          lng: args.lng
         })
           .save()
           .then((data) => data)
@@ -52,6 +56,8 @@ const Mutation = new GraphQLObjectType({
         image: { type: GraphQLString },
         description: { type: GraphQLString },
         cityOfService: { type: GraphQLString },
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat },
         category: { type: GraphQLString },
         difficulty: { type: GraphQLString },
         userId: { type: GraphQLID }
@@ -63,6 +69,8 @@ const Mutation = new GraphQLObjectType({
           description: args.description,
           category: args.category,
           cityOfService: args.cityOfService,
+          lat: args.lat,
+          lng: args.lng,
           difficulty: args.difficulty,
           image: args.image,
           userId: args.userId

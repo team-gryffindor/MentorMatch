@@ -2,6 +2,7 @@ import React from 'react';
 import { ADD_LESSON } from '../apollo/resolvers/backendQueries';
 import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries';
 import { Query, Mutation } from 'react-apollo';
+import Geosuggest from 'react-geosuggest';
 
 class AddLesson extends React.Component {
   constructor(props) {
@@ -13,7 +14,9 @@ class AddLesson extends React.Component {
       image: '',
       difficulty: '',
       userId: '',
-      category: ''
+      category: '',
+      lng: 0,
+      ltd: 0
     };
   }
   submitForm(e) {
@@ -62,10 +65,21 @@ class AddLesson extends React.Component {
                       }}
                     />
                     City:
-                    <input
+                    {/* <input
                       value={this.state.cityOfService}
                       onChange={(e) => {
                         this.setState({ cityOfService: e.target.value });
+                      }}
+                    /> */}
+                    <Geosuggest
+                      placeholder={'Location of Lesson'}
+                      onSuggestSelect={(select) => {
+                        this.setState({
+                          cityOfService: select.description,
+                          lat: select.location.lat,
+                          lng: select.location.lng
+                        });
+                        console.log(select);
                       }}
                     />
                     Difficulty:
