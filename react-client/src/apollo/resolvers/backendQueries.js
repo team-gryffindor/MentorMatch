@@ -113,6 +113,8 @@ const GET_LESSON = gql`
       title
       description
       cityOfService
+      lat
+      lng
       category
       difficulty
       avgRating
@@ -165,6 +167,8 @@ const ADD_USER = gql`
     $cityOfResidence: String!
     $image: String!
     $uid: ID!
+    $lat: Float!
+    $lng: Float!
   ) {
     addUser(
       name: $name
@@ -172,6 +176,8 @@ const ADD_USER = gql`
       cityOfResidence: $cityOfResidence
       image: $image
       uid: $uid
+      lat: $lat
+      lng: $lng
     ) {
       name
       description
@@ -179,6 +185,8 @@ const ADD_USER = gql`
       image
       id
       uid
+      lat
+      lng
     }
   }
 `;
@@ -192,6 +200,8 @@ const ADD_LESSON = gql`
     $difficulty: String!
     $userId: ID!
     $category: String!
+    $lat: Float!
+    $lng: Float!
   ) {
     addLesson(
       title: $title
@@ -201,6 +211,8 @@ const ADD_LESSON = gql`
       difficulty: $difficulty
       userId: $userId
       category: $category
+      lat: $lat
+      lng: $lng
     ) {
       title
       description
@@ -210,6 +222,8 @@ const ADD_LESSON = gql`
       difficulty
       avgRating
       numOfReviews
+      lat
+      lng
     }
   }
 `;
