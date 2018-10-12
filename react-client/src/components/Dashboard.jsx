@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
                   {/* {lessontype tells it to render favorites, offered, or signups} 
                           userId hard coded for now, we should decide which components to 
                           actually query the cache */}
-                  <UserLessonList lessonType="favoriteLessons" userId={2} />
+                  <UserLessonList lessonType="favoriteLessons" userId={data.userInfo.userId} />
                   <h2>Recommendations</h2>
                 </div>
               </div>
