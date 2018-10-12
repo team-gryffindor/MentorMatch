@@ -20,6 +20,8 @@ const UserType = new GraphQLObjectType({
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     cityOfResidence: { type: GraphQLString },
+    lat: { type: GraphQLFloat },
+    lng: { type: GraphQLFloat },
     image: { type: GraphQLString },
     offeredLessons: {
       type: GraphQLList(LessonType),
@@ -71,6 +73,8 @@ const LessonType = new GraphQLObjectType({
     avgRating: { type: GraphQLFloat },
     numOfReviews: { type: GraphQLInt },
     cityOfService: { type: GraphQLString },
+    lat: { type: GraphQLFloat },
+    lng: { type: GraphQLFloat },
     image: { type: GraphQLString },
     date: { type: GraphQLString },
     provider: {
