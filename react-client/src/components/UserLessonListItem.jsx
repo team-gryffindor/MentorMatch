@@ -6,6 +6,11 @@ import { Mutation } from 'react-apollo';
 
 const UserLessonListItem = ({ lesson }) => {
   console.log(lesson);
+  for (let comp in lesson.location.addressComponents) {
+    let shortname = comp[1]; 
+    if (comp[2] === ) let city = shortname
+    else if (comp[2] === ) let state = shortname
+  }
   return (
     <div>
       <div className="list-group-item list-group-item-action flex-column align-items-start">
@@ -13,7 +18,7 @@ const UserLessonListItem = ({ lesson }) => {
           <Link to={{ pathname: `/lessonContent/${lesson.id}`, state: { lesson: lesson } }}>
             <h5 className="mb-1">{lesson.title}</h5>
           </Link>
-          <small className="text-muted">{lesson.cityOfService}</small>
+          <small className="text-muted">{}</small>
         </div>
         <p className="mb-1">{lesson.description}</p>
         <StarRatings
