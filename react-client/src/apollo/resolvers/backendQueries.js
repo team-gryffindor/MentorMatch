@@ -30,6 +30,13 @@ const GET_USER = gql`
             cityOfResidence
           }
         }
+        location {
+          addressComponents {
+            long_name
+            short_name
+            types
+          }
+        }
       }
       signupLessons {
         id

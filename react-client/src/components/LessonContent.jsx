@@ -5,8 +5,8 @@ import Reviews from './Reviews.jsx';
 
 class LessonContent extends React.Component {
   state = {
-    isFavorite: props.isFavorite,
-    isBooked: props.isBooked
+    isFavorite: this.props.isFavorite,
+    isBooked: this.props.isBooked
   };
 
   // use this to setState?
@@ -26,6 +26,7 @@ class LessonContent extends React.Component {
   render() {
     let { lesson, userId } = this.props;
     let { isFavorite, isBooked } = this.state;
+    console.log(lesson, lesson.lat, lesson.ltn);
     return (
       <div className="container" style={{ marginBottom: '30px' }}>
         <LessonDetailHeader
