@@ -890,8 +890,9 @@ main {
   background-color: #ff00735b;
   height: 300px;
   width: 300px;
-  border-color: #ff0073;
+  border-color: black;
   border-width: 5px;
+  transform: translate(-50%, -50%);
 }
 
 * {
