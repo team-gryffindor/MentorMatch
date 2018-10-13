@@ -48,6 +48,10 @@ hr {
   margin-left: 5px;
 }
 
+.disabled-lesson {
+  opacity: 0.25;
+}
+
 .lesson-detail-header-margin-top {
   margin-top: 20px;
 }

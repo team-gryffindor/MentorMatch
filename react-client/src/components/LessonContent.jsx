@@ -9,8 +9,6 @@ class LessonContent extends React.Component {
     isBooked: this.props.isBooked
   };
 
-  // use this to setState?
-  // and mutate?
   toggleFavorite = (favorite) => {
     this.setState({
       isFavorite: favorite
