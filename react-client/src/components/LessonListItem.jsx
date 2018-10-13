@@ -3,6 +3,7 @@ import { Query } from 'react-apollo';
 import { GET_LESSON } from '../apollo/resolvers/backendQueries.js';
 import { Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
+import { extractCityState } from '../util/addressHelper.js';
 
 class LessonListItem extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class LessonListItem extends React.Component {
         {({ loading, error, data }) => {
           if (error) return <p>Error! Could not retrieve the results.</p>;
           if (loading || !data) return <p>Loading Results...</p>;
+          let { city, state } = extractCityState(data.lesson.location.addressComponents);
           return (
             <Link
               to={{
@@ -25,7 +27,9 @@ class LessonListItem extends React.Component {
               <div className="list-group-item list-group-item-action flex-column align-items-start">
                 <div className="d-flex w-100 justify-content-between">
                   <h5 className="mb-1">{data.lesson.title}</h5>
-                  <small className="text-muted">{data.lesson.cityOfService}</small>
+                  <small className="text-muted">
+                    {city}, {state}
+                  </small>
                 </div>
                 <p className="mb-1">{data.lesson.description}</p>
                 <StarRatings

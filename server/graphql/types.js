@@ -1,6 +1,7 @@
 const graphql = require('graphql');
 const Models = require('../db/index.js');
 const { Op } = require('sequelize');
+const axios = require('axios');
 
 const {
   GraphQLObjectType,
@@ -76,6 +77,29 @@ const LessonType = new GraphQLObjectType({
     cityOfService: { type: GraphQLString },
     lat: { type: GraphQLFloat },
     lng: { type: GraphQLFloat },
+    location: {
+      type: LocationType,
+      resolve(parent, args) {
+        return (
+          axios
+            .get(
+              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${parent.lat},${
+                parent.lng
+              }&result_type=locality&key=${process.env.MAP_API_KEY}`
+            )
+            .then((res) => {
+              console.log('IN AXIOS THEN', res.data.results[0]);
+              // fir address components is the most accurate address
+              return res.data.results[0];
+            })
+            // .then((results) => console.log(results))
+            .catch((err) => {
+              console.log('ERROR!~');
+              console.error(err);
+            })
+        );
+      }
+    },
     image: { type: GraphQLString },
     date: { type: GraphQLString },
     isActive: { type: GraphQLBoolean },
@@ -136,52 +160,36 @@ const FavoriteLessonType = new GraphQLObjectType({
   })
 });
 
-// const LocationType = new GraphQLObjectType({
-//   name: 'Location',
-//   description: 'Location information of corresponding address from Google Maps Geocode API',
-//   fields: () => ({
-//     // addressComponents: {
-//     //   type: GraphQLList(AddressType),
-//     //   resolve(parent, args) {
-//     //     parent.results.address_components;
-//     //   }
-//     // },
-//     formattedAddress: {
-//       type: GraphQLString,
-//       resolve(parent, args) {
-//         parent.results.formatted_address;
-//       }
-//     },
-//     latitude: {
-//       type: GraphQLString,
-//       resolve(parent, args) {
-//         parent.results.geometry.location.lat;
-//       }
-//     },
-//     longitude: {
-//       type: GraphQLString,
-//       resolve(parent, args) {
-//         parent.results.geometry.location.lng;
-//       }
-//     }
-//   })
-// });
+const LocationType = new GraphQLObjectType({
+  name: 'Location',
+  description: 'Location information of corresponding address from Google Maps Geocode API',
+  fields: () => ({
+    addressComponents: {
+      type: GraphQLList(AddressType),
+      resolve(parent, args) {
+        console.log('IN LOCATION TYPE', parent.address_components);
+        return parent.address_components;
+      }
+    }
+  })
+});
 
-// const AddressType = new GraphQLObjectType({
-//   name: 'Address',
-//   description: 'Address component from geocode data retrieval',
-//   fields: () => ({
-//     longName: GraphQLString,
-//     shortName: GraphQLString
-//   })
-// });
+const AddressType = new GraphQLObjectType({
+  name: 'Address',
+  description: 'Address component from geocode data retrieval',
+  fields: () => ({
+    long_name: { type: GraphQLString },
+    short_name: { type: GraphQLString },
+    types: { type: GraphQLList(GraphQLString) }
+  })
+});
 
 module.exports = {
   UserType: UserType,
   LessonType: LessonType,
   ReviewType: ReviewType,
   SignupLessonType: SignupLessonType,
-  FavoriteLessonType: FavoriteLessonType
-  // LocationType: LocationType,
-  // AddressType: AddressType
+  FavoriteLessonType: FavoriteLessonType,
+  LocationType: LocationType,
+  AddressType: AddressType
 };

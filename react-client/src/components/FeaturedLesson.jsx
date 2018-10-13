@@ -3,6 +3,7 @@ import StarRatings from 'react-star-ratings';
 import { Query } from 'react-apollo';
 import { GET_LESSON } from '../apollo/resolvers/backendQueries.js';
 import MentorInfo from './MentorInfo.jsx';
+import { extractCityState } from '../util/addressHelper.js';
 
 const FeaturedLesson = (props) => {
   return (
@@ -13,6 +14,7 @@ const FeaturedLesson = (props) => {
           return <div> Loading test ...</div>;
         } else {
           console.log(data.lesson);
+          let { city, state } = extractCityState(data.lesson.location.addressComponents);
           return (
             <div>
               <h2>Today's Featured Lesson</h2>
@@ -23,7 +25,7 @@ const FeaturedLesson = (props) => {
                     <h1 className="display-4">{data.lesson.title}</h1>
                     <small className="text">
                       <p style={{ textAlign: 'right' }}>
-                        Location: {data.lesson.cityOfService}
+                        Location: {city}, {state}
                         <br />
                         Difficulty: {data.lesson.difficulty}
                       </p>
