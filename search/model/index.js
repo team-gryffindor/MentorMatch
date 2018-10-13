@@ -7,7 +7,7 @@ module.exports = {
         title + ' ' + description + ' ' + category + ' ' + cityOfService
       );
       console.log(lessonTxt);
-      search.index(lessonTxt, i);
+      search.index(lessonTxt, lesson.id);
     });
   }
 };
