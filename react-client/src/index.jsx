@@ -115,7 +115,7 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <StripeProvider apiKey={'pk_test_KwGwzrhZ1Wro2WvgtivIiCFX'}>
+        <StripeProvider apiKey={process.env.PUBLISHABLE_KEY}>
           <Router>
             <div>
               <Route

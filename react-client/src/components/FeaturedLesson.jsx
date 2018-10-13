@@ -58,7 +58,6 @@ const FeaturedLesson = (props) => {
                     {/* <a className="btn btn-primary btn-lg" href="#" role="button" onClick={(evt) => setBookingDate(evt, data.lesson)}>
                       Book Now
                     </a> */}
-                    <BookNow event={data.lesson} calendarEvents={props.calendarEvents} userId={props.userId}/>
                   </p>
                   
                 </div>

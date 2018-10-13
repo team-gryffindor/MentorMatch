@@ -33,7 +33,8 @@ export default class CustomInput extends React.Component {
     super(props)
     this.state = {
       startDate: moment(),
-      count: 0
+      count: 0,
+      booked: false
     }
   }
 
@@ -43,46 +44,63 @@ export default class CustomInput extends React.Component {
     this.setState({
       startDate: date,
       count: newCount
-    }, () => console.log(this.state.startDate))
+    }, () => console.log(this.props.userId))
   }
 
   render () {
     let submit;
-    if (this.state.count === 2) {
+    let dateCal = (
+      <div className="row">
+         <div className="column">
+           <DatePicker
+             customInput={<BookNow />}
+             selected={this.state.startDate}
+             onChange={this.handleChange} 
+             showTimeSelect
+             minTime={moment().hours(9).minutes(0)}
+             maxTime={moment().hours(22).minutes(30)}
+             dateFormat="LLL"
+             />
+             {submit}
+         </div>
+       </div>
+       );
+    let booked;
+
+    if (this.state.count === 2 && this.state.booked === false) {
       submit = (
       <Mutation mutation={ADD_SIGNUP_LESSON}>
       {(addSignUpLesson) => (
         <div>
           <button onClick={() => { addSignUpLesson({
             variables: { 
-              userId: this.props.userId.userId,
+              userId: this.props.userId,
               lessonId: this.props.event.id,
               date: this.state.startDate
             }
           })
-            this.setState({ count: 0 })
-          }}>Confirm booking</button>
+            this.setState({ count: 0, booked: true })
+            this.props.renderPayment(true);
+            
+          }}>Pay Now</button>
         </div>
       )}
       </Mutation>)
+    } else if (this.state.booked === true) {
+      submit = (
+        <div></div>
+      )
+      dateCal = (
+        <div></div>
+      )
     }
     
   
-   return  (
-   <div className="row">
-      <div className="column">
-        <DatePicker
-          customInput={<BookNow />}
-          selected={this.state.startDate}
-          onChange={this.handleChange} 
-          showTimeSelect
-          minTime={moment().hours(9).minutes(0)}
-          maxTime={moment().hours(22).minutes(30)}
-          dateFormat="LLL"
-          />
-          {submit}
-      </div>
-    </div>
-    )
+   return (
+     <div>
+       {dateCal}
+       {submit}
+     </div>
+   )
   }
 }
