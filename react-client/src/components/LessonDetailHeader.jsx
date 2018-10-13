@@ -1,5 +1,6 @@
 import React from 'react';
 import MentorInfo from './MentorInfo.jsx';
+import Checkout from './Checkout.jsx';
 import { Mutation } from 'react-apollo';
 import {
   ADD_FAVORITE_LESSON,
@@ -11,6 +12,10 @@ import { extractCityState } from '../util/addressHelper.js';
 
 
 const LessonDetailHeader = ({
+  userCompletedPayment,
+  paid,
+  renderPayment,
+  payNow,
   lesson,
   isFavorite,
   isBooked,
@@ -35,6 +40,8 @@ const LessonDetailHeader = ({
               Location: {city}, {state}
               <br />
               Difficulty: {lesson.difficulty} + {lesson.id}
+              <br />
+              Price: {lesson.price}/hour
             </p>
           </small>
 
@@ -65,28 +72,33 @@ const LessonDetailHeader = ({
         <hr className="my-4" />
         <MentorInfo provider={lesson.provider} />
         <p className="lead text-right">
-          <Mutation mutation={mutateBooking}>
-            {(changeBooking) => (
-              <button
-                className="btn btn-highlight btn-lg"
-                href="#"
-                role="button"
-                onClick={() => {
-                  changeBooking({
-                    variables: {
-                      userId: userId,
-                      lessonId: lesson.id,
-                      date: '1'
-                    }
-                  }).then((data) => {
-                    toggleBooking(!isBooked);
-                  });
-                }}
-              >
-                {isBooked ? 'Cancel' : 'Book now!'}
-              </button>
-            )}
-          </Mutation>
+         {isBooked ? <button onClick={() => toggleBooking(false)}>Cancel Booking</button> : <button onClick={() => renderPayment(true)}>Pay Now</button>}
+         {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson}/>: null}
+         
+         {paid ? 
+                  <Mutation mutation={mutateBooking}>
+                    {(changeBooking) => (
+                      <button 
+                        className="btn btn-highlight btn-lg"
+                        href="#"
+                        role="button"
+                        onClick={() => {
+                          changeBooking({
+                            variables: {
+                              userId: userId,
+                              lessonId: lesson.id,
+                              date: '1'
+                            }
+                          }).then((data) => {
+                            toggleBooking(!isBooked);
+                          });
+                        }}
+                      >
+                        Confirm Booking!
+                      </button>
+                    )}
+                  </Mutation>
+              : null}
         </p>
       </div>
     </div>

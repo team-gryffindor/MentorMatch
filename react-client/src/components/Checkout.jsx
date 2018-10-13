@@ -22,12 +22,13 @@ class Checkout extends React.Component {
   }
 
   render() {
-    const {elementFontSize} = this.state;
+    let {elementFontSize} = this.state;
+    let { lesson, userCompletedPayment } = this.props;
     return (
       <div className="Checkout" >
         <h5>Automated Payment</h5>
         <Elements>
-          <SplitForm fontSize={elementFontSize} />
+          <SplitForm fontSize={elementFontSize} userCompletedPayment={userCompletedPayment} lesson={lesson}/>
         </Elements>
       </div>
     );

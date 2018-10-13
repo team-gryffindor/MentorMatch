@@ -67,9 +67,16 @@ class _SplitForm extends React.Component {
           axios.post("/charge", {
             // stripeEmail: 'arjun. logeswaran121@gmail.com',
             stripeToken: payload.token.id
-          }).then((response) => {
-            alert('You just paid Arjun $5.00!')
           })
+          .then((response) => {
+            alert('You just paid Arjun $5.00!');
+            this.props.userCompletedPayment(true);
+          })
+          .catch((err) => {
+            console.error('Error in handlePaymentSubmit/cardForm', err);
+            alert('Something went wrong with your payment, please try again!')
+          })
+
         });
     } else {
       console.log("Stripe.js hasn't loaded yet.");

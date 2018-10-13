@@ -149,6 +149,7 @@ const GET_LESSON = gql`
       difficulty
       avgRating
       numOfReviews
+      price
       provider {
         name
         cityOfResidence
