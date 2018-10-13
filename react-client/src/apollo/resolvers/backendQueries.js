@@ -30,6 +30,16 @@ const GET_USER = gql`
             cityOfResidence
           }
         }
+        location {
+          addressComponents {
+            long_name
+            short_name
+            types
+          }
+        }
+        cityOfService
+        lat
+        lng
       }
       signupLessons {
         id
@@ -54,6 +64,16 @@ const GET_USER = gql`
             cityOfResidence
           }
         }
+        location {
+          addressComponents {
+            long_name
+            short_name
+            types
+          }
+        }
+        cityOfService
+        lat
+        lng
       }
       favoriteLessons {
         id
@@ -78,6 +98,16 @@ const GET_USER = gql`
             cityOfResidence
           }
         }
+        location {
+          addressComponents {
+            long_name
+            short_name
+            types
+          }
+        }
+        cityOfService
+        lat
+        lng
       }
     }
   }
@@ -132,6 +162,13 @@ const GET_LESSON = gql`
           name
           image
           cityOfResidence
+        }
+      }
+      location {
+        addressComponents {
+          long_name
+          short_name
+          types
         }
       }
     }
