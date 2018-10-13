@@ -2,6 +2,6 @@ import React from 'react';
 
 import SimpleMap from './SimpleMap.jsx';
 
-const Map = (props) => <SimpleMap />;
+const Map = ({ location }) => <SimpleMap location={location} />;
 
 export default Map;
