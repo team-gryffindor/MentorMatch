@@ -12,7 +12,7 @@ import BookNow from './BookNow.jsx';
 const FeaturedLesson = (props) => {
   
   return (
-    <Query query={GET_LESSON} variables={{ id: 1 }}>
+    <Query query={GET_LESSON} variables={{ id: 2 }}>
       {({ loading, error, data }) => {
         if (error) return <h1>error</h1>;
         if (loading) {

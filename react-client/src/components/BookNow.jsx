@@ -43,56 +43,31 @@ export default class CustomInput extends React.Component {
     this.setState({
       startDate: date,
       count: newCount
-    }, () => console.log(this.state.startDate._d))
+    }, () => console.log(this.state.startDate))
   }
 
   render () {
-    // console.log('DATE: ',this.state.startDate._d);
-    // console.log('USER: ', this.props.userId.userId);
     let submit;
     if (this.state.count === 2) {
-      submit = <Mutation mutation={ADD_SIGNUP_LESSON}>
-      <div>
-        <button>Submit</button>
-      </div>
-      </Mutation>
+      submit = (
+      <Mutation mutation={ADD_SIGNUP_LESSON}>
+      {(addSignUpLesson) => (
+        <div>
+          <button onClick={() => { addSignUpLesson({
+            variables: { 
+              userId: this.props.userId.userId,
+              lessonId: this.props.event.id,
+              date: this.state.startDate
+            }
+          })
+            this.setState({ count: 0 })
+          }}>Confirm booking</button>
+        </div>
+      )}
+      </Mutation>)
     }
-   
-    // return (
-    //   <Mutation mutation={ADD_SIGNUP_LESSON}>
-    //   {(addSignupLesson) => (
-    //     <div className="row">
-    //       <div className="column">
-    //         <DatePicker
-    //           customInput={<BookNow />}
-    //           selected={this.state.startDate}
-    //           onChange={
-    //             this.handleChange
-                
-    //             // if (this.state.count === 2) {
-    //             //   addSignupLesson({
-    //             //     variables: {
-    //             //       userId: this.props.userId.userId,
-    //             //       lessonId: this.props.event.id,
-    //             //       date: this.state.startDate._d
-    //             //       }
-    //             //     })
-    //             //     console.log('MUTATING:', this.state.startDate)
-    //             // } else {
-    //             //   console.log('STILL WAITING');
-    //             // }
-                
-                
-    //             }
-    //           showTimeSelect
-    //           minTime={moment().hours(9).minutes(0)}
-    //           maxTime={moment().hours(22).minutes(30)}
-    //           dateFormat="LLL"
-    //           />
-    //       </div>
-    //   </div>
-    //   )}
-    //   </Mutation>)
+    
+  
    return  (
    <div className="row">
       <div className="column">
@@ -105,6 +80,7 @@ export default class CustomInput extends React.Component {
           maxTime={moment().hours(22).minutes(30)}
           dateFormat="LLL"
           />
+          {submit}
       </div>
     </div>
     )
