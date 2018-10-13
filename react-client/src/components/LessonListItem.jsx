@@ -10,6 +10,7 @@ class LessonListItem extends React.Component {
     super(props);
   }
 
+  
   render() {
     return (
       <Query query={GET_LESSON} variables={{ id: this.props.lessonId }}>

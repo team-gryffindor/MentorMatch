@@ -88,7 +88,7 @@ const LessonType = new GraphQLObjectType({
               }&result_type=locality&key=${process.env.MAP_API_KEY}`
             )
             .then((res) => {
-              console.log('IN AXIOS THEN', res.data.results[0]);
+              // console.log('IN AXIOS THEN', res.data.results[0]);
               // fir address components is the most accurate address
               return res.data.results[0];
             })
@@ -167,7 +167,7 @@ const LocationType = new GraphQLObjectType({
     addressComponents: {
       type: GraphQLList(AddressType),
       resolve(parent, args) {
-        console.log('IN LOCATION TYPE', parent.address_components);
+        // console.log('IN LOCATION TYPE', parent.address_components);
         return parent.address_components;
       }
     }
