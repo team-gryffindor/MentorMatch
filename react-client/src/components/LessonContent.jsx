@@ -6,7 +6,21 @@ import Reviews from './Reviews.jsx';
 class LessonContent extends React.Component {
   state = {
     isFavorite: this.props.isFavorite,
-    isBooked: this.props.isBooked
+    isBooked: this.props.isBooked,
+    payNow: false,
+    paid: false
+  };
+
+  userCompletedPayment = (boolean) => {
+    this.setState({
+      paid: boolean
+    });
+  };
+
+  renderPayment = (boolean) => {
+    this.setState({
+      payNow: boolean
+    });
   };
 
   toggleFavorite = (favorite) => {
@@ -23,13 +37,16 @@ class LessonContent extends React.Component {
 
   render() {
     let { lesson, userId } = this.props;
-    let { isFavorite, isBooked } = this.state;
+    let { isFavorite, isBooked, payNow, paid } = this.state;
     console.log(lesson, lesson.lat, lesson.ltn);
     return (
       <div className="container" style={{ marginBottom: '30px' }}>
         <LessonDetailHeader
           lesson={lesson}
-          // userId={user.userId}
+          userCompletedPayment={this.userCompletedPayment}
+          paid={paid}
+          renderPayment={this.renderPayment}
+          payNow={payNow}
           isFavorite={isFavorite}
           isBooked={isBooked}
           toggleFavorite={this.toggleFavorite}
