@@ -76,16 +76,33 @@ class App extends React.Component {
     super(props);
     this.state = {
       isLoggedIn: false,
-      eventToSchedule: ''
+      eventToSchedule: '',
+      events: []
     };
     this.handleLogin = this.handleLogin.bind(this);
-    this.scheduleEvent = this.scheduleEvent.bind(this);
+    // this.scheduleEvent = this.scheduleEvent.bind(this);
   }
 
-  scheduleEvent(event) {
+  // scheduleEvent(event) {
+  //   this.setState({
+  //     eventToSchedule: event
+  //   },() => console.log('SCHEDULING EVENT: ', this.state.eventToSchedule));
+  // }
+
+  calendarEvents = (date, title) => {
+    let currentEvents = this.state.events;
+    let event = {
+      allDay: false,
+      endDate: date,
+      startDate: date,
+      title: title
+    }
+
+    currentEvents.push(event);
+
     this.setState({
-      eventToSchedule: event
-    },() => console.log('SCHEDULING EVENT: ', this.state.eventToSchedule));
+      events: currentEvents
+    }, () => console.log('INDEX STATE: ', this.state.events))
   }
 
   handleLogin(boolean) {
@@ -150,7 +167,7 @@ class App extends React.Component {
               <Route
                 path="/dashboard"
                 render={() => (
-                  <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} scheduleEvent={this.scheduleEvent}/>
+                  <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} scheduleEvent={this.scheduleEvent} calendarEvents={this.calendarEvents}/>
                 )}
               />
               <Route path="/userProfile" render={() => <ProfilePage />} />
@@ -200,7 +217,7 @@ class App extends React.Component {
                 )}
               />
               <Route path="/addLesson" render={() => <AddLesson />} />
-              <Route path="/calendar" render={() => <Calendar />} />
+              <Route path="/calendar" render={() => <Calendar events={this.state.events}/>} />
               <Route path="/checkout" render={() => <Checkout />} />
             </div>
           </Router>

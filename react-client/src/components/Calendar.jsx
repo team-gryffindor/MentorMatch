@@ -8,7 +8,7 @@ import moment from 'moment'
 const localizer = BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
 
 
-const Calendar = props => {
+const Calendar = ({ events }) => {
   const dummyEvents = [
     {
       allDay: false,
@@ -27,9 +27,10 @@ const Calendar = props => {
     <div className="rbc-calendar">
     <BigCalendar
     localizer={localizer}
-     events={dummyEvents}
+     events={events}
      startAccessor="startDate"
      endAccessor="endDate"
+     views={['month', 'agenda']}
    />
 </div>
   )

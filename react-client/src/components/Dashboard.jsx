@@ -35,7 +35,7 @@ class Dashboard extends React.Component {
             <div className="container">
               <div>
                 <div />
-                <FeaturedLesson setBookingDate={this.setBookingDate}/>
+                <FeaturedLesson calendarEvents={this.props.calendarEvents} userId={data.userInfo}/>
                 <div>
                   <h2>Favorites</h2>
                   {/* {lessontype tells it to render favorites, offered, or signups} 

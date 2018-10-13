@@ -4,16 +4,11 @@ import { Query } from 'react-apollo';
 import { GET_LESSON } from '../apollo/resolvers/backendQueries.js';
 import MentorInfo from './MentorInfo.jsx';
 
-import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
+import BookNow from './BookNow.jsx';
 
 
-const FeaturedLesson = () => {
- 
-  FeaturedLesson.propTypes = {
-    onClick: PropTypes.func,
-    value: PropTypes.string
-  };
+const FeaturedLesson = (props) => {
   
   return (
     <Query query={GET_LESSON} variables={{ id: 1 }}>
@@ -61,11 +56,7 @@ const FeaturedLesson = () => {
                     {/* <a className="btn btn-primary btn-lg" href="#" role="button" onClick={(evt) => setBookingDate(evt, data.lesson)}>
                       Book Now
                     </a> */}
-                    <button
-        className="BookNow"
-        onClick={FeaturedLesson.propTypes.onClick}>
-        
-      </button>
+                    <BookNow event={data.lesson} calendarEvents={props.calendarEvents} userId={props.userId}/>
                   </p>
                   
                 </div>
@@ -78,11 +69,5 @@ const FeaturedLesson = () => {
   );
 };
 
-
-
-
-<DatePicker
-  customInput={<FeaturedLesson />}
-   />
 
 export default FeaturedLesson;
