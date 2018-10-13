@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+
 import { CardNumberElement,
         CardExpiryElement,
         CardCVCElement,
@@ -24,23 +26,34 @@ import { CardNumberElement,
 
       const createOptions = (fontSize, padding) => {
         return {
-          style: {
-            base: {
-              fontSize,
-              color: '#424770',
-              letterSpacing: '0.025em',
-              fontFamily: 'Source Code Pro, monospace',
-              '::placeholder': {
-                color: '#aab7c4',
+          
+            iconStyle: 'solid',
+            style: {
+              base: {
+                iconColor: '#8898AA',
+                color: 'white',
+                lineHeight: '36px',
+                fontWeight: 300,
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSize: '19px',
+          
+                '::placeholder': {
+                  color: '#8898AA',
+                },
               },
-              padding
+              invalid: {
+                iconColor: '#e85746',
+                color: '#e85746',
+              }
             },
-            invalid: {
-              color: '#9e2146',
+            classes: {
+              focus: 'is-focused',
+              empty: 'is-empty',
             },
-          },
+          }
         };
-      };
+    
+        
       
 
 class _SplitForm extends React.Component {
@@ -49,27 +62,49 @@ class _SplitForm extends React.Component {
     if (this.props.stripe) {
       this.props.stripe
         .createToken()
-        .then((payload) => console.log('[token]', payload));
+        .then(payload => {
+          console.log(payload.token.id)
+          axios.post("/charge", {
+            // stripeEmail: 'arjun. logeswaran121@gmail.com',
+            stripeToken: payload.token.id
+          })
+          .then((response) => {
+            alert('You just paid Arjun $5.00!');
+            this.props.userCompletedPayment(true);
+          })
+          .catch((err) => {
+            console.error('Error in handlePaymentSubmit/cardForm', err);
+            alert('Something went wrong with your payment, please try again!')
+          })
+
+        });
     } else {
       console.log("Stripe.js hasn't loaded yet.");
     }
   };
+
+  
+  
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} id="payment-form" className="cardForm">
+      <div >
         <label>
           Card number
-          <CardNumberElement
+          <div id="card-element" className="form-control">
+          <CardNumberElement className="field is-empty" 
             onBlur={handleBlur}
             onChange={handleChange}
             onFocus={handleFocus}
             onReady={handleReady}
             {...createOptions(this.props.fontSize)}
           />
+          </div>
         </label>
    
         <label>
           Expiration date
+          <div id="card-element" className="form-control">
           <CardExpiryElement
             onBlur={handleBlur}
             onChange={handleChange}
@@ -77,10 +112,12 @@ class _SplitForm extends React.Component {
             onReady={handleReady}
             {...createOptions(this.props.fontSize)}
           />
+          </div>
         </label>
    
         <label>
           CVC
+          <div id="card-element" className="form-control">
           <CardCVCElement
             onBlur={handleBlur}
             onChange={handleChange}
@@ -88,10 +125,12 @@ class _SplitForm extends React.Component {
             onReady={handleReady}
             {...createOptions(this.props.fontSize)}
           />
+          </div>
         </label>
    
         <label>
           Postal code
+          <div id="card-element" className="form-control">
           <PostalCodeElement
             onBlur={handleBlur}
             onChange={handleChange}
@@ -99,8 +138,11 @@ class _SplitForm extends React.Component {
             onReady={handleReady}
             {...createOptions(this.props.fontSize)}
           />
+          </div>
         </label>
+        <br/>
         <button>Pay</button>
+        </div>
       </form>
     );
   }
