@@ -40,6 +40,8 @@ const GET_USER = gql`
         cityOfService
         lat
         lng
+        price
+        isActive
       }
       signupLessons {
         id
@@ -74,6 +76,8 @@ const GET_USER = gql`
         cityOfService
         lat
         lng
+        price
+        isActive
       }
       favoriteLessons {
         id
@@ -108,6 +112,8 @@ const GET_USER = gql`
         cityOfService
         lat
         lng
+        price
+        isActive
       }
     }
   }

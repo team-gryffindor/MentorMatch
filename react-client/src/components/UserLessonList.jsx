@@ -42,7 +42,7 @@ class UserLessonList extends React.Component {
             }
             return (
               <div className={`${this.props.style} list-group`}>
-                {lessons.map((lesson, i) => (
+                {lessons.filter((lesson) => lesson.isActive).map((lesson, i) => (
                   <UserLessonListItem lesson={lesson} key={i} />
                 ))}
               </div>
