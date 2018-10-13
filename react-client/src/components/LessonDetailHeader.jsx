@@ -1,6 +1,5 @@
 import React from 'react';
 import MentorInfo from './MentorInfo.jsx';
-import Checkout from './Checkout.jsx';
 import { Mutation } from 'react-apollo';
 import {
   ADD_FAVORITE_LESSON,
@@ -84,7 +83,6 @@ const LessonDetailHeader = ({
               </button>
             )}
           </Mutation>
-          <Checkout/>
         </p>
       </div>
     </div>

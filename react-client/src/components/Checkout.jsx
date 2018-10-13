@@ -1,6 +1,5 @@
 import React from 'react';
-// import SplitForm from './CardForm.jsx';
-import PaymentRequestForm from './PaymentRequestForm.jsx';
+import SplitForm from './CardForm.jsx';
 import { Elements } from 'react-stripe-elements';
 
 
@@ -25,11 +24,10 @@ class Checkout extends React.Component {
   render() {
     const {elementFontSize} = this.state;
     return (
-      <div className="Checkout">
-        <h1>Automated Payment through #mentorMatch</h1>
+      <div className="Checkout" >
+        <h5>Automated Payment</h5>
         <Elements>
-          <PaymentRequestForm/>
-          {/* <SplitForm fontSize={elementFontSize} /> */}
+          <SplitForm fontSize={elementFontSize} />
         </Elements>
       </div>
     );
