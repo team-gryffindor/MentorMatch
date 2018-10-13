@@ -891,6 +891,7 @@ main {
   height: 300px;
   width: 300px;
   border-color: #ff0073;
+  border-width: 5px;
 }
 
 * {

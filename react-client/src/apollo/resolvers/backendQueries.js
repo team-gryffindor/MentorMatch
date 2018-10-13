@@ -164,6 +164,13 @@ const GET_LESSON = gql`
           cityOfResidence
         }
       }
+      location {
+        addressComponents {
+          long_name
+          short_name
+          types
+        }
+      }
     }
   }
 `;

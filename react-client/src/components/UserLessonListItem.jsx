@@ -3,14 +3,10 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 import { DELETE_LESSON } from '../apollo/resolvers/backendQueries.js';
 import { Mutation } from 'react-apollo';
+import { extractCityState } from '../util/addressHelper.js';
 
 const UserLessonListItem = ({ lesson }) => {
-  console.log(lesson);
-  for (let comp in lesson.location.addressComponents) {
-    let shortname = comp[1]; 
-    if (comp[2] === ) let city = shortname
-    else if (comp[2] === ) let state = shortname
-  }
+  let { city, state } = extractCityState(lesson.location.addressComponents);
   return (
     <div>
       <div className="list-group-item list-group-item-action flex-column align-items-start">
@@ -18,7 +14,9 @@ const UserLessonListItem = ({ lesson }) => {
           <Link to={{ pathname: `/lessonContent/${lesson.id}`, state: { lesson: lesson } }}>
             <h5 className="mb-1">{lesson.title}</h5>
           </Link>
-          <small className="text-muted">{}</small>
+          <small className="text-muted">
+            {city}, {state}
+          </small>
         </div>
         <p className="mb-1">{lesson.description}</p>
         <StarRatings

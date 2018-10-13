@@ -7,6 +7,7 @@ import {
   ADD_SIGNUP_LESSON,
   DELETE_SIGNUP_LESSON
 } from '../apollo/resolvers/backendQueries.js';
+import { extractCityState } from '../util/addressHelper.js';
 
 const LessonDetailHeader = ({
   lesson,
@@ -21,6 +22,7 @@ const LessonDetailHeader = ({
   let mutateBooking = ADD_SIGNUP_LESSON;
   if (isBooked) mutateBooking = DELETE_SIGNUP_LESSON;
   console.log('checking if booked', isBooked);
+  let { city, state } = extractCityState(lesson.location.addressComponents);
   return (
     <div className="lesson-detail-header-margin-top">
       <div className="jumbotron">
@@ -29,7 +31,7 @@ const LessonDetailHeader = ({
           <h1>{lesson.title}</h1>
           <small className="text">
             <p style={{ textAlign: 'right' }}>
-              Location: {lesson.cityOfService}
+              Location: {city}, {state}
               <br />
               Difficulty: {lesson.difficulty} + {lesson.id}
             </p>
