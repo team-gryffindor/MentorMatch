@@ -885,6 +885,15 @@ main {
   font-weight: bold;
 }
 
+.map-circle {
+  border-radius: 50%;
+  background-color: #ff00735b;
+  height: 300px;
+  width: 300px;
+  border-color: #ff0073;
+  border-width: 5px;
+}
+
 * {
   box-sizing: border-box;
 }

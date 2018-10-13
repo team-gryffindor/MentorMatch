@@ -15,6 +15,8 @@ const lesson = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     difficulty: DataTypes.STRING,
     category: DataTypes.STRING,
+    price: DataTypes.FLOAT,
+    isActive: { type: DataTypes.BOOLEAN, defaultValue: true },
     avgRating: { type: DataTypes.FLOAT, defaultValue: 0 },
     numOfReviews: { type: DataTypes.INTEGER, defaultValue: 0 }
   });

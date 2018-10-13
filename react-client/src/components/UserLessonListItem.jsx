@@ -1,14 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
+import { DELETE_LESSON } from '../apollo/resolvers/backendQueries.js';
+import { Mutation } from 'react-apollo';
+import { extractCityState } from '../util/addressHelper.js';
 
-const UserLessonListItem = ({ lesson }) => (
-  <div>
-    <Link to={{ pathname: `/lessonContent/${lesson.id}`, state: { lesson: lesson } }}>
+const UserLessonListItem = ({ lesson }) => {
+  let { city, state } = extractCityState(lesson.location.addressComponents);
+  return (
+    <div>
       <div className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">
-          <h5 className="mb-1">{lesson.title}</h5>
-          <small className="text-muted">{lesson.cityOfService}</small>
+          <Link to={{ pathname: `/lessonContent/${lesson.id}`, state: { lesson: lesson } }}>
+            <h5 className="mb-1">{lesson.title}</h5>
+          </Link>
+          <small className="text-muted">
+            {city}, {state}
+          </small>
         </div>
         <p className="mb-1">{lesson.description}</p>
         <StarRatings
@@ -19,10 +27,25 @@ const UserLessonListItem = ({ lesson }) => (
           starSpacing="1px"
           name="rating"
         />
+        <Mutation mutation={DELETE_LESSON}>
+          {(deleteLesson) => (
+            <button
+              onClick={() => {
+                deleteLesson({
+                  variables: { id: lesson.id }
+                })
+                  .then((data) => data)
+                  .catch((err) => console.error(err));
+              }}
+            >
+              Delete Lesson
+            </button>
+          )}
+        </Mutation>
         <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
       </div>
-    </Link>
-  </div>
-);
+    </div>
+  );
+};
 
 export default UserLessonListItem;
