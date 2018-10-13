@@ -32,10 +32,14 @@ class Feed extends React.Component {
     //     );
     //   }
     // }
+    console.log('PROPS IN FEED', this.props.location);
     return (
       <div className="container">
-        <h1>Search Results for {} </h1>
-        <LessonList lessonIds={['3', '18']} />
+        <h1>
+          Search Results for "{this.props.location.state.serviceQuery}" near{' '}
+          {this.props.location.state.locationQuery}{' '}
+        </h1>
+        <LessonList lessonIds={this.props.location.state.lessonIds} />
       </div>
     );
   }
