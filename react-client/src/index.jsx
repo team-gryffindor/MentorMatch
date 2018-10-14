@@ -75,9 +75,34 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      eventToSchedule: '',
+      events: []
     };
     this.handleLogin = this.handleLogin.bind(this);
+    // this.scheduleEvent = this.scheduleEvent.bind(this);
+  }
+
+  // scheduleEvent(event) {
+  //   this.setState({
+  //     eventToSchedule: event
+  //   },() => console.log('SCHEDULING EVENT: ', this.state.eventToSchedule));
+  // }
+
+  calendarEvents = (date, title) => {
+    let currentEvents = this.state.events;
+    let event = {
+      allDay: false,
+      endDate: date,
+      startDate: date,
+      title: title
+    }
+
+    currentEvents.push(event);
+
+    this.setState({
+      events: currentEvents
+    }, () => console.log('INDEX STATE: ', this.state.events))
   }
 
   handleLogin(boolean) {
@@ -90,7 +115,7 @@ class App extends React.Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <StripeProvider apiKey={'pk_test_KwGwzrhZ1Wro2WvgtivIiCFX'}>
+        <StripeProvider apiKey={process.env.PUBLISHABLE_KEY}>
           <Router>
             <div>
               <Route
@@ -142,7 +167,7 @@ class App extends React.Component {
               <Route
                 path="/dashboard"
                 render={() => (
-                  <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} />
+                  <Dashboard isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} scheduleEvent={this.scheduleEvent} calendarEvents={this.calendarEvents}/>
                 )}
               />
               <Route path="/userProfile" render={() => <ProfilePage />} />
@@ -192,7 +217,7 @@ class App extends React.Component {
                 )}
               />
               <Route path="/addLesson" render={() => <AddLesson />} />
-              <Route path="/calendar" render={() => <Calendar />} />
+              <Route path="/calendar" render={() => <Calendar events={this.state.events}/>} />
               <Route path="/checkout" render={() => <Checkout />} />
             </div>
           </Router>

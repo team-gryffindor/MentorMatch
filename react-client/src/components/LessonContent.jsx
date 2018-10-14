@@ -15,7 +15,9 @@ class LessonContent extends React.Component {
   // and mutate?
   userCompletedPayment = (boolean) => {
     this.setState({
-      paid: boolean
+      paid: boolean,
+      payNow: false,
+      isBooked: true
     })
   }
 

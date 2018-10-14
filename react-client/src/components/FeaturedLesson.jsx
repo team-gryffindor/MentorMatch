@@ -5,9 +5,14 @@ import { GET_LESSON } from '../apollo/resolvers/backendQueries.js';
 import MentorInfo from './MentorInfo.jsx';
 import { extractCityState } from '../util/addressHelper.js';
 
+import DatePicker from 'react-datepicker';
+import BookNow from './BookNow.jsx';
+
+
 const FeaturedLesson = (props) => {
+  
   return (
-    <Query query={GET_LESSON} variables={{ id: 1 }}>
+    <Query query={GET_LESSON} variables={{ id: 2 }}>
       {({ loading, error, data }) => {
         if (error) return <h1>error</h1>;
         if (loading) {
@@ -50,10 +55,11 @@ const FeaturedLesson = (props) => {
                   <hr className="my-4" />
                   <MentorInfo provider={data.lesson.provider} />
                   <p className="lead text-right">
-                    <a className="btn btn-primary btn-lg" href="#" role="button">
+                    {/* <a className="btn btn-primary btn-lg" href="#" role="button" onClick={(evt) => setBookingDate(evt, data.lesson)}>
                       Book Now
-                    </a>
+                    </a> */}
                   </p>
+                  
                 </div>
               </div>
             </div>
@@ -63,5 +69,6 @@ const FeaturedLesson = (props) => {
     </Query>
   );
 };
+
 
 export default FeaturedLesson;

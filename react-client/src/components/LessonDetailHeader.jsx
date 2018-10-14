@@ -1,6 +1,7 @@
 import React from 'react';
 import MentorInfo from './MentorInfo.jsx';
 import Checkout from './Checkout.jsx';
+import BookNow from './BookNow.jsx';
 import { Mutation } from 'react-apollo';
 import {
   ADD_FAVORITE_LESSON,
@@ -72,33 +73,8 @@ const LessonDetailHeader = ({
         <hr className="my-4" />
         <MentorInfo provider={lesson.provider} />
         <p className="lead text-right">
-         {isBooked ? <button onClick={() => toggleBooking(false)}>Cancel Booking</button> : <button onClick={() => renderPayment(true)}>Pay Now</button>}
+         {isBooked ? <button onClick={() => toggleBooking(false)}>Cancel Booking</button> : <BookNow event={lesson} userId={userId} renderPayment={renderPayment}/>}
          {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson}/>: null}
-         
-         {paid ? 
-                  <Mutation mutation={mutateBooking}>
-                    {(changeBooking) => (
-                      <button 
-                        className="btn btn-highlight btn-lg"
-                        href="#"
-                        role="button"
-                        onClick={() => {
-                          changeBooking({
-                            variables: {
-                              userId: userId,
-                              lessonId: lesson.id,
-                              date: '1'
-                            }
-                          }).then((data) => {
-                            toggleBooking(!isBooked);
-                          });
-                        }}
-                      >
-                        Confirm Booking!
-                      </button>
-                    )}
-                  </Mutation>
-              : null}
         </p>
       </div>
     </div>

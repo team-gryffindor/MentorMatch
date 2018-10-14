@@ -126,6 +126,18 @@ const CHECK_USER = gql`
   }
 `;
 
+const GET_USER_SIGNUPS = gql`
+  query($id: ID!) {
+    user(id: $id) {
+      signupLessons {
+        id
+        title
+        date
+      }
+    }
+  }
+`;
+
 const GET_USER_FAVORITES = gql`
   query($id: ID!) {
     user(id: $id) {
@@ -336,6 +348,7 @@ export {
   GET_USER_FAVORITES,
   GET_LESSON,
   GET_LESSONS,
+  GET_USER_SIGNUPS,
   ADD_USER,
   ADD_LESSON,
   ADD_REVIEW,
