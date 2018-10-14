@@ -1,6 +1,7 @@
 import React from 'react';
 import MentorInfo from './MentorInfo.jsx';
 import Checkout from './Checkout.jsx';
+import BookNow from './BookNow.jsx';
 import { Mutation } from 'react-apollo';
 import {
   ADD_FAVORITE_LESSON,
@@ -107,6 +108,12 @@ const LessonDetailHeader = ({
               )}
             </Mutation>
           ) : null}
+          {isBooked ? (
+            <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
+          ) : (
+            <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
+          )}
+          {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} /> : null}
         </p>
       </div>
     </div>

@@ -11,7 +11,19 @@ import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries.js';
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      event: {}
+    }
+    // this.setBookingDate = this.setBookingDate.bind(this);
   }
+
+  setBookingDate = (evt, event) => {
+    evt.preventDefault();
+    this.setState({
+      event: event
+    }, () => this.props.scheduleEvent(event))
+  }
+
   render() {
     return (
       <Query query={GET_USER_INFO}>
@@ -23,7 +35,7 @@ class Dashboard extends React.Component {
             <div className="container">
               <div>
                 <div />
-                <FeaturedLesson />
+                <FeaturedLesson calendarEvents={this.props.calendarEvents} userId={data.userInfo}/>
                 <div>
                   <h2>Favorites</h2>
                   {/* {lessontype tells it to render favorites, offered, or signups} 
