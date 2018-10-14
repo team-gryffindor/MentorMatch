@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase';
 import { Link } from 'react-router-dom';
 
-const NavUserOpt = (prop) => (
+const NavUserOpt = (props) => (
   <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
     <ul className="navbar-nav ml-auto">
       <li className="nav-item dropdown">
@@ -32,7 +32,7 @@ const NavUserOpt = (prop) => (
           </Link>
 
           <Link className="dropdown-item" to="/addlesson">
-            Offer A lesson
+            Create Lesson
           </Link>
           <div className="dropdown-divider" />
           <Link
@@ -42,7 +42,7 @@ const NavUserOpt = (prop) => (
               firebase
                 .auth()
                 .signOut()
-                .then(() => prop.handleLogin());
+                .then(() => props.handleLogin());
             }}
           >
             Logout

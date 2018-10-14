@@ -1,41 +1,31 @@
 import React from 'react';
-// import Navigation from './NavigationBar.jsx';
-// import Header from './Header.jsx';
-// import Search from './Search.jsx';
 import FeaturedLesson from './FeaturedLesson.jsx';
-import UserLessonList from './UserLessonList.jsx';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import UserLessonList from './profile/UserLessonList.jsx';
 import { Query } from 'react-apollo';
 import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries.js';
 
 class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      event: {}
-    }
-    // this.setBookingDate = this.setBookingDate.bind(this);
-  }
+  state = {
+    event: {}
+  };
 
   setBookingDate = (evt, event) => {
     evt.preventDefault();
-    this.setState({
-      event: event
-    }, () => this.props.scheduleEvent(event))
-  }
+    this.setState({ event: event }, () => this.props.scheduleEvent(event));
+  };
 
   render() {
     return (
       <Query query={GET_USER_INFO}>
         {({ loading, error, data }) => {
-          if (error) return <h1>error</h1>;
-          if (loading || !data) return <div> Loading test ...</div>;
+          if (error) return <small>error</small>;
+          if (loading || !data) return <small> Loading ...</small>;
           console.log('dashboard client query', data.userInfo);
           return (
             <div className="container">
               <div>
                 <div />
-                <FeaturedLesson calendarEvents={this.props.calendarEvents} userId={data.userInfo}/>
+                <FeaturedLesson calendarEvents={this.props.calendarEvents} userId={data.userInfo} />
                 <div>
                   <h2>Favorites</h2>
                   {/* {lessontype tells it to render favorites, offered, or signups} 

@@ -1,46 +1,46 @@
 import React from 'react';
-// import Header from './Header.jsx';
+import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
-import { UPDATE_USER } from '../apollo/resolvers/backendQueries.js';
+import { UPDATE_USER } from '../../apollo/resolvers/backendQueries.js';
 import Geosuggest from 'react-geosuggest';
 
-class UserProfileInfo extends React.Component {
+class UpdateProfileInfo extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props.location.state.user);
+    let { username, image, cityOfResidence, description, lat, lng } = props.location.state.user;
     this.state = {
-      name: props.user.username,
-      image: props.user.image,
-      cityOfResidence: props.user.cityOfResidence,
-      description: props.user.description,
-      lat: props.user.lat,
-      lng: props.user.lng,
-      editProfile: false
+      username: username,
+      image: image,
+      cityOfResidence: cityOfResidence,
+      description: description,
+      lat: lat,
+      lng: lng
     };
-    this.editProfile = this.editProfile.bind(this);
   }
 
-  editProfile() {
+  editProfile = () => {
     this.setState({ editProfile: true });
-    console.log(this.state);
-  }
+  };
 
   render() {
+    let { username, image, cityOfResidence, description, lat, lng, editProfile } = this.state;
     // figure out how to conditionally render input fields
-    if (this.state.editProfile) {
-      return (
-        <Mutation mutation={UPDATE_USER}>
-          {(updateUser) => (
+    return (
+      <Mutation mutation={UPDATE_USER}>
+        {(updateUser) => (
+          <React.Fragment>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 updateUser({
                   variables: {
-                    name: this.state.username,
-                    description: this.state.description,
-                    cityOfResidence: this.state.cityOfResidence,
-                    lat: this.state.lat,
-                    lng: this.state.lng,
-                    image: this.state.image
+                    username: username,
+                    description: description,
+                    cityOfResidence: cityOfResidence,
+                    lat: lat,
+                    lng: lng,
+                    image: image
                   }
                 }) // TODO: refactor to notify user of error with modal?
                   .then((data) => data)
@@ -49,14 +49,14 @@ class UserProfileInfo extends React.Component {
             >
               Name:
               <input
-                value={this.state.username}
+                value={username}
                 onChange={(e) => {
                   this.setState({ username: e.target.value });
                 }}
               />
               Description:
               <input
-                value={this.state.description}
+                value={description}
                 onChange={(e) => {
                   this.setState({ description: e.target.value });
                 }}
@@ -73,41 +73,30 @@ class UserProfileInfo extends React.Component {
                       lng: suggest.location.lng
                     },
                     () => {
-                      console.log(this.state.lat, this.state.lng);
+                      console.log(lat, lng);
                     }
                   );
                 }}
                 types={['geocode']}
-                value={this.state.cityOfResidence}
+                value={cityOfResidence}
               />
               Link to your image:
               <input
-                value={this.state.image}
+                value={image}
                 onChange={(e) => {
                   this.setState({ image: e.target.value });
                 }}
               />
-              <button type="submit">Update Your Profile!</button>
+              <button type="submit">Update Profile</button>
             </form>
-          )}
-        </Mutation>
-      );
-    } else {
-      return (
-        <div>
-          <ul>
-            <div>
-              <img src={this.props.user.image} className="img-responsive" />
-              <h2>Hello {this.props.user.username}</h2>
-            </div>
-            <h2>{this.props.user.cityOfResidence}</h2>
-            <p style={{ fontSize: '30px', textAlign: 'left' }}>{this.props.user.description}</p>
-          </ul>
-          <button onClick={this.editProfile}>Edit Profile</button>
-        </div>
-      );
-    }
+            <Link to="/userProfile">
+              <button type="submit">Back To Profile</button>
+            </Link>
+          </React.Fragment>
+        )}
+      </Mutation>
+    );
   }
 }
 
-export default UserProfileInfo;
+export default UpdateProfileInfo;

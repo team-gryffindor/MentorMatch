@@ -13,7 +13,8 @@ import ActiveLessons from './ActiveLessons.jsx';
 import Dashboard from './Dashboard.jsx';
 import AddLesson from './AddLesson.jsx';
 import LessonContent from './LessonContent.jsx';
-import ProfilePage from './ProfilePage.jsx';
+import ProfilePage from './profile/ProfilePage.jsx';
+import UpdateProfileInfo from './profile/UpdateProfileInfo.jsx';
 import NavBarMain from './navbarmain/NavBarMain.jsx';
 import Calendar from './Calendar.jsx';
 import Checkout from './Checkout.jsx';
@@ -95,6 +96,7 @@ class App extends React.Component {
                 )}
               />
               <Route path="/userProfile" render={() => <ProfilePage />} />
+              <Route path="/editProfile" render={(props) => <UpdateProfileInfo {...props} />} />
               <Route
                 path="/lessonContent/:lessonId"
                 render={({ location }) => (
@@ -149,4 +151,4 @@ class App extends React.Component {
   }
 }
 
-module.exports = App;
+export default App;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
-import { DELETE_LESSON } from '../apollo/resolvers/backendQueries.js';
+import { DELETE_LESSON } from '../../apollo/resolvers/backendQueries.js';
 import { Mutation } from 'react-apollo';
-import { extractCityState } from '../util/addressHelper.js';
+import { extractCityState } from '../../util/addressHelper.js';
 
 const UserLessonListItem = ({ lesson }) => {
   let { city, state } = extractCityState(lesson.location.addressComponents);
