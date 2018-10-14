@@ -18,7 +18,7 @@ class AddLesson extends React.Component {
       category: '',
       lng: 0,
       ltd: 0,
-      price: 1,
+      price: '',
       redirect: false
     };
   }
@@ -39,7 +39,7 @@ class AddLesson extends React.Component {
               <Mutation mutation={ADD_LESSON}>
                 {(addLesson) => (
                   <div>
-                    <p>Create a Lesson! {console.log(addLesson)}</p>
+                    <p>Create a Lesson!</p>
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
@@ -96,7 +96,6 @@ class AddLesson extends React.Component {
                             lat: select.location.lat,
                             lng: select.location.lng
                           });
-                          console.log(select);
                         }}
                       />
                       Difficulty:

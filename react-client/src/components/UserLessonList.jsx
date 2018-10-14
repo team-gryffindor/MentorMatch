@@ -14,7 +14,7 @@ class UserLessonList extends React.Component {
   render() {
     // figure out date filter
     return (
-      <Query query={GET_USER} variables={{ id: String(this.props.userId) }} pollInterval={5000}>
+      <Query query={GET_USER} variables={{ id: String(this.props.userId) }}>
         {({ loading, error, data }) => {
           if (error) return <h1>error</h1>;
           if (loading) {
@@ -42,7 +42,7 @@ class UserLessonList extends React.Component {
             }
             return (
               <div className={`${this.props.style} list-group`}>
-                {lessons.map((lesson, i) => (
+                {lessons.filter((lesson) => lesson.isActive).map((lesson, i) => (
                   <UserLessonListItem lesson={lesson} key={i} />
                 ))}
               </div>

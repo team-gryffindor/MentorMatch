@@ -7,25 +7,23 @@ class LessonContent extends React.Component {
   state = {
     isFavorite: this.props.isFavorite,
     isBooked: this.props.isBooked,
-    payNow: false, 
+    payNow: false,
     paid: false
   };
 
-  // use this to setState?
-  // and mutate?
   userCompletedPayment = (boolean) => {
     this.setState({
       paid: boolean,
       payNow: false,
       isBooked: true
-    })
-  }
+    });
+  };
 
   renderPayment = (boolean) => {
     this.setState({
       payNow: boolean
-    })
-  }
+    });
+  };
 
   toggleFavorite = (favorite) => {
     this.setState({
@@ -35,7 +33,7 @@ class LessonContent extends React.Component {
 
   toggleBooking = (booking) => {
     this.setState({
-      isBooked: booking,
+      isBooked: booking
     });
   };
 

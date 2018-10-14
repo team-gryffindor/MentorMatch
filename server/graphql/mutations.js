@@ -207,6 +207,38 @@ const Mutation = new GraphQLObjectType({
           })
           .catch((err) => console.error(err));
       }
+    },
+    updateUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLID },
+        uid: { type: GraphQLID },
+        name: { type: GraphQLString },
+        image: { type: GraphQLString },
+        description: { type: GraphQLString },
+        cityOfResidence: { type: GraphQLString },
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat }
+      },
+      resolve(parent, args) {
+        // sequelize to add user
+        return Models.User.update(
+          {
+            name: args.name,
+            image: args.image,
+            description: args.description,
+            cityOfResidence: args.cityOfResidence,
+            lat: args.lat,
+            lng: args.lng
+          },
+          { where: { id: args.id } }
+        )
+          .then((data) => {
+            console.log('updated lesson', data);
+            return data;
+          })
+          .catch((err) => console.error(err));
+      }
     }
   }
 });

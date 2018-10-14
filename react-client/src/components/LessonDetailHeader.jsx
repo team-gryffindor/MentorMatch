@@ -7,10 +7,10 @@ import {
   ADD_FAVORITE_LESSON,
   DELETE_FAVORITE_LESSON,
   ADD_SIGNUP_LESSON,
-  DELETE_SIGNUP_LESSON
+  DELETE_SIGNUP_LESSON,
+  GET_USER
 } from '../apollo/resolvers/backendQueries.js';
 import { extractCityState } from '../util/addressHelper.js';
-
 
 const LessonDetailHeader = ({
   userCompletedPayment,
@@ -42,12 +42,16 @@ const LessonDetailHeader = ({
               <br />
               Difficulty: {lesson.difficulty} + {lesson.id}
               <br />
-              Price: {lesson.price}/hour
+              Price: {lesson.price}
+              /hour
             </p>
           </small>
 
           {/* wrap this in a mutation tag and refectch here? */}
-          <Mutation mutation={mutateFav}>
+          <Mutation
+            mutation={mutateFav}
+            refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
+          >
             {(mutateFavorite) => (
               <button
                 type="button"
@@ -73,8 +77,43 @@ const LessonDetailHeader = ({
         <hr className="my-4" />
         <MentorInfo provider={lesson.provider} />
         <p className="lead text-right">
-         {isBooked ? <button onClick={() => toggleBooking(false)}>Cancel Booking</button> : <BookNow event={lesson} userId={userId} renderPayment={renderPayment}/>}
-         {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson}/>: null}
+          {isBooked ? (
+            <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
+          ) : (
+            <button onClick={() => renderPayment(true)}>Pay Now</button>
+          )}
+          {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} /> : null}
+
+          {paid ? (
+            <Mutation mutation={mutateBooking}>
+              {(changeBooking) => (
+                <button
+                  className="btn btn-highlight btn-lg"
+                  href="#"
+                  role="button"
+                  onClick={() => {
+                    changeBooking({
+                      variables: {
+                        userId: userId,
+                        lessonId: lesson.id,
+                        date: '1'
+                      }
+                    }).then((data) => {
+                      toggleBooking(!isBooked);
+                    });
+                  }}
+                >
+                  Confirm Booking!
+                </button>
+              )}
+            </Mutation>
+          ) : null}
+          {isBooked ? (
+            <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
+          ) : (
+            <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
+          )}
+          {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} /> : null}
         </p>
       </div>
     </div>
@@ -82,4 +121,3 @@ const LessonDetailHeader = ({
 };
 
 export default LessonDetailHeader;
-

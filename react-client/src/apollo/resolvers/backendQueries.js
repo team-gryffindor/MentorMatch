@@ -40,6 +40,8 @@ const GET_USER = gql`
         cityOfService
         lat
         lng
+        price
+        isActive
       }
       signupLessons {
         id
@@ -74,6 +76,8 @@ const GET_USER = gql`
         cityOfService
         lat
         lng
+        price
+        isActive
       }
       favoriteLessons {
         id
@@ -108,6 +112,8 @@ const GET_USER = gql`
         cityOfService
         lat
         lng
+        price
+        isActive
       }
     }
   }
@@ -206,6 +212,36 @@ const GET_LESSONS = gql`
         title
         rating
       }
+    }
+  }
+`;
+
+const UPDATE_USER = gql`
+  mutation(
+    $id: ID!
+    $name: String!
+    $description: String!
+    $cityOfResidence: String!
+    $image: String!
+    $lat: Float!
+    $lng: Float!
+  ) {
+    updateUser(
+      id: $id
+      name: $name
+      description: $description
+      cityOfResidence: $cityOfResidence
+      image: $image
+      lat: $lat
+      lng: $lng
+    ) {
+      name
+      description
+      cityOfResidence
+      image
+      id
+      lat
+      lng
     }
   }
 `;
@@ -356,5 +392,6 @@ export {
   ADD_FAVORITE_LESSON,
   DELETE_FAVORITE_LESSON,
   DELETE_SIGNUP_LESSON,
-  DELETE_LESSON
+  DELETE_LESSON,
+  UPDATE_USER
 };
