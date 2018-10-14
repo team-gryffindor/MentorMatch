@@ -8,18 +8,15 @@ import { Redirect } from 'react-router-dom';
 import Geosuggest from 'react-geosuggest';
 
 class SignUp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      cityOfResidence: '',
-      lat: 0,
-      lgn: 0,
-      description: '',
-      image: '',
-      redirect: false
-    };
-  }
+  state = {
+    username: '',
+    cityOfResidence: '',
+    lat: 0,
+    lgn: 0,
+    description: '',
+    image: '',
+    redirect: false
+  };
 
   render() {
     if (this.state.redirect) {
@@ -44,10 +41,28 @@ class SignUp extends React.Component {
                       uid: this.props.uid
                     }
                   }) // TODO: refactor to notify user of error with modal?
-                    .then((data) => {
-                      this.setState({
-                        redirect: true
+                    .then(() => {
+                      this.props.apolloClient.writeData({
+                        data: {
+                          userInfo: {
+                            __typename: 'userInfo',
+                            userId: userInDB.id,
+                            username: userInDB.name,
+                            description: userInDB.description,
+                            cityOfResidence: userInDB.cityOfResidence,
+                            image: userInDB.image,
+                            uid: userInDB.uid
+                          }
+                        }
                       });
+                    })
+                    .then((data) => {
+                      this.setState(
+                        {
+                          redirect: true
+                        },
+                        () => this.props.handleLogin(true)
+                      );
                     })
                     .catch((err) => console.error(err));
                 }}

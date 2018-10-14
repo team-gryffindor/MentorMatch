@@ -1,11 +1,11 @@
 import React from 'react';
-import { ApolloConsumer, WithQuery, Mutation } from 'react-apollo';
+import { ApolloConsumer, Query, Mutation } from 'react-apollo';
 import { UPDATE_USER_INFO, GET_USER_INFO } from '../apollo/resolvers/clientSideQueries';
 import { GET_USER } from '../apollo/resolvers/backendQueries';
 import { Route } from 'react-router-dom';
 
 // components
-import Home from './Home.jsx';
+import Home from './home/Home.jsx';
 import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
 import Feed from './Feed.jsx';
@@ -73,6 +73,7 @@ class App extends React.Component {
                         updateUserInfo={updateUserInfo}
                         handleLogin={this.handleLogin}
                         isLoggedIn={isLoggedIn}
+                        apolloClient={apolloClient}
                       />
                     )}
                   </Mutation>
@@ -80,7 +81,13 @@ class App extends React.Component {
               />
               <Route
                 path="/signUp"
-                render={({ location }) => <SignUp uid={location.state.uid} />}
+                render={({ location }) => (
+                  <SignUp
+                    uid={location.state.uid}
+                    handleLogin={this.handleLogin}
+                    apolloClient={apolloClient}
+                  />
+                )}
               />
               <Route path="/active" render={() => <ActiveLessons />} />
               <Route path="/feed" render={(props) => <Feed {...props} />} />

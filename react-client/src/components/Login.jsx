@@ -1,11 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { Query, Mutation, withApollo } from 'react-apollo';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { UPDATE_USER_INFO, GET_USER_INFO } from '../apollo/resolvers/clientSideQueries';
-import { CHECK_USER, GET_USER } from '../apollo/resolvers/backendQueries';
+import { CHECK_USER } from '../apollo/resolvers/backendQueries';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
@@ -17,72 +14,79 @@ const firebaseApp = firebase.initializeApp({
 });
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // isSignedIn: false,
-      // uID: null
-      redirect: false,
-      uid: null
-    };
-    this.uiConfig = {
-      signInFlow: 'popup',
-      signInOptions: [
-        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.EmailAuthProvider.PROVIDER_ID
-      ],
-      callbacks: {
-        signInSuccessWithAuthResult: () => false
-      }
-    };
-  }
+  state = {
+    isNewUser: false,
+    uid: null
+  };
+  uiConfig = {
+    signInFlow: 'popup',
+    signInOptions: [
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: () => false
+    }
+  };
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        return Promise.all([
-          this.props.client.query({
-            query: CHECK_USER,
-            variables: {
-              uid: user.uid
-            }
-          }),
-          user.uid
-        ])
-          .then((data) => {
-            let user = data[0].data.checkUser;
-            console.log(user);
-            if (!user) {
-              // redirect to signup
-              this.setState({
-                redirect: true,
-                uid: data[1]
-              });
-              return <Redirect to="/signUp" uid={data[1]} />;
-            }
-            return this.props.client.writeData({
-              data: {
-                userInfo: {
-                  __typename: 'userInfo',
-                  userId: user.id,
-                  username: user.name,
-                  description: user.description,
-                  cityOfResidence: user.cityOfResidence,
-                  image: user.image,
-                  uid: user.uid
-                }
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+      // If firebase user id received,
+      if (firebaseUser) {
+        // Check if user exists in the user table
+        return (
+          Promise.all([
+            this.props.apolloClient.query({
+              query: CHECK_USER,
+              variables: {
+                uid: firebaseUser.uid
               }
-            });
-            // test
-          })
-          .then((redirect) => {
-            if (redirect) {
-              return redirect;
-            }
-            this.props.handleLogin(true);
-          })
-          .catch((err) => console.error(err));
+            }),
+            firebaseUser.uid
+          ])
+            // With user retrieved from database
+            .then((data) => {
+              let userInDB = data[0].data.checkUser;
+              console.log(userInDB);
+              // If new user
+              if (!userInDB) {
+                // Mark the flag and save the firebase uid
+                this.setState(
+                  {
+                    isNewUser: true,
+                    uid: data[1]
+                  },
+                  () => console.log('AFTER SETSTATE FOR USER', this.state.isNewUser, this.state.uid)
+                );
+                return <Redirect to="/signUp" uid={data[1]} />;
+              }
+              // Cache the user information
+              return this.props.apolloClient.writeData({
+                data: {
+                  userInfo: {
+                    __typename: 'userInfo',
+                    userId: userInDB.id,
+                    username: userInDB.name,
+                    description: userInDB.description,
+                    cityOfResidence: userInDB.cityOfResidence,
+                    image: userInDB.image,
+                    uid: userInDB.uid
+                  }
+                }
+              });
+            })
+            .then((redirect) => {
+              // TODO: Cleanup--what's is the purpose of this redirect? never gets used
+              console.log('REDIRECT? AFTER CACHING', redirect);
+              if (redirect) {
+                return redirect;
+              }
+              this.props.handleLogin(true);
+            })
+            .catch((err) => console.error(err))
+        );
+        // If client fails firebase, do not toggle flag to check if logged in
       } else {
         this.props.handleLogin(false);
       }
@@ -90,30 +94,27 @@ class Login extends React.Component {
   }
 
   render() {
-    {
-      // this needs work, need to toggle state and log out
-      if (!this.props.isLoggedIn && !this.state.redirect) {
-        return (
-          <div className="Login">
-            <h1>Welcome to </h1>
-            <div className="col-md-4" />
-            <div className="form-group col-md-4">
-              <a className="btn btn-block btn-social btn-facebook">
-                <span className="fa fa-facebook" />
-                <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
-              </a>
-              <br />
-            </div>
+    console.log('REDIrECT BOOL IN RENDER', this.state.isNewUser);
+    if (!this.props.isLoggedIn && !this.state.isNewUser) {
+      return (
+        <div className="Login">
+          <h1>Welcome to </h1>
+          <div className="col-md-4" />
+          <div className="form-group col-md-4">
+            <a className="btn btn-block btn-social btn-facebook">
+              <span className="fa fa-facebook" />
+              <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
+            </a>
+            <br />
           </div>
-        );
-      } else if (this.state.redirect) {
-        return <Redirect to={{ pathname: '/signUp', state: { uid: this.state.uid } }} />;
-      } else {
-        return <Redirect to="/dashboard" />;
-      }
+        </div>
+      );
+    } else if (this.state.isNewUser) {
+      return <Redirect to={{ pathname: '/signUp', state: { uid: this.state.uid } }} />;
+    } else {
+      return <Redirect to="/dashboard" />;
     }
   }
 }
-// this.props.client.query
-// this.props.mutate({})
-export default withApollo(Login);
+
+export default Login;

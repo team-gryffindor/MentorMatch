@@ -1,21 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { GET_LESSONS } from '../apollo/resolvers/backendQueries.js';
+import { GET_LESSONS } from '../../apollo/resolvers/backendQueries.js';
 import { Query } from 'react-apollo';
-import Geosuggest from 'react-geosuggest';
 
 import SearchHome from './SearchHome.jsx';
-import LessonList from './LessonList.jsx';
+import LessonList from '../LessonList.jsx';
 
 //This componenet could be a functional componenet and not requrie storing state at all
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      topLessons: [],
-    };
-  }
-  
+  state = {
+    topLessons: []
+  };
+
   render() {
     return (
       <div>
