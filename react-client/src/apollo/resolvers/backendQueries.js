@@ -204,6 +204,36 @@ const GET_LESSONS = gql`
   }
 `;
 
+const UPDATE_USER = gql`
+  mutation(
+    $id: ID!
+    $name: String!
+    $description: String!
+    $cityOfResidence: String!
+    $image: String!
+    $lat: Float!
+    $lng: Float!
+  ) {
+    updateUser(
+      id: $id
+      name: $name
+      description: $description
+      cityOfResidence: $cityOfResidence
+      image: $image
+      lat: $lat
+      lng: $lng
+    ) {
+      name
+      description
+      cityOfResidence
+      image
+      id
+      lat
+      lng
+    }
+  }
+`;
+
 const ADD_USER = gql`
   mutation(
     $name: String!
@@ -349,5 +379,6 @@ export {
   ADD_FAVORITE_LESSON,
   DELETE_FAVORITE_LESSON,
   DELETE_SIGNUP_LESSON,
-  DELETE_LESSON
+  DELETE_LESSON,
+  UPDATE_USER
 };
