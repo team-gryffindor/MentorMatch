@@ -97,14 +97,21 @@ class SearchBarHome extends React.Component {
             }}
             value={this.state.locationQuery}
           />
-          <button className="btn btn-primary my-2 my-sm-0" type="submit">
-            <Link
-              to={{ pathname: '/feed', state: { lessonIds: this.state.results } }}
-              style={{ textDecoration: 'none', color: 'white' }}
-            >
+          <Link
+            to={{
+              pathname: '/feed',
+              state: {
+                lessonIds: this.state.results,
+                serviceQuery: this.state.serviceQuery,
+                locationQuery: this.state.locationQuery
+              }
+            }}
+            style={{ textDecoration: 'none', color: 'white' }}
+          >
+            <button className="btn btn-primary my-2 my-sm-0" type="submit">
               <i className="fas fa-search" /> Search
-            </Link>
-          </button>
+            </button>
+          </Link>
         </form>
       </div>
     );
