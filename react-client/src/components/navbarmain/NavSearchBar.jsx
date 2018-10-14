@@ -18,15 +18,12 @@ const NavSearchBar = (props) => (
         aria-label="Location"
       /> */}
       <Geosuggest placeholder={'Location'} />
-      {/* <button className="btn btn-primary my-2 my-sm-0" type="submit">
-        <i className="fas fa-search" />
-      </button> */}
 
-      <button className="btn btn-primary my-2 my-sm-0" type="submit">
-        <Link to={{ pathname: '/feed' }} style={{ textDecoration: 'none', color: 'white' }}>
+      <Link to={{ pathname: '/feed' }} style={{ textDecoration: 'none', color: 'white' }}>
+        <button className="btn btn-primary my-2 my-sm-0" type="submit">
           <i className="fas fa-search" />
-        </Link>
-      </button>
+        </button>
+      </Link>
     </form>
   </div>
 );

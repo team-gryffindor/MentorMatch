@@ -19,21 +19,25 @@ const NavUserOpt = (prop) => (
         </a>
 
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a className="dropdown-item">
-            <Link to="/dashboard">Dashboard</Link>
-          </a>
-          <a className="dropdown-item">
-            <Link to="/userProfile">Profile</Link>
-          </a>
-          <a className="dropdown-item">
-            <Link to="/calendar">Calendar</Link>
-          </a>
-          <a className="dropdown-item">
-            <Link to="/addlesson">Offer A lesson</Link>
-          </a>
+          <Link className="dropdown-item" to="/dashboard">
+            Dashboard
+          </Link>
+
+          <Link className="dropdown-item" to="/userProfile">
+            Profile
+          </Link>
+
+          <Link className="dropdown-item" to="/calendar">
+            Calendar
+          </Link>
+
+          <Link className="dropdown-item" to="/addlesson">
+            Offer A lesson
+          </Link>
           <div className="dropdown-divider" />
-          <a
+          <Link
             className="dropdown-item"
+            to="/"
             onClick={() => {
               firebase
                 .auth()
@@ -41,8 +45,8 @@ const NavUserOpt = (prop) => (
                 .then(() => prop.handleLogin());
             }}
           >
-            <Link to="/">Logout</Link>
-          </a>
+            Logout
+          </Link>
         </div>
       </li>
     </ul>

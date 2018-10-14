@@ -14,7 +14,7 @@ import Dashboard from './Dashboard.jsx';
 import AddLesson from './AddLesson.jsx';
 import LessonContent from './LessonContent.jsx';
 import ProfilePage from './ProfilePage.jsx';
-import NavBarMain from './NavBarMain.jsx';
+import NavBarMain from './navbarmain/NavBarMain.jsx';
 import Calendar from './Calendar.jsx';
 import Checkout from './Checkout.jsx';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NavBarMain from './NavBarMain.jsx';
+import NavBarMain from './navbarmain/NavBarMain.jsx';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import LessonList from './LessonList.jsx';
 import SearchBar from './SearchBar.jsx';
