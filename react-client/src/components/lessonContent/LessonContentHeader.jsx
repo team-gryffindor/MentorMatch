@@ -11,6 +11,7 @@ import { extractCityState } from '../../util/addressHelper.js';
 
 import Checkout from '../checkout/Checkout.jsx';
 import BookNow from './BookNow.jsx';
+import CancelNow from './CancelNow.jsx';
 
 const LessonContentHeader = ({
   userCompletedPayment,
@@ -82,7 +83,8 @@ const LessonContentHeader = ({
         </div>
         <p className="lead text-right">
           {isBooked ? (
-            <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
+            // <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
+            <CancelNow lesson={lesson} toggleBooking={toggleBooking} userId={userId} />
           ) : (
             <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
           )}
