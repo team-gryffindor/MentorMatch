@@ -8,7 +8,7 @@ class Checkout extends React.Component {
     super(props);
     this.state = {
       elementFontSize: window.innerWidth < 450 ? '14px' : '18px',
-      userCompletedPayment: false
+      // userCompletedPayment: false
     };
     window.addEventListener('resize', () => {
       if (window.innerWidth < 450 && this.state.elementFontSize !== '14px') {
@@ -20,7 +20,8 @@ class Checkout extends React.Component {
   }
 
   render() {
-    let { elementFontSize, userCompletedPayment, lesson } = this.state;
+    let { elementFontSize, lesson } = this.state;
+    let { userCompletedPayment } = this.props;
     return (
       <div className="Checkout">
         <h5>Automated Payment</h5>

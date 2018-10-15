@@ -81,38 +81,7 @@ const LessonContentHeader = ({
           <p>{lesson.provider.description}</p>
         </div>
         <p className="lead text-right">
-          {isBooked ? (
-            <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
-          ) : (
-            <button onClick={() => renderPayment(true)}>Pay Now</button>
-          )}
-          {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} /> : null}
-
-          {paid ? (
-            <Mutation mutation={mutateBooking}>
-              {(changeBooking) => (
-                <button
-                  className="btn btn-highlight btn-lg"
-                  href="#"
-                  role="button"
-                  onClick={() => {
-                    changeBooking({
-                      variables: {
-                        userId: userId,
-                        lessonId: lesson.id,
-                        date: '1'
-                      }
-                    }).then((data) => {
-                      toggleBooking(!isBooked);
-                    });
-                  }}
-                >
-                  Confirm Booking!
-                </button>
-              )}
-            </Mutation>
-          ) : null}
-          {isBooked ? (
+        {isBooked ? (
             <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
           ) : (
             <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
