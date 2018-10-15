@@ -10,6 +10,7 @@ const NavGuestOpt = (props) => (
         type="button"
         data-toggle="modal"
         data-target="#authModal"
+        onClick={() => props.handleGuestOpt(true)}
       >
         Log in
       </button>
@@ -20,6 +21,7 @@ const NavGuestOpt = (props) => (
         type="button"
         data-toggle="modal"
         data-target="#authModal"
+        onClick={() => props.handleGuestOpt(false)}
       >
         Sign up
       </button>

@@ -36,7 +36,11 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <AuthModal firebaseApp={firebaseApp} uiConfig={this.uiConfig} />
+        <AuthModal
+          firebaseApp={firebaseApp}
+          uiConfig={this.uiConfig}
+          loginModal={this.props.loginModal}
+        />
         <SearchHome />
         <div className="container">
           <h1>Top Services</h1>

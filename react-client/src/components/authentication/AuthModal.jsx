@@ -12,6 +12,7 @@ class AuthModal extends React.Component {
 
   render() {
     let { firebaseApp, uiConfig } = this.props;
+    console.log('MODAL FLAG', this.props.loginModal);
     return (
       <div
         className="modal fade"
@@ -33,8 +34,7 @@ class AuthModal extends React.Component {
               <div className="strike">
                 <span>or</span>
               </div>
-              <LoginForm />
-              <SignupForm />
+              {this.props.loginModal === true ? <LoginForm /> : <SignupForm />}
             </div>
           </div>
         </div>
