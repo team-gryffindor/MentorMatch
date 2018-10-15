@@ -193,7 +193,6 @@ const Mutation = new GraphQLObjectType({
           .catch((err) => console.error(err));
       }
     },
-    // removeSignupLesson: {}
     deleteLesson: {
       type: LessonType,
       args: {
@@ -235,6 +234,43 @@ const Mutation = new GraphQLObjectType({
         )
           .then((data) => {
             console.log('updated lesson', data);
+            return data;
+          })
+          .catch((err) => console.error(err));
+      }
+    },
+    updateLesson: {
+      type: LessonType,
+      args: {
+        id: { type: GraphQLID },
+        title: { type: GraphQLString },
+        image: { type: GraphQLString },
+        description: { type: GraphQLString },
+        cityOfService: { type: GraphQLString },
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat },
+        category: { type: GraphQLString },
+        difficulty: { type: GraphQLString },
+        price: { type: GraphQLFloat }
+      },
+      resolve(parent, args) {
+        return Models.Lesson.update(
+          {
+            title: args.title,
+            description: args.description,
+            category: args.category,
+            cityOfService: args.cityOfService,
+            lat: args.lat,
+            lng: args.lng,
+            difficulty: args.difficulty,
+            image: args.image,
+            userId: args.userId,
+            price: args.price
+          },
+          { returning: true, where: { id: args.id } }
+        )
+          .then((data) => {
+            console.log('edit lesson', data[1]);
             return data;
           })
           .catch((err) => console.error(err));

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import {
   ADD_FAVORITE_LESSON,
@@ -29,8 +30,8 @@ const LessonContentHeader = ({
   if (isFavorite) mutateFav = DELETE_FAVORITE_LESSON;
   let mutateBooking = ADD_SIGNUP_LESSON;
   if (isBooked) mutateBooking = DELETE_SIGNUP_LESSON;
-  console.log('checking if booked', isBooked);
   let { city, state } = extractCityState(lesson.location.addressComponents);
+  let providerId = lesson.provider.id;
   return (
     <div className="lesson-detail-header-margin-top">
       <div className="jumbotron">
@@ -91,6 +92,11 @@ const LessonContentHeader = ({
             )}
             {payNow ? (
               <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} />
+            ) : null}
+            {providerId === userId ? (
+              <Link to={{ pathname: '/editLesson', state: { lesson: lesson } }}>
+                <button className="btn btn-secondary mb-2">Edit Lesson</button>
+              </Link>
             ) : null}
           </div>
         </div>

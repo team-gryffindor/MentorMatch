@@ -10,12 +10,15 @@ const GET_USER = gql`
       offeredLessons {
         id
         title
+        image
         difficulty
+        category
         description
         date
         avgRating
         numOfReviews
         provider {
+          id
           name
           cityOfResidence
           description
@@ -46,12 +49,15 @@ const GET_USER = gql`
       signupLessons {
         id
         title
+        image
         difficulty
+        category
         description
         date
         avgRating
         numOfReviews
         provider {
+          id
           name
           cityOfResidence
           description
@@ -82,12 +88,15 @@ const GET_USER = gql`
       favoriteLessons {
         id
         title
+        image
         difficulty
+        category
         description
         date
         avgRating
         numOfReviews
         provider {
+          id
           name
           cityOfResidence
           description
@@ -128,6 +137,8 @@ const CHECK_USER = gql`
       description
       image
       cityOfResidence
+      lat
+      lng
     }
   }
 `;
@@ -159,6 +170,7 @@ const GET_LESSON = gql`
     lesson(id: $id) {
       id
       title
+      image
       description
       cityOfService
       lat
@@ -169,6 +181,7 @@ const GET_LESSON = gql`
       numOfReviews
       price
       provider {
+        id
         name
         cityOfResidence
         description
@@ -200,9 +213,11 @@ const GET_LESSONS = gql`
       title
       id
       description
+      category
       avgRating
       numOfReviews
       provider {
+        id
         name
         cityOfResidence
         description
@@ -317,6 +332,47 @@ const ADD_LESSON = gql`
   }
 `;
 
+const UPDATE_LESSON = gql`
+  mutation(
+    $id: ID!
+    $title: String!
+    $description: String!
+    $cityOfService: String!
+    $image: String!
+    $difficulty: String!
+    $category: String!
+    $lat: Float!
+    $lng: Float!
+    $price: Float!
+  ) {
+    updateLesson(
+      id: $id
+      title: $title
+      description: $description
+      cityOfService: $cityOfService
+      image: $image
+      difficulty: $difficulty
+      category: $category
+      lat: $lat
+      lng: $lng
+      price: $price
+    ) {
+      id
+      title
+      description
+      cityOfService
+      image
+      category
+      difficulty
+      avgRating
+      numOfReviews
+      lat
+      lng
+      price
+    }
+  }
+`;
+
 const ADD_REVIEW = gql`
   mutation($title: String!, $comment: String!, $rating: Int!, $lessonId: ID!, $userId: ID!) {
     addReview(
@@ -393,5 +449,6 @@ export {
   DELETE_FAVORITE_LESSON,
   DELETE_SIGNUP_LESSON,
   DELETE_LESSON,
-  UPDATE_USER
+  UPDATE_USER,
+  UPDATE_LESSON
 };

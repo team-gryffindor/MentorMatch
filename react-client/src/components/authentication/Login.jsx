@@ -71,7 +71,9 @@ class Login extends React.Component {
                     description: userInDB.description,
                     cityOfResidence: userInDB.cityOfResidence,
                     image: userInDB.image,
-                    uid: userInDB.uid
+                    uid: userInDB.uid,
+                    lat: userInDB.lat,
+                    lng: userInDB.lng
                   }
                 }
               });
