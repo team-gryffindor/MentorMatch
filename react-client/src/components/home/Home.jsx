@@ -3,7 +3,7 @@ import { GET_LESSONS } from '../../apollo/resolvers/backendQueries.js';
 import { Query } from 'react-apollo';
 
 import SearchHome from './SearchHome.jsx';
-import LessonList from '../LessonList.jsx';
+import LessonList from '../lessonList/LessonList.jsx';
 
 //This componenet could be a functional componenet and not requrie storing state at all
 class Home extends React.Component {

@@ -1,6 +1,5 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings';
-// import userImage from '../Default.png';
 
 // TODO: include user info for each review
 // name, cityOfResidence

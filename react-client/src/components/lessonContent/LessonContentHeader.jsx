@@ -1,7 +1,4 @@
 import React from 'react';
-import MentorInfo from './MentorInfo.jsx';
-import Checkout from './Checkout.jsx';
-import BookNow from './BookNow.jsx';
 import { Mutation } from 'react-apollo';
 import {
   ADD_FAVORITE_LESSON,
@@ -9,10 +6,13 @@ import {
   ADD_SIGNUP_LESSON,
   DELETE_SIGNUP_LESSON,
   GET_USER
-} from '../apollo/resolvers/backendQueries.js';
-import { extractCityState } from '../util/addressHelper.js';
+} from '../../apollo/resolvers/backendQueries.js';
+import { extractCityState } from '../../util/addressHelper.js';
 
-const LessonDetailHeader = ({
+import Checkout from '../checkout/Checkout.jsx';
+import BookNow from './BookNow.jsx';
+
+const LessonContentHeader = ({
   userCompletedPayment,
   paid,
   renderPayment,
@@ -42,7 +42,7 @@ const LessonDetailHeader = ({
               <br />
               Difficulty: {lesson.difficulty} + {lesson.id}
               <br />
-              Price: {lesson.price}
+              Price: ${lesson.price}
               /hour
             </p>
           </small>
@@ -75,7 +75,11 @@ const LessonDetailHeader = ({
         <h4>About your Lesson</h4>
         <p className="lead">{lesson.description}</p>
         <hr className="my-4" />
-        <MentorInfo provider={lesson.provider} />
+        <div>
+          <img src={lesson.provider.image} className="profile-image" />
+          <h4>About your mentor, {lesson.provider.name}</h4>
+          <p>{lesson.provider.description}</p>
+        </div>
         <p className="lead text-right">
           {isBooked ? (
             <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
@@ -120,4 +124,4 @@ const LessonDetailHeader = ({
   );
 };
 
-export default LessonDetailHeader;
+export default LessonContentHeader;

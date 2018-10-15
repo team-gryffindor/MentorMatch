@@ -1,6 +1,5 @@
 import React from 'react';
 import LessonListItem from './LessonListItem.jsx';
-import { database } from 'firebase';
 
 const LessonList = ({ lessonIds }) => {
   console.log('LESSONIDS from LESSONLIST', lessonIds);

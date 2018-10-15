@@ -3,8 +3,8 @@ import dateFns from 'date-fns';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import { Query } from 'react-apollo';
-import { GET_USER_SIGNUPS } from '../apollo/resolvers/backendQueries.js';
-import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries.js';
+import { GET_USER_SIGNUPS } from '../../apollo/resolvers/backendQueries.js';
+import { GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries.js';
 // import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const localizer = BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
@@ -40,13 +40,12 @@ const Calendar = ({ events }) => {
                 console.log('DATA: ', data.user.signupLessons);
 
                 let signedUpEvents = data.user.signupLessons.map((event) => {
-
                   return {
                     allday: false,
                     startDate: moment(parseInt(event.date)),
                     endDate: moment(parseInt(event.date)),
                     title: event.title
-                  }
+                  };
                 });
                 return (
                   <div className="rbc-calendar">
@@ -58,14 +57,13 @@ const Calendar = ({ events }) => {
                       views={['month', 'agenda']}
                     />
                   </div>
-                )
+                );
               }}
             </Query>
           );
         }}
       </Query>
     </div>
-     
   );
 };
 // class Calendar extends React.Component {

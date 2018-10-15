@@ -1,5 +1,5 @@
 import React from 'react';
-import UserLessonList from './UserLessonList.jsx';
+import UserLessonList from '../lessonList/UserLessonList.jsx';
 
 const TakenLessons = ({ user }) => (
   <div>

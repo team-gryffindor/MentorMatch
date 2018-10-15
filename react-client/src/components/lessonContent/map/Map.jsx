@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import MapMarker from './MapMarker.jsx';
 
-const SimpleMap = ({ location }) => {
+const Map = ({ location }) => {
   console.log(location);
   return (
     // Important! Always set the container height explicitly
@@ -10,7 +10,7 @@ const SimpleMap = ({ location }) => {
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.MAP_API_KEY }}
         defaultCenter={location.center}
-        defaultZoom={15}
+        defaultZoom={14}
       >
         <MapMarker lat={location.center.lat} lng={location.center.lng} />
       </GoogleMapReact>
@@ -18,4 +18,4 @@ const SimpleMap = ({ location }) => {
   );
 };
 
-export default SimpleMap;
+export default Map;

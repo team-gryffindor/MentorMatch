@@ -1,30 +1,29 @@
 import React from 'react';
-import { ADD_LESSON } from '../apollo/resolvers/backendQueries';
-import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries';
+import { ADD_LESSON } from '../../apollo/resolvers/backendQueries';
+import { GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries';
 import { Query, Mutation } from 'react-apollo';
 import Geosuggest from 'react-geosuggest';
 import { Redirect } from 'react-router-dom';
 
 class AddLesson extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: '',
-      description: '',
-      cityOfService: '',
-      image: '',
-      difficulty: '',
-      userId: '',
-      category: '',
-      lng: 0,
-      ltd: 0,
-      price: '',
-      redirect: false
-    };
-  }
-  submitForm(e) {
+  state = {
+    title: '',
+    description: '',
+    cityOfService: '',
+    image: '',
+    difficulty: '',
+    userId: '',
+    category: '',
+    lng: 0,
+    ltd: 0,
+    price: '',
+    redirect: false
+  };
+
+  submitForm = (e) => {
     this.setState({});
-  }
+  };
+
   render() {
     if (this.state.redirect) {
       return <Redirect to="/userProfile" />;

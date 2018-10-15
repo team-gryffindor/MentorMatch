@@ -5,19 +5,18 @@ import { GET_USER } from '../apollo/resolvers/backendQueries';
 import { Route } from 'react-router-dom';
 
 // components
+import NavBarMain from './navbarmain/NavBarMain.jsx';
 import Home from './home/Home.jsx';
 import Login from './authentication/Login.jsx';
 import SignUp from './authentication/SignUp.jsx';
-import Feed from './Feed.jsx';
-import ActiveLessons from './ActiveLessons.jsx';
-import Dashboard from './Dashboard.jsx';
-import AddLesson from './AddLesson.jsx';
-import LessonContent from './LessonContent.jsx';
+import Feed from './searchFeed/Feed.jsx';
+import Dashboard from './dashboard/Dashboard.jsx';
 import ProfilePage from './profile/ProfilePage.jsx';
 import UpdateProfileInfo from './profile/UpdateProfileInfo.jsx';
-import NavBarMain from './navbarmain/NavBarMain.jsx';
-import Calendar from './Calendar.jsx';
-import Checkout from './Checkout.jsx';
+import LessonContent from './lessonContent/LessonContent.jsx';
+import AddLesson from './addLesson/AddLesson.jsx';
+import Calendar from './calendar/Calendar.jsx';
+import Checkout from './checkout/Checkout.jsx';
 
 class App extends React.Component {
   state = {
@@ -89,7 +88,6 @@ class App extends React.Component {
                   />
                 )}
               />
-              <Route path="/active" render={() => <ActiveLessons />} />
               <Route path="/feed" render={(props) => <Feed {...props} />} />
               <Route
                 path="/dashboard"
@@ -109,13 +107,13 @@ class App extends React.Component {
                 render={({ location }) => (
                   <Query query={GET_USER_INFO} className="container">
                     {({ loading, error, data }) => {
-                      if (error) return <h1>Error...</h1>;
-                      if (loading || !data) return <h1>Loading...</h1>;
+                      if (error) return <small>Error...</small>;
+                      if (loading || !data) return <small>Loading...</small>;
                       return (
                         <Query query={GET_USER} variables={{ id: data.userInfo.userId }}>
                           {({ loading, error, data }) => {
-                            if (error) return <h1>Error...</h1>;
-                            if (loading || !data) return <h1>Loading...</h1>;
+                            if (error) return <small>Error...</small>;
+                            if (loading || !data) return <small>Loading...</small>;
                             let favorite = false;
                             let userFavorites = data.user.favoriteLessons;
                             for (let i = 0; i < userFavorites.length; i++) {

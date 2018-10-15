@@ -1,8 +1,9 @@
 import React from 'react';
-import FeaturedLesson from './FeaturedLesson.jsx';
-import UserLessonList from './profile/UserLessonList.jsx';
 import { Query } from 'react-apollo';
-import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries.js';
+import { GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries.js';
+
+import FeaturedLesson from './FeaturedLesson.jsx';
+import UserLessonList from '../lessonList/UserLessonList.jsx';
 
 class Dashboard extends React.Component {
   state = {
