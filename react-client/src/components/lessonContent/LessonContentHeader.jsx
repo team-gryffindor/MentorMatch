@@ -117,7 +117,6 @@ const LessonContentHeader = ({
           ) : (
             <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
           )}
-          {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} /> : null}
         </p>
       </div>
     </div>
