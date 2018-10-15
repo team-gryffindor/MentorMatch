@@ -4,15 +4,15 @@ import { GET_USER_INFO } from '../apollo/resolvers/clientSideQueries';
 import { Query, Mutation } from 'react-apollo';
 
 class WriteReview extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: '',
-      comment: '',
-      rating: 0
-    };
+  state = {
+    title: '',
+    comment: '',
+    rating: 0
   }
+ 
   render() {
+    let { lessonId } = this.props;
+    let { title, comment, rating } = this.state;
     // TODO: need to refetch??
     return (
       <Query query={GET_USER_INFO}>
@@ -20,7 +20,7 @@ class WriteReview extends React.Component {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error :(</p>;
           let user = data.userInfo;
-          console.log(this.props.lessonId);
+          console.log(lessonId);
           return (
             <Mutation mutation={ADD_REVIEW}>
               {(addReview) => (
@@ -31,11 +31,11 @@ class WriteReview extends React.Component {
                       e.preventDefault();
                       addReview({
                         variables: {
-                          title: this.state.title,
-                          comment: this.state.comment,
+                          title: title,
+                          comment: comment,
                           // TODO: restrict user using stars or something
-                          rating: Number(this.state.rating),
-                          lessonId: this.props.lessonId,
+                          rating: Number(rating),
+                          lessonId: lessonId,
                           userId: user.userId
                         }
                       });
@@ -43,21 +43,21 @@ class WriteReview extends React.Component {
                   >
                     Title:
                     <input
-                      value={this.state.title}
+                      value={title}
                       onChange={(e) => {
                         this.setState({ title: e.target.value });
                       }}
                     />
                     Comment:
                     <input
-                      value={this.state.comment}
+                      value={comment}
                       onChange={(e) => {
                         this.setState({ comment: e.target.value });
                       }}
                     />
                     Rating:
                     <input
-                      value={this.state.rating}
+                      value={rating}
                       onChange={(e) => {
                         this.setState({ rating: e.target.value });
                       }}
