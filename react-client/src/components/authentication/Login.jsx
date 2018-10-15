@@ -48,7 +48,7 @@ class Login extends React.Component {
             // With user retrieved from database
             .then((data) => {
               let userInDB = data[0].data.checkUser;
-              console.log(userInDB);
+              console.log('userInDB to update cache', userInDB);
               // If new user
               if (!userInDB) {
                 // Mark the flag and save the firebase uid
@@ -71,7 +71,9 @@ class Login extends React.Component {
                     description: userInDB.description,
                     cityOfResidence: userInDB.cityOfResidence,
                     image: userInDB.image,
-                    uid: userInDB.uid
+                    uid: userInDB.uid,
+                    lat: userInDB.lat,
+                    lng: userInDB.lng
                   }
                 }
               });

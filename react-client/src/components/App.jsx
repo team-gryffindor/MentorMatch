@@ -101,7 +101,10 @@ class App extends React.Component {
                 )}
               />
               <Route path="/userProfile" render={() => <ProfilePage />} />
-              <Route path="/editProfile" render={(props) => <UpdateProfileInfo {...props} />} />
+              <Route
+                path="/editProfile"
+                render={(props) => <UpdateProfileInfo {...props} apolloClient={apolloClient} />}
+              />
               <Route
                 path="/lessonContent/:lessonId"
                 render={({ location }) => (

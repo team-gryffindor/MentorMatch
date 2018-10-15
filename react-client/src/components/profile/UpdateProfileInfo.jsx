@@ -1,21 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { UPDATE_USER } from '../../apollo/resolvers/backendQueries.js';
+import { UPDATE_USER_INFO, GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries.js';
 import Geosuggest from 'react-geosuggest';
 
 class UpdateProfileInfo extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.location.state.user);
-    let { username, image, cityOfResidence, description, lat, lng } = props.location.state.user;
+    let {
+      userId,
+      username,
+      image,
+      cityOfResidence,
+      description,
+      lat,
+      lng
+    } = props.location.state.user;
     this.state = {
+      userId: userId,
       username: username,
       image: image,
       cityOfResidence: cityOfResidence,
       description: description,
       lat: lat,
-      lng: lng
+      lng: lng,
+      editProfile: true
     };
   }
 
@@ -24,31 +34,61 @@ class UpdateProfileInfo extends React.Component {
   };
 
   render() {
-    let { username, image, cityOfResidence, description, lat, lng, editProfile } = this.state;
+    let {
+      userId,
+      username,
+      image,
+      cityOfResidence,
+      description,
+      lat,
+      lng,
+      editProfile
+    } = this.state;
     // figure out how to conditionally render input fields
-    return (
-      <Mutation mutation={UPDATE_USER}>
-        {(updateUser) => (
-          <React.Fragment>
+    if (editProfile) {
+      return (
+        <Mutation mutation={UPDATE_USER}>
+          {(updateUser) => (
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 updateUser({
                   variables: {
-                    username: username,
+                    id: userId,
+                    name: username,
+                    image: image,
                     description: description,
                     cityOfResidence: cityOfResidence,
                     lat: lat,
-                    lng: lng,
-                    image: image
+                    lng: lng
                   }
                 }) // TODO: refactor to notify user of error with modal?
-                  .then((data) => data)
+                  .then(() => {
+                    return this.props.apolloClient.writeData({
+                      data: {
+                        userInfo: {
+                          __typename: 'userInfo',
+                          userId: userId,
+                          username: username,
+                          description: description,
+                          cityOfResidence: cityOfResidence,
+                          image: image,
+                          lat: lat,
+                          lng: lng
+                        }
+                      }
+                    });
+                  })
+                  .then(() => {
+                    this.setState({
+                      editProfile: false
+                    });
+                  })
                   .catch((err) => console.error(err));
               }}
             >
               <div className="form-group">
-                <label for="name">Name</label>
+                <label htmlFor="name">Name</label>
                 <input
                   type="name"
                   className="form-control"
@@ -61,7 +101,7 @@ class UpdateProfileInfo extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label for="description">About Me</label>
+                <label htmlFor="description">About Me</label>
                 <textarea
                   className="form-control"
                   id="description"
@@ -73,28 +113,30 @@ class UpdateProfileInfo extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label for="img">My Location</label>
+                <label htmlFor="img">My Location</label>
                 <Geosuggest
                   placeholder={'City of Residence'}
                   onSuggestSelect={(suggest) => {
-                    console.log('CITY', typeof suggest.description);
-                    this.setState(
-                      {
-                        cityOfResidence: suggest.description,
-                        lat: suggest.location.lat,
-                        lng: suggest.location.lng
-                      },
-                      () => {
-                        console.log(lat, lng);
-                      }
-                    );
+                    if (suggest) {
+                      console.log('CITY', typeof suggest.description);
+                      this.setState(
+                        {
+                          cityOfResidence: suggest.description,
+                          lat: suggest.location.lat,
+                          lng: suggest.location.lng
+                        },
+                        () => {
+                          console.log(lat, lng);
+                        }
+                      );
+                    }
                   }}
                   types={['geocode']}
                   initialValue={cityOfResidence}
                 />
               </div>
               <div className="form-group">
-                <label for="img">Link To My Profile Image</label>
+                <label htmlFor="img">Link To My Profile Image</label>
                 <input
                   type="img"
                   className="form-control"
@@ -115,10 +157,12 @@ class UpdateProfileInfo extends React.Component {
                 </button>
               </div>
             </form>
-          </React.Fragment>
-        )}
-      </Mutation>
-    );
+          )}
+        </Mutation>
+      );
+    } else {
+      return <Redirect to="/userProfile" />;
+    }
   }
 }
 
