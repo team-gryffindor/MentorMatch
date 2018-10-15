@@ -126,7 +126,7 @@ class UpdateProfileInfo extends React.Component {
                           lng: suggest.location.lng
                         },
                         () => {
-                          console.log(lat, lng);
+                          console.log(suggest, this.state.lat, this.state.lng);
                         }
                       );
                     }

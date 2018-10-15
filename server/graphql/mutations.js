@@ -211,6 +211,7 @@ const Mutation = new GraphQLObjectType({
       type: UserType,
       args: {
         id: { type: GraphQLID },
+        uid: { type: GraphQLID },
         name: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
@@ -229,11 +230,11 @@ const Mutation = new GraphQLObjectType({
             lat: args.lat,
             lng: args.lng
           },
-          { returning: true, where: { id: args.id } }
+          { where: { id: args.id } }
         )
           .then((data) => {
-            console.log(data[1].dataValues);
-            return data[1];
+            console.log('updated lesson', data);
+            return data;
           })
           .catch((err) => console.error(err));
       }

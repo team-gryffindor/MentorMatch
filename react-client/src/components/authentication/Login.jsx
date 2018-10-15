@@ -22,8 +22,8 @@ class Login extends React.Component {
     signInFlow: 'popup',
     signInOptions: [
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
+      // firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
     callbacks: {
       signInSuccessWithAuthResult: () => false
@@ -48,7 +48,7 @@ class Login extends React.Component {
             // With user retrieved from database
             .then((data) => {
               let userInDB = data[0].data.checkUser;
-              console.log('userInDB to update cache', userInDB);
+              console.log(userInDB);
               // If new user
               if (!userInDB) {
                 // Mark the flag and save the firebase uid

@@ -35,67 +35,71 @@ const LessonContentHeader = ({
   return (
     <div className="lesson-detail-header-margin-top">
       <div className="jumbotron">
-        <span className="badge badge-pill badge-primary">{lesson.category}</span>
-        <div className="d-flex w-100 justify-content-between">
-          <h1>{lesson.title}</h1>
-          <small className="text">
-            <p style={{ textAlign: 'right' }}>
-              Location: {city}, {state}
-              <br />
-              Difficulty: {lesson.difficulty} + {lesson.id}
-              <br />
-              Price: ${lesson.price}
-              /hour
-            </p>
-          </small>
+        <div className="container">
+          <span className="badge badge-pill badge-primary">{lesson.category}</span>
+          <div className="d-flex w-100 justify-content-between">
+            <h1>{lesson.title}</h1>
+            <small className="text">
+              <p style={{ textAlign: 'right' }}>
+                Location: {city}, {state}
+                <br />
+                Difficulty: {lesson.difficulty} + {lesson.id}
+                <br />
+                Price: ${lesson.price}
+                /hour
+              </p>
+            </small>
 
-          {/* wrap this in a mutation tag and refectch here? */}
-          <Mutation
-            mutation={mutateFav}
-            refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
-          >
-            {(mutateFavorite) => (
-              <button
-                type="button"
-                className="btn btn-default"
-                onClick={() => {
-                  mutateFavorite({
-                    variables: {
-                      userId: userId,
-                      lessonId: lesson.id
-                    }
-                  }).then((data) => {
-                    toggleFavorite(!isFavorite);
-                  });
-                }}
-              >
-                {isFavorite ? <i className="fas fa-star" /> : <i className="far fa-star" />}
-              </button>
+            {/* wrap this in a mutation tag and refectch here? */}
+            <Mutation
+              mutation={mutateFav}
+              refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
+            >
+              {(mutateFavorite) => (
+                <button
+                  type="button"
+                  className="btn btn-default"
+                  onClick={() => {
+                    mutateFavorite({
+                      variables: {
+                        userId: userId,
+                        lessonId: lesson.id
+                      }
+                    }).then((data) => {
+                      toggleFavorite(!isFavorite);
+                    });
+                  }}
+                >
+                  {isFavorite ? <i className="fas fa-star" /> : <i className="far fa-star" />}
+                </button>
+              )}
+            </Mutation>
+          </div>
+          <h4>About your Lesson</h4>
+          <p className="lead">{lesson.description}</p>
+          <hr className="my-4" />
+          <div>
+            <img src={lesson.provider.image} className="profile-image" />
+            <h4>About your mentor, {lesson.provider.name}</h4>
+            <p>{lesson.provider.description}</p>
+          </div>
+          <div className="d-flex justify-content-end">
+            {isBooked ? (
+              // <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
+              <CancelNow lesson={lesson} toggleBooking={toggleBooking} userId={userId} />
+            ) : (
+              <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
             )}
-          </Mutation>
+            {payNow ? (
+              <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} />
+            ) : null}
+            {providerId === userId ? (
+              <Link to={{ pathname: '/editLesson', state: { lesson: lesson } }}>
+                <button className="btn btn-secondary mb-2">Edit Lesson</button>
+              </Link>
+            ) : null}
+          </div>
         </div>
-        <h4>About your Lesson</h4>
-        <p className="lead">{lesson.description}</p>
-        <hr className="my-4" />
-        <div>
-          <img src={lesson.provider.image} className="profile-image" />
-          <h4>About your mentor, {lesson.provider.name}</h4>
-          <p>{lesson.provider.description}</p>
-        </div>
-        <p className="lead text-right">
-          {isBooked ? (
-            // <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
-            <CancelNow lesson={lesson} toggleBooking={toggleBooking} userId={userId} />
-          ) : (
-            <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
-          )}
-          {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} /> : null}
-        </p>
-        {providerId === userId ? (
-          <Link to={{ pathname: '/editLesson', state: { lesson: lesson } }}>
-            <button className="btn btn-secondary mb-2">Edit Lesson</button>
-          </Link>
-        ) : null}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UPDATE_LESSON, GET_USER } from '../../apollo/resolvers/backendQueries';
+import { UPDATE_LESSON, GET_USER, GET_LESSON } from '../../apollo/resolvers/backendQueries';
 import { GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries';
 import { Query, Mutation } from 'react-apollo';
 import Geosuggest from 'react-geosuggest';

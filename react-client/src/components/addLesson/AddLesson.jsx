@@ -69,7 +69,7 @@ class AddLesson extends React.Component {
                       }}
                     >
                       <div className="form-group">
-                        <label for="title">Lesson Title</label>
+                        <label htmlFor="title">Lesson Title</label>
                         <input
                           type="title"
                           className="form-control"
@@ -80,7 +80,7 @@ class AddLesson extends React.Component {
                         />
                       </div>
                       <div className="form-group">
-                        <label for="description">About My Lesson</label>
+                        <label htmlFor="description">About My Lesson</label>
                         <textarea
                           className="form-control"
                           id="description"
@@ -91,7 +91,7 @@ class AddLesson extends React.Component {
                         />
                       </div>
                       <div className="form-group">
-                        <label for="price">Price of the Lesson</label>
+                        <label htmlFor="price">Price of the Lesson</label>
                         <input
                           type="number"
                           className="form-control"
@@ -102,7 +102,7 @@ class AddLesson extends React.Component {
                         />
                       </div>
                       <div className="form-group">
-                        <label for="img">Location of the Lesson</label>
+                        <label htmlFor="img">Location of the Lesson</label>
                         <Geosuggest
                           onSuggestSelect={(suggest) => {
                             if (suggest) {
@@ -121,7 +121,7 @@ class AddLesson extends React.Component {
                         />
                       </div>
                       <div className="form-group">
-                        <label for="difficulty">Difficulty</label>
+                        <label htmlFor="difficulty">Difficulty</label>
                         <select
                           className="form-control"
                           id="difficulty"
@@ -135,7 +135,7 @@ class AddLesson extends React.Component {
                         </select>
                       </div>
                       <div className="form-group">
-                        <label for="category">Lesson Category</label>
+                        <label htmlFor="category">Lesson Category</label>
                         <select
                           className="form-control"
                           id="category"
@@ -150,7 +150,7 @@ class AddLesson extends React.Component {
                         </select>
                       </div>
                       <div className="form-group">
-                        <label for="img">Link To My Lesson Image</label>
+                        <label htmlFor="img">Link To My Lesson Image</label>
                         <input
                           type="img"
                           className="form-control"

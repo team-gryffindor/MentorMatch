@@ -22,6 +22,7 @@ import UpdateLesson from './addLesson/UpdateLesson.jsx';
 class App extends React.Component {
   state = {
     isLoggedIn: false,
+    loginModal: null,
     eventToSchedule: '',
     events: []
   };
@@ -42,8 +43,12 @@ class App extends React.Component {
     this.setState({ isLoggedIn: boolean });
   };
 
+  handleGuestOpt = (boolean) => {
+    this.setState({ loginModal: boolean });
+  };
+
   render() {
-    let { isLoggedIn, eventToSchedule, events } = this.state;
+    let { isLoggedIn, loginModal, eventToSchedule, events } = this.state;
     return (
       <ApolloConsumer>
         {(apolloClient) => {
@@ -55,6 +60,7 @@ class App extends React.Component {
                   <NavBarMain
                     isLoggedIn={isLoggedIn}
                     handleLogin={this.handleLogin}
+                    handleGuestOpt={this.handleGuestOpt}
                     currentPath={location.pathname}
                   />
                 )}
@@ -62,7 +68,13 @@ class App extends React.Component {
               <Route
                 exact
                 path="/"
-                render={() => <Home isLoggedIn={isLoggedIn} handleLogin={this.handleLogin} />}
+                render={() => (
+                  <Home
+                    isLoggedIn={isLoggedIn}
+                    handleLogin={this.handleLogin}
+                    loginModal={loginModal}
+                  />
+                )}
               />
               <Route
                 path="/login"
@@ -104,7 +116,7 @@ class App extends React.Component {
               <Route path="/userProfile" render={() => <ProfilePage />} />
               <Route
                 path="/editProfile"
-                render={(props) => <UpdateProfileInfo {...props} apolloClient={apolloClient} />}
+                render={(props) => <UpdateProfileInfo apolloClient={apolloClient} {...props} />}
               />
               <Route
                 path="/lessonContent/:lessonId"

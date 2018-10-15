@@ -42,7 +42,7 @@ const NavUserOpt = (props) => (
               firebase
                 .auth()
                 .signOut()
-                .then(() => props.handleLogin());
+                .then(() => props.handleLogin(false));
             }}
           >
             Logout
