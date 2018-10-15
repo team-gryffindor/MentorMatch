@@ -5,7 +5,6 @@ import { Mutation } from 'react-apollo';
 import { ADD_SIGNUP_LESSON } from '../../apollo/resolvers/backendQueries.js';
 import moment from 'moment';
 
-/* eslint-disable react/no-multi-comp */
 class BookNow extends React.Component {
   static propTypes = {
     onClick: PropTypes.func,
@@ -27,13 +26,11 @@ class BookNow extends React.Component {
 }
 
 export default class CustomInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      startDate: moment(),
+
+  state = {
+    startDate: moment(),
       count: 0,
       booked: false
-    };
   }
 
   handleChange = (date) => {
@@ -49,13 +46,16 @@ export default class CustomInput extends React.Component {
   };
 
   render() {
+    let { startDate, booked, count } = this.state;
+    let { userId, event, renderPayment } = this.props;
     let submit;
+    
     let dateCal = (
       <div className="row">
         <div className="column">
           <DatePicker
             customInput={<BookNow />}
-            selected={this.state.startDate}
+            selected={startDate}
             onChange={this.handleChange}
             showTimeSelect
             minTime={moment()
@@ -70,9 +70,8 @@ export default class CustomInput extends React.Component {
         </div>
       </div>
     );
-    let booked;
 
-    if (this.state.count === 2 && this.state.booked === false) {
+    if (count === 2 && booked === false) {
       submit = (
         <Mutation mutation={ADD_SIGNUP_LESSON}>
           {(addSignUpLesson) => (
@@ -81,13 +80,13 @@ export default class CustomInput extends React.Component {
                 onClick={() => {
                   addSignUpLesson({
                     variables: {
-                      userId: this.props.userId,
-                      lessonId: this.props.event.id,
-                      date: this.state.startDate
+                      userId: userId,
+                      lessonId: event.id,
+                      date: startDate
                     }
                   });
                   this.setState({ count: 0, booked: true });
-                  this.props.renderPayment(true);
+                  renderPayment(true);
                 }}
               >
                 Pay Now
@@ -96,7 +95,7 @@ export default class CustomInput extends React.Component {
           )}
         </Mutation>
       );
-    } else if (this.state.booked === true) {
+    } else if (booked === true) {
       submit = <div />;
       dateCal = <div />;
     }
