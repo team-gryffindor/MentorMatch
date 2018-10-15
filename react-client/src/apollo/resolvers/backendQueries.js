@@ -10,12 +10,15 @@ const GET_USER = gql`
       offeredLessons {
         id
         title
+        image
         difficulty
+        category
         description
         date
         avgRating
         numOfReviews
         provider {
+          id
           name
           cityOfResidence
           description
@@ -40,16 +43,21 @@ const GET_USER = gql`
         cityOfService
         lat
         lng
+        price
+        isActive
       }
       signupLessons {
         id
         title
+        image
         difficulty
+        category
         description
         date
         avgRating
         numOfReviews
         provider {
+          id
           name
           cityOfResidence
           description
@@ -74,16 +82,21 @@ const GET_USER = gql`
         cityOfService
         lat
         lng
+        price
+        isActive
       }
       favoriteLessons {
         id
         title
+        image
         difficulty
+        category
         description
         date
         avgRating
         numOfReviews
         provider {
+          id
           name
           cityOfResidence
           description
@@ -108,6 +121,8 @@ const GET_USER = gql`
         cityOfService
         lat
         lng
+        price
+        isActive
       }
     }
   }
@@ -122,6 +137,20 @@ const CHECK_USER = gql`
       description
       image
       cityOfResidence
+      lat
+      lng
+    }
+  }
+`;
+
+const GET_USER_SIGNUPS = gql`
+  query($id: ID!) {
+    user(id: $id) {
+      signupLessons {
+        id
+        title
+        date
+      }
     }
   }
 `;
@@ -141,6 +170,7 @@ const GET_LESSON = gql`
     lesson(id: $id) {
       id
       title
+      image
       description
       cityOfService
       lat
@@ -151,6 +181,7 @@ const GET_LESSON = gql`
       numOfReviews
       price
       provider {
+        id
         name
         cityOfResidence
         description
@@ -182,9 +213,11 @@ const GET_LESSONS = gql`
       title
       id
       description
+      category
       avgRating
       numOfReviews
       provider {
+        id
         name
         cityOfResidence
         description
@@ -194,6 +227,36 @@ const GET_LESSONS = gql`
         title
         rating
       }
+    }
+  }
+`;
+
+const UPDATE_USER = gql`
+  mutation(
+    $id: ID!
+    $name: String!
+    $description: String!
+    $cityOfResidence: String!
+    $image: String!
+    $lat: Float!
+    $lng: Float!
+  ) {
+    updateUser(
+      id: $id
+      name: $name
+      description: $description
+      cityOfResidence: $cityOfResidence
+      image: $image
+      lat: $lat
+      lng: $lng
+    ) {
+      name
+      description
+      cityOfResidence
+      image
+      id
+      lat
+      lng
     }
   }
 `;
@@ -254,6 +317,47 @@ const ADD_LESSON = gql`
       lng: $lng
       price: $price
     ) {
+      title
+      description
+      cityOfService
+      image
+      category
+      difficulty
+      avgRating
+      numOfReviews
+      lat
+      lng
+      price
+    }
+  }
+`;
+
+const UPDATE_LESSON = gql`
+  mutation(
+    $id: ID!
+    $title: String!
+    $description: String!
+    $cityOfService: String!
+    $image: String!
+    $difficulty: String!
+    $category: String!
+    $lat: Float!
+    $lng: Float!
+    $price: Float!
+  ) {
+    updateLesson(
+      id: $id
+      title: $title
+      description: $description
+      cityOfService: $cityOfService
+      image: $image
+      difficulty: $difficulty
+      category: $category
+      lat: $lat
+      lng: $lng
+      price: $price
+    ) {
+      id
       title
       description
       cityOfService
@@ -336,6 +440,7 @@ export {
   GET_USER_FAVORITES,
   GET_LESSON,
   GET_LESSONS,
+  GET_USER_SIGNUPS,
   ADD_USER,
   ADD_LESSON,
   ADD_REVIEW,
@@ -343,5 +448,7 @@ export {
   ADD_FAVORITE_LESSON,
   DELETE_FAVORITE_LESSON,
   DELETE_SIGNUP_LESSON,
-  DELETE_LESSON
+  DELETE_LESSON,
+  UPDATE_USER,
+  UPDATE_LESSON
 };

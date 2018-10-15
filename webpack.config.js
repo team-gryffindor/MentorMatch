@@ -40,6 +40,11 @@ module.exports = {
       {
         test: /\.(png|jpg)$/,
         loader: 'url?limit=25000'
+      },
+      {
+        test: /\.css$/,  
+        include: /node_modules/,  
+        loaders: ['style-loader', 'css-loader'],
       }
     ]
   },

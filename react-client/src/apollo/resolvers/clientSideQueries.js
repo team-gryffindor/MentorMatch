@@ -26,6 +26,7 @@ export const UPDATE_USER_INFO = gql`
     }
   }
 `;
+
 export const GET_USER_INFO = gql`
   query {
     userInfo @client {
@@ -35,9 +36,8 @@ export const GET_USER_INFO = gql`
       cityOfResidence
       image
       uid
+      lat
+      lng
     }
   }
 `;
-
-
-
