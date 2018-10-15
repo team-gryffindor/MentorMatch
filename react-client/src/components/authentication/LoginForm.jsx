@@ -11,7 +11,7 @@ class LoginForm extends React.Component {
     return (
       <div className="container" style={{ marginTop: '10px', marginBottom: '10px' }}>
         <h5>Log in with email</h5>
-        <form onSubmit={this.props.handleLoginAttempt}>
+        <form>
           <div className="form-group">
             <label htmlFor="usrname">
               <span className="glyphicon glyphicon-user" /> Username

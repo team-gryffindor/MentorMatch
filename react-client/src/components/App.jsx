@@ -72,11 +72,10 @@ class App extends React.Component {
                     isLoggedIn={isLoggedIn}
                     handleLogin={this.handleLogin}
                     loginModal={loginModal}
-                    apolloClient={apolloClient}
                   />
                 )}
               />
-              {/* <Route
+              <Route
                 path="/login"
                 render={() => (
                   <Mutation mutation={UPDATE_USER_INFO}>
@@ -90,7 +89,7 @@ class App extends React.Component {
                     )}
                   </Mutation>
                 )}
-              /> */}
+              />
               <Route
                 path="/signUp"
                 render={({ location }) => (
@@ -114,10 +113,7 @@ class App extends React.Component {
                 )}
               />
               <Route path="/userProfile" render={() => <ProfilePage />} />
-              <Route
-                path="/editProfile"
-                render={(props) => <UpdateProfileInfo {...props} apolloClient={apolloClient} />}
-              />
+              <Route path="/editProfile" render={(props) => <UpdateProfileInfo {...props} />} />
               <Route
                 path="/lessonContent/:lessonId"
                 render={({ location }) => (

@@ -1,12 +1,10 @@
 import React from 'react';
 import { GET_LESSONS } from '../../apollo/resolvers/backendQueries.js';
-import { UPDATE_USER_INFO } from '../../apollo/resolvers/clientSideQueries.js';
-import { Query, Mutation } from 'react-apollo';
+import { Query } from 'react-apollo';
 import firebase from 'firebase';
 
 import SearchHome from './SearchHome.jsx';
 import LessonList from '../lessonList/LessonList.jsx';
-import Login from '../authentication/Login.jsx';
 import AuthModal from '../authentication/AuthModal.jsx';
 
 const firebaseApp = firebase.initializeApp({
@@ -36,27 +34,13 @@ class Home extends React.Component {
   };
 
   render() {
-    let { handleLogin, isLoggedIn, apolloClient, loginModal } = this.props;
     return (
       <div>
-        {/* <AuthModal
+        <AuthModal
           firebaseApp={firebaseApp}
           uiConfig={this.uiConfig}
           loginModal={this.props.loginModal}
-        /> */}
-        <Mutation mutation={UPDATE_USER_INFO}>
-          {(updateUserInfo) => (
-            <Login
-              firebaseApp={firebaseApp}
-              uiConfig={this.uiConfig}
-              updateUserInfo={updateUserInfo}
-              handleLogin={handleLogin}
-              isLoggedIn={isLoggedIn}
-              apolloClient={apolloClient}
-              loginModal={loginModal}
-            />
-          )}
-        </Mutation>
+        />
         <SearchHome />
         <div className="container">
           <h1>Top Services</h1>

@@ -128,8 +128,6 @@ const CHECK_USER = gql`
       description
       image
       cityOfResidence
-      lat
-      lng
     }
   }
 `;
