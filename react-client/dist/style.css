@@ -114,8 +114,11 @@ hr {
   background: #016bc7;
   color: white;
 }
-/* .btn-primary:active,
-.btn-primary:visited  */
+
+.btn-primary:active {
+  border-color: #016bc7;
+}
+
 .btn-secondary {
   background: #014480;
   color: white;
@@ -134,12 +137,6 @@ hr {
   background: rgb(0, 112, 211);
   color: white;
 }
-/* .btn-secondary:active,
-.btn-secondary:visited {
-  border-color: #014480;
-  background: #014480;
-  color: white;
-} */
 
 .btn-outline-success {
   background: #22d63a;
@@ -149,9 +146,6 @@ hr {
   background: #1cb631;
   color: white;
 }
-/* .btn-outline-success:active,
-.btn-outline-success:visited {
-} */
 
 .btn-outline-error,
 .btn-outline-error:hover,
@@ -165,9 +159,42 @@ hr {
   background: #0078e0;
 }
 
-.vertical-center {
-  min-height: 400px; /* These two lines are counted as one :-)       */
+.strike {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
+.strike > span {
+  position: relative;
+  display: inline-block;
+  font-size: 15px;
+  color: rgb(153, 153, 153);
+}
+
+.strike > span:before,
+.strike > span:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 9999px;
+  height: 1px;
+  background: rgb(221, 221, 221);
+}
+
+.strike > span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+
+.strike > span:after {
+  left: 100%;
+  margin-left: 15px;
+}
+
+.vertical-center {
+  min-height: 400px;     
   display: flex;
   align-items: center;
 }
@@ -216,9 +243,6 @@ hr {
   border-width: 0;
 }
 
-/**
- * A geosuggest item
- */
 .geosuggest__item {
   font-size: 18px;
   font-size: 1rem;
@@ -251,7 +275,8 @@ hr {
   transform: translate(-50%, -50%);
 }
 
-* {
+
+/* * {
   box-sizing: border-box;
 }
 
@@ -261,25 +286,25 @@ hr {
   font-variant: normal;
   padding: 0;
   margin: 0;
-}
+} */
 
 html {
   height: 100%;
 }
 
-form {
+/* form {
   width: 480px;
   margin: 20px auto;
-}
+} */
 
-label {
+/* label {
   height: 35px;
   position: relative;
   color: #8798ab;
   display: block;
   margin-top: 30px;
   margin-bottom: 20px;
-}
+} */
 
 label > span {
   position: absolute;
@@ -333,7 +358,8 @@ label .field.is-focused + span {
 .StripeElement.PaymentRequestButton {
   padding: 0;
 }
-*/ .rbc-calendar {
+
+.rbc-calendar {
   min-height: 500px;
 }
 
