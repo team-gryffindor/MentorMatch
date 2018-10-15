@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import {
   ADD_FAVORITE_LESSON,
@@ -90,7 +91,11 @@ const LessonContentHeader = ({
           )}
           {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} /> : null}
         </p>
-        {providerId === userId ? <button>Edit Lesson</button> : null}
+        {providerId === userId ? (
+          <Link to={{ pathname: '/editLesson', state: { lesson: lesson } }}>
+            <button className="btn btn-secondary mb-2">Edit Lesson</button>
+          </Link>
+        ) : null}
       </div>
     </div>
   );

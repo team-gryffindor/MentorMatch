@@ -17,6 +17,7 @@ import LessonContent from './lessonContent/LessonContent.jsx';
 import AddLesson from './addLesson/AddLesson.jsx';
 import Calendar from './calendar/Calendar.jsx';
 import Checkout from './checkout/Checkout.jsx';
+import UpdateLesson from './addLesson/UpdateLesson.jsx';
 
 class App extends React.Component {
   state = {
@@ -149,6 +150,10 @@ class App extends React.Component {
                 )}
               />
               <Route path="/addLesson" render={() => <AddLesson />} />
+              <Route
+                path="/editLesson"
+                render={({ location }) => <UpdateLesson lesson={location} />}
+              />
               <Route path="/calendar" render={() => <Calendar events={events} />} />
               <Route path="/checkout" render={() => <Checkout />} />
             </div>

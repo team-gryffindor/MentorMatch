@@ -10,7 +10,9 @@ const GET_USER = gql`
       offeredLessons {
         id
         title
+        image
         difficulty
+        category
         description
         date
         avgRating
@@ -47,7 +49,9 @@ const GET_USER = gql`
       signupLessons {
         id
         title
+        image
         difficulty
+        category
         description
         date
         avgRating
@@ -84,7 +88,9 @@ const GET_USER = gql`
       favoriteLessons {
         id
         title
+        image
         difficulty
+        category
         description
         date
         avgRating
@@ -164,6 +170,7 @@ const GET_LESSON = gql`
     lesson(id: $id) {
       id
       title
+      image
       description
       cityOfService
       lat
@@ -206,6 +213,7 @@ const GET_LESSONS = gql`
       title
       id
       description
+      category
       avgRating
       numOfReviews
       provider {
@@ -332,7 +340,6 @@ const UPDATE_LESSON = gql`
     $cityOfService: String!
     $image: String!
     $difficulty: String!
-    $userId: ID!
     $category: String!
     $lat: Float!
     $lng: Float!
@@ -345,7 +352,6 @@ const UPDATE_LESSON = gql`
       cityOfService: $cityOfService
       image: $image
       difficulty: $difficulty
-      userId: $userId
       category: $category
       lat: $lat
       lng: $lng

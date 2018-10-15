@@ -1,19 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ADD_LESSON, GET_USER } from '../../apollo/resolvers/backendQueries';
+import { UPDATE_LESSON, GET_USER } from '../../apollo/resolvers/backendQueries';
 import { GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries';
 import { Query, Mutation } from 'react-apollo';
 import Geosuggest from 'react-geosuggest';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
-class AddLesson extends React.Component {
+class UpdateLesson extends React.Component {
   state = {
+    id: '',
     title: '',
     description: '',
     cityOfService: '',
     image: '',
     difficulty: '',
-    userId: '',
     category: '',
     lng: 0,
     lat: 0,
@@ -21,33 +20,74 @@ class AddLesson extends React.Component {
     redirect: false
   };
 
-  submitForm = (e) => {
-    this.setState({});
-  };
-
+  componentDidMount() {
+    let {
+      id,
+      title,
+      description,
+      cityOfService,
+      image,
+      difficulty,
+      category,
+      lat,
+      lng,
+      price
+    } = this.props.lesson.state.lesson;
+    this.setState({
+      id: id,
+      title: title,
+      description: description,
+      cityOfService: cityOfService,
+      image: image,
+      difficulty: difficulty,
+      category: category,
+      lng: lng,
+      lat: lat,
+      price: price
+    });
+  }
   render() {
+    let {
+      id,
+      title,
+      description,
+      cityOfService,
+      image,
+      difficulty,
+      category,
+      lat,
+      lng,
+      price
+    } = this.state;
+    let { lesson } = this.props.lesson.state;
     if (this.state.redirect) {
-      return <Redirect to="/userProfile" />;
+      return (
+        <Redirect
+          to={{ pathname: `/lessonContent/${lesson.id}`, state: { lesson: lesson } }}
+          style={{ textDecoration: 'none', color: 'black' }}
+        />
+      );
     } else {
       return (
         <Query query={GET_USER_INFO}>
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
-            let userID = data.userInfo.userId;
+            let userId = data.userInfo.userId;
             return (
               <Mutation
-                mutation={ADD_LESSON}
-                refetchQueries={[{ query: GET_USER, variables: { id: userID } }]}
+                mutation={UPDATE_LESSON}
+                refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
               >
-                {(addLesson) => (
+                {(updateLesson) => (
                   <div className="container">
-                    <h1 style={{ textAlign: 'center' }}>Create a Lesson</h1>
+                    <h1 style={{ textAlign: 'center' }}>Edit Lesson</h1>
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        addLesson({
+                        updateLesson({
                           variables: {
+                            id: this.state.id,
                             title: this.state.title,
                             description: this.state.description,
                             cityOfService: this.state.cityOfService,
@@ -55,7 +95,6 @@ class AddLesson extends React.Component {
                             lng: this.state.lng,
                             image: this.state.image,
                             difficulty: this.state.difficulty,
-                            userId: userID,
                             category: this.state.category,
                             price: Number(this.state.price)
                           }
@@ -69,40 +108,43 @@ class AddLesson extends React.Component {
                       }}
                     >
                       <div className="form-group">
-                        <label for="title">Lesson Title</label>
+                        <label htmlFor="title">Lesson Title</label>
                         <input
                           type="title"
                           className="form-control"
                           id="title"
+                          value={title}
                           onChange={(e) => {
                             this.setState({ title: e.target.value });
                           }}
                         />
                       </div>
                       <div className="form-group">
-                        <label for="description">About My Lesson</label>
+                        <label htmlFor="description">About My Lesson</label>
                         <textarea
                           className="form-control"
                           id="description"
                           rows="5"
+                          value={description}
                           onChange={(e) => {
                             this.setState({ description: e.target.value });
                           }}
                         />
                       </div>
                       <div className="form-group">
-                        <label for="price">Price of the Lesson</label>
+                        <label htmlFor="price">Price of the Lesson</label>
                         <input
                           type="number"
                           className="form-control"
                           aria-label="Amount (to the nearest dollar)"
+                          value={price}
                           onChange={(e) => {
                             this.setState({ price: e.target.value });
                           }}
                         />
                       </div>
                       <div className="form-group">
-                        <label for="img">Location of the Lesson</label>
+                        <label htmlFor="img">Location of the Lesson</label>
                         <Geosuggest
                           onSuggestSelect={(suggest) => {
                             if (suggest) {
@@ -118,13 +160,16 @@ class AddLesson extends React.Component {
                               );
                             }
                           }}
+                          types={['geocode']}
+                          initialValue={cityOfService}
                         />
                       </div>
                       <div className="form-group">
-                        <label for="difficulty">Difficulty</label>
+                        <label htmlFor="difficulty">Difficulty</label>
                         <select
                           className="form-control"
                           id="difficulty"
+                          value={difficulty}
                           onChange={(e) => {
                             this.setState({ difficulty: e.target.value });
                           }}
@@ -135,10 +180,11 @@ class AddLesson extends React.Component {
                         </select>
                       </div>
                       <div className="form-group">
-                        <label for="category">Lesson Category</label>
+                        <label htmlFor="category">Lesson Category</label>
                         <select
                           className="form-control"
                           id="category"
+                          value={category}
                           onChange={(e) => {
                             this.setState({ category: e.target.value });
                           }}
@@ -150,22 +196,29 @@ class AddLesson extends React.Component {
                         </select>
                       </div>
                       <div className="form-group">
-                        <label for="img">Link To My Lesson Image</label>
+                        <label htmlFor="img">Link To My Lesson Image</label>
                         <input
                           type="img"
                           className="form-control"
                           id="img"
+                          value={image}
                           onChange={(e) => {
                             this.setState({ image: e.target.value });
                           }}
                         />
                       </div>
                       <div className="d-flex justify-content-between">
-                        <Link to="/userProfile">
-                          <button className="btn btn-secondary mb-2">Back To Profile</button>
+                        <Link
+                          to={{
+                            pathname: `/lessonContent/${lesson.id}`,
+                            state: { lesson: lesson }
+                          }}
+                          style={{ textDecoration: 'none', color: 'black' }}
+                        >
+                          <button className="btn btn-secondary mb-2">Back To Lesson</button>
                         </Link>
                         <button type="submit" className="btn btn-primary mb-2">
-                          Create Lesson
+                          Edit Lesson
                         </button>
                       </div>
                     </form>
@@ -180,4 +233,4 @@ class AddLesson extends React.Component {
   }
 }
 
-export default AddLesson;
+export default UpdateLesson;
