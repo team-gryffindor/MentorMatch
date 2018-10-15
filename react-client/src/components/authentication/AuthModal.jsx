@@ -2,6 +2,7 @@ import React from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 
 import LoginForm from './LoginForm.jsx';
+import SignupForm from './SignupForm.jsx';
 
 class AuthModal extends React.Component {
   state = {
