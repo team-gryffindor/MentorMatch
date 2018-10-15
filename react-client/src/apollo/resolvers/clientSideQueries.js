@@ -8,8 +8,6 @@ export const UPDATE_USER_INFO = gql`
     $theCityOfResidence: String!
     $theImage: String!
     $theUid: ID!
-    $lat: Float!
-    $lng: Float!
   ) {
     updateUserInfo(
       theUserId: $theUserId
@@ -18,8 +16,6 @@ export const UPDATE_USER_INFO = gql`
       theCityOfResidence: $theCityOfResidence
       theImage: $theImage
       theUid: $theUid
-      lat: $lat
-      lng: $lng
     ) @client {
       userId
       username
@@ -27,8 +23,6 @@ export const UPDATE_USER_INFO = gql`
       cityOfResidence
       image
       uid
-      lat
-      lng
     }
   }
 `;
@@ -41,8 +35,9 @@ export const GET_USER_INFO = gql`
       cityOfResidence
       image
       uid
-      lat
-      lng
     }
   }
 `;
+
+
+

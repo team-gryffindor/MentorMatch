@@ -1,31 +1,21 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { UPDATE_USER } from '../../apollo/resolvers/backendQueries.js';
-import { UPDATE_USER_INFO, GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries.js';
 import Geosuggest from 'react-geosuggest';
 
 class UpdateProfileInfo extends React.Component {
   constructor(props) {
     super(props);
-    let {
-      userId,
-      username,
-      image,
-      cityOfResidence,
-      description,
-      lat,
-      lng
-    } = props.location.state.user;
+    console.log(props.location.state.user);
+    let { username, image, cityOfResidence, description, lat, lng } = props.location.state.user;
     this.state = {
-      userId: userId,
       username: username,
       image: image,
       cityOfResidence: cityOfResidence,
       description: description,
       lat: lat,
-      lng: lng,
-      editProfile: true
+      lng: lng
     };
   }
 
@@ -34,56 +24,26 @@ class UpdateProfileInfo extends React.Component {
   };
 
   render() {
-    let {
-      userId,
-      username,
-      image,
-      cityOfResidence,
-      description,
-      lat,
-      lng,
-      editProfile
-    } = this.state;
+    let { username, image, cityOfResidence, description, lat, lng, editProfile } = this.state;
     // figure out how to conditionally render input fields
-    if (editProfile) {
-      return (
-        <Mutation mutation={UPDATE_USER}>
-          {(updateUser) => (
+    return (
+      <Mutation mutation={UPDATE_USER}>
+        {(updateUser) => (
+          <div className="container">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 updateUser({
                   variables: {
-                    id: userId,
-                    name: username,
-                    image: image,
+                    username: username,
                     description: description,
                     cityOfResidence: cityOfResidence,
                     lat: lat,
-                    lng: lng
+                    lng: lng,
+                    image: image
                   }
                 }) // TODO: refactor to notify user of error with modal?
-                  .then(() => {
-                    return this.props.apolloClient.writeData({
-                      data: {
-                        userInfo: {
-                          __typename: 'userInfo',
-                          userId: userId,
-                          username: username,
-                          description: description,
-                          cityOfResidence: cityOfResidence,
-                          image: image,
-                          lat: lat,
-                          lng: lng
-                        }
-                      }
-                    });
-                  })
-                  .then(() => {
-                    this.setState({
-                      editProfile: false
-                    });
-                  })
+                  .then((data) => data)
                   .catch((err) => console.error(err));
               }}
             >
@@ -117,19 +77,17 @@ class UpdateProfileInfo extends React.Component {
                 <Geosuggest
                   placeholder={'City of Residence'}
                   onSuggestSelect={(suggest) => {
-                    if (suggest) {
-                      console.log('CITY', typeof suggest.description);
-                      this.setState(
-                        {
-                          cityOfResidence: suggest.description,
-                          lat: suggest.location.lat,
-                          lng: suggest.location.lng
-                        },
-                        () => {
-                          console.log(lat, lng);
-                        }
-                      );
-                    }
+                    console.log('CITY', typeof suggest.description);
+                    this.setState(
+                      {
+                        cityOfResidence: suggest.description,
+                        lat: suggest.location.lat,
+                        lng: suggest.location.lng
+                      },
+                      () => {
+                        console.log(lat, lng);
+                      }
+                    );
                   }}
                   types={['geocode']}
                   initialValue={cityOfResidence}
@@ -157,12 +115,10 @@ class UpdateProfileInfo extends React.Component {
                 </button>
               </div>
             </form>
-          )}
-        </Mutation>
-      );
-    } else {
-      return <Redirect to="/userProfile" />;
-    }
+          </div>
+        )}
+      </Mutation>
+    );
   }
 }
 
