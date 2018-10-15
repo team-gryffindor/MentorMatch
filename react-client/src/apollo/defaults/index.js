@@ -6,7 +6,9 @@ const localStateDefaults = {
     cityOfResidence: 'Queens, NY',
     userId: 1,
     uid: '',
-    image: `https://media.giphy.com/media/E1qYtxkdzpy4U/giphy.gif`
+    image: `https://media.giphy.com/media/E1qYtxkdzpy4U/giphy.gif`,
+    lat: 40.1,
+    lng: -74.1
   }
 };
 
