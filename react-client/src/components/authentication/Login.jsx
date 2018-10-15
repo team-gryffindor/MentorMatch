@@ -6,15 +6,6 @@ import { CHECK_USER } from '../../apollo/resolvers/backendQueries';
 
 import AuthModal from './AuthModal.jsx';
 
-// const firebaseApp = firebase.initializeApp({
-//   apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
-//   authDomain: 'mentormatch-c3923.firebaseapp.com',
-//   databaseURL: 'https://mentormatch-c3923.firebaseio.com',
-//   projectId: 'mentormatch-c3923',
-//   storageBucket: 'mentormatch-c3923.appspot.com',
-//   messagingSenderId: '803398282415'
-// });
-
 class Login extends React.Component {
   state = {
     isNewUser: false,
@@ -85,34 +76,37 @@ class Login extends React.Component {
   // }
 
   render() {
-    let { firebaseApp, uiConfig, loginModal, isLoggedIn } = this.props;
+    let { firebaseApp, uiConfig, loginModal, isLoggedIn, handleLogin, apolloClient } = this.props;
     console.log('REDIrECT BOOL IN RENDER', this.state.isNewUser);
-    if (!this.props.isLoggedIn && !this.state.isNewUser) {
-      return (
-        // <div className="Login">
-        //   <h1>Welcome to </h1>
-        //   <div className="col-md-4" />
-        //   <div className="form-group col-md-4">
-        //     <a className="btn btn-block btn-social btn-facebook">
-        //       <span className="fa fa-facebook" />
-        //       <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
-        //     </a>
-        //     <br />
-        //   </div>
-        // </div>
-        <AuthModal
-          firebaseApp={firebaseApp}
-          uiConfig={uiConfig}
-          loginModal={loginModal}
-          isLoggedIn={isLoggedIn}
-        />
-      );
-    } else if (this.state.isNewUser) {
-      return <Redirect to={{ pathname: '/signUp', state: { uid: this.state.uid } }} />;
-    } else {
-      return <Redirect to="/dashboard" />;
-    }
+    // if (!this.props.isLoggedIn && !this.state.isNewUser) {
+    return (
+      // <div className="Login">
+      //   <h1>Welcome to </h1>
+      //   <div className="col-md-4" />
+      //   <div className="form-group col-md-4">
+      //     <a className="btn btn-block btn-social btn-facebook">
+      //       <span className="fa fa-facebook" />
+      //       <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
+      //     </a>
+      //     <br />
+      //   </div>
+      // </div>
+      <AuthModal
+        firebaseApp={firebaseApp}
+        uiConfig={uiConfig}
+        loginModal={loginModal}
+        isLoggedIn={isLoggedIn}
+        handleLogin={handleLogin}
+        apolloClient={apolloClient}
+      />
+    );
   }
+  //   } else if (this.state.isNewUser) {
+  //     return <Redirect to={{ pathname: '/signUp', state: { uid: this.state.uid } }} />;
+  //   } else {
+  //     return <Redirect to="/dashboard" />;
+  //   }
+  // }
 }
 
 export default Login;

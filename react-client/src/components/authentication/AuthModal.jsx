@@ -1,6 +1,8 @@
 import React from 'react';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { Redirect } from 'react-router-dom';
+import { CHECK_USER } from '../../apollo/resolvers/backendQueries';
 
 import LoginForm from './LoginForm.jsx';
 import SignupForm from './SignupForm.jsx';
@@ -11,8 +13,20 @@ class AuthModal extends React.Component {
     email: '',
     password: ''
   };
+  uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: 'popup',
+    // Display Google and Facebook as auth providers.
+    signInOptions: [
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      signInSuccessWithAuthResult: () => false
+    }
+  };
 
-  componentDidMount() {
+  componentDidUpdate() {
     this.handleLoginAttempt();
   }
 
@@ -21,6 +35,7 @@ class AuthModal extends React.Component {
       // If firebase user id received,
       if (firebaseUser) {
         // Check if user exists in the user table
+        console.log('');
         return (
           Promise.all([
             this.props.apolloClient.query({
@@ -34,7 +49,7 @@ class AuthModal extends React.Component {
             // With user retrieved from database
             .then((data) => {
               let userInDB = data[0].data.checkUser;
-              console.log(userInDB);
+              console.log('USER EXISTS?', userInDB);
               // If new user
               if (!userInDB) {
                 // Mark the flag and save the firebase uid
@@ -69,6 +84,11 @@ class AuthModal extends React.Component {
                 return redirect;
               }
               this.props.handleLogin(true);
+              return (
+                <div className="close" data-dismiss="modal" aria-label="Close">
+                  <Redirect to="/dashboard" />
+                </div>
+              );
             })
             .catch((err) => console.error(err))
         );
@@ -112,8 +132,9 @@ class AuthModal extends React.Component {
   };
 
   render() {
-    let { firebaseApp, uiConfig, loginModal } = this.props;
-    console.log('REDIrECT BOOL IN RENDER', this.state.isNewUser, this.props.isLoggedIn);
+    let { firebaseApp, loginModal } = this.props;
+    console.log('AUTOMODAL ISNEWUSER', this.state.isNewUser);
+    console.log('ISLOGGEDIN IN RENDER', this.props.isLoggedIn);
     if (!this.props.isLoggedIn && !this.state.isNewUser) {
       return (
         <div
@@ -131,7 +152,14 @@ class AuthModal extends React.Component {
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <div style={{ marginTop: '10px', marginBottom: '10px' }}>
-                  <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebaseApp.auth()} />
+                  <StyledFirebaseAuth
+                    uiCallback={(ui) => {
+                      console.log(ui);
+                      ui.disableAutoSignIn();
+                    }}
+                    uiConfig={this.uiConfig}
+                    firebaseAuth={firebaseApp.auth()}
+                  />
                 </div>
                 <div className="strike">
                   <span>or</span>
