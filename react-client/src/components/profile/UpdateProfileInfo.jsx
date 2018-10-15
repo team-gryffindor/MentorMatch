@@ -29,7 +29,7 @@ class UpdateProfileInfo extends React.Component {
     return (
       <Mutation mutation={UPDATE_USER}>
         {(updateUser) => (
-          <React.Fragment>
+          <div className="container">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -48,7 +48,7 @@ class UpdateProfileInfo extends React.Component {
               }}
             >
               <div className="form-group">
-                <label for="name">Name</label>
+                <label htmlFor="name">Name</label>
                 <input
                   type="name"
                   className="form-control"
@@ -61,7 +61,7 @@ class UpdateProfileInfo extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label for="description">About Me</label>
+                <label htmlFor="description">About Me</label>
                 <textarea
                   className="form-control"
                   id="description"
@@ -73,7 +73,7 @@ class UpdateProfileInfo extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label for="img">My Location</label>
+                <label htmlFor="img">My Location</label>
                 <Geosuggest
                   placeholder={'City of Residence'}
                   onSuggestSelect={(suggest) => {
@@ -94,7 +94,7 @@ class UpdateProfileInfo extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label for="img">Link To My Profile Image</label>
+                <label htmlFor="img">Link To My Profile Image</label>
                 <input
                   type="img"
                   className="form-control"
@@ -115,7 +115,7 @@ class UpdateProfileInfo extends React.Component {
                 </button>
               </div>
             </form>
-          </React.Fragment>
+          </div>
         )}
       </Mutation>
     );
