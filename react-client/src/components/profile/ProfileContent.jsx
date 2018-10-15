@@ -1,24 +1,15 @@
 import React from 'react';
 
-import ProfileOverview from './ProfileOverview.jsx';
-import OfferedLessons from './OfferedLessons.jsx';
-import UpcomingLessons from './UpcomingLessons.jsx';
-import TakenLessons from './TakenLessons.jsx';
-import FavoriteLessons from './FavoriteLessons.jsx';
+import OfferedLessons from './content/OfferedLessons.jsx';
+import UpcomingLessons from './content/UpcomingLessons.jsx';
+import TakenLessons from './content/TakenLessons.jsx';
+import FavoriteLessons from './content/FavoriteLessons.jsx';
 
 const ProfileContent = ({ user }) => {
   return (
     <React.Fragment>
       <div
         className="tab-pane fade show active"
-        id="v-pills-profile"
-        role="tabpanel"
-        aria-labelledby="v-pills-profile-tab"
-      >
-        <ProfileOverview user={user} />
-      </div>
-      <div
-        className="tab-pane fade"
         id="v-pills-offered"
         role="tabpanel"
         aria-labelledby="v-pills-offered-tab"

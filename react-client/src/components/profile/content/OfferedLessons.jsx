@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import UserLessonList from '../lessonList/UserLessonList.jsx';
+import UserLessonList from '../../lessonList/UserLessonList.jsx';
 
 const OfferedLessons = ({ user }) => {
   console.log('USER IN OFFERED LESSONS', user);

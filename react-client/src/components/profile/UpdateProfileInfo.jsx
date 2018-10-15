@@ -47,51 +47,74 @@ class UpdateProfileInfo extends React.Component {
                   .catch((err) => console.error(err));
               }}
             >
-              Name:
-              <input
-                value={username}
-                onChange={(e) => {
-                  this.setState({ username: e.target.value });
-                }}
-              />
-              Description:
-              <input
-                value={description}
-                onChange={(e) => {
-                  this.setState({ description: e.target.value });
-                }}
-              />
-              City:
-              <Geosuggest
-                placeholder={'City of Residence'}
-                onSuggestSelect={(suggest) => {
-                  console.log('CITY', typeof suggest.description);
-                  this.setState(
-                    {
-                      cityOfResidence: suggest.description,
-                      lat: suggest.location.lat,
-                      lng: suggest.location.lng
-                    },
-                    () => {
-                      console.log(lat, lng);
-                    }
-                  );
-                }}
-                types={['geocode']}
-                value={cityOfResidence}
-              />
-              Link to your image:
-              <input
-                value={image}
-                onChange={(e) => {
-                  this.setState({ image: e.target.value });
-                }}
-              />
-              <button type="submit">Update Profile</button>
+              <div className="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="name"
+                  className="form-control"
+                  id="name"
+                  placeholder={username}
+                  value={username}
+                  onChange={(e) => {
+                    this.setState({ username: e.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label for="description">About Me</label>
+                <textarea
+                  className="form-control"
+                  id="description"
+                  rows="5"
+                  value={description}
+                  onChange={(e) => {
+                    this.setState({ description: e.target.value });
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <label for="img">My Location</label>
+                <Geosuggest
+                  placeholder={'City of Residence'}
+                  onSuggestSelect={(suggest) => {
+                    console.log('CITY', typeof suggest.description);
+                    this.setState(
+                      {
+                        cityOfResidence: suggest.description,
+                        lat: suggest.location.lat,
+                        lng: suggest.location.lng
+                      },
+                      () => {
+                        console.log(lat, lng);
+                      }
+                    );
+                  }}
+                  types={['geocode']}
+                  initialValue={cityOfResidence}
+                />
+              </div>
+              <div className="form-group">
+                <label for="img">Link To My Profile Image</label>
+                <input
+                  type="img"
+                  className="form-control"
+                  id="img"
+                  placeholder={image}
+                  value={image}
+                  onChange={(e) => {
+                    this.setState({ image: e.target.value });
+                  }}
+                />
+              </div>
+              <div className="d-flex justify-content-between">
+                <Link to="/userProfile">
+                  <button className="btn btn-secondary mb-2">Back To Profile</button>
+                </Link>
+                <button type="submit" className="btn btn-primary mb-2">
+                  Update Profile
+                </button>
+              </div>
             </form>
-            <Link to="/userProfile">
-              <button type="submit">Back To Profile</button>
-            </Link>
           </React.Fragment>
         )}
       </Mutation>
