@@ -40,8 +40,11 @@ app.get('/*', function(req, res) {
 //   res.render("index.pug", {keyPublishable}));
 
 app.post("/charge", (req, res) => {
-  let amount = 500;
-  console.log('STRIPE INFO:', req.body)
+  let amount = (parseInt(req.body.stripePrice) * 100);
+  console.log('AMOUNT:', amount)
+  console.log('price:', req.body.stripePrice)
+  
+  // console.log('STRIPE INFO:', req.body)
   stripe.charges.create({
     amount,
     currency: 'usd',
@@ -52,7 +55,7 @@ app.post("/charge", (req, res) => {
   .then(() => res.sendStatus(200))
   .catch((err) => console.log('Error in STRIPE:', err));
 });
-  
+
 
 models.db
   // For change in schema itself, use the line below
