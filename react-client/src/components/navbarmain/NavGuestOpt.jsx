@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import LoginModal from '../authentication/LoginModal.jsx';
-import SignupModal from '../authentication/SignupModal.jsx';
-
 const NavGuestOpt = (props) => (
   <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
     <ul className="navbar-nav ml-auto">
@@ -12,7 +9,7 @@ const NavGuestOpt = (props) => (
         className="btn btn-secondary my-2 my-sm-0 btn-margin-right"
         type="button"
         data-toggle="modal"
-        data-target="#loginModal"
+        data-target="#authModal"
       >
         Log in
       </button>
@@ -22,7 +19,7 @@ const NavGuestOpt = (props) => (
         className="btn btn-highlight my-2 my-sm-0 btn-margin-left"
         type="button"
         data-toggle="modal"
-        data-target="#signupModal"
+        data-target="#authModal"
       >
         Sign up
       </button>

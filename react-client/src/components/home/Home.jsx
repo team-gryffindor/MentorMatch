@@ -5,8 +5,7 @@ import firebase from 'firebase';
 
 import SearchHome from './SearchHome.jsx';
 import LessonList from '../lessonList/LessonList.jsx';
-import LoginModal from '../authentication/LoginModal.jsx';
-import SignupModal from '../authentication/SignupModal.jsx';
+import AuthModal from '../authentication/AuthModal.jsx';
 
 const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyBJHJQeMF38kVCfhqgOvqXUjw3kftKMMm8',
@@ -37,8 +36,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <LoginModal firebaseApp={firebaseApp} uiConfig={this.uiConfig} />
-        <SignupModal firebaseApp={firebaseApp} uiConfig={this.uiConfig} />
+        <AuthModal firebaseApp={firebaseApp} uiConfig={this.uiConfig} />
         <SearchHome />
         <div className="container">
           <h1>Top Services</h1>
