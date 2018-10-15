@@ -16,6 +16,7 @@ const GET_USER = gql`
         avgRating
         numOfReviews
         provider {
+          id
           name
           cityOfResidence
           description
@@ -52,6 +53,7 @@ const GET_USER = gql`
         avgRating
         numOfReviews
         provider {
+          id
           name
           cityOfResidence
           description
@@ -88,6 +90,7 @@ const GET_USER = gql`
         avgRating
         numOfReviews
         provider {
+          id
           name
           cityOfResidence
           description
@@ -171,6 +174,7 @@ const GET_LESSON = gql`
       numOfReviews
       price
       provider {
+        id
         name
         cityOfResidence
         description
@@ -205,6 +209,7 @@ const GET_LESSONS = gql`
       avgRating
       numOfReviews
       provider {
+        id
         name
         cityOfResidence
         description
@@ -319,6 +324,49 @@ const ADD_LESSON = gql`
   }
 `;
 
+const UPDATE_LESSON = gql`
+  mutation(
+    $id: ID!
+    $title: String!
+    $description: String!
+    $cityOfService: String!
+    $image: String!
+    $difficulty: String!
+    $userId: ID!
+    $category: String!
+    $lat: Float!
+    $lng: Float!
+    $price: Float!
+  ) {
+    updateLesson(
+      id: $id
+      title: $title
+      description: $description
+      cityOfService: $cityOfService
+      image: $image
+      difficulty: $difficulty
+      userId: $userId
+      category: $category
+      lat: $lat
+      lng: $lng
+      price: $price
+    ) {
+      id
+      title
+      description
+      cityOfService
+      image
+      category
+      difficulty
+      avgRating
+      numOfReviews
+      lat
+      lng
+      price
+    }
+  }
+`;
+
 const ADD_REVIEW = gql`
   mutation($title: String!, $comment: String!, $rating: Int!, $lessonId: ID!, $userId: ID!) {
     addReview(
@@ -395,5 +443,6 @@ export {
   DELETE_FAVORITE_LESSON,
   DELETE_SIGNUP_LESSON,
   DELETE_LESSON,
-  UPDATE_USER
+  UPDATE_USER,
+  UPDATE_LESSON
 };

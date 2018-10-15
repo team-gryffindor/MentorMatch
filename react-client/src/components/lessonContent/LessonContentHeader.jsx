@@ -28,8 +28,8 @@ const LessonContentHeader = ({
   if (isFavorite) mutateFav = DELETE_FAVORITE_LESSON;
   let mutateBooking = ADD_SIGNUP_LESSON;
   if (isBooked) mutateBooking = DELETE_SIGNUP_LESSON;
-  console.log('checking if booked', isBooked);
   let { city, state } = extractCityState(lesson.location.addressComponents);
+  let providerId = lesson.provider.id;
   return (
     <div className="lesson-detail-header-margin-top">
       <div className="jumbotron">
@@ -81,13 +81,14 @@ const LessonContentHeader = ({
           <p>{lesson.provider.description}</p>
         </div>
         <p className="lead text-right">
-        {isBooked ? (
+          {isBooked ? (
             <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
           ) : (
             <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
           )}
           {payNow ? <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} /> : null}
         </p>
+        {providerId === userId ? <button>Edit Lesson</button> : null}
       </div>
     </div>
   );
