@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
-import { ADD_USER } from '../apollo/resolvers/backendQueries.js';
+import { ADD_USER } from '../../apollo/resolvers/backendQueries.js';
 import { Redirect } from 'react-router-dom';
 
 import Geosuggest from 'react-geosuggest';
@@ -40,8 +38,9 @@ class SignUp extends React.Component {
                       image: this.state.image,
                       uid: this.props.uid
                     }
-                  }) // TODO: refactor to notify user of error with modal?
-                    .then(() => {
+                  }) // Cache the new user
+                    .then(({ data }) => {
+                      let userInDB = data.addUser;
                       this.props.apolloClient.writeData({
                         data: {
                           userInfo: {
@@ -56,13 +55,8 @@ class SignUp extends React.Component {
                         }
                       });
                     })
-                    .then((data) => {
-                      this.setState(
-                        {
-                          redirect: true
-                        },
-                        () => this.props.handleLogin(true)
-                      );
+                    .then(() => {
+                      this.setState({ redirect: true }, () => this.props.handleLogin(true));
                     })
                     .catch((err) => console.error(err));
                 }}

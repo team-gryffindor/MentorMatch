@@ -6,8 +6,8 @@ import { Route } from 'react-router-dom';
 
 // components
 import Home from './home/Home.jsx';
-import Login from './Login.jsx';
-import SignUp from './SignUp.jsx';
+import Login from './authentication/Login.jsx';
+import SignUp from './authentication/SignUp.jsx';
 import Feed from './Feed.jsx';
 import ActiveLessons from './ActiveLessons.jsx';
 import Dashboard from './Dashboard.jsx';
