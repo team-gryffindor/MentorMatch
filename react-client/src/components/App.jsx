@@ -72,6 +72,7 @@ class App extends React.Component {
                     isLoggedIn={isLoggedIn}
                     handleLogin={this.handleLogin}
                     loginModal={loginModal}
+                    apolloClient={apolloClient}
                   />
                 )}
               />
