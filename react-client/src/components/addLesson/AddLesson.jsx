@@ -16,7 +16,7 @@ class AddLesson extends React.Component {
     userId: '',
     category: '',
     lng: 0,
-    ltd: 0,
+    lat: 0,
     price: '',
     redirect: false
   };
@@ -102,7 +102,7 @@ class AddLesson extends React.Component {
                         <label for="img">Location of the Lesson</label>
                         <Geosuggest
                           onSuggestSelect={(suggest) => {
-                            console.log('CITY', typeof suggest.description);
+                            console.log('CITY', suggest.description);
                             this.setState(
                               {
                                 cityOfService: suggest.description,
@@ -110,7 +110,7 @@ class AddLesson extends React.Component {
                                 lng: suggest.location.lng
                               },
                               () => {
-                                console.log(lat, lng);
+                                console.log(this.state.lat, this.state.lng);
                               }
                             );
                           }}
