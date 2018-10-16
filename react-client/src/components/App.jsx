@@ -10,7 +10,7 @@ import Home from './home/Home.jsx';
 import Login from './authentication/Login.jsx';
 import SignUp from './authentication/SignUp.jsx';
 import Feed from './searchFeed/Feed.jsx';
-import Dashboard from './dashboard/Dashboard.jsx';
+// import Dashboard from './dashboard/Dashboard.jsx';
 import ProfilePage from './profile/ProfilePage.jsx';
 import UpdateProfileInfo from './profile/UpdateProfileInfo.jsx';
 import LessonContent from './lessonContent/LessonContent.jsx';
@@ -102,7 +102,7 @@ class App extends React.Component {
                 )}
               />
               <Route path="/feed" render={(props) => <Feed {...props} />} />
-              <Route
+              {/* <Route
                 path="/dashboard"
                 render={() => (
                   <Dashboard
@@ -112,7 +112,7 @@ class App extends React.Component {
                     calendarEvents={this.calendarEvents}
                   />
                 )}
-              />
+              /> */}
               <Route path="/userProfile" render={() => <ProfilePage />} />
               <Route
                 path="/editProfile"

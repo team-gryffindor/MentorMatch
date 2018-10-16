@@ -3,7 +3,7 @@ const localStateDefaults = {
     __typename: 'userInfo',
     username: '',
     description: '',
-    cityOfResidence: '',
+    locationOfResidence: '',
     userId: 1,
     uid: '',
     lat: 0,

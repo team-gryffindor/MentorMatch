@@ -20,7 +20,7 @@ const GET_USER = gql`
         provider {
           id
           name
-          cityOfResidence
+          locationOfResidence
           description
           image
         }
@@ -30,17 +30,10 @@ const GET_USER = gql`
           user {
             name
             image
-            cityOfResidence
+            locationOfResidence
           }
         }
-        location {
-          addressComponents {
-            long_name
-            short_name
-            types
-          }
-        }
-        cityOfService
+        locationOfService
         lat
         lng
         price
@@ -59,7 +52,7 @@ const GET_USER = gql`
         provider {
           id
           name
-          cityOfResidence
+          locationOfResidence
           description
           image
         }
@@ -69,17 +62,10 @@ const GET_USER = gql`
           user {
             name
             image
-            cityOfResidence
+            locationOfResidence
           }
         }
-        location {
-          addressComponents {
-            long_name
-            short_name
-            types
-          }
-        }
-        cityOfService
+        locationOfService
         lat
         lng
         price
@@ -98,7 +84,7 @@ const GET_USER = gql`
         provider {
           id
           name
-          cityOfResidence
+          locationOfResidence
           description
           image
         }
@@ -108,17 +94,10 @@ const GET_USER = gql`
           user {
             name
             image
-            cityOfResidence
+            locationOfResidence
           }
         }
-        location {
-          addressComponents {
-            long_name
-            short_name
-            types
-          }
-        }
-        cityOfService
+        locationOfService
         lat
         lng
         price
@@ -136,7 +115,7 @@ const CHECK_USER = gql`
       name
       description
       image
-      cityOfResidence
+      locationOfResidence
       lat
       lng
     }
@@ -172,7 +151,7 @@ const GET_LESSON = gql`
       title
       image
       description
-      cityOfService
+      locationOfService
       lat
       lng
       category
@@ -183,7 +162,7 @@ const GET_LESSON = gql`
       provider {
         id
         name
-        cityOfResidence
+        locationOfResidence
         description
         image
       }
@@ -193,14 +172,7 @@ const GET_LESSON = gql`
         user {
           name
           image
-          cityOfResidence
-        }
-      }
-      location {
-        addressComponents {
-          long_name
-          short_name
-          types
+          locationOfResidence
         }
       }
     }
@@ -216,17 +188,12 @@ const GET_LESSONS = gql`
       category
       avgRating
       numOfReviews
-      location {
-        addressComponents {
-          long_name
-          short_name
-          types
-        }
-      }
+      cityOfService
+      stateOfService
       provider {
         id
         name
-        cityOfResidence
+        locationOfResidence
         description
         image
       }
@@ -243,27 +210,33 @@ const UPDATE_USER = gql`
     $id: ID!
     $name: String!
     $description: String!
-    $cityOfResidence: String!
+    $locationOfResidence: String!
     $image: String!
     $lat: Float!
     $lng: Float!
+    $cityOfService: String!
+    $stateOfService: String!
   ) {
     updateUser(
       id: $id
       name: $name
       description: $description
-      cityOfResidence: $cityOfResidence
+      locationOfResidence: $locationOfResidence
       image: $image
       lat: $lat
       lng: $lng
+      cityOfService: $cityOfService
+      stateOfService: $stateOfService
     ) {
       name
       description
-      cityOfResidence
+      locationOfResidence
       image
       id
       lat
       lng
+      cityOfService
+      stateOfService
     }
   }
 `;
@@ -272,29 +245,35 @@ const ADD_USER = gql`
   mutation(
     $name: String!
     $description: String!
-    $cityOfResidence: String!
+    $locationOfResidence: String!
     $image: String!
     $uid: ID!
     $lat: Float!
     $lng: Float!
+    $cityOfResidence: String!
+    $stateOfResidence: String!
   ) {
     addUser(
       name: $name
       description: $description
-      cityOfResidence: $cityOfResidence
+      locationOfResidence: $locationOfResidence
       image: $image
       uid: $uid
       lat: $lat
       lng: $lng
+      cityOfResidence: $cityOfResidence
+      stateOfResidence: $stateOfResidence
     ) {
       name
       description
-      cityOfResidence
+      locationOfResidence
       image
       id
       uid
       lat
       lng
+      cityOfResidence
+      stateOfResidence
     }
   }
 `;
@@ -303,7 +282,9 @@ const ADD_LESSON = gql`
   mutation(
     $title: String!
     $description: String!
+    $locationOfService: String!
     $cityOfService: String!
+    $stateOfService: String!
     $image: String!
     $difficulty: String!
     $userId: ID!
@@ -315,18 +296,20 @@ const ADD_LESSON = gql`
     addLesson(
       title: $title
       description: $description
-      cityOfService: $cityOfService
+      locationOfService: $locationOfService
       image: $image
       difficulty: $difficulty
       userId: $userId
       category: $category
       lat: $lat
       lng: $lng
+      cityOfService: $cityOfService
+      stateOfService: $stateOfService
       price: $price
     ) {
       title
       description
-      cityOfService
+      locationOfService
       image
       category
       difficulty
@@ -335,6 +318,8 @@ const ADD_LESSON = gql`
       lat
       lng
       price
+      cityOfService
+      stateOfService
     }
   }
 `;
@@ -344,30 +329,34 @@ const UPDATE_LESSON = gql`
     $id: ID!
     $title: String!
     $description: String!
-    $cityOfService: String!
+    $locationOfService: String!
     $image: String!
     $difficulty: String!
     $category: String!
     $lat: Float!
     $lng: Float!
+    $cityOfService: String!
+    $stateOfService: String!
     $price: Float!
   ) {
     updateLesson(
       id: $id
       title: $title
       description: $description
-      cityOfService: $cityOfService
+      locationOfService: $locationOfService
       image: $image
       difficulty: $difficulty
       category: $category
       lat: $lat
       lng: $lng
+      cityOfService: $cityOfService
+      stateOfService: $stateOfService
       price: $price
     ) {
       id
       title
       description
-      cityOfService
+      locationOfService
       image
       category
       difficulty
@@ -375,6 +364,8 @@ const UPDATE_LESSON = gql`
       numOfReviews
       lat
       lng
+      cityOfService
+      stateOfService
       price
     }
   }

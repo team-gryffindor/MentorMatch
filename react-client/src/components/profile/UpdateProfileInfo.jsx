@@ -12,7 +12,7 @@ class UpdateProfileInfo extends React.Component {
       userId,
       username,
       image,
-      cityOfResidence,
+      locationOfResidence,
       description,
       lat,
       lng
@@ -21,7 +21,7 @@ class UpdateProfileInfo extends React.Component {
       userId: userId,
       username: username,
       image: image,
-      cityOfResidence: cityOfResidence,
+      locationOfResidence: locationOfResidence,
       description: description,
       lat: lat,
       lng: lng,
@@ -38,7 +38,7 @@ class UpdateProfileInfo extends React.Component {
       userId,
       username,
       image,
-      cityOfResidence,
+      locationOfResidence,
       description,
       lat,
       lng,
@@ -58,7 +58,7 @@ class UpdateProfileInfo extends React.Component {
                     name: username,
                     image: image,
                     description: description,
-                    cityOfResidence: cityOfResidence,
+                    locationOfResidence: locationOfResidence,
                     lat: lat,
                     lng: lng
                   }
@@ -71,7 +71,7 @@ class UpdateProfileInfo extends React.Component {
                           userId: userId,
                           username: username,
                           description: description,
-                          cityOfResidence: cityOfResidence,
+                          locationOfResidence: locationOfResidence,
                           image: image,
                           lat: lat,
                           lng: lng
@@ -121,7 +121,7 @@ class UpdateProfileInfo extends React.Component {
                       console.log('CITY', typeof suggest.description);
                       this.setState(
                         {
-                          cityOfResidence: suggest.description,
+                          locationOfResidence: suggest.description,
                           lat: suggest.location.lat,
                           lng: suggest.location.lng
                         },
@@ -132,7 +132,7 @@ class UpdateProfileInfo extends React.Component {
                     }
                   }}
                   types={['geocode']}
-                  initialValue={cityOfResidence}
+                  initialValue={locationOfResidence}
                 />
               </div>
               <div className="form-group">

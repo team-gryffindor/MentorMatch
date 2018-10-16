@@ -29,7 +29,9 @@ const Mutation = new GraphQLObjectType({
         name: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
+        locationOfResidence: { type: GraphQLString },
         cityOfResidence: { type: GraphQLString },
+        stateOfResidence: { type: GraphQLString },
         lat: { type: GraphQLFloat },
         lng: { type: GraphQLFloat }
       },
@@ -40,9 +42,11 @@ const Mutation = new GraphQLObjectType({
           name: args.name,
           image: args.image,
           description: args.description,
-          cityOfResidence: args.cityOfResidence,
+          locationOfResidence: args.locationOfResidence,
           lat: args.lat,
-          lng: args.lng
+          lng: args.lng,
+          cityOfResidence: args.cityOfResidence,
+          stateOfResidence: args.stateOfResidence
         })
           .save()
           .then((data) => data)
@@ -55,7 +59,9 @@ const Mutation = new GraphQLObjectType({
         title: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
+        locationOfService: { type: GraphQLString },
         cityOfService: { type: GraphQLString },
+        stateOfService: { type: GraphQLString },
         lat: { type: GraphQLFloat },
         lng: { type: GraphQLFloat },
         category: { type: GraphQLString },
@@ -69,7 +75,9 @@ const Mutation = new GraphQLObjectType({
           title: args.title,
           description: args.description,
           category: args.category,
+          locationOfService: args.locationOfService,
           cityOfService: args.cityOfService,
+          stateOfService: args.stateOfService,
           lat: args.lat,
           lng: args.lng,
           difficulty: args.difficulty,
@@ -215,7 +223,7 @@ const Mutation = new GraphQLObjectType({
         name: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
-        cityOfResidence: { type: GraphQLString },
+        locationOfResidence: { type: GraphQLString },
         lat: { type: GraphQLFloat },
         lng: { type: GraphQLFloat }
       },
@@ -226,7 +234,7 @@ const Mutation = new GraphQLObjectType({
             name: args.name,
             image: args.image,
             description: args.description,
-            cityOfResidence: args.cityOfResidence,
+            locationOfResidence: args.locationOfResidence,
             lat: args.lat,
             lng: args.lng
           },
@@ -246,7 +254,7 @@ const Mutation = new GraphQLObjectType({
         title: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
-        cityOfService: { type: GraphQLString },
+        locationOfService: { type: GraphQLString },
         lat: { type: GraphQLFloat },
         lng: { type: GraphQLFloat },
         category: { type: GraphQLString },
@@ -259,7 +267,7 @@ const Mutation = new GraphQLObjectType({
             title: args.title,
             description: args.description,
             category: args.category,
-            cityOfService: args.cityOfService,
+            locationOfService: args.locationOfService,
             lat: args.lat,
             lng: args.lng,
             difficulty: args.difficulty,

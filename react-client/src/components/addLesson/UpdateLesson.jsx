@@ -10,7 +10,7 @@ class UpdateLesson extends React.Component {
     id: '',
     title: '',
     description: '',
-    cityOfService: '',
+    locationOfService: '',
     image: '',
     difficulty: '',
     category: '',
@@ -25,7 +25,7 @@ class UpdateLesson extends React.Component {
       id,
       title,
       description,
-      cityOfService,
+      locationOfService,
       image,
       difficulty,
       category,
@@ -37,7 +37,7 @@ class UpdateLesson extends React.Component {
       id: id,
       title: title,
       description: description,
-      cityOfService: cityOfService,
+      locationOfService: locationOfService,
       image: image,
       difficulty: difficulty,
       category: category,
@@ -51,7 +51,7 @@ class UpdateLesson extends React.Component {
       id,
       title,
       description,
-      cityOfService,
+      locationOfService,
       image,
       difficulty,
       category,
@@ -90,7 +90,7 @@ class UpdateLesson extends React.Component {
                             id: this.state.id,
                             title: this.state.title,
                             description: this.state.description,
-                            cityOfService: this.state.cityOfService,
+                            locationOfService: this.state.locationOfService,
                             lat: this.state.lat,
                             lng: this.state.lng,
                             image: this.state.image,
@@ -150,7 +150,7 @@ class UpdateLesson extends React.Component {
                             if (suggest) {
                               this.setState(
                                 {
-                                  cityOfService: suggest.description,
+                                  locationOfService: suggest.description,
                                   lat: suggest.location.lat,
                                   lng: suggest.location.lng
                                 },
@@ -161,7 +161,7 @@ class UpdateLesson extends React.Component {
                             }
                           }}
                           types={['geocode']}
-                          initialValue={cityOfService}
+                          initialValue={locationOfService}
                         />
                       </div>
                       <div className="form-group">
