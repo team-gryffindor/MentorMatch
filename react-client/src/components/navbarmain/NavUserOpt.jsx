@@ -19,9 +19,9 @@ const NavUserOpt = (props) => (
         </a>
 
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <Link className="dropdown-item" to="/dashboard">
+          {/* <Link className="dropdown-item" to="/dashboard">
             Dashboard
-          </Link>
+          </Link> */}
 
           <Link className="dropdown-item" to="/userProfile">
             Profile
@@ -42,7 +42,7 @@ const NavUserOpt = (props) => (
               firebase
                 .auth()
                 .signOut()
-                .then(() => props.handleLogin());
+                .then(() => props.handleLogin(false));
             }}
           >
             Logout

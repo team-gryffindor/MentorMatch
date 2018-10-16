@@ -13,7 +13,11 @@ const NavBarMain = (props) => (
     >
       {props.currentPath !== '/' && <NavLogo />}
       {props.currentPath !== '/' && <NavSearchBar />}
-      {props.isLoggedIn ? <NavUserOpt handleLogin={props.handleLogin} /> : <NavGuestOpt />}
+      {props.isLoggedIn ? (
+        <NavUserOpt handleLogin={props.handleLogin} />
+      ) : (
+        <NavGuestOpt handleGuestOpt={props.handleGuestOpt} />
+      )}
     </nav>
     <hr />
   </div>

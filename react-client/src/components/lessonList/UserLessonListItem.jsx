@@ -6,7 +6,7 @@ import { Mutation } from 'react-apollo';
 import { extractCityState } from '../../util/addressHelper.js';
 
 const UserLessonListItem = ({ lesson }) => {
-  let { city, state } = extractCityState(lesson.location.addressComponents);
+  // let { city, state } = extractCityState(lesson.location.addressComponents);
   if (lesson.isActive) {
     return (
       <div className="list-group-item list-group-item-action flex-column align-items-start">
@@ -17,7 +17,7 @@ const UserLessonListItem = ({ lesson }) => {
           <div className="d-flex w-100 justify-content-between">
             <h5 className="mb-1">{lesson.title}</h5>
             <small className="text-muted">
-              {city}, {state}
+              {lesson.cityOfService}, {lesson.stateOfService}
             </small>
           </div>
           <p className="mb-1">{lesson.description}</p>

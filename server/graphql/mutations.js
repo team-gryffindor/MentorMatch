@@ -29,7 +29,9 @@ const Mutation = new GraphQLObjectType({
         name: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
+        locationOfResidence: { type: GraphQLString },
         cityOfResidence: { type: GraphQLString },
+        stateOfResidence: { type: GraphQLString },
         lat: { type: GraphQLFloat },
         lng: { type: GraphQLFloat }
       },
@@ -40,9 +42,11 @@ const Mutation = new GraphQLObjectType({
           name: args.name,
           image: args.image,
           description: args.description,
-          cityOfResidence: args.cityOfResidence,
+          locationOfResidence: args.locationOfResidence,
           lat: args.lat,
-          lng: args.lng
+          lng: args.lng,
+          cityOfResidence: args.cityOfResidence,
+          stateOfResidence: args.stateOfResidence
         })
           .save()
           .then((data) => data)
@@ -55,7 +59,9 @@ const Mutation = new GraphQLObjectType({
         title: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
+        locationOfService: { type: GraphQLString },
         cityOfService: { type: GraphQLString },
+        stateOfService: { type: GraphQLString },
         lat: { type: GraphQLFloat },
         lng: { type: GraphQLFloat },
         category: { type: GraphQLString },
@@ -69,7 +75,9 @@ const Mutation = new GraphQLObjectType({
           title: args.title,
           description: args.description,
           category: args.category,
+          locationOfService: args.locationOfService,
           cityOfService: args.cityOfService,
+          stateOfService: args.stateOfService,
           lat: args.lat,
           lng: args.lng,
           difficulty: args.difficulty,
@@ -193,7 +201,6 @@ const Mutation = new GraphQLObjectType({
           .catch((err) => console.error(err));
       }
     },
-    // removeSignupLesson: {}
     deleteLesson: {
       type: LessonType,
       args: {
@@ -212,10 +219,13 @@ const Mutation = new GraphQLObjectType({
       type: UserType,
       args: {
         id: { type: GraphQLID },
+        uid: { type: GraphQLID },
         name: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
+        locationOfResidence: { type: GraphQLString },
         cityOfResidence: { type: GraphQLString },
+        stateOfResidence: { type: GraphQLString },
         lat: { type: GraphQLFloat },
         lng: { type: GraphQLFloat }
       },
@@ -226,15 +236,58 @@ const Mutation = new GraphQLObjectType({
             name: args.name,
             image: args.image,
             description: args.description,
+            locationOfResidence: args.locationOfResidence,
             cityOfResidence: args.cityOfResidence,
+            stateOfResidence: args.stateOfResidence,
             lat: args.lat,
             lng: args.lng
+          },
+          { where: { id: args.id } }
+        )
+          .then((data) => {
+            console.log('updated lesson', data);
+            return data;
+          })
+          .catch((err) => console.error(err));
+      }
+    },
+    updateLesson: {
+      type: LessonType,
+      args: {
+        id: { type: GraphQLID },
+        title: { type: GraphQLString },
+        image: { type: GraphQLString },
+        description: { type: GraphQLString },
+        locationOfService: { type: GraphQLString },
+        cityOfService: { type: GraphQLString },
+        stateOfService: { type: GraphQLString },
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat },
+        category: { type: GraphQLString },
+        difficulty: { type: GraphQLString },
+        price: { type: GraphQLFloat }
+      },
+      resolve(parent, args) {
+        return Models.Lesson.update(
+          {
+            title: args.title,
+            description: args.description,
+            category: args.category,
+            locationOfService: args.locationOfService,
+            cityOfService: args.cityOfService,
+            stateOfService: args.stateOfService,
+            lat: args.lat,
+            lng: args.lng,
+            difficulty: args.difficulty,
+            image: args.image,
+            userId: args.userId,
+            price: args.price
           },
           { returning: true, where: { id: args.id } }
         )
           .then((data) => {
-            console.log(data[1].dataValues);
-            return data[1];
+            console.log('edit lesson', data[1]);
+            return data;
           })
           .catch((err) => console.error(err));
       }

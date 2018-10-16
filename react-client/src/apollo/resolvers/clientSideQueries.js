@@ -5,40 +5,35 @@ export const UPDATE_USER_INFO = gql`
     $theUserId: ID!
     $theUserName: String!
     $theDescription: String!
-    $theCityOfResidence: String!
+    $thelocationOfResidence: String!
     $theImage: String!
     $theUid: ID!
-    $lat: Float!
-    $lng: Float!
   ) {
     updateUserInfo(
       theUserId: $theUserId
       theUserName: $theUserName
       theDescription: $theDescription
-      theCityOfResidence: $theCityOfResidence
+      thelocationOfResidence: $thelocationOfResidence
       theImage: $theImage
       theUid: $theUid
-      lat: $lat
-      lng: $lng
     ) @client {
       userId
       username
       description
-      cityOfResidence
+      locationOfResidence
       image
       uid
-      lat
-      lng
     }
   }
 `;
+
 export const GET_USER_INFO = gql`
   query {
     userInfo @client {
       userId
       username
       description
-      cityOfResidence
+      locationOfResidence
       image
       uid
       lat

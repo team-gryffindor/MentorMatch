@@ -10,17 +10,19 @@ import Home from './home/Home.jsx';
 import Login from './authentication/Login.jsx';
 import SignUp from './authentication/SignUp.jsx';
 import Feed from './searchFeed/Feed.jsx';
-import Dashboard from './dashboard/Dashboard.jsx';
+// import Dashboard from './dashboard/Dashboard.jsx';
 import ProfilePage from './profile/ProfilePage.jsx';
 import UpdateProfileInfo from './profile/UpdateProfileInfo.jsx';
 import LessonContent from './lessonContent/LessonContent.jsx';
 import AddLesson from './addLesson/AddLesson.jsx';
 import Calendar from './calendar/Calendar.jsx';
 import Checkout from './checkout/Checkout.jsx';
+import UpdateLesson from './addLesson/UpdateLesson.jsx';
 
 class App extends React.Component {
   state = {
     isLoggedIn: false,
+    loginModal: null,
     eventToSchedule: '',
     events: []
   };
@@ -41,8 +43,12 @@ class App extends React.Component {
     this.setState({ isLoggedIn: boolean });
   };
 
+  handleGuestOpt = (boolean) => {
+    this.setState({ loginModal: boolean });
+  };
+
   render() {
-    let { isLoggedIn, eventToSchedule, events } = this.state;
+    let { isLoggedIn, loginModal, eventToSchedule, events } = this.state;
     return (
       <ApolloConsumer>
         {(apolloClient) => {
@@ -54,6 +60,7 @@ class App extends React.Component {
                   <NavBarMain
                     isLoggedIn={isLoggedIn}
                     handleLogin={this.handleLogin}
+                    handleGuestOpt={this.handleGuestOpt}
                     currentPath={location.pathname}
                   />
                 )}
@@ -61,10 +68,16 @@ class App extends React.Component {
               <Route
                 exact
                 path="/"
-                render={() => <Home isLoggedIn={isLoggedIn} handleLogin={this.handleLogin} />}
+                render={() => (
+                  <Home
+                    isLoggedIn={isLoggedIn}
+                    handleLogin={this.handleLogin}
+                    loginModal={loginModal}
+                  />
+                )}
               />
               <Route
-                path="/login"
+                path="/auth"
                 render={() => (
                   <Mutation mutation={UPDATE_USER_INFO}>
                     {(updateUserInfo) => (
@@ -89,7 +102,7 @@ class App extends React.Component {
                 )}
               />
               <Route path="/feed" render={(props) => <Feed {...props} />} />
-              <Route
+              {/* <Route
                 path="/dashboard"
                 render={() => (
                   <Dashboard
@@ -99,11 +112,11 @@ class App extends React.Component {
                     calendarEvents={this.calendarEvents}
                   />
                 )}
-              />
+              /> */}
               <Route path="/userProfile" render={() => <ProfilePage />} />
               <Route
                 path="/editProfile"
-                render={(props) => <UpdateProfileInfo {...props} apolloClient={apolloClient} />}
+                render={(props) => <UpdateProfileInfo apolloClient={apolloClient} {...props} />}
               />
               <Route
                 path="/lessonContent/:lessonId"
@@ -149,6 +162,10 @@ class App extends React.Component {
                 )}
               />
               <Route path="/addLesson" render={() => <AddLesson />} />
+              <Route
+                path="/editLesson"
+                render={({ location }) => <UpdateLesson lesson={location} />}
+              />
               <Route path="/calendar" render={() => <Calendar events={events} />} />
               <Route path="/checkout" render={() => <Checkout />} />
             </div>
