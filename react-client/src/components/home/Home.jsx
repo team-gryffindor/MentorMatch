@@ -20,45 +20,34 @@ class Home extends React.Component {
         <SearchHome />
         <div className="container">
           {/* Conditionally render top services depending on the client auth status */}
-          <Query query={GET_USER_INFO}>
-            {({ loading, error, data }) => {
-              if (error) return <small>ERROR</small>;
-              else if (loading || !data) return <small> Loading ...</small>;
-              // If user is a guest
-              else if (data.userInfo.uid === '') {
+          {this.props.isLoggedIn ? (
+            <Query query={GET_USER_INFO}>
+              {({ loading, error, data }) => {
+                if (error) return <small>ERROR</small>;
+                if (loading || !data) return <small> Loading ...</small>;
                 return (
-                  <div className="container">
+                  <div>
                     <div>
-                      <FeaturedLesson
-                        calendarEvents={this.props.calendarEvents}
-                        userId={data.userInfo}
-                      />
-                    </div>
-                  </div>
-                );
-                // If user logged in,
-              } else {
-                return (
-                  <div className="container">
-                    <div>
-                      <FeaturedLesson
-                        calendarEvents={this.props.calendarEvents}
-                        userId={data.userInfo}
-                      />
+                      <FeaturedLesson calendarEvents={this.props.calendarEvents} />
                     </div>
                     <div>
-                      <h2>Favorites</h2>
-                      {/* {lessontype tells it to render favorites, offered, or signups} 
-                            userId hard coded for now, we should decide which components to 
-                            actually query the cache */}
-                      <UserLessonList lessonType="favoriteLessons" userId={data.userInfo.userId} />
                       <h2>Recommendations</h2>
                     </div>
                   </div>
                 );
-              }
-            }}
-          </Query>
+              }}
+            </Query>
+          ) : (
+            <div>
+              <div>
+                <FeaturedLesson calendarEvents={this.props.calendarEvents} />
+              </div>
+              <div>
+                <h2>Recommendations</h2>
+              </div>
+            </div>
+          )}
+
           {/* <h1>Top Services</h1>
           <Query query={GET_LESSONS}>
             {({ loading, error, data }) => {

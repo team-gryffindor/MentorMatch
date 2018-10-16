@@ -58,6 +58,7 @@ class AddLesson extends React.Component {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :(</p>;
             let userID = data.userInfo.userId;
+            console.log('inside addLesson', userID);
             return (
               <Mutation
                 mutation={ADD_LESSON}
