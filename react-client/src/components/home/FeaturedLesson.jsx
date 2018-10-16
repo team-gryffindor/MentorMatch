@@ -12,10 +12,10 @@ const FeaturedLesson = (props) => {
         if (error) return <h1>error</h1>;
         if (loading) {
           return <div> Loading test ...</div>;
-        } else {
+        } else if (data.lesson) {
           console.log(data.lesson);
           let { lesson } = data;
-          let { city, state } = extractCityState(lesson.location.addressComponents);
+          // let { city, state } = extractCityState(lesson.location.addressComponents);
           return (
             <div>
               <Link
@@ -30,7 +30,7 @@ const FeaturedLesson = (props) => {
                       <h1 className="display-4">{lesson.title}</h1>
                       <small className="text">
                         <p style={{ textAlign: 'right' }}>
-                          Location: {city}, {state}
+                          Location: {lesson.cityOfService}, {lesson.stateOfService}
                           <br />
                           Difficulty: {lesson.difficulty}
                         </p>
@@ -67,6 +67,8 @@ const FeaturedLesson = (props) => {
               </Link>
             </div>
           );
+        } else {
+          return <React.Fragment />;
         }
       }}
     </Query>

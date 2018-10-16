@@ -1,28 +1,49 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { ADD_LESSON, GET_USER } from '../../apollo/resolvers/backendQueries';
 import { GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries';
 import { Query, Mutation } from 'react-apollo';
 import Geosuggest from 'react-geosuggest';
-import { Redirect } from 'react-router-dom';
+import { extractCityState } from '../../util/addressHelper.js';
+import axios from 'axios';
 
 class AddLesson extends React.Component {
   state = {
     title: '',
     description: '',
-    cityOfService: '',
+    locationOfService: '',
     image: '',
     difficulty: '',
     userId: '',
     category: '',
     lng: 0,
     lat: 0,
-    price: '',
+    city: '',
+    state: '',
+    price: 0,
     redirect: false
   };
 
-  submitForm = (e) => {
-    this.setState({});
+  reverseGeocode = () => {
+    return (
+      axios
+        .get(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${
+            this.state.lng
+          }&result_type=locality&key=${process.env.MAP_API_KEY}`
+        )
+        .then((res) => {
+          // console.log('IN AXIOS THEN', res.data.results[0]);
+          // first address components is the most accurate address
+          let { city, state } = extractCityState(res.data.results[0]);
+          this.setState({city, state}, () => {console.log("REVERSE GEOCODE", city, state)})
+        })
+        // .then((results) => console.log(results))
+        .catch((err) => {
+          console.log('ERROR!~');
+          console.error(err);
+        })
+    );
   };
 
   render() {
@@ -40,27 +61,34 @@ class AddLesson extends React.Component {
                 mutation={ADD_LESSON}
                 refetchQueries={[{ query: GET_USER, variables: { id: userID } }]}
               >
-                {(addLesson) => (
+                {(addLesson) => {
+                  
+                  return (
                   <div className="container">
                     <h1 style={{ textAlign: 'center' }}>Create a Lesson</h1>
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        addLesson({
-                          variables: {
-                            title: this.state.title,
-                            description: this.state.description,
-                            cityOfService: this.state.cityOfService,
-                            lat: this.state.lat,
-                            lng: this.state.lng,
-                            image: this.state.image,
-                            difficulty: this.state.difficulty,
-                            userId: userID,
-                            category: this.state.category,
-                            price: Number(this.state.price)
-                          }
-                        })
+                        this.reverseGeocode()
+                          .then(() => {
+                            return addLesson({
+                            variables: {
+                              title: this.state.title,
+                              description: this.state.description,
+                              locationOfService: this.state.locationOfService,
+                              lat: this.state.lat,
+                              lng: this.state.lng,
+                              cityOfService: this.state.city,
+                              stateOfService: this.state.state,
+                              image: this.state.image,
+                              difficulty: this.state.difficulty,
+                              userId: userID,
+                              category: this.state.category,
+                              price: Number(this.state.price)
+                            }
+                          })})
                           .then((data) => {
+                            console.log(data);
                             this.setState({
                               redirect: true
                             });
@@ -108,7 +136,7 @@ class AddLesson extends React.Component {
                             if (suggest) {
                               this.setState(
                                 {
-                                  cityOfService: suggest.description,
+                                  locationOfService: suggest.description,
                                   lat: suggest.location.lat,
                                   lng: suggest.location.lng
                                 },
@@ -170,7 +198,7 @@ class AddLesson extends React.Component {
                       </div>
                     </form>
                   </div>
-                )}
+                )}}
               </Mutation>
             );
           }}

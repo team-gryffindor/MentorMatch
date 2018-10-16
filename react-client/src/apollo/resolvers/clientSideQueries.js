@@ -5,7 +5,7 @@ export const UPDATE_USER_INFO = gql`
     $theUserId: ID!
     $theUserName: String!
     $theDescription: String!
-    $theCityOfResidence: String!
+    $thelocationOfResidence: String!
     $theImage: String!
     $theUid: ID!
   ) {
@@ -13,14 +13,14 @@ export const UPDATE_USER_INFO = gql`
       theUserId: $theUserId
       theUserName: $theUserName
       theDescription: $theDescription
-      theCityOfResidence: $theCityOfResidence
+      thelocationOfResidence: $thelocationOfResidence
       theImage: $theImage
       theUid: $theUid
     ) @client {
       userId
       username
       description
-      cityOfResidence
+      locationOfResidence
       image
       uid
     }
@@ -33,7 +33,7 @@ export const GET_USER_INFO = gql`
       userId
       username
       description
-      cityOfResidence
+      locationOfResidence
       image
       uid
       lat

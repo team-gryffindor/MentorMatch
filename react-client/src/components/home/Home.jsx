@@ -3,7 +3,7 @@ import { Query } from 'react-apollo';
 import { GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries.js';
 
 import SearchHome from './SearchHome.jsx';
-import FeaturedLesson from '../dashboard/FeaturedLesson.jsx';
+import FeaturedLesson from './FeaturedLesson.jsx';
 import UserLessonList from '../lessonList/UserLessonList.jsx';
 
 import LessonList from '../lessonList/LessonList.jsx';
