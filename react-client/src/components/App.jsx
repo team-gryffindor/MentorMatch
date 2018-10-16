@@ -10,6 +10,7 @@ import Home from './home/Home.jsx';
 import Login from './authentication/Login.jsx';
 import SignUp from './authentication/SignUp.jsx';
 import Feed from './searchFeed/Feed.jsx';
+import WriteReview from './WriteReview.jsx';
 // import Dashboard from './dashboard/Dashboard.jsx';
 import ProfilePage from './profile/ProfilePage.jsx';
 import UpdateProfileInfo from './profile/UpdateProfileInfo.jsx';
@@ -168,6 +169,7 @@ class App extends React.Component {
               />
               <Route path="/calendar" render={() => <Calendar events={events} />} />
               <Route path="/checkout" render={() => <Checkout />} />
+              <Route path='/writeReview' render={(props) => <WriteReview {...props}/>} />
             </div>
           );
         }}

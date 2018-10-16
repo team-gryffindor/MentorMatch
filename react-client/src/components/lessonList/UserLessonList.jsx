@@ -28,7 +28,7 @@ const UserLessonList = ({ userId, lessonType, upcoming, style }) => {
               return (
                 <div className={`${style} list-group`}>
                   {lessons.filter((lesson) => lesson.date < Date.now()).map((lesson, i) => (
-                    <UserLessonListItem lesson={lesson} key={i} />
+                    <UserLessonListItem lesson={lesson} key={i} taken={true} userId={userId}/>
                   ))}
                 </div>
               );

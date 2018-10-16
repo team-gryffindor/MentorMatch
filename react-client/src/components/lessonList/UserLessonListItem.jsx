@@ -4,8 +4,9 @@ import StarRatings from 'react-star-ratings';
 import { DELETE_LESSON } from '../../apollo/resolvers/backendQueries.js';
 import { Mutation } from 'react-apollo';
 import { extractCityState } from '../../util/addressHelper.js';
+import writeReview from '../WriteReview.jsx'
 
-const UserLessonListItem = ({ lesson }) => {
+const UserLessonListItem = ({ lesson, taken, userId }) => {
   // let { city, state } = extractCityState(lesson.location.addressComponents);
   if (lesson.isActive) {
     return (
@@ -46,6 +47,7 @@ const UserLessonListItem = ({ lesson }) => {
           </Mutation>
           <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
         </Link>
+        {taken ? <Link to={{ pathname: `/writeReview/${lesson.id}`, lesson: { lesson: lesson }, userId: { userId: userId } }}>Leave a review!</Link> : null}
       </div>
     );
   } else {
