@@ -4,15 +4,20 @@ import { Mutation } from 'react-apollo';
 import { UPDATE_USER } from '../../apollo/resolvers/backendQueries.js';
 import { UPDATE_USER_INFO, GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries.js';
 import Geosuggest from 'react-geosuggest';
+import axios from 'axios';
+import { extractCityState } from '../../util/addressHelper.js';
 
 class UpdateProfileInfo extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props.location.state.user);
     let {
       userId,
       username,
       image,
       locationOfResidence,
+      cityOfResidence,
+      stateOfResidence,
       description,
       lat,
       lng
@@ -22,12 +27,39 @@ class UpdateProfileInfo extends React.Component {
       username: username,
       image: image,
       locationOfResidence: locationOfResidence,
+      cityOfResidence: cityOfResidence,
+      stateOfResidence: stateOfResidence,
       description: description,
       lat: lat,
       lng: lng,
       editProfile: true
     };
   }
+
+  reverseGeocode = () => {
+    return (
+      axios
+        .get(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${
+            this.state.lng
+          }&result_type=locality&key=${process.env.MAP_API_KEY}`
+        )
+        .then((res) => {
+          // console.log('IN AXIOS THEN', res.data.results[0]);
+          // first address components is the most accurate address
+          let { city, state } = extractCityState(res.data.results[0].address_components);
+          this.setState({ cityOfResidence: city, stateOfResidence: state }, () => {
+            console.log('DATA', res.data.results[0].address_components);
+            console.log('REVERSE GEOCODE', city, state);
+          });
+        })
+        // .then((results) => console.log(results))
+        .catch((err) => {
+          console.log('ERROR!~');
+          console.error(err);
+        })
+    );
+  };
 
   editProfile = () => {
     this.setState({ editProfile: true });
@@ -39,11 +71,14 @@ class UpdateProfileInfo extends React.Component {
       username,
       image,
       locationOfResidence,
+      cityOfResidence,
+      stateOfResidence,
       description,
       lat,
       lng,
       editProfile
     } = this.state;
+    console.log('STATE BEFORE QUERY AND MUTATION', this.state);
     // figure out how to conditionally render input fields
     if (editProfile) {
       return (
@@ -52,17 +87,22 @@ class UpdateProfileInfo extends React.Component {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                updateUser({
-                  variables: {
-                    id: userId,
-                    name: username,
-                    image: image,
-                    description: description,
-                    locationOfResidence: locationOfResidence,
-                    lat: lat,
-                    lng: lng
-                  }
-                }) // TODO: refactor to notify user of error with modal?
+                this.reverseGeocode()
+                  .then(() => {
+                    updateUser({
+                      variables: {
+                        id: userId,
+                        name: username,
+                        image: image,
+                        description: description,
+                        locationOfResidence: locationOfResidence,
+                        cityOfResidence: cityOfResidence,
+                        stateOfResidence: stateOfResidence,
+                        lat: lat,
+                        lng: lng
+                      }
+                    });
+                  }) // TODO: refactor to notify user of error with modal?
                   .then(() => {
                     return this.props.apolloClient.writeData({
                       data: {
@@ -72,6 +112,8 @@ class UpdateProfileInfo extends React.Component {
                           username: username,
                           description: description,
                           locationOfResidence: locationOfResidence,
+                          cityOfResidence: cityOfResidence,
+                          stateOfResidence: stateOfResidence,
                           image: image,
                           lat: lat,
                           lng: lng

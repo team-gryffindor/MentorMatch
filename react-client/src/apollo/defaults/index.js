@@ -4,6 +4,8 @@ const localStateDefaults = {
     username: '',
     description: '',
     locationOfResidence: '',
+    cityOfResidence: '',
+    stateOfResidnece: '',
     userId: 1,
     uid: '',
     lat: 0,
