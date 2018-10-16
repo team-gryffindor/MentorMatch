@@ -11,14 +11,15 @@ const LessonListItem = ({ lessonId }) => {
       {({ loading, error, data }) => {
         if (error) return <p>Error! Could not retrieve the results.</p>;
         if (loading || !data) return <p>Loading Results...</p>;
-        let { lesson } = data.lesson;
-        let { city, state } = extractCityState(lesson.location.addressComponents);
+        let { lesson } = data;
+        let { city, state } = extractCityState(data.lesson.location.addressComponents);
         return (
           <Link
             to={{
               pathname: `/lessonContent/${lessonId}`,
-              state: { lesson: data.lesson }
+              state: { lesson }
             }}
+            style={{ textDecoration: 'none', color: 'black' }}
           >
             <div className="list-group-item list-group-item-action flex-column align-items-start">
               <div className="d-flex w-100 justify-content-between">

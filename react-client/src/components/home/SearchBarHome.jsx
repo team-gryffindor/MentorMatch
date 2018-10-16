@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Geosuggest from 'react-geosuggest';
 
@@ -71,8 +70,10 @@ class SearchBarHome extends React.Component {
           <Geosuggest
             placeholder={'Location'}
             onSuggestSelect={(suggest) => {
-              console.log(suggest);
-              this.setState({ locationQuery: suggest.description });
+              if (suggest) {
+                console.log(suggest);
+                this.setState({ locationQuery: suggest.description });
+              }
             }}
             value={this.state.locationQuery}
           />

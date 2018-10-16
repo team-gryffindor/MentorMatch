@@ -6,8 +6,10 @@ module.exports = {
       let lessonTxt = JSON.stringify(
         title + ' ' + description + ' ' + category + ' ' + cityOfService
       );
-      console.log(lessonTxt);
-      search.index(lessonTxt, lesson.id);
+      console.log('LESSONID', lesson.id);
+      console.log('LESSON', lessonTxt, '\n');
+      // search.index(lessonTxt, lesson.id);
+      search.index(lessonTxt, i);
     });
   }
 };

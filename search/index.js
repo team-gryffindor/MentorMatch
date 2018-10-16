@@ -40,12 +40,16 @@ redsearch.createSearch('lessons', {}, function(err, search) {
       lessons = result.data.data.lessons;
       initIndex(search, lessons); // index the lessons with their titles and descriptions
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.log('ERROR IN HERE');
+      // console.error(err)
+    });
 
   // initIndex(search, lessons);
 
   // handle /search endpoint
   app.get('/search', function(req, res) {
+    console.log(req.query.q);
     return searchWithQuery(lessons, search, req.query.q, res);
   });
 
