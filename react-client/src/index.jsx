@@ -21,7 +21,15 @@ const stateLink = withClientState({
     Mutation: {
       updateUserInfo: (
         _,
-        { theUserId, theUserName, theDescription, thelocationOfResidence, theImage },
+        {
+          theUserId,
+          theUserName,
+          theDescription,
+          theLocationOfResidence,
+          theCityOfResidence,
+          theStateOfResidence,
+          theImage
+        },
         { cache }
       ) => {
         cache.writeData({
@@ -31,7 +39,9 @@ const stateLink = withClientState({
               userId: theUserId,
               username: theUserName,
               description: theDescription,
-              locationOfResidence: thelocationOfResidence,
+              locationOfResidence: theLocationOfResidence,
+              cityOfResidence: theCityOfResidence,
+              stateOfResidence: theStateOfResidence,
               image: theImage
             }
           }

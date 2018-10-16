@@ -7,6 +7,9 @@ const GET_USER = gql`
       name
       description
       image
+      locationOfResidence
+      cityOfResidence
+      stateOfResidence
       offeredLessons {
         id
         title
@@ -21,6 +24,8 @@ const GET_USER = gql`
           id
           name
           locationOfResidence
+          cityOfResidence
+          stateOfResidence
           description
           image
         }
@@ -31,9 +36,13 @@ const GET_USER = gql`
             name
             image
             locationOfResidence
+            cityOfResidence
+            stateOfResidence
           }
         }
         locationOfService
+        cityOfService
+        stateOfService
         lat
         lng
         price
@@ -53,6 +62,8 @@ const GET_USER = gql`
           id
           name
           locationOfResidence
+          cityOfResidence
+          stateOfResidence
           description
           image
         }
@@ -63,9 +74,13 @@ const GET_USER = gql`
             name
             image
             locationOfResidence
+            cityOfResidence
+            stateOfResidence
           }
         }
         locationOfService
+        cityOfService
+        stateOfService
         lat
         lng
         price
@@ -85,6 +100,8 @@ const GET_USER = gql`
           id
           name
           locationOfResidence
+          cityOfResidence
+          stateOfResidence
           description
           image
         }
@@ -95,9 +112,13 @@ const GET_USER = gql`
             name
             image
             locationOfResidence
+            cityOfResidence
+            stateOfResidence
           }
         }
         locationOfService
+        cityOfService
+        stateOfService
         lat
         lng
         price
@@ -116,6 +137,8 @@ const CHECK_USER = gql`
       description
       image
       locationOfResidence
+      cityOfResidence
+      stateOfResidence
       lat
       lng
     }
@@ -151,7 +174,7 @@ const GET_LESSON = gql`
       title
       image
       description
-      locationOfService
+      stateOfService
       lat
       lng
       category
@@ -163,6 +186,8 @@ const GET_LESSON = gql`
         id
         name
         locationOfResidence
+        cityOfResidence
+        stateOfResidence
         description
         image
       }
@@ -173,6 +198,8 @@ const GET_LESSON = gql`
           name
           image
           locationOfResidence
+          cityOfResidence
+          stateOfResidence
         }
       }
     }
@@ -188,12 +215,15 @@ const GET_LESSONS = gql`
       category
       avgRating
       numOfReviews
+      locationOfService
       cityOfService
       stateOfService
       provider {
         id
         name
         locationOfResidence
+        cityOfResidence
+        stateOfResidence
         description
         image
       }
@@ -211,32 +241,32 @@ const UPDATE_USER = gql`
     $name: String!
     $description: String!
     $locationOfResidence: String!
+    $cityOfResidence: String!
+    $stateOfResidence: String!
     $image: String!
     $lat: Float!
     $lng: Float!
-    $cityOfService: String!
-    $stateOfService: String!
   ) {
     updateUser(
       id: $id
       name: $name
       description: $description
       locationOfResidence: $locationOfResidence
+      cityOfResidence: $cityOfResidence
+      stateOfResidence: $stateOfResidence
       image: $image
       lat: $lat
       lng: $lng
-      cityOfService: $cityOfService
-      stateOfService: $stateOfService
     ) {
       name
       description
       locationOfResidence
+      cityOfResidence
+      stateOfResidence
       image
       id
       lat
       lng
-      cityOfService
-      stateOfService
     }
   }
 `;
@@ -257,23 +287,23 @@ const ADD_USER = gql`
       name: $name
       description: $description
       locationOfResidence: $locationOfResidence
+      cityOfResidence: $cityOfResidence
+      stateOfResidence: $stateOfResidence
       image: $image
       uid: $uid
       lat: $lat
       lng: $lng
-      cityOfResidence: $cityOfResidence
-      stateOfResidence: $stateOfResidence
     ) {
       name
       description
       locationOfResidence
+      cityOfResidence
+      stateOfResidence
       image
       id
       uid
       lat
       lng
-      cityOfResidence
-      stateOfResidence
     }
   }
 `;
@@ -310,6 +340,8 @@ const ADD_LESSON = gql`
       title
       description
       locationOfService
+      cityOfService
+      stateOfService
       image
       category
       difficulty
@@ -318,8 +350,6 @@ const ADD_LESSON = gql`
       lat
       lng
       price
-      cityOfService
-      stateOfService
     }
   }
 `;
@@ -344,19 +374,21 @@ const UPDATE_LESSON = gql`
       title: $title
       description: $description
       locationOfService: $locationOfService
+      cityOfService: $cityOfService
+      stateOfService: $stateOfService
       image: $image
       difficulty: $difficulty
       category: $category
       lat: $lat
       lng: $lng
-      cityOfService: $cityOfService
-      stateOfService: $stateOfService
       price: $price
     ) {
       id
       title
       description
       locationOfService
+      cityOfService
+      stateOfService
       image
       category
       difficulty
@@ -364,8 +396,6 @@ const UPDATE_LESSON = gql`
       numOfReviews
       lat
       lng
-      cityOfService
-      stateOfService
       price
     }
   }

@@ -34,6 +34,8 @@ export const GET_USER_INFO = gql`
       username
       description
       locationOfResidence
+      cityOfResidence
+      stateOfResidence
       image
       uid
       lat
