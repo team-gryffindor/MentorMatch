@@ -57,6 +57,15 @@ hr {
   margin-top: 20px;
 }
 
+.signin-container {
+  background-color: #eceff1;
+  width: 50%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  transform: translate(0%, 10%);
+  border-radius: 5px;
+}
+
 .reviewer-image {
   height: 50px;
   border-radius: 50%;

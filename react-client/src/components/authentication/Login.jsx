@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { CHECK_USER } from '../../apollo/resolvers/backendQueries';
@@ -22,8 +22,8 @@ class Login extends React.Component {
     signInFlow: 'popup',
     signInOptions: [
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID
-      // firebase.auth.EmailAuthProvider.PROVIDER_ID
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
     callbacks: {
       signInSuccessWithAuthResult: () => false
@@ -96,18 +96,22 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log('REDIrECT BOOL IN RENDER', this.state.isNewUser);
     if (!this.props.isLoggedIn && !this.state.isNewUser) {
       return (
-        <div className="Login">
-          <h1>Welcome to </h1>
-          <div className="col-md-4" />
-          <div className="form-group col-md-4">
-            <a className="btn btn-block btn-social btn-facebook">
-              <span className="fa fa-facebook" />
-              <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
-            </a>
-            <br />
+        <div className="container signin-container">
+          <h3 style={{ textAlign: 'center', verticalAlign: 'bottom' }}>Welcome to</h3>
+          <img
+            className="logo-img"
+            style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '100px' }}
+            src={'../../MM-Logotype.png'}
+          />
+          <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
+          <div className="d-flex justify-content-center">
+            <Link to="/">
+              <button className="btn btn-primary my-2 my-sm-0 btn-margin-left" type="submit">
+                Back to Home
+              </button>
+            </Link>
           </div>
         </div>
       );
