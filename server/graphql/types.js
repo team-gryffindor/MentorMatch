@@ -21,7 +21,9 @@ const UserType = new GraphQLObjectType({
     uid: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
+    locationOfResidence: { type: GraphQLString },
     cityOfResidence: { type: GraphQLString },
+    stateOfResidence: { type: GraphQLString },
     lat: { type: GraphQLFloat },
     lng: { type: GraphQLFloat },
     image: { type: GraphQLString },
@@ -74,32 +76,11 @@ const LessonType = new GraphQLObjectType({
     category: { type: GraphQLString },
     avgRating: { type: GraphQLFloat },
     numOfReviews: { type: GraphQLInt },
+    locationOfService: { type: GraphQLString },
     cityOfService: { type: GraphQLString },
+    stateOfService: { type: GraphQLString },
     lat: { type: GraphQLFloat },
     lng: { type: GraphQLFloat },
-    location: {
-      type: LocationType,
-      resolve(parent, args) {
-        return (
-          axios
-            .get(
-              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${parent.lat},${
-                parent.lng
-              }&result_type=locality&key=${process.env.MAP_API_KEY}`
-            )
-            .then((res) => {
-              // console.log('IN AXIOS THEN', res.data.results[0]);
-              // fir address components is the most accurate address
-              return res.data.results[0];
-            })
-            // .then((results) => console.log(results))
-            .catch((err) => {
-              console.log('ERROR!~');
-              console.error(err);
-            })
-        );
-      }
-    },
     image: { type: GraphQLString },
     date: { type: GraphQLString },
     isActive: { type: GraphQLBoolean },

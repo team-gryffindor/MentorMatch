@@ -2,7 +2,7 @@ import React from 'react';
 import StarRatings from 'react-star-ratings';
 
 // TODO: include user info for each review
-// name, cityOfResidence
+// name, locationOfResidence
 const ReviewListItem = ({ review }) => {
   return (
     <div className="list-group-item flex-column align-items-start">
@@ -20,7 +20,7 @@ const ReviewListItem = ({ review }) => {
           <div>
             {review.user.name}
             <br />
-            <small>{review.user.cityOfResidence}</small>
+            <small>{review.user.locationOfResidence}</small>
           </div>
           <StarRatings
             rating={Number(review.rating.toFixed(2))}

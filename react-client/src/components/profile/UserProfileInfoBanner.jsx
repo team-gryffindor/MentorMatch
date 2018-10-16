@@ -12,7 +12,7 @@ const UserProfileInfoBanner = ({ user }) => (
       </div>
       <div className="row">
         <div className="col-md-2">Location:</div>
-        <div className="col-md-10">{user.cityOfResidence}</div>
+        <div className="col-md-10">{user.locationOfResidence}</div>
       </div>
       <div className="row">
         <div className="col-md-2">About Me:</div>

@@ -30,7 +30,7 @@ redsearch.createSearch('lessons', {}, function(err, search) {
             title
             description
             category
-            cityOfService
+            locationOfService
           }
         }`
     }
