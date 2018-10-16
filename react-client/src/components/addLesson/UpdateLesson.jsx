@@ -16,8 +16,34 @@ class UpdateLesson extends React.Component {
     category: '',
     lng: 0,
     lat: 0,
+    city: '',
+    state: '',
     price: '',
     redirect: false
+  };
+
+  reverseGeocode = () => {
+    return (
+      axios
+        .get(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${
+            this.state.lng
+          }&result_type=locality&key=${process.env.MAP_API_KEY}`
+        )
+        .then((res) => {
+          // console.log('IN AXIOS THEN', res.data.results[0]);
+          // first address components is the most accurate address
+          let { city, state } = extractCityState(res.data.results[0].address_components);
+          this.setState({ city, state }, () => {
+            console.log('REVERSE GEOCODE', city, state);
+          });
+        })
+        // .then((results) => console.log(results))
+        .catch((err) => {
+          console.log('ERROR!~');
+          console.error(err);
+        })
+    );
   };
 
   componentDidMount() {
