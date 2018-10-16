@@ -30,7 +30,7 @@ const LessonContentHeader = ({
   if (isFavorite) mutateFav = DELETE_FAVORITE_LESSON;
   let mutateBooking = ADD_SIGNUP_LESSON;
   if (isBooked) mutateBooking = DELETE_SIGNUP_LESSON;
-  let { city, state } = extractCityState(lesson.location.addressComponents);
+  // let { city, state } = extractCityState(lesson.location.addressComponents);
   let providerId = lesson.provider.id;
   return (
     <div className="lesson-detail-header-margin-top">
@@ -41,7 +41,7 @@ const LessonContentHeader = ({
             <h1>{lesson.title}</h1>
             <small className="text">
               <p style={{ textAlign: 'right' }}>
-                Location: {city}, {state}
+                Location: {lesson.cityOfService}, {lesson.stateOfService}
                 <br />
                 Difficulty: {lesson.difficulty} + {lesson.id}
                 <br />

@@ -12,7 +12,7 @@ const LessonListItem = ({ lessonId }) => {
         if (error) return <p>Error! Could not retrieve the results.</p>;
         if (loading || !data) return <p>Loading Results...</p>;
         let { lesson } = data;
-        let { city, state } = extractCityState(data.lesson.location.addressComponents);
+        // let { city, state } = extractCityState(data.lesson.location.addressComponents);
         return (
           <Link
             to={{
@@ -25,7 +25,7 @@ const LessonListItem = ({ lessonId }) => {
               <div className="d-flex w-100 justify-content-between">
                 <h5 className="mb-1">{lesson.title}</h5>
                 <small className="text-muted">
-                  {city}, {state}
+                  {lesson.cityOfService}, {lesson.stateOfService}
                 </small>
               </div>
               <p className="mb-1">{lesson.description}</p>
