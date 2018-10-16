@@ -216,6 +216,13 @@ const GET_LESSONS = gql`
       category
       avgRating
       numOfReviews
+      location {
+        addressComponents {
+          long_name
+          short_name
+          types
+        }
+      }
       provider {
         id
         name
