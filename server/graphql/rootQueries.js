@@ -1,5 +1,6 @@
 const graphql = require('graphql');
 // require('node-fetch');
+const Op = require('sequelize').Op;
 const Models = require('../db/index.js');
 
 const {
@@ -27,9 +28,6 @@ const RootQuery = new GraphQLObjectType({
       type: UserType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        // queries to db
-        console.log('This is hit, in server/user');
-
         return Models.User.findById(args.id);
       }
     },
@@ -37,7 +35,6 @@ const RootQuery = new GraphQLObjectType({
       type: UserType,
       args: { uid: { type: GraphQLID } },
       resolve(parent, args) {
-        // queries to db
         return Models.User.find({ where: { uid: args.uid } });
       }
     },
@@ -45,8 +42,6 @@ const RootQuery = new GraphQLObjectType({
       type: GraphQLList(UserType),
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        // queries to db
-        console.log('This is hit, in server/userS');
         return Models.User.findAll();
       }
     },
@@ -54,9 +49,6 @@ const RootQuery = new GraphQLObjectType({
       type: LessonType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        // queries to db
-        console.log('This is hit, in server/lesson');
-
         return Models.Lesson.findById(args.id);
       }
     },
@@ -64,10 +56,23 @@ const RootQuery = new GraphQLObjectType({
       type: GraphQLList(LessonType),
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        // queries to db
-        console.log('This is hit, in server/lessons');
-
         return Models.Lesson.findAll();
+      }
+    },
+    lessonsFiltered: {
+      type: GraphQLList(LessonType),
+      args: {
+        id: { type: GraphQLID },
+        category: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Models.Lesson.findAll({
+          // where: { category: args.category },
+          include: { model: Models.Review },
+          order: [['avgRating', 'DESC']]
+        })
+          .then((data) => data)
+          .catch((err) => console.error(err));
       }
     }
   }
