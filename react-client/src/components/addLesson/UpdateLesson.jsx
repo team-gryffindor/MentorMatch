@@ -4,7 +4,6 @@ import { GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries';
 import { Query, Mutation } from 'react-apollo';
 import Geosuggest from 'react-geosuggest';
 import { Redirect, Link } from 'react-router-dom';
-import axios from 'axios';
 
 class UpdateLesson extends React.Component {
   state = {
@@ -36,7 +35,7 @@ class UpdateLesson extends React.Component {
           // first address components is the most accurate address
           let { city, state } = extractCityState(res.data.results[0].address_components);
           this.setState({ city, state }, () => {
-            console.log('REVERSE GEOCODE', res.data.results[0].address_components, city, state);
+            console.log('REVERSE GEOCODE', city, state);
           });
         })
         // .then((results) => console.log(results))
@@ -53,8 +52,6 @@ class UpdateLesson extends React.Component {
       title,
       description,
       locationOfService,
-      cityOfService,
-      stateOfService,
       image,
       difficulty,
       category,
@@ -62,14 +59,11 @@ class UpdateLesson extends React.Component {
       lng,
       price
     } = this.props.lesson.state.lesson;
-    console.log('WHAT IS LSSON', this.props.lesson.state.lesson);
     this.setState({
       id: id,
       title: title,
       description: description,
       locationOfService: locationOfService,
-      city: cityOfService,
-      state: stateOfService,
       image: image,
       difficulty: difficulty,
       category: category,
@@ -79,9 +73,19 @@ class UpdateLesson extends React.Component {
     });
   }
   render() {
-    let { title, description, locationOfService, image, difficulty, category, price } = this.state;
+    let {
+      id,
+      title,
+      description,
+      locationOfService,
+      image,
+      difficulty,
+      category,
+      lat,
+      lng,
+      price
+    } = this.state;
     let { lesson } = this.props.lesson.state;
-    console.log('TESTSTESTSEt', this.state.city, this.state.state);
     if (this.state.redirect) {
       return (
         <Redirect
@@ -107,25 +111,20 @@ class UpdateLesson extends React.Component {
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        this.reverseGeocode()
-                          .then(() => {
-                            return updateLesson({
-                              variables: {
-                                id: this.state.id,
-                                title: this.state.title,
-                                description: this.state.description,
-                                locationOfService: this.state.locationOfService,
-                                cityOfService: this.state.city,
-                                stateOfService: this.state.state,
-                                lat: this.state.lat,
-                                lng: this.state.lng,
-                                image: this.state.image,
-                                difficulty: this.state.difficulty,
-                                category: this.state.category,
-                                price: Number(this.state.price)
-                              }
-                            });
-                          })
+                        updateLesson({
+                          variables: {
+                            id: this.state.id,
+                            title: this.state.title,
+                            description: this.state.description,
+                            locationOfService: this.state.locationOfService,
+                            lat: this.state.lat,
+                            lng: this.state.lng,
+                            image: this.state.image,
+                            difficulty: this.state.difficulty,
+                            category: this.state.category,
+                            price: Number(this.state.price)
+                          }
+                        })
                           .then((data) => {
                             this.setState({
                               redirect: true

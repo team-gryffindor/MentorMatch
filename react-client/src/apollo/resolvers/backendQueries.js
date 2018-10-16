@@ -21,8 +21,6 @@ const GET_USER = gql`
           id
           name
           locationOfResidence
-          cityOfResidence
-          stateOfResidence
           description
           image
         }
@@ -33,13 +31,9 @@ const GET_USER = gql`
             name
             image
             locationOfResidence
-            cityOfResidence
-            stateOfResidence
           }
         }
         locationOfService
-        cityOfService
-        stateOfService
         lat
         lng
         price
@@ -59,8 +53,6 @@ const GET_USER = gql`
           id
           name
           locationOfResidence
-          cityOfResidence
-          stateOfResidence
           description
           image
         }
@@ -71,8 +63,6 @@ const GET_USER = gql`
             name
             image
             locationOfResidence
-            cityOfResidence
-            stateOfResidence
           }
         }
         locationOfService
@@ -95,8 +85,6 @@ const GET_USER = gql`
           id
           name
           locationOfResidence
-          cityOfResidence
-          stateOfResidence
           description
           image
         }
@@ -107,8 +95,6 @@ const GET_USER = gql`
             name
             image
             locationOfResidence
-            cityOfResidence
-            stateOfResidence
           }
         }
         locationOfService
@@ -130,8 +116,6 @@ const CHECK_USER = gql`
       description
       image
       locationOfResidence
-      cityOfResidence
-      stateOfResidence
       lat
       lng
     }
@@ -168,8 +152,6 @@ const GET_LESSON = gql`
       image
       description
       locationOfService
-      cityOfService
-      stateOfService
       lat
       lng
       category
@@ -181,8 +163,6 @@ const GET_LESSON = gql`
         id
         name
         locationOfResidence
-        cityOfResidence
-        stateOfResidence
         description
         image
       }
@@ -193,8 +173,6 @@ const GET_LESSON = gql`
           name
           image
           locationOfResidence
-          cityOfResidence
-          stateOfResidence
         }
       }
     }
@@ -210,15 +188,12 @@ const GET_LESSONS = gql`
       category
       avgRating
       numOfReviews
-      locationOfService
       cityOfService
       stateOfService
       provider {
         id
         name
         locationOfResidence
-        cityOfResidence
-        stateOfResidence
         description
         image
       }
