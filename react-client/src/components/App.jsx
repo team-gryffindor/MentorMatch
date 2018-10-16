@@ -77,7 +77,7 @@ class App extends React.Component {
                 )}
               />
               <Route
-                path="/login"
+                path="/auth"
                 render={() => (
                   <Mutation mutation={UPDATE_USER_INFO}>
                     {(updateUserInfo) => (
