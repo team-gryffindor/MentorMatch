@@ -32,7 +32,7 @@ class NavSearchBar extends React.Component {
   };
 
   search = () => {
-    console.log('CLICK TRIGGERED!');
+    console.log('SEARCH TRIGGERED!', this.state.serviceQuery + ' ' + this.state.locationQuery);
     // call this within call to get stock api
     axios
       .get('/search', { params: { q: this.state.serviceQuery + ' ' + this.state.locationQuery } })
@@ -48,6 +48,7 @@ class NavSearchBar extends React.Component {
 
   render() {
     console.log('HIT BEFORE RENDER', this.state.results);
+    console.log('QUERY TO SEND TO REDISEARCH', typeof this.state.serviceQuery);
     return (
       <div>
         <form className="form-inline my-2 my-lg-0">
