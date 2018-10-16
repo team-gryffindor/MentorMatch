@@ -21,8 +21,6 @@ export const UPDATE_USER_INFO = gql`
       username
       description
       locationOfResidence
-      cityOfResidence
-      stateOfResidence
       image
       uid
     }
