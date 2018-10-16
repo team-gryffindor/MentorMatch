@@ -111,20 +111,23 @@ class UpdateLesson extends React.Component {
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
-                        updateLesson({
-                          variables: {
-                            id: this.state.id,
-                            title: this.state.title,
-                            description: this.state.description,
-                            locationOfService: this.state.locationOfService,
-                            lat: this.state.lat,
-                            lng: this.state.lng,
-                            image: this.state.image,
-                            difficulty: this.state.difficulty,
-                            category: this.state.category,
-                            price: Number(this.state.price)
-                          }
-                        })
+                        this.reverseGeocode()
+                          .then(() => {
+                            return updateLesson({
+                              variables: {
+                                id: this.state.id,
+                                title: this.state.title,
+                                description: this.state.description,
+                                locationOfService: this.state.locationOfService,
+                                lat: this.state.lat,
+                                lng: this.state.lng,
+                                image: this.state.image,
+                                difficulty: this.state.difficulty,
+                                category: this.state.category,
+                                price: Number(this.state.price)
+                              }
+                            });
+                          })
                           .then((data) => {
                             this.setState({
                               redirect: true
