@@ -118,7 +118,7 @@ class Login extends React.Component {
     } else if (this.state.isNewUser) {
       return <Redirect to={{ pathname: '/signUp', state: { uid: this.state.uid } }} />;
     } else {
-      return <Redirect to="/dashboard" />;
+      return <Redirect to="/" />;
     }
   }
 }
