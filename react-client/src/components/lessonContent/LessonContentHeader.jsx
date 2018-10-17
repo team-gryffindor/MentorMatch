@@ -85,7 +85,7 @@ const LessonContentHeader = ({
           <hr className="my-4" />
           <div>
             <img
-              className="profile-image rounded border"
+              className="profile-image"
               src={lesson.provider.image}
               onError={(e) => {
                 e.target.onerror = null;

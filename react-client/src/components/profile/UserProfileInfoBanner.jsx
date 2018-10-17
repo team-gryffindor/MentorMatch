@@ -4,7 +4,7 @@ const UserProfileInfoBanner = ({ user }) => (
   <div className="profile-info row">
     <div className="col-md-3">
       <img
-        className="profile-image rounded border"
+        className="my-profile-image border"
         src={user.image}
         onError={(e) => {
           e.target.onerror = null;
