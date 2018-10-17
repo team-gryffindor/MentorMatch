@@ -13,7 +13,6 @@ import { extractCityState } from '../../util/addressHelper.js';
 import Checkout from '../checkout/Checkout.jsx';
 import BookNow from './BookNow.jsx';
 import CancelNow from './CancelNow.jsx';
-import Calendar from '../calendar/Calendar.jsx';
 
 const LessonContentHeader = ({
   userCompletedPayment,

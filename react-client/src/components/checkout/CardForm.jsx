@@ -34,6 +34,7 @@ import { CardNumberElement,
                 iconColor: '#8898AA',
                 color: 'white',
                 lineHeight: '36px',
+                color: '#0078e0',
                 fontWeight: 300,
                 fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
                 fontSize: '19px',
@@ -72,16 +73,21 @@ class _SplitForm extends React.Component {
             stripeToken: payload.token.id
           })
           .then((response) => {
-            alert(`You just paid ${this.props.lesson.provider.name} $${this.props.lesson.price}!`);
+            this.props.redirectToCalendar()
+          })
+          .then(() => {
             this.props.userCompletedPayment(true);
-            this.props.redirectToCalendar();
+            alert(`You just paid ${this.props.lesson.provider.name} $${this.props.lesson.price}!`);
           })
           .catch((err) => {
             console.error('Error in handlePaymentSubmit/cardForm', err);
             alert('Something went wrong with your payment, please try again!')
           })
 
-        });
+        })
+        .catch((err) => {
+          console.error('Error in submitPayment, final catch', err)
+        })
     } else {
       console.log("Stripe.js hasn't loaded yet.");
     }
@@ -95,7 +101,7 @@ class _SplitForm extends React.Component {
       <div >
         <label>
           Card number
-          <div id="card-element" className="form-control">
+          <div >
           <CardNumberElement className="field is-empty" 
             onBlur={handleBlur}
             onChange={handleChange}
@@ -108,7 +114,7 @@ class _SplitForm extends React.Component {
    
         <label>
           Expiration date
-          <div id="card-element" className="form-control">
+          <div >
           <CardExpiryElement
             onBlur={handleBlur}
             onChange={handleChange}
@@ -121,7 +127,7 @@ class _SplitForm extends React.Component {
    
         <label>
           CVC
-          <div id="card-element" className="form-control">
+          <div >
           <CardCVCElement
             onBlur={handleBlur}
             onChange={handleChange}
@@ -134,7 +140,7 @@ class _SplitForm extends React.Component {
    
         <label>
           Postal code
-          <div id="card-element" className="form-control">
+          <div >
           <PostalCodeElement
             onBlur={handleBlur}
             onChange={handleChange}

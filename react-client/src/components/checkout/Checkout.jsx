@@ -31,10 +31,12 @@ class Checkout extends React.Component {
     return (
       <div>
     {redirect ?   
+      <Redirect to='/calendar' /> 
+     :
       <div className="Checkout">
         <h5>Automated Payment</h5>
         <Elements>
-          <CardForm
+          <CardForm 
             redirectToCalendar={this.redirectToCalendar}
             fontSize={elementFontSize}
             userCompletedPayment={userCompletedPayment}
@@ -42,7 +44,7 @@ class Checkout extends React.Component {
           />
         </Elements>
       </div> 
-    : <Redirect to='/calendar' /> }
+     }
       </div>
     );
   }
