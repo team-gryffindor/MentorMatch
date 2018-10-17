@@ -1,10 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
-import { DELETE_LESSON } from '../../apollo/resolvers/backendQueries.js';
-import { Mutation } from 'react-apollo';
-import { extractCityState } from '../../util/addressHelper.js';
-import writeReview from '../WriteReview.jsx'
 
 const UserLessonListItem = ({ lesson, taken, userId }) => {
   // let { city, state } = extractCityState(lesson.location.addressComponents);
@@ -30,24 +26,19 @@ const UserLessonListItem = ({ lesson, taken, userId }) => {
             starSpacing="1px"
             name="rating"
           />
-          <Mutation mutation={DELETE_LESSON}>
-            {(deleteLesson) => (
-              <button
-                onClick={() => {
-                  deleteLesson({
-                    variables: { id: lesson.id }
-                  })
-                    .then((data) => data)
-                    .catch((err) => console.error(err));
-                }}
-              >
-                Delete Lesson
-              </button>
-            )}
-          </Mutation>
           <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
         </Link>
-        {taken ? <Link to={{ pathname: `/writeReview/${lesson.id}`, lesson: { lesson: lesson }, userId: { userId: userId } }}>Leave a review!</Link> : null}
+        {taken ? (
+          <Link
+            to={{
+              pathname: `/writeReview/${lesson.id}`,
+              lesson: { lesson: lesson },
+              userId: { userId: userId }
+            }}
+          >
+            Leave a review!
+          </Link>
+        ) : null}
       </div>
     );
   } else {
