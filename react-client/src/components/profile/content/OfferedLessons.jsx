@@ -11,7 +11,7 @@ const OfferedLessons = ({ user }) => {
       <Link to="/addLesson">
         <button>Add Lesson!</button>
       </Link>
-      <UserLessonList userId={user.userId} lessonType="offeredLessons" />
+      <UserLessonList userId={user.userId} lessonType={'offeredLessons'} />
     </div>
   );
 };

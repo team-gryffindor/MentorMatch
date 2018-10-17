@@ -10,17 +10,6 @@ const ProfileNav = (props) => {
     >
       <a
         className="nav-link active"
-        id="v-pills-offered-tab"
-        data-toggle="pill"
-        href="#v-pills-offered"
-        role="tab"
-        aria-controls="v-pills-offered"
-        aria-selected="false"
-      >
-        Offered
-      </a>
-      <a
-        className="nav-link"
         id="v-pills-upcoming-tab"
         data-toggle="pill"
         href="#v-pills-upcoming"
@@ -40,6 +29,17 @@ const ProfileNav = (props) => {
         aria-selected="false"
       >
         Taken
+      </a>
+      <a
+        className="nav-link"
+        id="v-pills-offered-tab"
+        data-toggle="pill"
+        href="#v-pills-offered"
+        role="tab"
+        aria-controls="v-pills-offered"
+        aria-selected="false"
+      >
+        Offered
       </a>
       <a
         className="nav-link"
