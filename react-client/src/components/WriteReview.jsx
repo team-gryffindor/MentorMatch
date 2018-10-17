@@ -93,6 +93,18 @@ class WriteReview extends React.Component {
                         />
                       </div>
                       <div className="form-group">
+                        <label htmlFor="comment">Comment</label>
+                        <textarea
+                          className="form-control"
+                          id="comment"
+                          rows="5"
+                          value={comment}
+                          onChange={(e) => {
+                            this.setState({ comment: e.target.value });
+                          }}
+                        />
+                      </div>
+                      {/* <div className="form-group">
                         <label htmlFor="title">Comment</label>
                         <input
                           className="form-control"
@@ -102,7 +114,7 @@ class WriteReview extends React.Component {
                             this.setState({ comment: e.target.value });
                           }}
                         />
-                      </div>
+                      </div> */}
                       <div className="form-group">
                         <label htmlFor="price">Rating</label>
                         {/* <input
