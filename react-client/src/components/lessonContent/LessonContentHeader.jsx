@@ -99,7 +99,7 @@ const LessonContentHeader = ({
             ) : null}
             {payNow ? (
               <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} />
-            ) : null}
+            ) :null}
             {providerId === userId ? (
               <Link to={{ pathname: '/editLesson', state: { lesson: lesson } }}>
                 <button className="btn btn-secondary mb-2">Edit Lesson</button>

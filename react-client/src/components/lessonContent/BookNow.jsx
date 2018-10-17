@@ -71,7 +71,7 @@ export default class CustomInput extends React.Component {
       </div>
     );
 
-    if (count === 2 && booked === false) {
+    if (count >= 2 && booked === false) {
       submit = (
         <Mutation mutation={ADD_SIGNUP_LESSON}>
           {(addSignUpLesson) => (
