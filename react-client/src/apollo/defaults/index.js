@@ -5,7 +5,7 @@ const localStateDefaults = {
     description: 'tired',
     locationOfResidence: 'New York',
     cityOfResidence: 'New York',
-    stateOfResidnece: 'NY',
+    stateOfResidence: 'NY',
     userId: 1,
     uid: 'e8tlq3JtQXM8lNN0LT17jaqZOEN2',
     lat: 40.1,
