@@ -63,7 +63,7 @@ class UpdateLesson extends React.Component {
       lng,
       price
     } = this.props.lesson.state.lesson;
-    console.log('WHAT IS LSSON', this.props.lesson.state.lesson);
+    console.log('WHAT IS LSSON', this.props.lesson.state.lesson.locationOfService);
     this.setState({
       id: id,
       title: title,

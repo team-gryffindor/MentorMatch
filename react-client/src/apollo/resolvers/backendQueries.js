@@ -182,6 +182,7 @@ const GET_LESSON = gql`
       description
       cityOfService
       stateOfService
+      locationOfService
       lat
       lng
       category
