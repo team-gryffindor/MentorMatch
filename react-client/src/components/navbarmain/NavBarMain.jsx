@@ -8,15 +8,20 @@ import NavUserOpt from './NavUserOpt.jsx';
 const NavBarMain = (props) => (
   <div>
     <div className="navBar-css">
+      {/* <img className="logo-img" src={'../withText.png'} width={80} /> */}
+
       <nav
         className="navbar navbar-expand-md navbar-light"
         style={{ backgroundColor: 'transparent' }}
       >
-        <img className="logo-img" src={'../withText.png'} width={80} />
-        {/* {props.currentPath !== '/' && <NavLogo />} */}
+        {props.currentPath !== '/' && <NavLogo />}
         {props.currentPath !== '/' && <NavSearchBar />}
         {props.isLoggedIn ? (
-          <NavUserOpt handleLogin={props.handleLogin} apolloClient={props.apolloClient} />
+          <NavUserOpt
+            userImg={props.userImg}
+            handleLogin={props.handleLogin}
+            apolloClient={props.apolloClient}
+          />
         ) : (
           <NavGuestOpt handleGuestOpt={props.handleGuestOpt} />
         )}
