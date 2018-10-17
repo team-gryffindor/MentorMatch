@@ -174,6 +174,7 @@ const GET_LESSON = gql`
       title
       image
       description
+      cityOfService
       stateOfService
       lat
       lng
@@ -214,37 +215,6 @@ const GET_LESSONS_FILTERED = gql`
       stateOfService: $stateOfService
     ) {
       id
-      title
-      image
-      description
-      stateOfService
-      lat
-      lng
-      category
-      difficulty
-      avgRating
-      numOfReviews
-      price
-      provider {
-        id
-        name
-        locationOfResidence
-        cityOfResidence
-        stateOfResidence
-        description
-        image
-      }
-      reviews {
-        title
-        rating
-        user {
-          name
-          image
-          locationOfResidence
-          cityOfResidence
-          stateOfResidence
-        }
-      }
     }
   }
 `;
