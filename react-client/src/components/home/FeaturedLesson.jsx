@@ -25,7 +25,7 @@ const FeaturedLesson = (props) => {
               >
                 <h2>Today's Featured Lesson</h2>
                 <div className="lesson-detail-header-margin-top">
-                  <div className="jumbotron">
+                  <div className="jumbotron jumbotron-fluid">
                     <span className="badge badge-pill badge-primary">{lesson.category}</span>
                     <div className="d-flex w-100 justify-content-between">
                       <h1 className="display-4">{lesson.title}</h1>
@@ -54,10 +54,6 @@ const FeaturedLesson = (props) => {
                     <h4>About your Lesson</h4>
                     <p className="lead">{lesson.description}</p>
                     <hr className="my-4" />
-                    <div>
-                      <h4>About your mentor, {lesson.provider.name}</h4>
-                      <p>{lesson.provider.description}</p>
-                    </div>
                     <p className="lead text-right">
                       {/* <a className="btn btn-primary btn-lg" href="#" role="button" onClick={(evt) => setBookingDate(evt, data.lesson)}>
                       Book Now
