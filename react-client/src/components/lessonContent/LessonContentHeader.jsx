@@ -13,6 +13,7 @@ import { extractCityState } from '../../util/addressHelper.js';
 import Checkout from '../checkout/Checkout.jsx';
 import BookNow from './BookNow.jsx';
 import CancelNow from './CancelNow.jsx';
+import Calendar from '../calendar/Calendar.jsx';
 
 const LessonContentHeader = ({
   userCompletedPayment,
@@ -99,7 +100,7 @@ const LessonContentHeader = ({
             ) : null}
             {payNow ? (
               <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} />
-            ) : null}
+            ) :null}
             {providerId === userId ? (
               <Link to={{ pathname: '/editLesson', state: { lesson: lesson } }}>
                 <button className="btn btn-secondary mb-2">Edit Lesson</button>

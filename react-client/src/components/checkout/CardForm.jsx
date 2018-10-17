@@ -74,6 +74,7 @@ class _SplitForm extends React.Component {
           .then((response) => {
             alert(`You just paid ${this.props.lesson.provider.name} $${this.props.lesson.price}!`);
             this.props.userCompletedPayment(true);
+            this.props.redirectToCalendar();
           })
           .catch((err) => {
             console.error('Error in handlePaymentSubmit/cardForm', err);
