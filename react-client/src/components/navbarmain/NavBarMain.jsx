@@ -14,7 +14,7 @@ const NavBarMain = (props) => (
       {props.currentPath !== '/' && <NavLogo />}
       {props.currentPath !== '/' && <NavSearchBar />}
       {props.isLoggedIn ? (
-        <NavUserOpt handleLogin={props.handleLogin} />
+        <NavUserOpt handleLogin={props.handleLogin} apolloClient={props.apolloClient} />
       ) : (
         <NavGuestOpt handleGuestOpt={props.handleGuestOpt} />
       )}

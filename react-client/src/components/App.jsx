@@ -1,7 +1,7 @@
 import React from 'react';
 import { ApolloConsumer, Query, Mutation } from 'react-apollo';
 import { UPDATE_USER_INFO, GET_USER_INFO } from '../apollo/resolvers/clientSideQueries';
-import { GET_USER } from '../apollo/resolvers/backendQueries';
+import { GET_USER, GET_LESSON } from '../apollo/resolvers/backendQueries';
 import { Route } from 'react-router-dom';
 
 // components
@@ -59,6 +59,7 @@ class App extends React.Component {
                 path="/"
                 render={({ location }) => (
                   <NavBarMain
+                    apolloClient={apolloClient}
                     isLoggedIn={isLoggedIn}
                     handleLogin={this.handleLogin}
                     handleGuestOpt={this.handleGuestOpt}
@@ -103,17 +104,6 @@ class App extends React.Component {
                 )}
               />
               <Route path="/feed" render={(props) => <Feed {...props} />} />
-              {/* <Route
-                path="/dashboard"
-                render={() => (
-                  <Dashboard
-                    isLoggedIn={isLoggedIn}
-                    handleLogin={this.handleLogin}
-                    scheduleEvent={this.scheduleEvent}
-                    calendarEvents={this.calendarEvents}
-                  />
-                )}
-              /> */}
               <Route path="/userProfile" render={() => <ProfilePage />} />
               <Route
                 path="/editProfile"
@@ -121,46 +111,69 @@ class App extends React.Component {
               />
               <Route
                 path="/lessonContent/:lessonId"
-                render={({ location }) => (
-                  <Query query={GET_USER_INFO} className="container">
-                    {({ loading, error, data }) => {
-                      if (error) return <small>Error...</small>;
-                      if (loading || !data) return <small>Loading...</small>;
-                      return (
-                        <Query query={GET_USER} variables={{ id: data.userInfo.userId }}>
-                          {({ loading, error, data }) => {
-                            if (error) return <small>Error...</small>;
-                            if (loading || !data) return <small>Loading...</small>;
-                            let favorite = false;
-                            let userFavorites = data.user.favoriteLessons;
-                            for (let i = 0; i < userFavorites.length; i++) {
-                              if (userFavorites[i].id === location.state.lesson.id) {
-                                favorite = true;
-                                break;
-                              }
-                            }
-                            let booked = false;
-                            let scheduled = data.user.signupLessons;
-                            for (let i = 0; i < scheduled.length; i++) {
-                              if (scheduled[i].id === location.state.lesson.id) {
-                                booked = true;
-                                break;
-                              }
-                            }
-                            return (
-                              <LessonContent
-                                userId={data.user.id}
-                                lesson={location.state.lesson}
-                                isFavorite={favorite}
-                                isBooked={booked}
-                              />
-                            );
-                          }}
-                        </Query>
-                      );
-                    }}
-                  </Query>
-                )}
+                render={({ location }) => {
+                  if (this.state.isLoggedIn) {
+                    return (
+                      <Query query={GET_USER_INFO} className="container">
+                        {({ loading, error, data }) => {
+                          if (error) return <small>Error...</small>;
+                          if (loading || !data) return <small>Loading...</small>;
+                          return (
+                            <Query query={GET_USER} variables={{ id: data.userInfo.userId }}>
+                              {({ loading, error, data }) => {
+                                if (error) return <small>Error...</small>;
+                                if (loading || !data) return <small>Loading...</small>;
+                                let favorite = false;
+                                let userFavorites = data.user.favoriteLessons;
+                                for (let i = 0; i < userFavorites.length; i++) {
+                                  if (userFavorites[i].id === location.state.lesson.id) {
+                                    favorite = true;
+                                    break;
+                                  }
+                                }
+                                let booked = false;
+                                let scheduled = data.user.signupLessons;
+                                for (let i = 0; i < scheduled.length; i++) {
+                                  if (scheduled[i].id === location.state.lesson.id) {
+                                    booked = true;
+                                    break;
+                                  }
+                                }
+                                return (
+                                  <LessonContent
+                                    userId={data.user.id}
+                                    lesson={location.state.lesson}
+                                    isLoggedIn={this.state.isLoggedIn}
+                                    isFavorite={favorite}
+                                    isBooked={booked}
+                                  />
+                                );
+                              }}
+                            </Query>
+                          );
+                        }}
+                      </Query>
+                    );
+                  } else {
+                    return (
+                      <Query query={GET_LESSON} variables={{ id: location.state.lesson.id }}>
+                        {({ loading, error, data }) => {
+                          if (error) return <small>Error...</small>;
+                          if (loading || !data) return <small>Loading...</small>;
+                          return (
+                            <LessonContent
+                              userId={0}
+                              lesson={location.state.lesson}
+                              isLoggedIn={this.state.isLoggedIn}
+                              isFavorite={false}
+                              isBooked={false}
+                            />
+                          );
+                        }}
+                      </Query>
+                    );
+                  }
+                }}
               />
               <Route path="/addLesson" render={() => <AddLesson />} />
               <Route
@@ -169,7 +182,7 @@ class App extends React.Component {
               />
               <Route path="/calendar" render={() => <Calendar events={events} />} />
               <Route path="/checkout" render={() => <Checkout />} />
-              <Route path='/writeReview' render={(props) => <WriteReview {...props}/>} />
+              <Route path="/writeReview" render={(props) => <WriteReview {...props} />} />
             </div>
           );
         }}

@@ -42,7 +42,8 @@ const NavUserOpt = (props) => (
               firebase
                 .auth()
                 .signOut()
-                .then(() => props.handleLogin(false));
+                .then(() => props.handleLogin(false))
+                .then(() => props.apolloClient.resetStore());
             }}
           >
             Logout
