@@ -212,9 +212,11 @@ hr {
   font-size: 18px;
   font-size: 1rem;
   position: relative;
-  width: 50%;
-  margin: 1em auto;
+  width: 100%;
   text-align: left;
+}
+table {
+  width: 500px;
 }
 .geosuggest__input {
   width: 100%;
@@ -283,6 +285,7 @@ hr {
   border-width: 5px;
   transform: translate(-50%, -50%);
 }
+
 
 /* * {
   box-sizing: border-box;

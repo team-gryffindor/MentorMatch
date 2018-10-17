@@ -20,7 +20,9 @@ const ReviewListItem = ({ review }) => {
           <div>
             {review.user.name}
             <br />
-            <small>{review.user.locationOfResidence}</small>
+            <small>
+              {review.user.cityOfResidence}, {review.user.stateOfResidence}
+            </small>
           </div>
           <StarRatings
             rating={Number(review.rating.toFixed(2))}
