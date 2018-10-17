@@ -2,6 +2,7 @@ import React from 'react';
 import { ADD_REVIEW, GET_USER, GET_LESSON } from '../apollo/resolvers/backendQueries';
 import { Mutation, Query } from 'react-apollo';
 import { Redirect } from 'react-router-dom';
+import StarRatingComponent from 'react-star-rating-component';
 
 class WriteReview extends React.Component {
   state = {
@@ -11,6 +12,10 @@ class WriteReview extends React.Component {
     redirect: false,
     updatedLesson: {},
     reviewCount: 0
+  };
+
+  onStarClick = (nextValue, prevValue, name) => {
+    this.setState({ rating: nextValue });
   };
 
   render() {
@@ -100,15 +105,25 @@ class WriteReview extends React.Component {
                       </div>
                       <div className="form-group">
                         <label htmlFor="price">Rating</label>
-                        <input
+                        {/* <input
                           type="number"
                           className="form-control"
                           value={rating}
                           onChange={(e) => {
                             this.setState({ rating: e.target.value });
                           }}
+                        /> */}
+                        <StarRatingComponent
+                          name="reviewStarRate"
+                          starCount={5}
+                          value={rating}
+                          onStarClick={this.onStarClick}
+                          renderStarIcon={() => <i className="fas fa-star" />}
+                          starColor={'#0078E0'}
+                          emptyStarColor={'#CBD3E3'}
                         />
                       </div>
+
                       <button type="submit" className="btn btn-primary mb-2">
                         Submit a Review
                       </button>
