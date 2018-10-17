@@ -126,6 +126,7 @@ class App extends React.Component {
                                 if (loading || !data) return <small>Loading...</small>;
                                 let favorite = false;
                                 let userFavorites = data.user.favoriteLessons;
+                                let currUser = data.user;
                                 for (let i = 0; i < userFavorites.length; i++) {
                                   if (userFavorites[i].id === location.state.lesson.id) {
                                     favorite = true;
@@ -151,7 +152,7 @@ class App extends React.Component {
                                       console.log('NEWLY QUERIED DATA FROM DB', data);
                                       return (
                                         <LessonContent
-                                          userId={data.user.id}
+                                          userId={currUser.id}
                                           lesson={data.lesson}
                                           isLoggedIn={this.state.isLoggedIn}
                                           isFavorite={favorite}
