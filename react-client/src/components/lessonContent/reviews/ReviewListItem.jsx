@@ -8,7 +8,7 @@ const ReviewListItem = ({ review }) => {
     <div className="list-group-item flex-column align-items-start">
       <div className="d-flex w-100 justify-content-start">
         <img
-          className="reviewer-image"
+          className="reviewer-image border"
           src={review.user.image}
           onError={(e) => {
             e.target.onerror = null;
