@@ -53,16 +53,6 @@ const FeaturedLesson = (props) => {
                     <br />
                     <h4>About your Lesson</h4>
                     <p className="lead">{lesson.description}</p>
-                    <hr className="my-4" />
-                    <div>
-                      <h4>About your mentor, {lesson.provider.name}</h4>
-                      <p>{lesson.provider.description}</p>
-                    </div>
-                    <p className="lead text-right">
-                      {/* <a className="btn btn-primary btn-lg" href="#" role="button" onClick={(evt) => setBookingDate(evt, data.lesson)}>
-                      Book Now
-                    </a> */}
-                    </p>
                   </div>
                 </div>
               </Link>
