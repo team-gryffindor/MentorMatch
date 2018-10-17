@@ -158,13 +158,6 @@ class App extends React.Component {
                                           isFavorite={favorite}
                                           isBooked={booked}
                                         />
-                                        // <Redirect
-                                        //   to={{
-                                        //     pathname: `/lessonContent/${lesson.lesson.id}`,
-                                        //     state: { lesson: data.lesson }
-                                        //   }}
-                                        //   style={{ textDecoration: 'none', color: 'black' }}
-                                        // />
                                       );
                                     }}
                                   </Query>
