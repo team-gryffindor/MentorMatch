@@ -112,6 +112,7 @@ class App extends React.Component {
               <Route
                 path="/lessonContent/:lessonId"
                 render={({ location }) => {
+                  console.log('new lesson data received by redirect from add review', location);
                   if (this.state.isLoggedIn) {
                     return (
                       <Query query={GET_USER_INFO} className="container">

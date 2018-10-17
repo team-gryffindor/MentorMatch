@@ -19,13 +19,22 @@ class WriteReview extends React.Component {
     console.log(lesson, userId);
     if (this.state.redirect) {
       return (
-        <Redirect
-          to={{
-            pathname: `/lessonContent/${lesson.lesson.id}`,
-            state: { lesson: this.state.updatedLesson }
+        <Query query={GET_LESSON} variables={{ id: lesson.lesson.id }}>
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error</p>;
+            console.log('NEWLY QUERIED DATA FROM DB', data);
+            return (
+              <Redirect
+                to={{
+                  pathname: `/lessonContent/${lesson.lesson.id}`,
+                  state: { lesson: data.lesson }
+                }}
+                style={{ textDecoration: 'none', color: 'black' }}
+              />
+            );
           }}
-          style={{ textDecoration: 'none', color: 'black' }}
-        />
+        </Query>
       );
     } else {
       return (
@@ -33,15 +42,14 @@ class WriteReview extends React.Component {
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error</p>;
-            console.log(data);
             return (
               <Mutation
                 mutation={ADD_REVIEW}
-                refetchQueries={[{ query: GET_USER, variables: { id: userId.userId } }]}
+                // refetchQueries={[{ query: GET_USER, variables: { id: userId.userId } }]}
               >
                 {(addReview) => (
                   <div className="container">
-                    <h1 style={{ textAlign: 'center' }}>Edit Lesson</h1>
+                    <h1 style={{ textAlign: 'center' }}>Review Lesson, "{data.lesson.title}"</h1>
                     <form
                       onSubmit={(e) => {
                         e.preventDefault();
@@ -67,7 +75,7 @@ class WriteReview extends React.Component {
                       }}
                     >
                       <div className="form-group">
-                        <label htmlFor="title">Title</label>
+                        <label htmlFor="title">Comment Title</label>
                         <input
                           className="form-control"
                           id="title"

@@ -30,6 +30,7 @@ const GET_USER = gql`
           image
         }
         reviews {
+          id
           title
           comment
           rating
@@ -69,6 +70,7 @@ const GET_USER = gql`
           image
         }
         reviews {
+          id
           title
           comment
           rating
@@ -108,6 +110,7 @@ const GET_USER = gql`
           image
         }
         reviews {
+          id
           title
           comment
           rating
@@ -195,6 +198,7 @@ const GET_LESSON = gql`
         image
       }
       reviews {
+        id
         title
         comment
         rating
@@ -232,6 +236,7 @@ const GET_LESSONS = gql`
         image
       }
       reviews {
+        id
         title
         rating
         comment
@@ -422,6 +427,7 @@ const ADD_REVIEW = gql`
       rating: $rating
       userId: $userId
     ) {
+      id
       title
       comment
       rating
