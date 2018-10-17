@@ -10,14 +10,6 @@ const ProfileContent = ({ user }) => {
     <React.Fragment>
       <div
         className="tab-pane fade show active"
-        id="v-pills-offered"
-        role="tabpanel"
-        aria-labelledby="v-pills-offered-tab"
-      >
-        <OfferedLessons user={user} />
-      </div>
-      <div
-        className="tab-pane fade"
         id="v-pills-upcoming"
         role="tabpanel"
         aria-labelledby="v-pills-upcoming-tab"
@@ -31,6 +23,14 @@ const ProfileContent = ({ user }) => {
         aria-labelledby="v-pills-taken-tab"
       >
         <TakenLessons user={user} />
+      </div>
+      <div
+        className="tab-pane fade"
+        id="v-pills-offered"
+        role="tabpanel"
+        aria-labelledby="v-pills-offered-tab"
+      >
+        <OfferedLessons user={user} />
       </div>
       <div
         className="tab-pane fade"
