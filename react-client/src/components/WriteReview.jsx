@@ -9,7 +9,8 @@ class WriteReview extends React.Component {
     comment: '',
     rating: 0,
     redirect: false,
-    updatedLesson: {}
+    updatedLesson: {},
+    reviewCount: 0
   };
 
   render() {
@@ -68,7 +69,8 @@ class WriteReview extends React.Component {
                               comment: '',
                               rating: 0,
                               redirect: true,
-                              updatedLesson: data.lesson
+                              updatedLesson: data.lesson,
+                              reviewCount: data.lesson.reviews.length
                             });
                           })
                           .catch((err) => console.error(err));
