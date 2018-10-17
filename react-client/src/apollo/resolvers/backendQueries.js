@@ -206,6 +206,49 @@ const GET_LESSON = gql`
   }
 `;
 
+const GET_LESSONS_FILTERED = gql`
+  query($category: String!, $cityOfService: String!, $stateOfService: String!) {
+    lessonsFiltered(
+      category: $category
+      cityOfService: $cityOfService
+      stateOfService: $stateOfService
+    ) {
+      id
+      title
+      image
+      description
+      stateOfService
+      lat
+      lng
+      category
+      difficulty
+      avgRating
+      numOfReviews
+      price
+      provider {
+        id
+        name
+        locationOfResidence
+        cityOfResidence
+        stateOfResidence
+        description
+        image
+      }
+      reviews {
+        title
+        rating
+        user {
+          name
+          image
+          locationOfResidence
+          cityOfResidence
+          stateOfResidence
+        }
+      }
+    }
+  }
+`;
+
 const GET_LESSONS = gql`
   {
     lessons {
@@ -468,6 +511,7 @@ export {
   GET_USER_FAVORITES,
   GET_LESSON,
   GET_LESSONS,
+  GET_LESSONS_FILTERED,
   GET_USER_SIGNUPS,
   ADD_USER,
   ADD_LESSON,

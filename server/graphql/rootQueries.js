@@ -62,12 +62,20 @@ const RootQuery = new GraphQLObjectType({
     lessonsFiltered: {
       type: GraphQLList(LessonType),
       args: {
-        id: { type: GraphQLID },
-        category: { type: GraphQLString }
+        category: { type: GraphQLString },
+        cityOfService: { type: GraphQLString },
+        stateOfService: { type: GraphQLString }
       },
       resolve(parent, args) {
         return Models.Lesson.findAll({
-          // where: { category: args.category },
+          where: {
+            // numOfReviews: {
+            //   [Op.gte]: 10
+            // }
+            category: args.category,
+            cityOfService: args.cityOfService,
+            stateOfService: args.stateOfService
+          },
           include: { model: Models.Review },
           order: [['avgRating', 'DESC']]
         })
