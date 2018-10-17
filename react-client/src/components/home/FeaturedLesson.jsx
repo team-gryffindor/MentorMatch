@@ -23,9 +23,9 @@ const FeaturedLesson = (props) => {
                 to={{ pathname: `/lessonContent/${lesson.id}`, state: { lesson: lesson } }}
                 style={{ textDecoration: 'none', color: 'black' }}
               >
-                <h2>Today's Featured Lesson</h2>
+                <h4 id="featuredTitle">Today's Featured Lesson</h4>
                 <div className="lesson-detail-header-margin-top">
-                  <div className="jumbotron">
+                  <div className="jumbotron jumbotron-fluid" id="rcorners4">
                     <span className="badge badge-pill badge-primary">{lesson.category}</span>
                     <div className="d-flex w-100 justify-content-between">
                       <h1 className="display-4">{lesson.title}</h1>

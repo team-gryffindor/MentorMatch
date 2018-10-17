@@ -32,7 +32,7 @@ class Home extends React.Component {
                       <FeaturedLesson calendarEvents={this.props.calendarEvents} />
                     </div>
                     <div>
-                      <h2>Recommendations</h2>
+                    <h4 id="featuredTitle">Recommendations</h4>
                       <Query
                         query={GET_LESSONS_FILTERED}
                         variables={{
@@ -60,26 +60,10 @@ class Home extends React.Component {
                 <FeaturedLesson calendarEvents={this.props.calendarEvents} />
               </div>
               <div>
-                <h2>Recommendations</h2>
+              <h4 id="featuredTitle">Recommendations</h4>
               </div>
             </div>
           )}
-
-          {/* <h1>Top Services</h1>
-          <Query query={GET_LESSONS}>
-            {({ loading, error, data }) => {
-              if (error) return <small>Error...</small>;
-              if (loading || !data) return <small>Loading...</small>;
-              let lessonIds = data.lessons
-                .filter((lesson) => {
-                  return lesson.avgRating > 3;
-                })
-                .map((lesson) => {
-                  return lesson.id;
-                });
-              return <LessonList lessonIds={lessonIds} />;
-            }}
-          </Query> */}
         </div>
       </div>
     );
