@@ -84,7 +84,16 @@ const LessonContentHeader = ({
           <p className="lead">{lesson.description}</p>
           <hr className="my-4" />
           <div>
-            <img src={lesson.provider.image} className="profile-image" />
+            <img
+              className="profile-image rounded border"
+              src={lesson.provider.image}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '../Default.png';
+              }}
+              alt={'mentor image'}
+            />
+            {/* <img src={lesson.provider.image} className="profile-image" /> */}
             <h4>About your mentor, {lesson.provider.name}</h4>
             <p>{lesson.provider.description}</p>
           </div>
@@ -99,7 +108,7 @@ const LessonContentHeader = ({
             ) : null}
             {payNow ? (
               <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} />
-            ) :null}
+            ) : null}
             {providerId === userId ? (
               <Link to={{ pathname: '/editLesson', state: { lesson: lesson } }}>
                 <button className="btn btn-secondary mb-2">Edit Lesson</button>
