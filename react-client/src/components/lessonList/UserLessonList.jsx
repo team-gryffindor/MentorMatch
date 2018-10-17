@@ -43,19 +43,20 @@ const UserLessonList = ({ userId, lessonType, upcoming, style }) => {
                     mutation={DELETE_LESSON}
                     refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
                   >
-                    {(deleteLesson) => (
-                      <button
-                        onClick={() => {
-                          deleteLesson({
-                            variables: { id: lesson.id }
-                          })
-                            .then((data) => data)
-                            .catch((err) => console.error(err));
-                        }}
-                      >
-                        Delete Lesson
-                      </button>
-                    )}
+                    {(deleteLesson) => {
+                      if (lessonType === 'offeredLessons')
+                        <button
+                          onClick={() => {
+                            deleteLesson({
+                              variables: { id: lesson.id }
+                            })
+                              .then((data) => data)
+                              .catch((err) => console.error(err));
+                          }}
+                        >
+                          Delete Lesson
+                        </button>;
+                    }}
                   </Mutation>
                 </div>
               ))}
