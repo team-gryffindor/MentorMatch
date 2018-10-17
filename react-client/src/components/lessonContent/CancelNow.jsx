@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
-import { DELETE_SIGNUP_LESSON } from '../../apollo/resolvers/backendQueries.js';
+import { DELETE_SIGNUP_LESSON, GET_USER } from '../../apollo/resolvers/backendQueries.js';
 
 const CancelNow = ({ userId, toggleBooking, lesson }) => (
   <Mutation
