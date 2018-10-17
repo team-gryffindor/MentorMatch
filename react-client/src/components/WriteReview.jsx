@@ -104,27 +104,8 @@ class WriteReview extends React.Component {
                           }}
                         />
                       </div>
-                      {/* <div className="form-group">
-                        <label htmlFor="title">Comment</label>
-                        <input
-                          className="form-control"
-                          id="comment"
-                          value={comment}
-                          onChange={(e) => {
-                            this.setState({ comment: e.target.value });
-                          }}
-                        />
-                      </div> */}
                       <div className="form-group">
                         <label htmlFor="price">Rating</label>
-                        {/* <input
-                          type="number"
-                          className="form-control"
-                          value={rating}
-                          onChange={(e) => {
-                            this.setState({ rating: e.target.value });
-                          }}
-                        /> */}
                         <StarRatingComponent
                           name="reviewStarRate"
                           starCount={5}

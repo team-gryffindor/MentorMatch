@@ -105,6 +105,8 @@ hr {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
 }
 
 .nav-pills {
@@ -137,18 +139,25 @@ hr {
   margin-bottom: 20px;
 }
 
+.navBar-css {
+  background: #0078e0;
+
+}
+
 .btn-primary {
   background: #0078e0;
   color: white;
+  border-color: #0078e0
 }
 
 .btn-primary:hover {
-  background: #016bc7;
+  background: #014480;
   color: white;
 }
 
 .btn-primary:active {
-  border-color: #016bc7;
+  border-color: #014480;
+  background: #014480;
 }
 
 .btn-secondary {
@@ -241,9 +250,7 @@ hr {
 table {
   width: 500px;
 }
-.navBar-css {
-  background: #0088ff;
-}
+
 .geosuggest__input {
   width: 100%;
   border: 2px solid transparent;

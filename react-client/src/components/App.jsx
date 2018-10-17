@@ -57,24 +57,37 @@ class App extends React.Component {
             <div>
               <Route
                 path="/"
-                render={({ location }) => (
-                  <Query query={GET_USER_INFO} className="container">
-                    {({ loading, error, data }) => {
-                      if (error) return <small>Error...</small>;
-                      if (loading || !data) return <small>Loading...</small>;
-                      return (
-                        <NavBarMain
-                          apolloClient={apolloClient}
-                          isLoggedIn={isLoggedIn}
-                          handleLogin={this.handleLogin}
-                          handleGuestOpt={this.handleGuestOpt}
-                          currentPath={location.pathname}
-                          userImg={data.userInfo.image}
-                        />
-                      );
-                    }}
-                  </Query>
-                )}
+                render={({ location }) => {
+                  if (isLoggedIn)
+                    return (
+                      <Query query={GET_USER_INFO} className="container">
+                        {({ loading, error, data }) => {
+                          if (error) return <small>Error...</small>;
+                          if (loading || !data) return <small>Loading...</small>;
+                          return (
+                            <NavBarMain
+                              apolloClient={apolloClient}
+                              isLoggedIn={isLoggedIn}
+                              handleLogin={this.handleLogin}
+                              handleGuestOpt={this.handleGuestOpt}
+                              currentPath={location.pathname}
+                              userImg={data.userInfo.image}
+                            />
+                          );
+                        }}
+                      </Query>
+                    );
+                  else
+                    return (
+                      <NavBarMain
+                        apolloClient={apolloClient}
+                        isLoggedIn={isLoggedIn}
+                        handleLogin={this.handleLogin}
+                        handleGuestOpt={this.handleGuestOpt}
+                        currentPath={location.pathname}
+                      />
+                    );
+                }}
               />
               <Route
                 exact
