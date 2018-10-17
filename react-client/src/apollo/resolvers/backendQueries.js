@@ -31,6 +31,7 @@ const GET_USER = gql`
         }
         reviews {
           title
+          comment
           rating
           user {
             name
@@ -69,6 +70,7 @@ const GET_USER = gql`
         }
         reviews {
           title
+          comment
           rating
           user {
             name
@@ -107,6 +109,7 @@ const GET_USER = gql`
         }
         reviews {
           title
+          comment
           rating
           user {
             name
@@ -193,6 +196,7 @@ const GET_LESSON = gql`
       }
       reviews {
         title
+        comment
         rating
         user {
           name
@@ -230,6 +234,14 @@ const GET_LESSONS = gql`
       reviews {
         title
         rating
+        comment
+        user {
+          name
+          image
+          locationOfResidence
+          cityOfResidence
+          stateOfResidence
+        }
       }
     }
   }

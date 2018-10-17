@@ -1,78 +1,116 @@
 import React from 'react';
-import { ADD_REVIEW } from '../apollo/resolvers/backendQueries';
-import { Mutation } from 'react-apollo';
-import { Link } from 'react-router-dom';
+import { ADD_REVIEW, GET_USER, GET_LESSON } from '../apollo/resolvers/backendQueries';
+import { Mutation, Query } from 'react-apollo';
+import { Redirect } from 'react-router-dom';
 
 class WriteReview extends React.Component {
   state = {
     title: '',
     comment: '',
-    rating: 0
+    rating: 0,
+    redirect: false,
+    updatedLesson: {}
   };
 
   render() {
     let { title, comment, rating } = this.state;
     let { location } = this.props;
     let { lesson, userId } = location;
-
-    return (
-      <form>
-        Title:
-        <input
-          placeholder="Title"
-          value={title}
-          onChange={(e) => {
-            this.setState({ title: e.target.value });
+    console.log(lesson, userId);
+    if (this.state.redirect) {
+      return (
+        <Redirect
+          to={{
+            pathname: `/lessonContent/${lesson.lesson.id}`,
+            state: { lesson: this.state.updatedLesson }
           }}
+          style={{ textDecoration: 'none', color: 'black' }}
         />
-        Comment:
-        <input
-          placeholder="Comment"
-          value={comment}
-          onChange={(e) => {
-            this.setState({ comment: e.target.value });
-          }}
-        />
-        Rating:
-        <input
-          value={rating}
-          onChange={(e) => {
-            this.setState({ rating: e.target.value });
-          }}
-        />
-        <Mutation
-          mutation={ADD_REVIEW}
-          refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
-        >
-          {(addReview) => (
-            <Link to={{ pathname: '/lessonContent/:lessonId', state: { lesson: lesson } }}>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  addReview({
-                    variables: {
-                      title,
-                      comment,
-                      rating: Number(rating),
-                      lessonId: lesson.lesson.id,
-                      userId: userId.userId
-                    }
-                  });
-                  this.setState({
-                    title: '',
-                    comment: '',
-                    rating: 0
-                  });
-                  alert('Thank you for sending in your review!');
-                }}
+      );
+    } else {
+      return (
+        <Query query={GET_LESSON} variables={{ id: lesson.lesson.id }}>
+          {({ loading, error, data }) => {
+            if (loading) return <p>Loading...</p>;
+            if (error) return <p>Error</p>;
+            console.log(data);
+            return (
+              <Mutation
+                mutation={ADD_REVIEW}
+                refetchQueries={[{ query: GET_USER, variables: { id: userId.userId } }]}
               >
-                Submit Review
-              </button>
-            </Link>
-          )}
-        </Mutation>
-      </form>
-    );
+                {(addReview) => (
+                  <div className="container">
+                    <h1 style={{ textAlign: 'center' }}>Edit Lesson</h1>
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        addReview({
+                          variables: {
+                            title,
+                            comment,
+                            rating: Number(rating),
+                            lessonId: lesson.lesson.id,
+                            userId: userId.userId
+                          }
+                        })
+                          .then(() => {
+                            this.setState({
+                              title: '',
+                              comment: '',
+                              rating: 0,
+                              redirect: true,
+                              updatedLesson: data.lesson
+                            });
+                          })
+                          .catch((err) => console.error(err));
+                      }}
+                    >
+                      <div className="form-group">
+                        <label htmlFor="title">Title</label>
+                        <input
+                          className="form-control"
+                          id="title"
+                          value={title}
+                          onChange={(e) => {
+                            this.setState({ title: e.target.value });
+                          }}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="title">Comment</label>
+                        <input
+                          className="form-control"
+                          id="comment"
+                          value={comment}
+                          onChange={(e) => {
+                            this.setState({ comment: e.target.value });
+                          }}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="price">Rating</label>
+                        <input
+                          type="number"
+                          className="form-control"
+                          value={rating}
+                          onChange={(e) => {
+                            this.setState({ rating: e.target.value });
+                          }}
+                        />
+                      </div>
+                      <button type="submit" className="btn btn-primary mb-2">
+                        Submit a Review
+                      </button>
+                    </form>
+                  </div>
+                )}
+              </Mutation>
+            );
+          }}
+        </Query>
+      );
+    }
   }
 }
 
