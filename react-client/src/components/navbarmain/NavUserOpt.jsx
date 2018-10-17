@@ -15,7 +15,16 @@ const NavUserOpt = (props) => (
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <i className="fas fa-user" />
+          {/* <i className="fas fa-user" /> */}
+          <img
+            className="my-navbar-image"
+            src={props.userImg}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = '../Default.png';
+            }}
+            alt={'profile image'}
+          />
         </a>
 
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

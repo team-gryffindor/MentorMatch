@@ -58,13 +58,22 @@ class App extends React.Component {
               <Route
                 path="/"
                 render={({ location }) => (
-                  <NavBarMain
-                    apolloClient={apolloClient}
-                    isLoggedIn={isLoggedIn}
-                    handleLogin={this.handleLogin}
-                    handleGuestOpt={this.handleGuestOpt}
-                    currentPath={location.pathname}
-                  />
+                  <Query query={GET_USER_INFO} className="container">
+                    {({ loading, error, data }) => {
+                      if (error) return <small>Error...</small>;
+                      if (loading || !data) return <small>Loading...</small>;
+                      return (
+                        <NavBarMain
+                          apolloClient={apolloClient}
+                          isLoggedIn={isLoggedIn}
+                          handleLogin={this.handleLogin}
+                          handleGuestOpt={this.handleGuestOpt}
+                          currentPath={location.pathname}
+                          userImg={data.userInfo.image}
+                        />
+                      );
+                    }}
+                  </Query>
                 )}
               />
               <Route
