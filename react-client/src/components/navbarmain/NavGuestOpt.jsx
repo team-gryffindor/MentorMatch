@@ -14,7 +14,7 @@ const NavGuestOpt = (props) => (
         >
           Log in
         </button> */}
-        <button className="btn btn-secondary my-2 my-sm-0 btn-margin-right" type="button">
+        <button className="btn btn-highlight my-2 my-sm-0 btn-margin-right" type="button">
           Log in
         </button>
       </Link>
