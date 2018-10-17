@@ -11,7 +11,8 @@ import LessonList from '../lessonList/LessonList.jsx';
 //This componenet could be a functional componenet and not requrie storing state at all
 class Home extends React.Component {
   state = {
-    topLessons: []
+    topLessons: [],
+    categories: ['Music', 'Sports', 'Cooking', 'Academic']
   };
 
   render() {
@@ -33,22 +34,29 @@ class Home extends React.Component {
                     </div>
                     <div>
                       <h2>Recommendations</h2>
-                      <Query
-                        query={GET_LESSONS_FILTERED}
-                        variables={{
-                          category: 'Cooking',
-                          cityOfService: user.cityOfResidence,
-                          stateOfService: user.stateOfResidence
-                        }}
-                      >
-                        {({ loading, error, data }) => {
-                          if (error) return <small>ERROR</small>;
-                          if (loading || !data) return <small> Loading ...</small>;
-                          console.log(data);
-                          let lessonIds = data.lessonsFiltered.map((lesson) => lesson.id);
-                          return <LessonList lessonIds={lessonIds} />;
-                        }}
-                      </Query>
+                      {this.state.categories.map((category) => (
+                        <Query
+                          query={GET_LESSONS_FILTERED}
+                          variables={{
+                            category: category,
+                            cityOfService: user.cityOfResidence,
+                            stateOfService: user.stateOfResidence
+                          }}
+                        >
+                          {({ loading, error, data }) => {
+                            if (error) return <small>ERROR</small>;
+                            if (loading || !data) return <small> Loading ...</small>;
+                            console.log(data);
+                            let lessonIds = data.lessonsFiltered.map((lesson) => lesson.id);
+                            return (
+                              <div>
+                                <h3>{category}</h3>
+                                <LessonList lessonIds={lessonIds} />
+                              </div>
+                            );
+                          }}
+                        </Query>
+                      ))}
                     </div>
                   </div>
                 );
