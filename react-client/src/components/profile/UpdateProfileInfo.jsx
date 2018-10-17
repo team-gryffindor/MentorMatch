@@ -169,6 +169,7 @@ class UpdateProfileInfo extends React.Component {
                         },
                         () => {
                           console.log(suggest, this.state.lat, this.state.lng);
+                          this.reverseGeocode();
                         }
                       );
                     }

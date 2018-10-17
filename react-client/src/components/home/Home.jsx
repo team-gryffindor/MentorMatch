@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import { GET_USER_INFO } from '../../apollo/resolvers/clientSideQueries.js';
-
+import { GET_LESSONS_FILTERED } from '../../apollo/resolvers/backendQueries.js';
 import SearchHome from './SearchHome.jsx';
 import FeaturedLesson from './FeaturedLesson.jsx';
 import UserLessonList from '../lessonList/UserLessonList.jsx';
@@ -25,6 +25,7 @@ class Home extends React.Component {
               {({ loading, error, data }) => {
                 if (error) return <small>ERROR</small>;
                 if (loading || !data) return <small> Loading ...</small>;
+                let user = data.userInfo;
                 return (
                   <div>
                     <div>
@@ -32,6 +33,22 @@ class Home extends React.Component {
                     </div>
                     <div>
                       <h2>Recommendations</h2>
+                      <Query
+                        query={GET_LESSONS_FILTERED}
+                        variables={{
+                          category: 'Cooking',
+                          cityOfService: user.cityOfResidence,
+                          stateOfService: user.stateOfResidence
+                        }}
+                      >
+                        {({ loading, error, data }) => {
+                          if (error) return <small>ERROR</small>;
+                          if (loading || !data) return <small> Loading ...</small>;
+                          console.log(data);
+                          let lessonIds = data.lessonsFiltered.map((lesson) => lesson.id);
+                          return <LessonList lessonIds={lessonIds} />;
+                        }}
+                      </Query>
                     </div>
                   </div>
                 );

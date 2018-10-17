@@ -30,7 +30,9 @@ const GET_USER = gql`
           image
         }
         reviews {
+          id
           title
+          comment
           rating
           user {
             name
@@ -68,7 +70,9 @@ const GET_USER = gql`
           image
         }
         reviews {
+          id
           title
+          comment
           rating
           user {
             name
@@ -106,7 +110,9 @@ const GET_USER = gql`
           image
         }
         reviews {
+          id
           title
+          comment
           rating
           user {
             name
@@ -174,6 +180,7 @@ const GET_LESSON = gql`
       title
       image
       description
+      cityOfService
       stateOfService
       lat
       lng
@@ -192,7 +199,9 @@ const GET_LESSON = gql`
         image
       }
       reviews {
+        id
         title
+        comment
         rating
         user {
           name
@@ -202,6 +211,18 @@ const GET_LESSON = gql`
           stateOfResidence
         }
       }
+    }
+  }
+`;
+
+const GET_LESSONS_FILTERED = gql`
+  query($category: String!, $cityOfService: String!, $stateOfService: String!) {
+    lessonsFiltered(
+      category: $category
+      cityOfService: $cityOfService
+      stateOfService: $stateOfService
+    ) {
+      id
     }
   }
 `;
@@ -228,8 +249,17 @@ const GET_LESSONS = gql`
         image
       }
       reviews {
+        id
         title
         rating
+        comment
+        user {
+          name
+          image
+          locationOfResidence
+          cityOfResidence
+          stateOfResidence
+        }
       }
     }
   }
@@ -410,6 +440,7 @@ const ADD_REVIEW = gql`
       rating: $rating
       userId: $userId
     ) {
+      id
       title
       comment
       rating
@@ -468,6 +499,7 @@ export {
   GET_USER_FAVORITES,
   GET_LESSON,
   GET_LESSONS,
+  GET_LESSONS_FILTERED,
   GET_USER_SIGNUPS,
   ADD_USER,
   ADD_LESSON,
