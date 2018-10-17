@@ -227,6 +227,9 @@ hr {
 table {
   width: 500px;
 }
+.navBar-css {
+  background: #0088FF;
+}
 .geosuggest__input {
   width: 100%;
   border: 2px solid transparent;
