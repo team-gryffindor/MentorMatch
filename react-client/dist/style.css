@@ -27,6 +27,14 @@ hr {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.fas.fa-user {
+  color: white;
+}
+
+.nav-item.dropdown {
+  color: white;
+}
+
 .logo-img {
   margin-right: 10px;
 }
@@ -228,7 +236,7 @@ table {
   width: 500px;
 }
 .navBar-css {
-  background: #0088FF;
+  background: #0088ff;
 }
 .geosuggest__input {
   width: 100%;
