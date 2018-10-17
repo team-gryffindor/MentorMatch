@@ -15,6 +15,7 @@ class UpdateLesson extends React.Component {
     image: '',
     difficulty: '',
     category: '',
+    categories: ['Music', 'Sports', 'Cooking', 'Academic'],
     lng: 0,
     lat: 0,
     city: '',
@@ -94,7 +95,7 @@ class UpdateLesson extends React.Component {
         <Query query={GET_USER_INFO}>
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
-            if (error) return <p>Error :(</p>;
+            if (error) return <p>Error :</p>;
             let userId = data.userInfo.userId;
             return (
               <Mutation
@@ -216,10 +217,9 @@ class UpdateLesson extends React.Component {
                             this.setState({ category: e.target.value });
                           }}
                         >
-                          <option value="Music">Music</option>
-                          <option value="Sports">Sports</option>
-                          <option value="Cooking">Cooking</option>
-                          <option value="Academic">Academic</option>
+                          {this.state.categories.map((category) => (
+                            <option value={category}>{category}</option>
+                          ))}
                         </select>
                       </div>
                       <div className="form-group">
