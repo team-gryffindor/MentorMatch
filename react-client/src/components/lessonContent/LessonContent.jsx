@@ -6,6 +6,7 @@ import Reviews from './reviews/Reviews.jsx';
 
 class LessonContent extends React.Component {
   state = {
+    isLoggedIn: this.props.isLoggedIn,
     isFavorite: this.props.isFavorite,
     isBooked: this.props.isBooked,
     payNow: false,
@@ -40,7 +41,7 @@ class LessonContent extends React.Component {
 
   render() {
     let { lesson, userId } = this.props;
-    let { isFavorite, isBooked, payNow, paid } = this.state;
+    let { isLoggedIn, isFavorite, isBooked, payNow, paid } = this.state;
     return (
       <div className="container" style={{ marginBottom: '30px' }}>
         <LessonContentHeader
@@ -49,6 +50,7 @@ class LessonContent extends React.Component {
           paid={paid}
           renderPayment={this.renderPayment}
           payNow={payNow}
+          isLoggedIn={isLoggedIn}
           isFavorite={isFavorite}
           isBooked={isBooked}
           toggleFavorite={this.toggleFavorite}

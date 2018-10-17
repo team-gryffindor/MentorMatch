@@ -20,6 +20,7 @@ const LessonContentHeader = ({
   renderPayment,
   payNow,
   lesson,
+  isLoggedIn,
   isFavorite,
   isBooked,
   toggleFavorite,
@@ -55,24 +56,28 @@ const LessonContentHeader = ({
               mutation={mutateFav}
               refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
             >
-              {(mutateFavorite) => (
-                <button
-                  type="button"
-                  className="btn btn-default"
-                  onClick={() => {
-                    mutateFavorite({
-                      variables: {
-                        userId: userId,
-                        lessonId: lesson.id
-                      }
-                    }).then((data) => {
-                      toggleFavorite(!isFavorite);
-                    });
-                  }}
-                >
-                  {isFavorite ? <i className="fas fa-star" /> : <i className="far fa-star" />}
-                </button>
-              )}
+              {(mutateFavorite) => {
+                if (isLoggedIn) {
+                  return (
+                    <button
+                      type="button"
+                      className="btn btn-default"
+                      onClick={() => {
+                        mutateFavorite({
+                          variables: {
+                            userId: userId,
+                            lessonId: lesson.id
+                          }
+                        }).then((data) => {
+                          toggleFavorite(!isFavorite);
+                        });
+                      }}
+                    >
+                      {isFavorite ? <i className="fas fa-star" /> : <i className="far fa-star" />}
+                    </button>
+                  );
+                } else return null;
+              }}
             </Mutation>
           </div>
           <h4>About your Lesson</h4>
@@ -84,12 +89,14 @@ const LessonContentHeader = ({
             <p>{lesson.provider.description}</p>
           </div>
           <div className="d-flex justify-content-end">
-            {isBooked ? (
-              // <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
-              <CancelNow lesson={lesson} toggleBooking={toggleBooking} userId={userId} />
-            ) : (
-              <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
-            )}
+            {isLoggedIn ? (
+              isBooked ? (
+                // <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
+                <CancelNow lesson={lesson} toggleBooking={toggleBooking} userId={userId} />
+              ) : (
+                <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
+              )
+            ) : null}
             {payNow ? (
               <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} />
             ) : null}
