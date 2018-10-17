@@ -141,13 +141,32 @@ class App extends React.Component {
                                   }
                                 }
                                 return (
-                                  <LessonContent
-                                    userId={data.user.id}
-                                    lesson={location.state.lesson}
-                                    isLoggedIn={this.state.isLoggedIn}
-                                    isFavorite={favorite}
-                                    isBooked={booked}
-                                  />
+                                  <Query
+                                    query={GET_LESSON}
+                                    variables={{ id: location.state.lesson.id }}
+                                  >
+                                    {({ loading, error, data }) => {
+                                      if (loading) return <p>Loading...</p>;
+                                      if (error) return <p>Error</p>;
+                                      console.log('NEWLY QUERIED DATA FROM DB', data);
+                                      return (
+                                        <LessonContent
+                                          userId={data.user.id}
+                                          lesson={data.lesson}
+                                          isLoggedIn={this.state.isLoggedIn}
+                                          isFavorite={favorite}
+                                          isBooked={booked}
+                                        />
+                                        // <Redirect
+                                        //   to={{
+                                        //     pathname: `/lessonContent/${lesson.lesson.id}`,
+                                        //     state: { lesson: data.lesson }
+                                        //   }}
+                                        //   style={{ textDecoration: 'none', color: 'black' }}
+                                        // />
+                                      );
+                                    }}
+                                  </Query>
                                 );
                               }}
                             </Query>

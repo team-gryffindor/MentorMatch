@@ -180,6 +180,7 @@ const GET_LESSON = gql`
       title
       image
       description
+      cityOfService
       stateOfService
       lat
       lng

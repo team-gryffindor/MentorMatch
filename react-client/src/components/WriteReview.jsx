@@ -46,7 +46,7 @@ class WriteReview extends React.Component {
             return (
               <Mutation
                 mutation={ADD_REVIEW}
-                // refetchQueries={[{ query: GET_USER, variables: { id: userId.userId } }]}
+                refetchQueries={[{ query: GET_LESSON, variables: { id: lesson.lesson.id } }]}
               >
                 {(addReview) => (
                   <div className="container">
