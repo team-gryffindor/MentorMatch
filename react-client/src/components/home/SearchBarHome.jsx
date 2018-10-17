@@ -68,7 +68,7 @@ class SearchBarHome extends React.Component {
             onChange={this.handleLocationInputChange}
           /> */}
           <Geosuggest
-            placeholder={'Location'}
+            placeholder='City'
             onSuggestSelect={(suggest) => {
               if (suggest) {
                 console.log(suggest);
@@ -88,8 +88,8 @@ class SearchBarHome extends React.Component {
             }}
             style={{ textDecoration: 'none', color: 'white' }}
           >
-            <button className="btn btn-primary my-2 my-sm-0" type="submit">
-              <i className="fas fa-search" /> Search
+            <button className="btn btn-primary" type="submit">
+              <span className="fas fa-search" />Search
             </button>
           </Link>
         </form>
