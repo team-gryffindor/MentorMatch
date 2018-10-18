@@ -1,3 +1,5 @@
+const Models = require('./server/db/index.js');
+
 // const ADD_USER = gql`
 //   mutation(
 //     $name: String!
@@ -65,88 +67,88 @@ const users =
     {
       name: "Deshawn Krajcik",
       description: "",
-      locationOfResidence: "2811 Crona Street, Junction City, OR, USA",
-      cityOfResidence: "Junction City", 
-      stateOfResidence: "OR",
-      lat: 44.2169933,
-      lng: -123.19362239999998,
+      locationOfResidence: "124 12th Avenue, New York, NY, USA",
+      cityOfResidence: "New York", 
+      stateOfResidence: "NY",
+      lat: 40.7682779,
+      lng: -73.99546329999998,
       image: "https://s3.amazonaws.com/uifaces/faces/twitter/pyronite/128.jpg",
       uid:  "gXzg9ab4GxbAmqXV39C2xypMtMc2"
     },
     {
       name: "Rosalee Waelchi",
       description: '',
-      locationOfResidence: "12 120th Street, Queens, NY, USA",
-      cityOfResidence: "Queens",
+      locationOfResidence: "12 West 109th Street, New York, New York, USA",
+      cityOfResidence: "New York",
       stateOfResidence: "NY", 
-      lat: 40.678533,
-      lng: -73.81966,
+      lat: 40.8002555,
+      lng: -73.95948699999997,
       image: "https://s3.amazonaws.com/uifaces/faces/twitter/millinet/128.jpg", 
       uid: "fGzg9ab4GxbAmqXV39C2xypMtMc2"
     },
     {
       name: "Hettie Reinger",
       description: '',
-      locationOfResidence: "18087 168th Street, Jamaica, NY, USA",
-      cityOfResidence: "Jamaica",
+      locationOfResidence: "43 West Street, NY, New York, USA",
+      cityOfResidence: "New York",
       stateOfResidence: "NY",
-      lat: 40.7086116,
-      lng: -73.79392610000002,
+      lat: 40.7093519,
+      lng: -74.01523859999998,
       image:"https://s3.amazonaws.com/uifaces/faces/twitter/johnriordan/128.jpg",
-      uid:  "fGzg9ab4GxbAmqXV39C2xypMtMc2"
+      uid:  "gGzg9ab4GxbAmqXV49C2xypMtMc2"
     },
     {
       name: "Marina Rice",
       description: '',
-      locationOfResidence: "29748 East Warren Avenue, Detroit, MI, USA",
-      cityOfResidence: "Detroit",
-      stateOfResidence: "MI",
-      lat: 42.4119322,
-      lng: -82.91300609999996,
+      locationOfResidence:  "123 East 16th Street, New York, New York, USA",
+      cityOfResidence: "New York",
+      stateOfResidence: "NY",
+      lat: 40.7352956,
+      lng: -73.987819,
       image: "https://s3.amazonaws.com/uifaces/faces/twitter/aislinnkelly/128.jpg",
       uid: "fGzg9ab4GxbAmqXV39C2xypMtCb3" 
     },
     {
       name: "Frankie Waters",
       description: '',
-      locationOfResidence: "1718 Jaydee Court, Far Rockaway, NY, USA",
-      cityOfResidence: "Far Rockaway",
+      locationOfResidence:  "100 Park Ave, New York, New York, USA",
+      cityOfResidence: "New York",
       stateOfResidence: "NY",
-      lat: 40.6072837,
-      lng: -73.7578295000000,
+      lat: 40.751357,
+      lng: -73.97896000000003,
       image: "https://s3.amazonaws.com/uifaces/faces/twitter/vaughanmoffitt/128.jpg",
       uid:  "yTzg9ab4GxbAmqXV39C2xypMtMc2"
     },
     {
       name: "Hillary Mraz",
       description: '',
-      locationOfResidence: "8583 Flavie Road, Kaplan, LA, USA",
-      cityOfResidence: "Kaplan",
-      stateOfResidence: "LA",
-      lat: 29.9812,
-      lng: -92.28793999999999,
+      locationOfResidence: "110 West Road, San Francisco, CA, USA",
+      cityOfResidence: "San Francisco",
+      stateOfResidence: "CA",
+      lat: 37.7271095,
+      lng: -122.4479981,
       image: "https://s3.amazonaws.com/uifaces/faces/twitter/kaelifa/128.jpg",
       uid:  "yTzg9ab4GxbAmqBM39C2xypMtMc2"
     },
     {
       name: "Malachi Lubowitz",
       description: '',
-      locationOfResidence: "113 Walsh Road, Lagrangeville, New York, USA",
-      cityOfResidence: "Lagrangeville",
-      stateOfResidence: "NY",
-      lat: 41.6721431,
-      lng: -73.71962819999999,
+      locationOfResidence: "98 Avenue D, San Francisco, CA, USA",
+      cityOfResidence: "San Francisco",
+      stateOfResidence: "CA",
+      lat: 37.8242848,
+      lng: -122.37279820000003,
       image: "https://s3.amazonaws.com/uifaces/faces/twitter/depaulawagner/128.jpg",
       uid:  "wBzg9ab4GxbAmqBM39C2xypMtMc4"
     },
     {
       name: "Damaris Stokes",
       description: '',
-      locationOfResidence:  "889 Danny Court, Dix Hills, New York, USA",
-      cityOfResidence: "Dix Hills",
-      stateOfResidence: "NY",
-      lat: 40.7973069,
-      lng: -73.36147399999999,
+      locationOfResidence:  "645 Market Street, San Francisco, CA, USA",
+      cityOfResidence: "San Francisco",
+      stateOfResidence: "CA",
+      lat: 37.7882706,
+      lng: -122.40233790000002,
       image: "https://s3.amazonaws.com/uifaces/faces/twitter/uxpiper/128.jpg",
       uid:  "wBzg9ab4GxbAmqBM39C2vcpGtMc4"
     },
@@ -176,7 +178,7 @@ const users =
       name: 'Liza Streich',
       description: '',
       locationOfResidence: "9593 New York 25A, Flushing, NY, USA",
-      cityOfResidence: "Flushing",
+      cityOfResidence: "New York",
       stateOfResidence: "NY",
       lat: 40.7619866,
       lng: -73.80362680000002,
@@ -185,3 +187,42 @@ const users =
     }
   ]
 }
+
+Models.User.bulkCreate(users.variables)
+            .then((data) => {
+              console.log('DATA', data)
+            })
+            .catch((err) => {
+              console.error('Error inside', err)
+            })
+// const lessons = {
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+// return addLesson({
+//   variables: {
+//     title: this.state.title,
+//     description: this.state.description,
+//     locationOfService: this.state.locationOfService,
+//     lat: this.state.lat,
+//     lng: this.state.lng,
+//     cityOfService: this.state.city,
+//     stateOfService: this.state.state,
+//     image: this.state.image,
+//     difficulty: this.state.difficulty,
+//     userId: userID,
+//     category: this.state.category,
+//     price: Number(this.state.price)
+//   }
+// });
