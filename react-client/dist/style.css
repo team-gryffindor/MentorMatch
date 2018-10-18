@@ -2316,8 +2316,6 @@ button:focus {outline:0 !important;}
 
 .module-section{
   max-width: 100%;
- 
-  
   overflow: hidden;
   overflow-x:scroll;
   border-left:1px solid #fff;
