@@ -6,7 +6,7 @@ import SearchHome from './SearchHome.jsx';
 import FeaturedLesson from './FeaturedLesson.jsx';
 import UserLessonList from '../lessonList/UserLessonList.jsx';
 
-import LessonList from '../lessonList/LessonList.jsx';
+import HorizontalLessons from '../lessonList/HorizontalLessons.jsx';
 
 //This componenet could be a functional componenet and not requrie storing state at all
 class Home extends React.Component {
@@ -46,7 +46,7 @@ class Home extends React.Component {
                           if (loading || !data) return <small> Loading ...</small>;
                           console.log(data);
                           let lessonIds = data.lessonsFiltered.map((lesson) => lesson.id);
-                          return <LessonList lessonIds={lessonIds} />;
+                          return <HorizontalLessons lessonIds={lessonIds} />;
                         }}
                       </Query>
                     </div>
