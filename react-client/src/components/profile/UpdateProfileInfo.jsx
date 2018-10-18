@@ -83,6 +83,7 @@ class UpdateProfileInfo extends React.Component {
     if (editProfile) {
       return (
         <div className="container">
+          <h2>Update My Profile</h2>
           <Mutation mutation={UPDATE_USER}>
             {(updateUser) => (
               <form
@@ -175,7 +176,6 @@ class UpdateProfileInfo extends React.Component {
                         );
                       }
                     }}
-                    types={['geocode']}
                     initialValue={locationOfResidence}
                   />
                 </div>
