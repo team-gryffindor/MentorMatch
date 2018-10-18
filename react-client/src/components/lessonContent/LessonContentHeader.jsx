@@ -44,7 +44,7 @@ const LessonContentHeader = ({
               <p style={{ textAlign: 'right' }}>
                 Location: {lesson.cityOfService}, {lesson.stateOfService}
                 <br />
-                Difficulty: {lesson.difficulty} + {lesson.id}
+                Difficulty: {lesson.difficulty}
                 <br />
                 Price: ${lesson.price}
                 /hour

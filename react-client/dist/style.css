@@ -61,7 +61,7 @@ hr {
 .home-search {
   background-image: url('https://images.pexels.com/photos/7095/people-coffee-notes-tea.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
   width: 100%;
-  height: 400px;
+  height: 65vh;
 }
 
 .review-margin-left {
@@ -183,6 +183,10 @@ a#navbarDropdown.nav-link.dropdown-toggle::after {
   background: #0078e0;
 }
 
+.nav.navbar.navbar-expand-md.navbar-light {
+  background: black;
+}
+
 .btn-primary {
   background: #0078e0;
   color: white;
@@ -274,9 +278,10 @@ a#navbarDropdown.nav-link.dropdown-toggle::after {
 }
 
 .vertical-center {
-  min-height: 400px;
-  display: flex;
-  align-items: center;
+  /* min-height: 400px; */
+  /* display: flex;
+  align-items: center; */
+  transform: translate(0, 32vh);
 }
 
 .geosuggest {
@@ -300,15 +305,11 @@ a#navbarDropdown.nav-link.dropdown-toggle::after {
 button.btn.btn-primary.nav-search-btn {
   height: 100%;
 }
-
 /* .nav-search-btn:hover {
   background-color: #0078e0;
   bord
 } */
 
-.navBar-css {
-  background: #0088ff;
-}
 #rcorners4 {
   border-radius: 15px;
   padding: 20px;
@@ -378,11 +379,69 @@ button.btn.btn-primary.nav-search-btn {
   font-weight: bold;
 }
 
+table.home-search-table {
+  min-width: 700px;
+  width: 70vw;
+  max-width: 850px;
+}
+
+table.home-search-table > tr > td {
+  box-shadow: 2px 4px 9px -2px rgb(29, 29, 29);
+}
+
+/* lesson search input for home */
+input.home-search-lesson.geosuggest.geosuggest__input {
+  font-size: 18px;
+  /* font-size: 1rem; */
+  padding: 0.5em 0.65em;
+  cursor: pointer;
+  box-shadow: none;
+  -webkit-transition: border 0.2s, box-shadow 0.2s;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+/* location search input for home */
+table.home-search-table
+  > tr
+  > td
+  > .geosuggest
+  > .geosuggest__input-wrapper
+  > input.geosuggest__input {
+  font-size: 18px;
+  /* font-size: 1rem; */
+  padding: 0.5em 0.65em;
+  cursor: pointer;
+  box-shadow: none;
+  -webkit-transition: border 0.2s, box-shadow 0.2s;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.home-search-btn-width {
+  width: 50px;
+}
+
+/* sesarch btn for home */
+td > a > button.btn.btn-primary {
+  height: 46px;
+  width: 100%;
+  border-color: #0078e0;
+}
+
+td > a > button.btn.btn-primary:hover {
+  height: 46px;
+  width: 100%;
+  border-color: #014480;
+}
+
+span.fas.fa-search.fa-2x {
+  transform: scale(0.65, 0.65);
+}
+
 .map-circle {
   border-radius: 50%;
   background-color: #ff00735b;
-  height: 300px;
-  width: 300px;
+  height: 200px;
+  width: 200px;
   border-color: black;
   border-width: 5px;
   transform: translate(-50%, -50%);
@@ -2061,8 +2120,6 @@ button:focus {
   outline: 0 !important;
 }
 
-
-
 .title {
   color: #eee;
 }
@@ -2075,10 +2132,10 @@ button:focus {
   border-right: 1px solid #fff;
 }
 
-.netflixCarousel{
-width:600em;
-list-style-type:none;
-padding:50px 0 50px 0;
+.netflixCarousel {
+  width: 600em;
+  list-style-type: none;
+  padding: 50px 0 50px 0;
 }
 
 .card-img-top {
