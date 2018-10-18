@@ -6,7 +6,7 @@ import SearchHome from './SearchHome.jsx';
 import FeaturedLesson from './FeaturedLesson.jsx';
 import UserLessonList from '../lessonList/UserLessonList.jsx';
 
-import LessonList from '../lessonList/LessonList.jsx';
+import HorizontalLessons from '../lessonList/HorizontalLessons.jsx';
 
 //This componenet could be a functional componenet and not requrie storing state at all
 class Home extends React.Component {
@@ -33,30 +33,23 @@ class Home extends React.Component {
                       <FeaturedLesson calendarEvents={this.props.calendarEvents} />
                     </div>
                     <div>
-                      <h2>Recommendations</h2>
-                      {this.state.categories.map((category) => (
-                        <Query
-                          query={GET_LESSONS_FILTERED}
-                          variables={{
-                            category: category,
-                            cityOfService: user.cityOfResidence,
-                            stateOfService: user.stateOfResidence
-                          }}
-                        >
-                          {({ loading, error, data }) => {
-                            if (error) return <small>ERROR</small>;
-                            if (loading || !data) return <small> Loading ...</small>;
-                            console.log(data);
-                            let lessonIds = data.lessonsFiltered.map((lesson) => lesson.id);
-                            return (
-                              <div>
-                                <h3>{category}</h3>
-                                <LessonList lessonIds={lessonIds} />
-                              </div>
-                            );
-                          }}
-                        </Query>
-                      ))}
+                    <h4 id="featuredTitle">Recommendations</h4>
+                      <Query
+                        query={GET_LESSONS_FILTERED}
+                        variables={{
+                          category: 'Cooking',
+                          cityOfService: user.cityOfResidence,
+                          stateOfService: user.stateOfResidence
+                        }}
+                      >
+                        {({ loading, error, data }) => {
+                          if (error) return <small>ERROR</small>;
+                          if (loading || !data) return <small> Loading ...</small>;
+                          console.log(data);
+                          let lessonIds = data.lessonsFiltered.map((lesson) => lesson.id);
+                          return <HorizontalLessons lessonIds={lessonIds} />;
+                        }}
+                      </Query>
                     </div>
                   </div>
                 );
@@ -68,26 +61,10 @@ class Home extends React.Component {
                 <FeaturedLesson calendarEvents={this.props.calendarEvents} />
               </div>
               <div>
-                <h2>Recommendations</h2>
+              <h4 id="featuredTitle">Recommendations</h4>
               </div>
             </div>
           )}
-
-          {/* <h1>Top Services</h1>
-          <Query query={GET_LESSONS}>
-            {({ loading, error, data }) => {
-              if (error) return <small>Error...</small>;
-              if (loading || !data) return <small>Loading...</small>;
-              let lessonIds = data.lessons
-                .filter((lesson) => {
-                  return lesson.avgRating > 3;
-                })
-                .map((lesson) => {
-                  return lesson.id;
-                });
-              return <LessonList lessonIds={lessonIds} />;
-            }}
-          </Query> */}
         </div>
       </div>
     );
