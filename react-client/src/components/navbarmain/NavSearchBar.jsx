@@ -69,7 +69,7 @@ class NavSearchBar extends React.Component {
                 onSuggestSelect={(suggest) => {
                   if (suggest) {
                     console.log(suggest);
-                    this.setState({ locationQuery: suggest.description });
+                    this.setState({ locationQuery: suggest.description }, this.search);
                   }
                 }}
                 value={this.state.locationQuery}

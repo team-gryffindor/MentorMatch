@@ -47,11 +47,13 @@ class SearchBarHome extends React.Component {
   };
 
   render() {
+    console.log('lesson query', this.state.serviceQuery);
+    console.log('location query', this.state.locationQuery);
     console.log('HIT BEFORE RENDER', this.state.results);
     return (
       <React.Fragment>
         <table className="home-search-table">
-          <tr clasName="home-search-lesson">
+          <tr>
             <td>
               <input
                 className="home-search-lesson geosuggest geosuggest__input"
@@ -68,7 +70,7 @@ class SearchBarHome extends React.Component {
                 onSuggestSelect={(suggest) => {
                   if (suggest) {
                     console.log(suggest);
-                    this.setState({ locationQuery: suggest.description });
+                    this.setState({ locationQuery: suggest.description }, this.search);
                   }
                 }}
                 value={this.state.locationQuery}
