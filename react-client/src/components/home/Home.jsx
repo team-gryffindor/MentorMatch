@@ -12,7 +12,7 @@ import HorizontalLessons from '../lessonList/HorizontalLessons.jsx';
 class Home extends React.Component {
   state = {
     topLessons: [],
-    categories: ['Music', 'Sports', 'Cooking', 'Academic']
+    categories: ['Music', 'Sports', 'Cooking', 'Arts']
   };
 
   render() {
@@ -33,23 +33,30 @@ class Home extends React.Component {
                       <FeaturedLesson calendarEvents={this.props.calendarEvents} />
                     </div>
                     <div>
-                    <h4 id="featuredTitle">Recommendations</h4>
-                      <Query
-                        query={GET_LESSONS_FILTERED}
-                        variables={{
-                          category: 'Cooking',
-                          cityOfService: user.cityOfResidence,
-                          stateOfService: user.stateOfResidence
-                        }}
-                      >
-                        {({ loading, error, data }) => {
-                          if (error) return <small>ERROR</small>;
-                          if (loading || !data) return <small> Loading ...</small>;
-                          console.log(data);
-                          let lessonIds = data.lessonsFiltered.map((lesson) => lesson.id);
-                          return <HorizontalLessons lessonIds={lessonIds} />;
-                        }}
-                      </Query>
+                      <h4 id="featuredTitle">Recommendations</h4>
+                      {this.state.categories.map((category) => (
+                        <Query
+                          query={GET_LESSONS_FILTERED}
+                          variables={{
+                            category: category,
+                            cityOfService: user.cityOfResidence,
+                            stateOfService: user.stateOfResidence
+                          }}
+                        >
+                          {({ loading, error, data }) => {
+                            if (error) return <small>ERROR</small>;
+                            if (loading || !data) return <small> Loading ...</small>;
+                            console.log(data);
+                            let lessonIds = data.lessonsFiltered.map((lesson) => lesson.id);
+                            return (
+                              <React.Fragment>
+                                <h3>{category}</h3>
+                                <HorizontalLessons lessonIds={lessonIds} />
+                              </React.Fragment>
+                            );
+                          }}
+                        </Query>
+                      ))}
                     </div>
                   </div>
                 );
@@ -61,7 +68,7 @@ class Home extends React.Component {
                 <FeaturedLesson calendarEvents={this.props.calendarEvents} />
               </div>
               <div>
-              <h4 id="featuredTitle">Recommendations</h4>
+                <h4 id="featuredTitle">Recommendations</h4>
               </div>
             </div>
           )}
