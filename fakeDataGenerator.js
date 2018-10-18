@@ -204,7 +204,7 @@ const users =
 
 
 
-var categories = ['Music', 'Sports', 'Cooking', 'Academic', 'Gaming', 'Arts', 'Automobiles', 'Coding', 'Theater', 'Miscellaneous']
+var categories = ['Music', 'Sports', 'Cooking', 'Academic', 'Gaming', 'Arts', 'Miscellaneous']
 var difficulty = ['Beginner', 'Intermediate', 'Expert']
 
 
@@ -214,16 +214,16 @@ const addFakeLessons = () => {
     variables: []
   }
   for (var i = 0; i < users.variables.length; i++) {
-    for(var j = 0; j < 5; j++) {
+    for(var j = 0; j < 20; j++) {
       let lesson = {}
       lesson.title = faker.lorem.words();
-      lesson.description = faker.lorem.sentences();
+      lesson.description = faker.lorem.paragraph();
       lesson.locationOfService = users.variables[i].locationOfResidence;
       lesson.lat = users.variables[i].lat;
       lesson.lng = users.variables[i].lng;
       lesson.cityOfService = users.variables[i].cityOfResidence;
       lesson.stateOfService = users.variables[i].stateOfResidence;
-      lesson.image = "https://picsum.photos/1200/600/?random";
+      lesson.image = `https://picsum.photos/1200/600?image=${800 + j + i * 20}`;
       lesson.difficulty = difficulty[Math.floor(Math.random() * 3)];
       // adjust for testing
       lesson.userId = i + 1;
@@ -266,7 +266,7 @@ const addFakeReviews = () => {
 } 
 
 // addFakeReviews();
-// addFakeLessons(users);
+addFakeLessons(users);
 
 
 // console.log(addFakeLessons(users));
