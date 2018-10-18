@@ -24,7 +24,7 @@ const LessonListItem = ({ lessonId }) => {
             break;
           } else if (letter === ' ') {
             spaces++;
-          } else if (spaces === 3) {
+          } else if (spaces === 6) {
             let shortDescription = lesson.description.slice(0, i);
             displayedDescription = shortDescription + '...';
           }
