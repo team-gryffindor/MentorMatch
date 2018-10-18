@@ -23,7 +23,26 @@ const LessonListItem = ({ lessonId }) => {
                 }}
                 style={{ textDecoration: 'none', color: 'black' }}
               >
-                <div className="list-group-item list-group-item-action flex-column align-items-start">
+             
+              <img className="card-img-top" src={lesson.image}/>
+              <div className="card-body">
+                <h5 className="card-title">{lesson.title}</h5>
+                <small className="text-muted">
+                      {lesson.cityOfService}, {lesson.stateOfService}
+                    </small>
+                <StarRatings
+                    rating={Number(lesson.avgRating.toFixed(2))}
+                    starRatedColor="blue"
+                    numberOfStars={5}
+                    starDimension="15px"
+                    starSpacing="1px"
+                    name="rating"
+                  />
+                <p className="card-text">{lesson.description}</p>
+                <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
+              </div>
+    
+                {/* <div className="list-group-item list-group-item-action flex-column align-items-start">
                   <div className="d-flex w-100 justify-content-between">
                     <h5 className="mb-1">{lesson.title}</h5>
                     <small className="text-muted">
@@ -40,7 +59,8 @@ const LessonListItem = ({ lessonId }) => {
                     name="rating"
                   />
                   <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
-                </div>
+                </div> */}
+              
               </Link>
             </div>
           </li>

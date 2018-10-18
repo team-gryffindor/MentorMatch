@@ -1962,6 +1962,11 @@ td.rdtYear:hover {
 /* ------------------- */
 
 
+body{
+  background:#fff;
+  
+}
+
 html {
     overflow: scroll;
     overflow-x: hidden;
@@ -1983,7 +1988,94 @@ html {
 
 button:focus {outline:0 !important;}
 
+.left-controls{
+  
+  position:absolute;
+  top:0;
+  left:0;
+  width:4%;
+  height:1000px;
+  z-index:40;
+  background:#fff;
+  opacity:1;
+  cursor:pointer;
+  text-align:center;
+  webkit justify content: center;
+  justify-content:center;
+  display: webkit box;
+  display: webkit flex;
+  display: moz box;
+  display:ms flexbox;
+  display:flex;
+  color:#fff;
 
+}
+
+.fa-chevron-left-extra
+{
+  align-self:center;
+  position:relative;
+  height:auto;
+  top:-250px;
+  transform-origin: 55% 50%;
+  font-style:normal;
+  font-weight:400;
+  line-height:1;
+  font-variant:normal;
+  text-transform:none;
+  font-size:2.5vw;
+  transition:transform .1s ease-out 0s;
+  transition-property: transform;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-out;
+  transition-delay: 0s;
+  color:blue;
+  opacity:.1;
+}
+
+
+.right-controls{
+  position:absolute;
+  top:0;
+  right:0;
+  width:4%;
+  height:1000px;
+  z-index:40;
+  background:#fff;
+  opacity:1;
+  cursor:pointer;
+  text-align:center;
+  webkit justify content: center;
+  justify-content:center;
+  display: webkit box;
+  display: webkit flex;
+  display: moz box;
+  display:ms flexbox;
+  display:flex;
+  color:#fff;
+}
+
+.fa-chevron-right-extra
+{
+  align-self:center;
+  position:relative;
+  height:auto;
+  top:-250px;
+ transform-origin: 55% 50%;
+  font-style:normal;
+  font-weight:400;
+  line-height:1;
+  font-variant:normal;
+  text-transform:none;
+  font-size:2.5vw;
+  transition:transform .1s ease-out 0s;
+  transition-property: transform;
+  transition-duration: 0.1s;
+  transition-timing-function: ease-out;
+  transition-delay: 0s;
+  color:blue;
+  opacity:.1;
+}
 
 .title{
   color:#eee;
@@ -2013,6 +2105,11 @@ padding:50px 0 50px 0;
   position:relative;
 }
 
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}
 /*
 .arrow-guides, .arrow-guides:hover{
 
@@ -2051,14 +2148,19 @@ color:#fff;
 
 
 
-.card {
+.card{
   width: 25em;
   height:350px;
   background:#fff;
   float:left;
   margin-right:10px;
   margin-bottom:50px;
+  cursor:pointer;
+  transform: scale(1);
   visibility:visible;
+  -moz-box-shadow: 0px 1px 5px 0px #676767;
+  -webkit-box-shadow: 0px 1px 5px 0px #676767;
+  box-shadow: 0px 1px 5px 0px #676767;
   
 }
 
@@ -2092,5 +2194,3 @@ color:#fff;
   overflow: auto;
   zoom: 1;
 }
-
-
