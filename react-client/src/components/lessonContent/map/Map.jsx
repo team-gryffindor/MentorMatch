@@ -6,7 +6,7 @@ const Map = ({ location }) => {
   console.log(location);
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: '100vh', width: '100%', marginBottom: '30px' }}>
+    <div style={{ height: '80vh', width: '100%', marginBottom: '30px' }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.MAP_API_KEY }}
         defaultCenter={location.center}

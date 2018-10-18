@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import NavLogo from './NavLogo.jsx';
@@ -9,8 +8,6 @@ import NavUserOpt from './NavUserOpt.jsx';
 const NavBarMain = (props) => (
   <div>
     <div className="navBar-css">
-      {/* <img className="logo-img" src={'../withText.png'} width={80} /> */}
-
       <nav
         className="navbar navbar-expand-md navbar-light"
         style={{ backgroundColor: 'transparent' }}
@@ -29,6 +26,7 @@ const NavBarMain = (props) => (
       </nav>
       <hr />
     </div>
+    {props.currentPath === '/' && <img className="home-logo-img" src={'../withText.png'} />}
   </div>
 );
 

@@ -50,48 +50,48 @@ class NavSearchBar extends React.Component {
     console.log('HIT BEFORE RENDER', this.state.results);
     console.log('QUERY TO SEND TO REDISEARCH', typeof this.state.serviceQuery);
     return (
-      <div >
+      <div className="w-150 mx-auto order-0">
         <table>
           <tr>
-            <td>
+            <td className="nav-search-container">
               <input
-              className="geosuggest geosuggest__input"
-              type="keywords"
-              placeholder="Lesson"
-              aria-label="Lesson"
-              value={this.state.service}
-              onChange={this.handleServiceInputChange}
-            />
+                className="geosuggest geosuggest__input"
+                type="keywords"
+                placeholder="Lesson"
+                aria-label="Lesson"
+                value={this.state.service}
+                onChange={this.handleServiceInputChange}
+              />
             </td>
-            <td>
+            <td className="nav-search-container">
               <Geosuggest
-              placeholder='City'
-              onSuggestSelect={(suggest) => {
-                if (suggest) {
-                  console.log(suggest);
-                  this.setState({ locationQuery: suggest.description });
-                }
-              }}
-              value={this.state.locationQuery}
-            />
-            </td>
-            <td>
-              <Link
-                to={{
-                  pathname: '/feed',
-                  state: {
-                    lessonIds: this.state.results,
-                    serviceQuery: this.state.serviceQuery,
-                    locationQuery: this.state.locationQuery
+                placeholder="City"
+                onSuggestSelect={(suggest) => {
+                  if (suggest) {
+                    console.log(suggest);
+                    this.setState({ locationQuery: suggest.description }, this.search);
                   }
                 }}
-                style={{ textDecoration: 'none', color: 'white' }}
-              >
-                <button className="btn btn-primary" type="submit">
+                value={this.state.locationQuery}
+              />
+            </td>
+            <Link
+              to={{
+                pathname: '/feed',
+                state: {
+                  lessonIds: this.state.results,
+                  serviceQuery: this.state.serviceQuery,
+                  locationQuery: this.state.locationQuery
+                }
+              }}
+              style={{ textDecoration: 'none', color: 'white' }}
+            >
+              <td className="nav-search-btn">
+                <button className="btn btn-primary nav-search-btn" type="submit">
                   <span className="fas fa-search" />
                 </button>
-              </Link>
-            </td>
+              </td>
+            </Link>
           </tr>
         </table>
       </div>

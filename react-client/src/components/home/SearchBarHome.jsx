@@ -47,53 +47,55 @@ class SearchBarHome extends React.Component {
   };
 
   render() {
+    console.log('lesson query', this.state.serviceQuery);
+    console.log('location query', this.state.locationQuery);
     console.log('HIT BEFORE RENDER', this.state.results);
     return (
-      <div >
-      <table>
-        <tr>
-          <td>
-            <input
-            className="geosuggest geosuggest__input"
-            type="keywords"
-            placeholder="Lesson"
-            aria-label="Lesson"
-            value={this.state.service}
-            onChange={this.handleServiceInputChange}
-          />
-          </td>
-          <td>
-            <Geosuggest
-            placeholder='Location'
-            onSuggestSelect={(suggest) => {
-              if (suggest) {
-                console.log(suggest);
-                this.setState({ locationQuery: suggest.description });
-              }
-            }}
-            value={this.state.locationQuery}
-          />
-          </td>
-          <td>
-            <Link
-              to={{
-                pathname: '/feed',
-                state: {
-                  lessonIds: this.state.results,
-                  serviceQuery: this.state.serviceQuery,
-                  locationQuery: this.state.locationQuery
-                }
-              }}
-              style={{ textDecoration: 'none', color: 'white' }}
-            >
-              <button className="btn btn-primary" type="submit">
-                <span className="fas fa-search" />
-              </button>
-            </Link>
-          </td>
-        </tr>
-      </table>
-    </div>
+      <div>
+        <table>
+          <tr>
+            <td>
+              <input
+                className="geosuggest geosuggest__input"
+                type="keywords"
+                placeholder="Lesson"
+                aria-label="Lesson"
+                value={this.state.service}
+                onChange={this.handleServiceInputChange}
+              />
+            </td>
+            <td>
+              <Geosuggest
+                placeholder="Location"
+                onSuggestSelect={(suggest) => {
+                  if (suggest) {
+                    console.log(suggest);
+                    this.setState({ locationQuery: suggest.description }, this.search);
+                  }
+                }}
+                value={this.state.locationQuery}
+              />
+            </td>
+            <td>
+              <Link
+                to={{
+                  pathname: '/feed',
+                  state: {
+                    lessonIds: this.state.results,
+                    serviceQuery: this.state.serviceQuery,
+                    locationQuery: this.state.locationQuery
+                  }
+                }}
+                style={{ textDecoration: 'none', color: 'white' }}
+              >
+                <button className="btn btn-primary" type="submit">
+                  <span className="fas fa-search" />
+                </button>
+              </Link>
+            </td>
+          </tr>
+        </table>
+      </div>
     );
   }
 }
