@@ -3,7 +3,6 @@ import { Query } from 'react-apollo';
 import { GET_LESSON } from '../../apollo/resolvers/backendQueries.js';
 import { Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
-import { extractCityState } from '../../util/addressHelper.js';
 
 const LessonListItem = ({ lessonId }) => {
   return (
@@ -11,9 +10,8 @@ const LessonListItem = ({ lessonId }) => {
       {({ loading, error, data }) => {
         if (error) return <p>Error! Could not retrieve the results.</p>;
         if (loading || !data) return <p>Loading Results...</p>;
+        
         let { lesson } = data;
-        // let { city, state } = extractCityState(data.lesson.location.addressComponents);
-
         let spaces = 0;
         let displayedDescription;
         
@@ -44,22 +42,22 @@ const LessonListItem = ({ lessonId }) => {
               >
              
               <img className="card-img-top" src={lesson.image}/>
-              <div className="card-body">
-                <h5 className="card-title">{lesson.title}</h5>
-                <small className="text-muted">
-                      {lesson.cityOfService}, {lesson.stateOfService}
-                    </small>
-                <StarRatings
-                    rating={Number(lesson.avgRating.toFixed(2))}
-                    starRatedColor="blue"
-                    numberOfStars={5}
-                    starDimension="15px"
-                    starSpacing="1px"
-                    name="rating"
-                  />
-                <p className="card-text">{displayedDescription}</p>
-                <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
-              </div>       
+                <div className="card-body">
+                  <h5 className="card-title">{lesson.title}</h5>
+                  <small className="text-muted">
+                        {lesson.cityOfService}, {lesson.stateOfService}
+                      </small>
+                  <StarRatings
+                      rating={Number(lesson.avgRating.toFixed(2))}
+                      starRatedColor="blue"
+                      numberOfStars={5}
+                      starDimension="15px"
+                      starSpacing="1px"
+                      name="rating"
+                    />
+                  <p className="card-text">{displayedDescription}</p>
+                  <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
+                </div>       
               </Link>
             </div>
           </li>
