@@ -10,7 +10,7 @@ const LessonListItem = ({ lessonId }) => {
       {({ loading, error, data }) => {
         if (error) return <p>Error! Could not retrieve the results.</p>;
         if (loading || !data) return <p>Loading Results...</p>;
-        
+
         let { lesson } = data;
         let spaces = 0;
         let displayedDescription;
@@ -24,7 +24,7 @@ const LessonListItem = ({ lessonId }) => {
             break;
           } else if (letter === ' ') {
             spaces++;
-          } else if (spaces === 5) {
+          } else if (spaces === 3) {
             let shortDescription = lesson.description.slice(0, i);
             displayedDescription = shortDescription + '...';
           }
