@@ -37,6 +37,11 @@ hr {
 
 .logo-img {
   margin-right: 10px;
+  filter: brightness(0) invert(1);
+}
+
+.signin-img {
+  width: 10%;
 }
 
 .btn-margin-left {
@@ -67,11 +72,27 @@ hr {
 
 .signin-container {
   background-color: #eceff1;
-  width: 50%;
+  max-width: 450px;
+  width: 40%;
+  height: 50vh;
   padding-top: 30px;
   padding-bottom: 30px;
-  transform: translate(0%, 10%);
-  border-radius: 5px;
+  transform: translate(0%, 15vh);
+  border-radius: 2px;
+  box-shadow: 2px 4px 9px -2px rgba(130, 130, 130, 1);
+}
+
+/* .signin-button-comp {
+  transform: translate(0%, %);
+} */
+
+.signin-hr {
+  margin-bottom: 15px;
+}
+
+.back-home-btn {
+  width: 220px;
+  box-shadow: 2px 4px 9px -2px rgba(130, 130, 130, 1);
 }
 
 .reviewer-image {
@@ -109,6 +130,19 @@ hr {
   padding: 0 0 0 0;
 }
 
+li.nav-item.dropdown {
+  margin: 0 0 0 0;
+}
+
+a#navbarDropdown.nav-link.dropdown-toggle {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+a#navbarDropdown.nav-link.dropdown-toggle::after {
+  color: white;
+}
+
 .nav-pills {
   margin-top: 30px;
 }
@@ -141,13 +175,12 @@ hr {
 
 .navBar-css {
   background: #0078e0;
-
 }
 
 .btn-primary {
   background: #0078e0;
   color: white;
-  border-color: #0078e0
+  border-color: #0078e0;
 }
 
 .btn-primary:hover {
@@ -246,22 +279,40 @@ hr {
   position: relative;
   width: 100%;
   text-align: left;
+  border-radius: 2px;
 }
-table {
-  width: 500px;
+
+.nav-search-container {
+  min-width: 300px;
+  width: 350px;
 }
+
+.nav-search-btn {
+  height: 36px;
+}
+
+button.btn.btn-primary.nav-search-btn {
+  height: 100%;
+}
+
+/* .nav-search-btn:hover {
+  background-color: #0078e0;
+  bord
+} */
 
 .geosuggest__input {
   width: 100%;
   border: 2px solid transparent;
   box-shadow: 0 0 1px #3d464d;
-  padding: 0.5em 1em;
+  padding: 0.25em 0.5em;
   -webkit-transition: border 0.2s, box-shadow 0.2s;
   transition: border 0.2s, box-shadow 0.2s;
+  border-radius: 2px;
 }
 .geosuggest__input:focus {
-  border-color: #0078e0;
+  /* border-color: #0078e0; */
   box-shadow: 0 0 0 transparent;
+  border-radius: 2px;
 }
 .geosuggest__suggests {
   position: absolute;
@@ -272,7 +323,7 @@ table {
   padding: 0;
   margin-top: -1px;
   background: #fff;
-  border: 2px solid #0078e0;
+  border: 1px solid #eceff1;
   border-top-width: 0;
   overflow-x: hidden;
   overflow-y: auto;

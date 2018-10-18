@@ -101,19 +101,21 @@ class Login extends React.Component {
     if (!this.props.isLoggedIn && !this.state.isNewUser) {
       return (
         <div className="container signin-container">
-          <h3 style={{ textAlign: 'center', verticalAlign: 'bottom' }}>Welcome to</h3>
-          <img
-            className="logo-img"
-            style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '100px' }}
-            src={'../../MM-Logotype.png'}
-          />
-          <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
-          <div className="d-flex justify-content-center">
-            <Link to="/">
-              <button className="btn btn-primary my-2 my-sm-0 btn-margin-left" type="submit">
-                Back to Home
-              </button>
-            </Link>
+          <div className="signin-button-comp">
+            <img
+              className="signin-img"
+              style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '100px' }}
+              src={'../../MM-Logotype.png'}
+            />
+            <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
+            <hr className="signin-hr" />
+            <div className="d-flex justify-content-center">
+              <Link to="/">
+                <button className="btn btn-primary btn-margin-left back-home-btn" type="submit">
+                  Back to Home
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       );

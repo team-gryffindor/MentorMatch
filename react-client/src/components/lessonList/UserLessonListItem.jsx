@@ -47,7 +47,7 @@ const UserLessonListItem = ({ lesson, taken, userId }) => {
         <div className="d-flex w-100 justify-content-between ">
           <h5 className="mb-1">{lesson.title}</h5>
           <small className="text-muted">
-            {city}, {state}
+            {lesson.cityOfService}, {lesson.stateOfService}
           </small>
         </div>
         <p className="mb-1">{lesson.description}</p>
