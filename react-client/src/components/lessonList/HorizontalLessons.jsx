@@ -6,7 +6,7 @@ const LessonList = ({ lessonIds }) => {
   return (
     <div className="wrapper">
       <div className='module-section'>
-        <ul id='content'>
+        <ul className='netflixCarousel' id='content'>
           {lessonIds.map((lessonId) => {
             console.log(lessonId);
             return <HorizontalLessonItem lessonId={lessonId} key={lessonId} />;
