@@ -57,15 +57,37 @@ class App extends React.Component {
             <div>
               <Route
                 path="/"
-                render={({ location }) => (
-                  <NavBarMain
-                    apolloClient={apolloClient}
-                    isLoggedIn={isLoggedIn}
-                    handleLogin={this.handleLogin}
-                    handleGuestOpt={this.handleGuestOpt}
-                    currentPath={location.pathname}
-                  />
-                )}
+                render={({ location }) => {
+                  if (isLoggedIn)
+                    return (
+                      <Query query={GET_USER_INFO} className="container">
+                        {({ loading, error, data }) => {
+                          if (error) return <small>Error...</small>;
+                          if (loading || !data) return <small>Loading...</small>;
+                          return (
+                            <NavBarMain
+                              apolloClient={apolloClient}
+                              isLoggedIn={isLoggedIn}
+                              handleLogin={this.handleLogin}
+                              handleGuestOpt={this.handleGuestOpt}
+                              currentPath={location.pathname}
+                              userImg={data.userInfo.image}
+                            />
+                          );
+                        }}
+                      </Query>
+                    );
+                  else
+                    return (
+                      <NavBarMain
+                        apolloClient={apolloClient}
+                        isLoggedIn={isLoggedIn}
+                        handleLogin={this.handleLogin}
+                        handleGuestOpt={this.handleGuestOpt}
+                        currentPath={location.pathname}
+                      />
+                    );
+                }}
               />
               <Route
                 exact
@@ -112,6 +134,7 @@ class App extends React.Component {
               <Route
                 path="/lessonContent/:lessonId"
                 render={({ location }) => {
+                  console.log('new lesson data received by redirect from add review', location);
                   if (this.state.isLoggedIn) {
                     return (
                       <Query query={GET_USER_INFO} className="container">
@@ -125,6 +148,7 @@ class App extends React.Component {
                                 if (loading || !data) return <small>Loading...</small>;
                                 let favorite = false;
                                 let userFavorites = data.user.favoriteLessons;
+                                let currUser = data.user;
                                 for (let i = 0; i < userFavorites.length; i++) {
                                   if (userFavorites[i].id === location.state.lesson.id) {
                                     favorite = true;
@@ -140,13 +164,25 @@ class App extends React.Component {
                                   }
                                 }
                                 return (
-                                  <LessonContent
-                                    userId={data.user.id}
-                                    lesson={location.state.lesson}
-                                    isLoggedIn={this.state.isLoggedIn}
-                                    isFavorite={favorite}
-                                    isBooked={booked}
-                                  />
+                                  <Query
+                                    query={GET_LESSON}
+                                    variables={{ id: location.state.lesson.id }}
+                                  >
+                                    {({ loading, error, data }) => {
+                                      if (loading) return <p>Loading...</p>;
+                                      if (error) return <p>Error</p>;
+                                      console.log('NEWLY QUERIED DATA FROM DB', data);
+                                      return (
+                                        <LessonContent
+                                          userId={currUser.id}
+                                          lesson={data.lesson}
+                                          isLoggedIn={this.state.isLoggedIn}
+                                          isFavorite={favorite}
+                                          isBooked={booked}
+                                        />
+                                      );
+                                    }}
+                                  </Query>
                                 );
                               }}
                             </Query>

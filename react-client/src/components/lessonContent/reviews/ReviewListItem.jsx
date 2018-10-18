@@ -8,7 +8,7 @@ const ReviewListItem = ({ review }) => {
     <div className="list-group-item flex-column align-items-start">
       <div className="d-flex w-100 justify-content-start">
         <img
-          className="reviewer-image"
+          className="reviewer-image border"
           src={review.user.image}
           onError={(e) => {
             e.target.onerror = null;
@@ -20,7 +20,9 @@ const ReviewListItem = ({ review }) => {
           <div>
             {review.user.name}
             <br />
-            <small>{review.user.locationOfResidence}</small>
+            <small>
+              {review.user.cityOfResidence}, {review.user.stateOfResidence}
+            </small>
           </div>
           <StarRatings
             rating={Number(review.rating.toFixed(2))}

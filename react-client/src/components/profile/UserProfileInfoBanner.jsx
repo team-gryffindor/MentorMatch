@@ -3,7 +3,16 @@ import React from 'react';
 const UserProfileInfoBanner = ({ user }) => (
   <div className="profile-info row">
     <div className="col-md-3">
-      <img className="profile-image rounded border" src={user.image} />
+      <img
+        className="my-profile-image border"
+        src={user.image}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = '../Default.png';
+        }}
+        alt={'profile image'}
+      />
+      {/* <img className="profile-image rounded border" src={user.image} /> */}
     </div>
     <div className="col-md-9">
       <div className="row">

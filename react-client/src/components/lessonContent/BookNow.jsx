@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import DatePicker from 'react-datepicker';
 import { Mutation } from 'react-apollo';
-import { ADD_SIGNUP_LESSON } from '../../apollo/resolvers/backendQueries.js';
+import { ADD_SIGNUP_LESSON, GET_USER } from '../../apollo/resolvers/backendQueries.js';
 import moment from 'moment';
 
 class BookNow extends React.Component {
@@ -73,7 +73,9 @@ export default class CustomInput extends React.Component {
 
     if (count >= 2 && booked === false) {
       submit = (
-        <Mutation mutation={ADD_SIGNUP_LESSON}>
+        <Mutation 
+        mutation={ADD_SIGNUP_LESSON} 
+        refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}>
           {(addSignUpLesson) => (
             <div>
               <button

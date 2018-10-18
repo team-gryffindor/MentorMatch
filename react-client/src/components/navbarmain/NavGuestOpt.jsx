@@ -14,13 +14,13 @@ const NavGuestOpt = (props) => (
         >
           Log in
         </button> */}
-        <button className="btn btn-secondary my-2 my-sm-0 btn-margin-right" type="button">
+        <button className="btn btn-primary my-2 my-sm-0 btn-margin-right" type="button">
           Log in
         </button>
       </Link>
       <Link className="nav-item" to="/auth">
         {/* <button
-          className="btn btn-highlight my-2 my-sm-0 btn-margin-left"
+          className="btn btn-primary my-2 my-sm-0 btn-margin-left"
           type="button"
           data-toggle="modal"
           data-target="#authModal"
@@ -28,7 +28,7 @@ const NavGuestOpt = (props) => (
         >
           Sign up
         </button> */}
-        <button className="btn btn-highlight my-2 my-sm-0 btn-margin-left" type="button">
+        <button className="btn btn-primary my-2 my-sm-0 btn-margin-left" type="button">
           Sign up
         </button>
       </Link>
