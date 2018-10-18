@@ -24,7 +24,7 @@ const LessonListItem = ({ lessonId }) => {
             break;
           } else if (letter === ' ') {
             spaces++;
-          } else if (spaces === 3) {
+          } else if (spaces === 10) {
             let shortDescription = lesson.description.slice(0, i);
             displayedDescription = shortDescription + '...';
           }
@@ -47,15 +47,15 @@ const LessonListItem = ({ lessonId }) => {
               }}/>
                 <div className="card-body">
                   <h5 className="card-title">{lesson.title}</h5>
-                  <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
                   <StarRatings
-                      rating={Number(lesson.avgRating.toFixed(2))}
-                      starRatedColor="blue"
-                      numberOfStars={5}
-                      starDimension="15px"
-                      starSpacing="1px"
-                      name="rating"
-                    />
+                    rating={Number(lesson.avgRating.toFixed(2))}
+                    starRatedColor="blue"
+                    numberOfStars={5}
+                    starDimension="15px"
+                    starSpacing="1px"
+                    name="rating"
+                  />
+                  <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
                   <p className="card-text">{displayedDescription}</p>
                   
                   <small className="text-muted">
