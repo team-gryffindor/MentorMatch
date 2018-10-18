@@ -50,8 +50,8 @@ class SearchBarHome extends React.Component {
     console.log('HIT BEFORE RENDER', this.state.results);
     return (
       <div>
-        <table>
-          <tr>
+        <table className="home-search-table">
+          <tr clasName="home-search-lesson">
             <td>
               <input
                 className="geosuggest geosuggest__input"
