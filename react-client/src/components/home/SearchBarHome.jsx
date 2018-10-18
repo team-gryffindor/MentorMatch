@@ -49,12 +49,12 @@ class SearchBarHome extends React.Component {
   render() {
     console.log('HIT BEFORE RENDER', this.state.results);
     return (
-      <div>
+      <React.Fragment>
         <table className="home-search-table">
           <tr clasName="home-search-lesson">
             <td>
               <input
-                className="geosuggest geosuggest__input"
+                className="home-search-lesson geosuggest geosuggest__input"
                 type="keywords"
                 placeholder="Lesson"
                 aria-label="Lesson"
@@ -74,7 +74,7 @@ class SearchBarHome extends React.Component {
                 value={this.state.locationQuery}
               />
             </td>
-            <td>
+            <td className="home-search-btn-width">
               <Link
                 to={{
                   pathname: '/feed',
@@ -87,13 +87,13 @@ class SearchBarHome extends React.Component {
                 style={{ textDecoration: 'none', color: 'white' }}
               >
                 <button className="btn btn-primary" type="submit">
-                  <span className="fas fa-search" />
+                  <span className="fas fa-search fa-2x" />
                 </button>
               </Link>
             </td>
           </tr>
         </table>
-      </div>
+      </React.Fragment>
     );
   }
 }

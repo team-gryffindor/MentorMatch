@@ -278,9 +278,10 @@ a#navbarDropdown.nav-link.dropdown-toggle::after {
 }
 
 .vertical-center {
-  min-height: 400px;
+  /* min-height: 400px; */
   display: flex;
   align-items: center;
+  transform: translate(0, 50%);
 }
 
 .geosuggest {
@@ -379,15 +380,45 @@ button.btn.btn-primary.nav-search-btn {
 }
 
 table.home-search-table {
-  transform: translate(0, 20%);
-  width: 1000px;
+  min-width: 700px;
+  width: 70vw;
+  max-width: 850px;
 }
 
-td.home-search-lesson {
-  font-size: 20px;
+/* lesson search input for home */
+input.home-search-lesson.geosuggest.geosuggest__input {
+  font-size: 18px;
   /* font-size: 1rem; */
   padding: 0.5em 0.65em;
   cursor: pointer;
+}
+
+/* location search input for home */
+table.home-search-table
+  > tr
+  > td
+  > .geosuggest
+  > .geosuggest__input-wrapper
+  > input.geosuggest__input {
+  font-size: 18px;
+  /* font-size: 1rem; */
+  padding: 0.5em 0.65em;
+  cursor: pointer;
+}
+
+.home-search-btn-width {
+  width: 50px;
+}
+
+/* sesarch btn for home */
+td > a > button.btn.btn-primary {
+  height: 46px;
+  width: 100%;
+  border-color: #0078e0;
+}
+
+span.fas.fa-search.fa-2x {
+  transform: scale(0.65, 0.65);
 }
 
 .map-circle {
