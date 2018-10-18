@@ -13,6 +13,25 @@ const LessonListItem = ({ lessonId }) => {
         if (loading || !data) return <p>Loading Results...</p>;
         let { lesson } = data;
         // let { city, state } = extractCityState(data.lesson.location.addressComponents);
+
+        let spaces = 0;
+        let displayedDescription;
+        
+        for (let i = 0; i < lesson.description.length; i++) {
+          let letter = lesson.description[i];
+
+          if (lesson.description.length <= 10) {
+            displayedDescription = lesson.description;
+            console.log('LESSON LENGTH: ', lesson.description.length);
+            break;
+          } else if (letter === ' ') {
+            spaces++;
+          } else if (spaces === 5) {
+            let shortDescription = lesson.description.slice(0, i);
+            displayedDescription = shortDescription + '...';
+          }
+        }
+
         return (
           <li className='card'>
             <div className='inside-top'>
@@ -38,29 +57,9 @@ const LessonListItem = ({ lessonId }) => {
                     starSpacing="1px"
                     name="rating"
                   />
-                <p className="card-text">{lesson.description}</p>
+                <p className="card-text">{displayedDescription}</p>
                 <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
-              </div>
-    
-                {/* <div className="list-group-item list-group-item-action flex-column align-items-start">
-                  <div className="d-flex w-100 justify-content-between">
-                    <h5 className="mb-1">{lesson.title}</h5>
-                    <small className="text-muted">
-                      {lesson.cityOfService}, {lesson.stateOfService}
-                    </small>
-                  </div>
-                  <p className="mb-1">{lesson.description}</p>
-                  <StarRatings
-                    rating={Number(lesson.avgRating.toFixed(2))}
-                    starRatedColor="blue"
-                    numberOfStars={5}
-                    starDimension="15px"
-                    starSpacing="1px"
-                    name="rating"
-                  />
-                  <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
-                </div> */}
-              
+              </div>       
               </Link>
             </div>
           </li>
