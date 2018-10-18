@@ -1,4 +1,5 @@
 const Models = require('./server/db/index.js');
+const faker = require('faker');
 
 // const ADD_USER = gql`
 //   mutation(
@@ -50,12 +51,17 @@ const Models = require('./server/db/index.js');
 //   }
 // });
 
+// var randomName = faker.name.findName(); // Rowan Nikolaus
+// var randomEmail = faker.internet.email(); // Kassandra.Haley@erich.biz
+// var randomCard = faker.helpers.createCard(); // random contact card containing many properties
+
+
 const users = 
 { 
   variables:[
     {
       name: "Jeanette Walter DDS",
-      description: "",
+      description: faker.lorem.paragraph(),
       locationOfResidence: "369 Lexington Avenue, New York, NY, USA",
       cityOfResidence: "New York",
       stateOfResidence: "NY",
@@ -66,7 +72,7 @@ const users =
     },
     {
       name: "Deshawn Krajcik",
-      description: "",
+      description: faker.lorem.paragraph(),
       locationOfResidence: "124 12th Avenue, New York, NY, USA",
       cityOfResidence: "New York", 
       stateOfResidence: "NY",
@@ -77,7 +83,7 @@ const users =
     },
     {
       name: "Rosalee Waelchi",
-      description: '',
+      description: faker.lorem.paragraph(),
       locationOfResidence: "12 West 109th Street, New York, New York, USA",
       cityOfResidence: "New York",
       stateOfResidence: "NY", 
@@ -88,7 +94,7 @@ const users =
     },
     {
       name: "Hettie Reinger",
-      description: '',
+      description: faker.lorem.paragraph(),
       locationOfResidence: "43 West Street, NY, New York, USA",
       cityOfResidence: "New York",
       stateOfResidence: "NY",
@@ -99,7 +105,7 @@ const users =
     },
     {
       name: "Marina Rice",
-      description: '',
+      description: faker.lorem.paragraph(),
       locationOfResidence:  "123 East 16th Street, New York, New York, USA",
       cityOfResidence: "New York",
       stateOfResidence: "NY",
@@ -110,7 +116,7 @@ const users =
     },
     {
       name: "Frankie Waters",
-      description: '',
+      description: faker.lorem.paragraph(),
       locationOfResidence:  "100 Park Ave, New York, New York, USA",
       cityOfResidence: "New York",
       stateOfResidence: "NY",
@@ -121,7 +127,7 @@ const users =
     },
     {
       name: "Hillary Mraz",
-      description: '',
+      description: faker.lorem.paragraph(),
       locationOfResidence: "110 West Road, San Francisco, CA, USA",
       cityOfResidence: "San Francisco",
       stateOfResidence: "CA",
@@ -132,7 +138,7 @@ const users =
     },
     {
       name: "Malachi Lubowitz",
-      description: '',
+      description: faker.lorem.paragraph(),
       locationOfResidence: "98 Avenue D, San Francisco, CA, USA",
       cityOfResidence: "San Francisco",
       stateOfResidence: "CA",
@@ -143,7 +149,7 @@ const users =
     },
     {
       name: "Damaris Stokes",
-      description: '',
+      description: faker.lorem.paragraph(),
       locationOfResidence:  "645 Market Street, San Francisco, CA, USA",
       cityOfResidence: "San Francisco",
       stateOfResidence: "CA",
@@ -154,61 +160,116 @@ const users =
     },
     {
       name: "Mark Stanton",
-      description: '',
-      locationOfResidence: "356 Volkman Drive, Victor, NY, USA",
-      cityOfResidence: "Victor",
-      stateOfResidence: "NY",
-      lat: 42.9890298,
-      lng: -77.37786410000001, 
+      description: faker.lorem.paragraph(),
+      locationOfResidence: "11 Boston Street, Boston, MA, USA",
+      cityOfResidence: "Boston",
+      stateOfResidence: "MA",
+      lat: 42.3291384,
+      lng: -71.057547, 
       image: "https://s3.amazonaws.com/uifaces/faces/twitter/brandonburke/128.jpg",
       uid:  "eBzg6sd4GxbAmqBM39C2xypMtMc4"
     },
     {
       name: 'Baron Abshire',
-      description: '',
-      locationOfResidence: "669 New York Avenue, Huntington, New York, USA",
-      cityOfResidence: "Huntington",
-      stateOfResidence: "NY",
-      lat: 40.8603303,
-      lng: -73.4209502,
+      description: faker.lorem.paragraph(),
+      locationOfResidence: "334 West Chicago Avenue, Chicago, IL, USA",
+      cityOfResidence: "Chicago",
+      stateOfResidence: "IL",
+      lat: 41.8967046,
+      lng: -87.63700449999999,
       image: "https://s3.amazonaws.com/uifaces/faces/twitter/bradenhamm/128.jpg",
       uid:  "eYzg7dy7GxbAmqBM39C2xypMtMc4"
     },
     {
       name: 'Liza Streich',
-      description: '',
-      locationOfResidence: "9593 New York 25A, Flushing, NY, USA",
-      cityOfResidence: "New York",
-      stateOfResidence: "NY",
-      lat: 40.7619866,
-      lng: -73.80362680000002,
+      description: faker.lorem.paragraph(),
+      locationOfResidence: "The Breakfast Klub, Travis Street, Houston, TX, USA",
+      cityOfResidence: "Houston",
+      stateOfResidence: "TX",
+      lat: 29.738557,
+      lng: -95.38065660000001,
       image: "https://s3.amazonaws.com/uifaces/faces/twitter/megdraws/128.jpg",
       uid:  "tGwg7dy6GxbAmqDM39C2xypMtMc4"
     }
   ]
 }
 
-Models.User.bulkCreate(users.variables)
-            .then((data) => {
-              console.log('DATA', data)
-            })
-            .catch((err) => {
-              console.error('Error inside', err)
-            })
-// const lessons = {
-
-// }
+// Models.User.bulkCreate(users.variables)
+//             .then((data) => {
+//               console.log('DATA', data)
+//             })
+//             .catch((err) => {
+//                   console.log('Error in fake/data/users', err)
+//             })
 
 
 
+var categories = ['Music', 'Sports', 'Cooking', 'Academic', 'Gaming', 'Arts', 'Automobiles', 'Coding', 'Theater', 'Miscellaneous']
+var difficulty = ['Beginner', 'Intermediate', 'Expert']
 
 
 
+const addFakeLessons = () => {
+  var lessons = {
+    variables: []
+  }
+  for (var i = 0; i < users.variables.length; i++) {
+    for(var j = 0; j < 5; j++) {
+      let lesson = {}
+      lesson.title = faker.lorem.words();
+      lesson.description = faker.lorem.sentences();
+      lesson.locationOfService = users.variables[i].locationOfResidence;
+      lesson.lat = users.variables[i].lat;
+      lesson.lng = users.variables[i].lng;
+      lesson.cityOfService = users.variables[i].cityOfResidence;
+      lesson.stateOfService = users.variables[i].stateOfResidence;
+      lesson.image = "https://picsum.photos/1200/600/?random";
+      lesson.difficulty = difficulty[Math.floor(Math.random() * 3)];
+      // adjust for testing
+      lesson.userId = i + 1;
+      lesson.category = categories[Math.floor(Math.random() * categories.length)];
+      lesson.price = Math.round(Math.random() * 40) + 10;
+      lesson.avgRating = Math.random() * 2 + 3;
+      lesson.numOfReviews = Math.floor(Math.random() * 10) + 10
+      lessons.variables.push(lesson);
+    }
+    // for each user - create x lessons pull certain fields like location from user
+    // give random titles
+  }
+  Models.Lesson.bulkCreate(lessons.variables)
+               .then((data) => {
+                 console.log('FUCK YEAH:', data)
+               })
+               .catch((err) => {
+                console.log('Error in fake/data/lessons', err)
+              })
+}
+
+const addFakeReviews = () => {
+  let reviews = []
+  for(var i = 0; i < 400; i++) {
+    let review = {};
+    review.title = faker.company.catchPhrase();
+    review.comment = faker.lorem.sentences();
+    review.lessonId = Math.floor(Math.random() * 36) + 177;
+    review.rating = Math.floor(Math.random() * 3) + 3;
+    review.userId = Math.floor(Math.random() * 12) + 21;
+    reviews.push(review)
+  }
+  Models.Review.bulkCreate(reviews)
+               .then((data) => {
+                 console.log('Reviews are in:', data)
+               })
+               .catch((err) => {
+                 console.log('Error in fake/data/reviews', err)
+               })
+} 
+
+// addFakeReviews();
+// addFakeLessons(users);
 
 
-
-
-
+// console.log(addFakeLessons(users));
 
 // return addLesson({
 //   variables: {
