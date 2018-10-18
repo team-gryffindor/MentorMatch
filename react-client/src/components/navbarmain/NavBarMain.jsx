@@ -26,9 +26,7 @@ const NavBarMain = (props) => (
       </nav>
       <hr />
     </div>
-    {props.currentPath !== '/' && (
-      <img className="home-logo-img" src={'../withText.png'} width={80} />
-    )}
+    {props.currentPath === '/' && <img className="home-logo-img" src={'../withText.png'} />}
   </div>
 );
 
