@@ -24,14 +24,14 @@ const LessonListItem = ({ lessonId }) => {
             break;
           } else if (letter === ' ') {
             spaces++;
-          } else if (spaces === 6) {
+          } else if (spaces === 3) {
             let shortDescription = lesson.description.slice(0, i);
             displayedDescription = shortDescription + '...';
           }
         }
 
         return (
-          <li className='card'>
+          <div className='card'>
             <div className='inside-top'>
               <Link
                 to={{
@@ -41,12 +41,13 @@ const LessonListItem = ({ lessonId }) => {
                 style={{ textDecoration: 'none', color: 'black' }}
               >
              
-              <img className="card-img-top" src={lesson.image}/>
+              <img className="card-img-top" src={lesson.image}  onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '../stock.jpg';
+              }}/>
                 <div className="card-body">
                   <h5 className="card-title">{lesson.title}</h5>
-                  <small className="text-muted">
-                        {lesson.cityOfService}, {lesson.stateOfService}
-                      </small>
+                  <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
                   <StarRatings
                       rating={Number(lesson.avgRating.toFixed(2))}
                       starRatedColor="blue"
@@ -56,11 +57,14 @@ const LessonListItem = ({ lessonId }) => {
                       name="rating"
                     />
                   <p className="card-text">{displayedDescription}</p>
-                  <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
+                  
+                  <small className="text-muted">
+                        {lesson.cityOfService}, {lesson.stateOfService}
+                      </small>
                 </div>       
               </Link>
             </div>
-          </li>
+          </div>
         );
       }}
     </Query>

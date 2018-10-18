@@ -2102,41 +2102,8 @@ td.rdtYear:hover {
 
 /* ------------------- */
 
-::-webkit-scrollbar {
-  width: 0px; /* remove scrollbar space */
-  background: transparent; /* optional: just make scrollbar invisible */
-}
-/* optional: show position indicator in red */
-/*::-webkit-scrollbar-thumb {
-    background: #FF0000;
-}*/
-
-#wrapper {
-  max-width: 100%;
-  padding: 50px 75px 50px 45px;
-  position: relative;
-}
-
-button:focus {
-  outline: 0 !important;
-}
-
 .title {
   color: #eee;
-}
-
-.module-section {
-  max-width: 100%;
-  overflow: hidden;
-  overflow-x: scroll;
-  border-left: 1px solid #fff;
-  border-right: 1px solid #fff;
-}
-
-.netflixCarousel {
-  width: 600em;
-  list-style-type: none;
-  padding: 50px 0 50px 0;
 }
 
 .card-img-top {
@@ -2152,13 +2119,14 @@ button:focus {
 .card {
   width: 25em;
   height: 350px;
+  display: inline-block;
   background: #fff;
-  float: left;
   margin-right: 10px;
   margin-bottom: 50px;
   cursor: pointer;
   transform: scale(1);
   visibility: visible;
+  display: inline-block;
   -moz-box-shadow: 0px 1px 5px 0px #676767;
   -webkit-box-shadow: 0px 1px 5px 0px #676767;
   box-shadow: 0px 1px 5px 0px #676767;
@@ -2189,4 +2157,12 @@ button:focus {
 .clearfix {
   overflow: auto;
   zoom: 1;
+}
+
+.scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  
 }
