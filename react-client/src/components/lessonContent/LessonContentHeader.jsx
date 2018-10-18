@@ -98,7 +98,19 @@ const LessonContentHeader = ({
             <p>{lesson.provider.description}</p>
           </div>
           <div className="d-flex justify-content-end">
-            {isLoggedIn ? (
+            {/* {isLoggedIn ? (
+              isBooked ? (
+                // <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
+                <CancelNow lesson={lesson} toggleBooking={toggleBooking} userId={userId} />
+              ) : (
+                <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
+              )
+            ) : null} */}
+            {providerId === userId ? (
+              <Link to={{ pathname: '/editLesson', state: { lesson: lesson } }}>
+                <button className="btn btn-secondary mb-2">Edit Lesson</button>
+              </Link>
+            ) : isLoggedIn ? (
               isBooked ? (
                 // <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
                 <CancelNow lesson={lesson} toggleBooking={toggleBooking} userId={userId} />
@@ -108,11 +120,6 @@ const LessonContentHeader = ({
             ) : null}
             {payNow ? (
               <Checkout userCompletedPayment={userCompletedPayment} lesson={lesson} />
-            ) : null}
-            {providerId === userId ? (
-              <Link to={{ pathname: '/editLesson', state: { lesson: lesson } }}>
-                <button className="btn btn-secondary mb-2">Edit Lesson</button>
-              </Link>
             ) : null}
           </div>
         </div>
