@@ -11,7 +11,8 @@ import HorizontalLessons from '../lessonList/HorizontalLessons.jsx';
 //This componenet could be a functional componenet and not requrie storing state at all
 class Home extends React.Component {
   state = {
-    topLessons: []
+    topLessons: [],
+    categories: ['Music', 'Sports', 'Cooking', 'Academic']
   };
 
   render() {
