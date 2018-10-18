@@ -48,6 +48,9 @@ class Home extends React.Component {
                             if (loading || !data) return <small> Loading ...</small>;
                             console.log(data);
                             let lessonIds = data.lessonsFiltered.map((lesson) => lesson.id);
+                            if (lessonIds.length >= 17) {
+                              lessonIds = lessonIds.slice(0,18);
+                            }
                             return (
                               <React.Fragment>
                                 <h3>{category}</h3>

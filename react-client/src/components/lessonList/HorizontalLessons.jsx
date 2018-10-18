@@ -3,6 +3,7 @@ import HorizontalLessonItem from './HorizontalLessonItem.jsx';
 
 const LessonList = ({ lessonIds }) => {
   console.log('LESSONIDS from LESSONLIST', lessonIds);
+  
   return (
     <div className="wrapper">
       <div className='module-section'>

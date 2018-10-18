@@ -1689,6 +1689,7 @@ td.rdtYear:hover {
 .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
   width: 70px;
   /* overflow-x: hidden; */
+  text-indent: -45px;
   margin: 0 auto;
   text-align: left;
 }
@@ -2140,7 +2141,7 @@ button:focus {
 
 .card-img-top {
   width: 100%;
-  height: 15vw;
+  height: 100%;
   object-fit: cover;
 }
 
