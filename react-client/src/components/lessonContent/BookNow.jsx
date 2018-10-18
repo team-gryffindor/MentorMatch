@@ -78,7 +78,7 @@ export default class CustomInput extends React.Component {
         refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}>
           {(addSignUpLesson) => (
             <div>
-              <button
+              <button className="btn-outline-success"
                 onClick={() => {
                   addSignUpLesson({
                     variables: {
@@ -91,7 +91,7 @@ export default class CustomInput extends React.Component {
                   renderPayment(true);
                 }}
               >
-                Pay Now
+                Pay Now 
               </button>
             </div>
           )}
