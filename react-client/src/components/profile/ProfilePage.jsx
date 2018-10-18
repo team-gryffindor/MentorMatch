@@ -17,16 +17,21 @@ const ProfilePage = (props) => {
           let user = data.userInfo;
           return (
             <React.Fragment>
-              <div className="container profile-header">
-                <div className="d-flex justify-content-between">
-                  <h1>Hello {user.username}</h1>
-                  <Link to={{ pathname: '/editProfile', state: { user } }}>
-                    <button className="btn btn-primary my-2 my-sm-0">Edit Profile</button>
-                  </Link>
+              <div className="jumbotron jumbotron-fluid profile-banner">
+                <div class="container">
+                  <div className="d-flex justify-content-between">
+                    <h1>Hello {user.username}</h1>
+                    <Link to={{ pathname: '/editProfile', state: { user } }}>
+                      <button className="btn btn-primary my-2 my-sm-0">Edit Profile</button>
+                    </Link>
+                  </div>
                 </div>
-                <UserProfileInfoBanner user={user} />
+
+                <div className="profile-header">
+                  <UserProfileInfoBanner user={user} />
+                </div>
               </div>
-              <hr />
+              {/* <hr /> */}
               <div className="container">
                 <div className="row">
                   <ProfileNav />
