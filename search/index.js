@@ -31,6 +31,7 @@ redsearch.createSearch('lessons', {}, function(err, search) {
             description
             category
             locationOfService
+            difficulty
           }
         }`
     }

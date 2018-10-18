@@ -2,9 +2,10 @@ module.exports = {
   initIndex: (search, lessons) => {
     lessons.forEach((lesson, i) => {
       // extract out only values important in searching for the clients
-      let { title, description, category, locationOfService } = lesson;
+      console.log(lesson);
+      let { title, description, category, locationOfService, difficulty } = lesson;
       let lessonTxt = JSON.stringify(
-        title + ' ' + description + ' ' + category + ' ' + locationOfService
+        title + ' ' + description + ' ' + category + ' ' + locationOfService + ' ' + difficulty
       );
       console.log('LESSONID', lesson.id);
       console.log('LESSON', lessonTxt, '\n');
