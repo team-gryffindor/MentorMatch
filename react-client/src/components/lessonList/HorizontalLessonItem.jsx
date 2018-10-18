@@ -24,14 +24,14 @@ const LessonListItem = ({ lessonId }) => {
             break;
           } else if (letter === ' ') {
             spaces++;
-          } else if (spaces === 3) {
+          } else if (spaces === 10) {
             let shortDescription = lesson.description.slice(0, i);
             displayedDescription = shortDescription + '...';
           }
         }
 
         return (
-          <li className='card'>
+          <div className='card'>
             <div className='inside-top'>
               <Link
                 to={{
@@ -41,26 +41,30 @@ const LessonListItem = ({ lessonId }) => {
                 style={{ textDecoration: 'none', color: 'black' }}
               >
              
-              <img className="card-img-top" src={lesson.image}/>
+              <img className="card-img-top" src={lesson.image}  onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '../stock.jpg';
+              }}/>
                 <div className="card-body">
                   <h5 className="card-title">{lesson.title}</h5>
+                  <StarRatings
+                    rating={Number(lesson.avgRating.toFixed(2))}
+                    starRatedColor="blue"
+                    numberOfStars={5}
+                    starDimension="15px"
+                    starSpacing="1px"
+                    name="rating"
+                  />
+                  <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
+                  <p className="card-text">{displayedDescription}</p>
+                  
                   <small className="text-muted">
                         {lesson.cityOfService}, {lesson.stateOfService}
                       </small>
-                  <StarRatings
-                      rating={Number(lesson.avgRating.toFixed(2))}
-                      starRatedColor="blue"
-                      numberOfStars={5}
-                      starDimension="15px"
-                      starSpacing="1px"
-                      name="rating"
-                    />
-                  <p className="card-text">{displayedDescription}</p>
-                  <small className="text-muted review-margin-left">{lesson.numOfReviews} Reviews</small>
                 </div>       
               </Link>
             </div>
-          </li>
+          </div>
         );
       }}
     </Query>

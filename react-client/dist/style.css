@@ -1689,6 +1689,7 @@ td.rdtYear:hover {
 .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box {
   width: 70px;
   /* overflow-x: hidden; */
+  text-indent: -45px;
   margin: 0 auto;
   text-align: left;
 }
@@ -2101,46 +2102,13 @@ td.rdtYear:hover {
 
 /* ------------------- */
 
-::-webkit-scrollbar {
-  width: 0px; /* remove scrollbar space */
-  background: transparent; /* optional: just make scrollbar invisible */
-}
-/* optional: show position indicator in red */
-/*::-webkit-scrollbar-thumb {
-    background: #FF0000;
-}*/
-
-#wrapper {
-  max-width: 100%;
-  padding: 50px 75px 50px 45px;
-  position: relative;
-}
-
-button:focus {
-  outline: 0 !important;
-}
-
 .title {
   color: #eee;
 }
 
-.module-section {
-  max-width: 100%;
-  overflow: hidden;
-  overflow-x: scroll;
-  border-left: 1px solid #fff;
-  border-right: 1px solid #fff;
-}
-
-.netflixCarousel {
-  width: 600em;
-  list-style-type: none;
-  padding: 50px 0 50px 0;
-}
-
 .card-img-top {
   width: 100%;
-  height: 15vw;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -2151,8 +2119,8 @@ button:focus {
 .card {
   width: 25em;
   height: 350px;
+  display: inline-block;
   background: #fff;
-  float: left;
   margin-right: 10px;
   margin-bottom: 50px;
   cursor: pointer;
@@ -2161,6 +2129,7 @@ button:focus {
   -moz-box-shadow: 0px 1px 5px 0px #676767;
   -webkit-box-shadow: 0px 1px 5px 0px #676767;
   box-shadow: 0px 1px 5px 0px #676767;
+  flex: 0 0 auto;
 }
 
 .card:hover {
@@ -2188,4 +2157,18 @@ button:focus {
 .clearfix {
   overflow: auto;
   zoom: 1;
+}
+
+/* .scrolling-wrapper {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  
+} */
+
+.scrolling-wrapper-flexbox {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
 }
