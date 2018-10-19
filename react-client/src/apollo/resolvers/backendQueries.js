@@ -228,6 +228,14 @@ const GET_LESSONS_FILTERED = gql`
   }
 `;
 
+const GET_LESSONS_FILTERED_GUEST = gql`
+  query($cityOfService: String!, $stateOfService: String!) {
+    lessonsFilteredGuest(cityOfService: $cityOfService, stateOfService: $stateOfService) {
+      id
+    }
+  }
+`;
+
 const GET_LESSONS = gql`
   {
     lessons {
@@ -501,6 +509,7 @@ export {
   GET_LESSON,
   GET_LESSONS,
   GET_LESSONS_FILTERED,
+  GET_LESSONS_FILTERED_GUEST,
   GET_USER_SIGNUPS,
   ADD_USER,
   ADD_LESSON,

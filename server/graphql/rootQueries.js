@@ -1,6 +1,6 @@
 const graphql = require('graphql');
 // require('node-fetch');
-const Op = require('sequelize').Op;
+const { Op } = require('sequelize');
 const Models = require('../db/index.js');
 
 const {
@@ -69,10 +69,32 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         return Models.Lesson.findAll({
           where: {
-            // numOfReviews: {
-            //   [Op.gte]: 10
-            // }
+            numOfReviews: {
+              [Op.gte]: 10
+            },
             category: args.category,
+            cityOfService: args.cityOfService,
+            stateOfService: args.stateOfService
+          },
+          include: { model: Models.Review },
+          order: [['avgRating', 'DESC']]
+        })
+          .then((data) => data)
+          .catch((err) => console.error(err));
+      }
+    },
+    lessonsFilteredGuest: {
+      type: GraphQLList(LessonType),
+      args: {
+        cityOfService: { type: GraphQLString },
+        stateOfService: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Models.Lesson.findAll({
+          where: {
+            numOfReviews: {
+              [Op.gte]: 10
+            },
             cityOfService: args.cityOfService,
             stateOfService: args.stateOfService
           },
