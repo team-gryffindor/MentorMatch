@@ -17,41 +17,36 @@ const ProfilePage = (props) => {
           let user = data.userInfo;
           return (
             <React.Fragment>
-              <div className="container">
-                <div className="fb-profile">
-                  <img
-                    align="left"
-                    className="fb-image-lg"
-                    src="http://lorempixel.com/850/280/nightlife/5/"
-                    alt="Profile image example"
-                  />
-                  <img
-                    align="left"
-                    className="fb-image-profile thumbnail"
-                    src="http://lorempixel.com/180/180/people/9/"
-                    alt="Profile image example"
-                  />
-                  <div className="fb-profile-text">
-                    <h1>Eli Macy</h1>
-                    <p>Girls just wanna go fun.</p>
-                  </div>
-                </div>
-              </div>
-              <div className="jumbotron jumbotron-fluid profile-banner">
-                <div className="container">
-                  <div className="d-flex justify-content-between">
-                    <h1>Hello {user.username}</h1>
-                    <Link to={{ pathname: '/editProfile', state: { user } }}>
-                      <button className="btn btn-primary my-2 my-sm-0">Edit Profile</button>
-                    </Link>
-                  </div>
-                </div>
+              <div className="row">
+                <div className="twPc-div">
+                  <a className="twPc-bg twPc-block" />
 
-                <div className="profile-header">
-                  <UserProfileInfoBanner user={user} />
+                  <div>
+                    <img
+                      alt="profile image"
+                      src={user.image}
+                      className="twPc-avatarImg twPc-avatarLink"
+                    />
+
+                    <div className="twPc-divUser">
+                      <div className="twPc-divName">
+                        <h2>{user.username}</h2>
+                      </div>
+                    </div>
+
+                    <div className="twPc-divStats">
+                      <div className="profile-answer">
+                        {user.cityOfResidence}, {user.stateOfResidence}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              {/* <hr /> */}
+              <div className="row about-me">
+                <div className="profile-field">About Me:</div>
+                {/* <div className="profile-answer">{user.description}</div> */}
+                <div className="profile-answer">{user.description}</div>
+              </div>
               <div className="container">
                 <div className="row">
                   <ProfileNav />

@@ -6,7 +6,7 @@ const UserLessonListItem = ({ lesson, taken, userId }) => {
   let [breakPt, endPt] = [70, 70];
   let displayedDescription = lesson.description.slice(0, breakPt);
   while (lesson.description[endPt] !== ' ' && lesson.description[endPt] !== undefined) {
-    console.log(lesson.description[endPt]);
+    // console.log(lesson.description[endPt]);
     endPt++;
   }
   displayedDescription += lesson.description.slice(breakPt, endPt) + '...';
