@@ -12,7 +12,7 @@ const UserLessonList = ({ userId, lessonType, upcoming, style }) => {
       {({ loading, error, data }) => {
         if (error) return <small>error</small>;
         if (loading) {
-          return <small> Loading lessons ...</small>;
+          return null;
         } else {
           let lessons = data.user[lessonType];
           if (lessonType === 'signupLessons') {
