@@ -13,20 +13,40 @@ const ProfilePage = (props) => {
       <Query query={GET_USER_INFO}>
         {({ loading, error, data }) => {
           if (error) return <small>Error...</small>;
-          if (loading || !data) return <small>Loading...</small>;
+          if (loading || !data) return null;
           let user = data.userInfo;
           return (
             <React.Fragment>
-              <div className="container profile-header">
-                <div className="d-flex justify-content-between">
-                  <h1>Hello {user.username}</h1>
-                  <Link to={{ pathname: '/editProfile', state: { user } }}>
-                    <button className="btn btn-primary my-2 my-sm-0">Edit Profile</button>
-                  </Link>
+              <div className="row">
+                <div className="twPc-div">
+                  <a className="twPc-bg twPc-block" />
+
+                  <div>
+                    <img
+                      alt="profile image"
+                      src={user.image}
+                      className="twPc-avatarImg twPc-avatarLink"
+                    />
+
+                    <div className="twPc-divUser">
+                      <div className="twPc-divName">
+                        <h2>{user.username}</h2>
+                      </div>
+                    </div>
+
+                    <div className="twPc-divStats">
+                      <div className="profile-answer">
+                        {user.cityOfResidence}, {user.stateOfResidence}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <UserProfileInfoBanner user={user} />
               </div>
-              <hr />
+              <div className="row about-me">
+                <div className="profile-field">About Me:</div>
+                {/* <div className="profile-answer">{user.description}</div> */}
+                <div className="profile-answer">{user.description}</div>
+              </div>
               <div className="container">
                 <div className="row">
                   <ProfileNav />

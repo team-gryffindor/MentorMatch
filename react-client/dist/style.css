@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color:#edf4ff;
+  background-color: white;
 }
 
 h1,
@@ -27,8 +27,12 @@ hr {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.fas.fa-user {
-  color: white;
+.fas.fa-user,
+.fas.fa-plus,
+.fas.fa-calendar,
+.fas.fa-sign-out-alt {
+  color: black;
+  margin-right: 10px;
 }
 
 .nav-item.dropdown {
@@ -109,8 +113,32 @@ hr {
   margin-bottom: 20px;
 }
 
+div.jumbotron.jumbotron-fluid.profile-banner {
+  padding-bottom: 0px;
+  height: 50vh;
+}
+
 .profile-header {
-  margin-top: 40px;
+  background-color: #eceff1ea;
+  margin: 0 0 0 0;
+}
+
+.profile-banner {
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-image: url('https://images.unsplash.com/photo-1496588152823-86ff7695e68f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=be35499188c292144ed3bfc3dac2f3fa&auto=format&fit=crop&w=1950&q=80');
+
+  width: 100%;
+  top: 0;
+  /* bottom: 0; */
+  left: 0;
+  /* right: 0; */
+  z-index: 0;
+  background-position: 100% 30%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .profile-image {
@@ -155,7 +183,7 @@ a#navbarDropdown.nav-link.dropdown-toggle::after {
 
 .nav-pills > a.active.nav-link,
 .nav-pills > a.active.nav-link:hover {
-  background-color: #60aff5;
+  background-color: #0078e0;
   color: white;
 }
 
@@ -2173,6 +2201,117 @@ td.rdtYear:hover {
   overflow-x: auto;
 }
 
+.list-img-left {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+/* 
+body
+{
+    font-family: 'Open Sans', sans-serif;
+} */
+
+.about-me {
+  margin-left: 11%;
+}
+
+.twPc-div {
+  background: #fff none repeat scroll 0 0;
+  height: 60vh;
+  width: 100vw;
+}
+.twPc-bg {
+  background-image: url('https://images.unsplash.com/photo-1496588152823-86ff7695e68f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=be35499188c292144ed3bfc3dac2f3fa&auto=format&fit=crop&w=1950&q=80');
+  background-position: 0 50%;
+  background-size: 100% auto;
+  height: 40vh;
+  width: 100%;
+}
+.twPc-block {
+  display: block !important;
+}
+.twPc-button {
+  margin: -35px -10px 0;
+  text-align: right;
+  width: 100%;
+}
+.twPc-avatarLink {
+  background-color: #fff;
+  border-radius: 6px;
+  display: inline-block !important;
+  float: left;
+  margin: -15vh 10px 0px 11%;
+  max-width: 100%;
+  padding: 1px;
+  vertical-align: bottom;
+}
+.twPc-avatarImg {
+  border: 2px solid #fff;
+  border-radius: 7px;
+  box-sizing: border-box;
+  color: #fff;
+  height: auto%;
+  width: 15%;
+}
+.twPc-divUser {
+  margin: 5px 0 0;
+}
+
+.profile-field {
+  width: 10%;
+}
+
+.profile-answer {
+  width: 90%;
+}
+
+.twPc-divName {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
+}
+.twPc-divName a {
+  color: inherit !important;
+}
+.twPc-divStats {
+  margin-left: 11px;
+  padding: 10px 0;
+}
+.twPc-Arrange {
+  box-sizing: border-box;
+  display: table;
+  margin: 0;
+  min-width: 100%;
+  padding: 0;
+  table-layout: auto;
+}
+ul.twPc-Arrange {
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+.twPc-ArrangeSizeFit {
+  display: table-cell;
+  padding: 0;
+  vertical-align: top;
+}
+.twPc-ArrangeSizeFit a:hover {
+  text-decoration: none;
+}
+.twPc-StatValue {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.15s ease-in-out 0s;
+}
+.twPc-StatLabel {
+  color: #8899a6;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  text-transform: uppercase;
+  transition: color 0.15s ease-in-out 0s;
 .StripeElement {
   background-color: rgb(47, 144, 214);
   height: 40px;

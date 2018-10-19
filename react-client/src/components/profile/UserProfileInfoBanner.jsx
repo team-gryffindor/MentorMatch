@@ -1,7 +1,7 @@
 import React from 'react';
 
 const UserProfileInfoBanner = ({ user }) => (
-  <div className="profile-info row">
+  <div className="row container">
     <div className="col-md-3">
       <img
         className="my-profile-image border"

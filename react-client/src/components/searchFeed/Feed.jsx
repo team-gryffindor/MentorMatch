@@ -6,7 +6,11 @@ const Feed = ({ location }) => {
   return (
     <div className="container">
       <h1>
-        Search Results for "{location.state.serviceQuery}" near {location.state.locationQuery}{' '}
+        {location.state.locationQuery
+          ? `Search Results for "${location.state.serviceQuery}" near ${
+              location.state.locationQuery
+            }`
+          : `Search Results for "${location.state.serviceQuery}"`}{' '}
       </h1>
       <LessonList lessonIds={location.state.lessonIds} />
     </div>
