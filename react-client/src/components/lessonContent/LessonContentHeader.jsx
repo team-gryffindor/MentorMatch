@@ -14,6 +14,7 @@ import Checkout from '../checkout/Checkout.jsx';
 import BookNow from './BookNow.jsx';
 import CancelNow from './CancelNow.jsx';
 
+
 const LessonContentHeader = ({
   userCompletedPayment,
   paid,
@@ -112,7 +113,6 @@ const LessonContentHeader = ({
               </Link>
             ) : isLoggedIn ? (
               isBooked ? (
-                // <button onClick={() => toggleBooking(false)}>Cancel Booking</button>
                 <CancelNow lesson={lesson} toggleBooking={toggleBooking} userId={userId} />
               ) : (
                 <BookNow event={lesson} userId={userId} renderPayment={renderPayment} />
