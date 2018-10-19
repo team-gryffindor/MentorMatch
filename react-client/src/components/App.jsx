@@ -158,7 +158,10 @@ class App extends React.Component {
                                 let booked = false;
                                 let scheduled = data.user.signupLessons;
                                 for (let i = 0; i < scheduled.length; i++) {
-                                  if (scheduled[i].id === location.state.lesson.id) {
+                                  if (
+                                    scheduled[i].id === location.state.lesson.id &&
+                                    scheduled[i].date > Date.now()
+                                  ) {
                                     booked = true;
                                     break;
                                   }
