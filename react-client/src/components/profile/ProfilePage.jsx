@@ -30,7 +30,12 @@ const ProfilePage = (props) => {
 
                     <div className="twPc-divUser">
                       <div className="twPc-divName">
-                        <h2>{user.username}</h2>
+                        <div className="d-flex justify-content-between">
+                          <h2>{user.username}</h2>
+                          <Link to={{ pathname: '/editProfile', state: { user } }}>
+                            <button className="btn btn-primary my-2 my-sm-0">Edit Profile</button>
+                          </Link>
+                        </div>
                       </div>
                     </div>
 
@@ -42,16 +47,18 @@ const ProfilePage = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="row about-me">
-                <div className="profile-field">About Me:</div>
-                {/* <div className="profile-answer">{user.description}</div> */}
-                <div className="profile-answer">{user.description}</div>
-              </div>
               <div className="container">
                 <div className="row">
-                  <ProfileNav />
-                  <div className="tab-content col-md-9" id="v-pills-tabContent">
-                    <ProfileContent user={user} />
+                  <div className="profile-field">About Me:</div>
+                  {/* <div className="profile-answer">{user.description}</div> */}
+                  <div className="profile-answer">{user.description}</div>
+                </div>
+                <div className="container">
+                  <div className="row">
+                    <ProfileNav />
+                    <div className="tab-content col-md-9" id="v-pills-tabContent">
+                      <ProfileContent user={user} />
+                    </div>
                   </div>
                 </div>
               </div>

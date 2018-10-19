@@ -50,17 +50,6 @@ const UserLessonListItem = ({ lesson, taken, userId }) => {
             </div>
           </div>
         </Link>
-        {taken ? (
-          <Link
-            to={{
-              pathname: `/writeReview/${lesson.id}`,
-              lesson: { lesson: lesson },
-              userId: { userId: userId }
-            }}
-          >
-            Leave a review!
-          </Link>
-        ) : null}
       </div>
     );
   } else {
