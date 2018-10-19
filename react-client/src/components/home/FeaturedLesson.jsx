@@ -8,7 +8,7 @@ import StarRatings from 'react-star-ratings';
 const FeaturedLesson = (props) => {
   console.log('inside featured lesson', props.userId);
   return (
-    <Query query={GET_LESSON} variables={{ id: 2 }}>
+    <Query query={GET_LESSON} variables={{ id: 242 }}>
       {({ loading, error, data }) => {
         if (error) return <h1>error</h1>;
         if (loading) {
