@@ -29,12 +29,15 @@ const NavUserOpt = (props) => (
 
         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <Link className="dropdown-item" to="/userProfile">
+            <i className="fas fa-user" />
             Profile
           </Link>
           <Link className="dropdown-item" to="/calendar">
+            <i className="fas fa-calendar" />
             Calendar
           </Link>
           <Link className="dropdown-item" to="/addlesson">
+            <i className="fas fa-plus" />
             Create Lesson
           </Link>
           <div className="dropdown-divider" />
@@ -49,6 +52,7 @@ const NavUserOpt = (props) => (
                 .then(() => props.apolloClient.resetStore());
             }}
           >
+            <i className="fas fa-sign-out-alt" />
             Logout
           </Link>
         </div>

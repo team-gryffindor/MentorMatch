@@ -2,7 +2,7 @@
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color:white;
+  background-color: white;
 }
 
 h1,
@@ -27,8 +27,12 @@ hr {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.fas.fa-user {
-  color: white;
+.fas.fa-user,
+.fas.fa-plus,
+.fas.fa-calendar,
+.fas.fa-sign-out-alt {
+  color: black;
+  margin-right: 10px;
 }
 
 .nav-item.dropdown {
@@ -2195,4 +2199,43 @@ td.rdtYear:hover {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+}
+
+.list-img-left {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+body
+{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.fb-profile img.fb-image-lg{
+    z-index: 0;
+    width: 100%;  
+    margin-bottom: 10px;
+}
+
+.fb-image-profile
+{
+    margin: -90px 10px 0px 50px;
+    z-index: 9;
+    width: 20%; 
+}
+
+@media (max-width:768px)
+{
+    
+.fb-profile-text>h1{
+    font-weight: 700;
+    font-size:16px;
+}
+
+.fb-image-profile
+{
+    margin: -45px 10px 0px 25px;
+    z-index: 9;
+    width: 20%; 
 }
