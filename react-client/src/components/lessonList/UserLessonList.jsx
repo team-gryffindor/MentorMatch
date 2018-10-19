@@ -54,31 +54,38 @@ const UserLessonList = ({ userId, lessonType, upcoming, style }) => {
             <div className={`${style} list-group`}>
               {lessons.filter((lesson) => lesson.isActive).map((lesson, i) => (
                 <div>
-                  <UserLessonListItem lesson={lesson} key={i} />
-                  <Mutation
-                    mutation={DELETE_LESSON}
-                    refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
-                  >
-                    {(deleteLesson) => {
-                      if (lessonType === 'offeredLessons') {
-                        return (
-                          <button
-                            onClick={() => {
-                              deleteLesson({
-                                variables: { id: lesson.id }
-                              })
-                                .then((data) => data)
-                                .catch((err) => console.error(err));
-                            }}
-                          >
-                            Delete Lesson
-                          </button>
-                        );
-                      } else {
-                        return null;
-                      }
-                    }}
-                  </Mutation>
+                  <div className="row">
+                    <div className="col-md-10">
+                      <UserLessonListItem lesson={lesson} key={i} />
+                    </div>
+                    <div className="col-md-2">
+                      <Mutation
+                        mutation={DELETE_LESSON}
+                        refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
+                      >
+                        {(deleteLesson) => {
+                          if (lessonType === 'offeredLessons') {
+                            return (
+                              <button
+                                className="btn btn-primary mb-2"
+                                onClick={() => {
+                                  deleteLesson({
+                                    variables: { id: lesson.id }
+                                  })
+                                    .then((data) => data)
+                                    .catch((err) => console.error(err));
+                                }}
+                              >
+                                Delete
+                              </button>
+                            );
+                          } else {
+                            return null;
+                          }
+                        }}
+                      </Mutation>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

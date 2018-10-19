@@ -2358,3 +2358,15 @@ ul.twPc-Arrange {
   width: 530px;
   height: 410px;
 }
+
+.btn-default-star {
+  background-color: transparent;
+  color: #0078e0;
+  border-width: 0;
+  border-color: transparent
+  border-radius: 50%;
+}
+
+.btn-default-star:active {
+  border-color: transparent;
+}
