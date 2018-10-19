@@ -2312,6 +2312,7 @@ ul.twPc-Arrange {
   overflow: hidden;
   text-transform: uppercase;
   transition: color 0.15s ease-in-out 0s;
+}
 .StripeElement {
   background-color: rgb(47, 144, 214);
   height: 40px;
@@ -2349,7 +2350,7 @@ ul.twPc-Arrange {
 .rcorners2 {
   border-radius: 5px 30px 40px 40px;
   border: 4px solid rgb(30, 93, 230);
-  padding: 20px; 
+  padding: 20px;
   width: 530px;
-  height: 410px;    
+  height: 410px;
 }
