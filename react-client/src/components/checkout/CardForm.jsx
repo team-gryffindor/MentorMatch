@@ -278,7 +278,7 @@ class _SplitForm extends React.Component {
   return(
     
     <section>
-    <input type="button" value="Open" onClick={() => this.openModal()} />
+  
     <Modal visible={this.state.visible} width="500" height="500" effect="fadeInUp" onClickAway={() => this.closeModal()}>
         <div className="container" >
             
