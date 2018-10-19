@@ -12,7 +12,7 @@ const FeaturedLesson = (props) => {
       {({ loading, error, data }) => {
         if (error) return <h1>error</h1>;
         if (loading) {
-          return <div> Loading test ...</div>;
+          return null;
         } else if (data.lesson) {
           console.log(data.lesson);
           let { lesson } = data;

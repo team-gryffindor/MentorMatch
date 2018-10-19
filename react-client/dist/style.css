@@ -2206,11 +2206,11 @@ td.rdtYear:hover {
   height: auto;
   object-fit: cover;
 }
-
+/* 
 body
 {
     font-family: 'Open Sans', sans-serif;
-}
+} */
 
 .fb-profile img.fb-image-lg{
     z-index: 0;
@@ -2233,9 +2233,9 @@ body
     font-size:16px;
 }
 
-.fb-image-profile
-{
+.fb-image-profile{
     margin: -45px 10px 0px 25px;
     z-index: 9;
     width: 20%; 
+}
 }

@@ -29,7 +29,7 @@ class Home extends React.Component {
             <Query query={GET_USER_INFO}>
               {({ loading, error, data }) => {
                 if (error) return <small>ERROR</small>;
-                if (loading || !data) return <small> Loading ...</small>;
+                if (loading || !data) return null;
                 let user = data.userInfo;
                 return (
                   <div>
@@ -49,7 +49,7 @@ class Home extends React.Component {
                         >
                           {({ loading, error, data }) => {
                             if (error) return <small>ERROR</small>;
-                            if (loading || !data) return <small> Loading ...</small>;
+                            if (loading || !data) return null;
                             let lessonIds = data.lessonsFiltered.map((lesson) => lesson.id);
                             if (lessonIds.length >= 17) {
                               lessonIds = lessonIds.slice(0, 18);
@@ -85,7 +85,7 @@ class Home extends React.Component {
                   >
                     {({ loading, error, data }) => {
                       if (error) return <small>ERROR</small>;
-                      if (loading || !data) return <small> Loading ...</small>;
+                      if (loading || !data) return null;
                       console.log(data);
                       let lessonIds = data.lessonsFilteredGuest.map((lesson) => lesson.id);
                       if (lessonIds.length >= 17) {

@@ -9,7 +9,7 @@ const LessonListItem = ({ lessonId }) => {
   return (
     <Query query={GET_LESSON} variables={{ id: lessonId }}>
       {({ loading, error, data }) => {
-        if (error) return <p>Error! Could not retrieve the results.</p>;
+        if (error) return <p>Error! Could not retrieve the lesson.</p>;
         if (loading || !data) return null;
         let { lesson } = data;
         let [breakPt, endPt] = [70, 70];
