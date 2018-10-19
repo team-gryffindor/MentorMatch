@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Query, Mutation } from 'react-apollo';
 import { GET_USER, DELETE_LESSON } from '../../apollo/resolvers/backendQueries.js';
 
@@ -28,7 +29,22 @@ const UserLessonList = ({ userId, lessonType, upcoming, style }) => {
               return (
                 <div className={`${style} list-group`}>
                   {lessons.filter((lesson) => lesson.date < Date.now()).map((lesson, i) => (
-                    <UserLessonListItem lesson={lesson} key={i} taken={true} userId={userId} />
+                    <div className="row">
+                      <div className="col-md-10">
+                        <UserLessonListItem lesson={lesson} key={i} taken={true} userId={userId} />
+                      </div>
+                      <div className="col-md-2">
+                        <Link
+                          to={{
+                            pathname: `/writeReview/${lesson.id}`,
+                            lesson: { lesson: lesson },
+                            userId: { userId: userId }
+                          }}
+                        >
+                          <button className="btn btn-primary mb-2">Review</button>
+                        </Link>
+                      </div>
+                    </div>
                   ))}
                 </div>
               );
