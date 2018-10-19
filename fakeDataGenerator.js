@@ -266,7 +266,7 @@ const addFakeReviews = () => {
 } 
 
 // addFakeReviews();
-addFakeLessons(users);
+// addFakeLessons(users);
 
 
 // console.log(addFakeLessons(users));
