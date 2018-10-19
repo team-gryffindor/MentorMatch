@@ -9,9 +9,9 @@ const OfferedLessons = ({ user }) => {
     <div>
       <div className="d-flex justify-content-between">
         <h3>Offered Lessons</h3>
-        <Link to="/addLesson">
+        {/* <Link to="/addLesson">
           <button className="btn btn-primary mb-2">Add Lesson!</button>
-        </Link>
+        </Link> */}
       </div>
       <UserLessonList userId={user.userId} lessonType={'offeredLessons'} />
     </div>
