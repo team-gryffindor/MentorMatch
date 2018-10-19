@@ -14,7 +14,6 @@ import Checkout from '../checkout/Checkout.jsx';
 import BookNow from './BookNow.jsx';
 import CancelNow from './CancelNow.jsx';
 
-
 const LessonContentHeader = ({
   userCompletedPayment,
   paid,
@@ -38,6 +37,40 @@ const LessonContentHeader = ({
     <div className="lesson-detail-header-margin-top">
       <div className="jumbotron">
         <div className="container">
+          {/* wrap this in a mutation tag and refectch here? */}
+          <div className="d-flex w-100 justify-content-end">
+            <Mutation
+              mutation={mutateFav}
+              refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
+            >
+              {(mutateFavorite) => {
+                if (isLoggedIn) {
+                  return (
+                    <div
+                      type="button"
+                      className="btn-default-star"
+                      onClick={() => {
+                        mutateFavorite({
+                          variables: {
+                            userId: userId,
+                            lessonId: lesson.id
+                          }
+                        }).then((data) => {
+                          toggleFavorite(!isFavorite);
+                        });
+                      }}
+                    >
+                      {isFavorite ? (
+                        <i className="fas fa-star fa-2x" />
+                      ) : (
+                        <i className="far fa-star fa-2x" />
+                      )}
+                    </div>
+                  );
+                } else return null;
+              }}
+            </Mutation>
+          </div>
           <span className="badge badge-pill badge-primary">{lesson.category}</span>
           <div className="d-flex w-100 justify-content-between">
             <h1>{lesson.title}</h1>
@@ -51,35 +84,6 @@ const LessonContentHeader = ({
                 /hour
               </p>
             </small>
-
-            {/* wrap this in a mutation tag and refectch here? */}
-            <Mutation
-              mutation={mutateFav}
-              refetchQueries={[{ query: GET_USER, variables: { id: userId } }]}
-            >
-              {(mutateFavorite) => {
-                if (isLoggedIn) {
-                  return (
-                    <button
-                      type="button"
-                      className="btn btn-default"
-                      onClick={() => {
-                        mutateFavorite({
-                          variables: {
-                            userId: userId,
-                            lessonId: lesson.id
-                          }
-                        }).then((data) => {
-                          toggleFavorite(!isFavorite);
-                        });
-                      }}
-                    >
-                      {isFavorite ? <i className="fas fa-star" /> : <i className="far fa-star" />}
-                    </button>
-                  );
-                } else return null;
-              }}
-            </Mutation>
           </div>
           <h4>About your Lesson</h4>
           <p className="lead">{lesson.description}</p>
