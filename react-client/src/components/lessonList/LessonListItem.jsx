@@ -14,7 +14,10 @@ const LessonListItem = ({ lessonId }) => {
         let { lesson } = data;
         let [breakPt, endPt] = [70, 70];
         let displayedDescription = lesson.description.slice(0, breakPt);
-        while (lesson.description[endPt] !== ' ') endPt++;
+        while (lesson.description[endPt] !== ' ' && lesson.description[endPt] !== undefined) {
+          console.log(lesson.description[endPt]);
+          endPt++;
+        }
         displayedDescription += lesson.description.slice(breakPt, endPt) + '...';
         // let { city, state } = extractCityState(data.lesson.location.addressComponents);
         return (

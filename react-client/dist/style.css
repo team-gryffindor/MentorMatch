@@ -183,7 +183,7 @@ a#navbarDropdown.nav-link.dropdown-toggle::after {
 
 .nav-pills > a.active.nav-link,
 .nav-pills > a.active.nav-link:hover {
-  background-color: #60aff5;
+  background-color: #0078e0;
   color: white;
 }
 

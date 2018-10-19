@@ -3,9 +3,12 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 
 const UserLessonListItem = ({ lesson, taken, userId }) => {
-  let [breakPt, endPt] = [50, 50];
+  let [breakPt, endPt] = [70, 70];
   let displayedDescription = lesson.description.slice(0, breakPt);
-  while (lesson.description[endPt] !== ' ') endPt++;
+  while (lesson.description[endPt] !== ' ' && lesson.description[endPt] !== undefined) {
+    console.log(lesson.description[endPt]);
+    endPt++;
+  }
   displayedDescription += lesson.description.slice(breakPt, endPt) + '...';
   // console.log(lesson.description);
   // console.log(displayedDescription);
