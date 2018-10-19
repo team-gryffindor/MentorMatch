@@ -33,8 +33,7 @@ class Checkout extends React.Component {
     {redirect ?   
       <Redirect to='/calendar' /> 
      :
-      <div className="Checkout">
-        <h5>Automated Payment</h5>
+      <div className="StripeElement">
         <Elements>
           <CardForm 
             redirectToCalendar={this.redirectToCalendar}
