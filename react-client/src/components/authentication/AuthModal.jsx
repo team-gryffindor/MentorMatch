@@ -12,7 +12,6 @@ class AuthModal extends React.Component {
 
   render() {
     let { firebaseApp, uiConfig } = this.props;
-    console.log('MODAL FLAG', this.props.loginModal);
     return (
       <div
         className="modal fade"

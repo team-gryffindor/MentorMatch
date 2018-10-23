@@ -6,7 +6,6 @@ import { extractCityState } from '../../util/addressHelper.js';
 import StarRatings from 'react-star-ratings';
 
 const FeaturedLesson = (props) => {
-  console.log('inside featured lesson', props.userId);
   return (
     <Query query={GET_LESSON} variables={{ id: 242 }}>
       {({ loading, error, data }) => {
@@ -14,7 +13,7 @@ const FeaturedLesson = (props) => {
         if (loading) {
           return null;
         } else if (data.lesson) {
-          console.log(data.lesson);
+          
           let { lesson } = data;
           // let { city, state } = extractCityState(lesson.location.addressComponents);
           return (

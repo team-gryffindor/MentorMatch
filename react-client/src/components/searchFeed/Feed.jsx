@@ -2,7 +2,6 @@ import React from 'react';
 import LessonList from '../lessonList/LessonList.jsx';
 
 const Feed = ({ location }) => {
-  console.log('PROPS IN FEED', location);
   return (
     <div className="container">
       <h1>

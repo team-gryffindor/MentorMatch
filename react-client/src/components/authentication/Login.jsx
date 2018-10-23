@@ -48,7 +48,7 @@ class Login extends React.Component {
             // With user retrieved from database
             .then((data) => {
               let userInDB = data[0].data.checkUser;
-              console.log(userInDB);
+              
               // If new user
               if (!userInDB) {
                 // Mark the flag and save the firebase uid
@@ -56,8 +56,7 @@ class Login extends React.Component {
                   {
                     isNewUser: true,
                     uid: data[1]
-                  },
-                  () => console.log('AFTER SETSTATE FOR USER', this.state.isNewUser, this.state.uid)
+                  }
                 );
                 return <Redirect to="/signUp" uid={data[1]} />;
               }
@@ -82,7 +81,7 @@ class Login extends React.Component {
             })
             .then((redirect) => {
               // TODO: Cleanup--what's is the purpose of this redirect? never gets used
-              console.log('REDIRECT? AFTER CACHING', redirect);
+              
               if (redirect) {
                 return redirect;
               }

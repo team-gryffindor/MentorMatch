@@ -86,7 +86,7 @@ class Home extends React.Component {
                     {({ loading, error, data }) => {
                       if (error) return <small>ERROR</small>;
                       if (loading || !data) return null;
-                      console.log(data);
+                      
                       let lessonIds = data.lessonsFilteredGuest.map((lesson) => lesson.id);
                       if (lessonIds.length >= 17) {
                         lessonIds = lessonIds.slice(0, 18);

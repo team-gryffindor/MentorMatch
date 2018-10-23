@@ -79,8 +79,7 @@ class _SplitForm extends React.Component {
       this.props.stripe
         .createToken()
         .then(payload => {
-          console.log(payload.token.id)
-          console.log('this is lesson', this.props.lesson)
+          
           axios.post("/charge", {
             // stripeEmail: 'arjun. logeswaran121@gmail.com',
             stripePrice: this.props.lesson.price,

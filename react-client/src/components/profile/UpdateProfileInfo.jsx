@@ -10,7 +10,6 @@ import { extractCityState } from '../../util/addressHelper.js';
 class UpdateProfileInfo extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props.location.state.user);
     let {
       userId,
       username,
@@ -48,10 +47,7 @@ class UpdateProfileInfo extends React.Component {
           // console.log('IN AXIOS THEN', res.data.results[0]);
           // first address components is the most accurate address
           let { city, state } = extractCityState(res.data.results[0].address_components);
-          this.setState({ cityOfResidence: city, stateOfResidence: state }, () => {
-            console.log('DATA', res.data.results[0].address_components);
-            console.log('REVERSE GEOCODE', city, state);
-          });
+          this.setState({ cityOfResidence: city, stateOfResidence: state });
         })
         // .then((results) => console.log(results))
         .catch((err) => {
@@ -78,7 +74,6 @@ class UpdateProfileInfo extends React.Component {
       lng,
       editProfile
     } = this.state;
-    console.log('STATE BEFORE QUERY AND MUTATION', this.state);
     // figure out how to conditionally render input fields
     if (editProfile) {
       return (
@@ -162,7 +157,7 @@ class UpdateProfileInfo extends React.Component {
                     placeholder={'City of Residence'}
                     onSuggestSelect={(suggest) => {
                       if (suggest) {
-                        console.log('CITY', typeof suggest.description);
+                        
                         this.setState(
                           {
                             locationOfResidence: suggest.description,
@@ -170,7 +165,7 @@ class UpdateProfileInfo extends React.Component {
                             lng: suggest.location.lng
                           },
                           () => {
-                            console.log(suggest, this.state.lat, this.state.lng);
+                           
                             this.reverseGeocode();
                           }
                         );

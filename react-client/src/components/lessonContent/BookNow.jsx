@@ -40,8 +40,7 @@ export default class CustomInput extends React.Component {
       {
         startDate: date,
         count: newCount
-      },
-      () => console.log(this.props.userId)
+      }
     );
   };
 
