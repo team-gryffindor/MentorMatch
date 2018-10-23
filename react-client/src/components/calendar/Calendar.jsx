@@ -23,7 +23,7 @@ const Calendar = () => {
               {({ error, loading, data }) => {
                 if (loading) return <p>Loading...</p>;
                 if (error) return <p>Error</p>;
-                console.log('DATA: ', data.user.signupLessons);
+                
 
                 let signedUpEvents = data.user.signupLessons.map((event) => {
                   return {

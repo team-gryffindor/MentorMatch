@@ -22,14 +22,14 @@ class WriteReview extends React.Component {
     let { title, comment, rating } = this.state;
     let { location } = this.props;
     let { lesson, userId } = location;
-    console.log(lesson, userId);
+    
     if (this.state.redirect) {
       return (
         <Query query={GET_LESSON} variables={{ id: lesson.lesson.id }}>
           {({ loading, error, data }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error</p>;
-            console.log('NEWLY QUERIED DATA FROM DB', data);
+            
             return (
               <Redirect
                 to={{

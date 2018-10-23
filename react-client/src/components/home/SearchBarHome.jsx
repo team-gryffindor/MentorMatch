@@ -23,7 +23,7 @@ class SearchBarHome extends React.Component {
   // handle input onchange event (update stock state)
   handleServiceInputChange = (evt) => {
     this.setState({ serviceQuery: evt.target.value }, this.search);
-    console.log(this.state.serviceQuery);
+    
   };
 
   // handle input onchange event (update stock state)
@@ -32,12 +32,12 @@ class SearchBarHome extends React.Component {
   };
 
   search = () => {
-    console.log('CLICK TRIGGERED!');
+    
     // call this within call to get stock api
     axios
       .get('/search', { params: { q: this.state.serviceQuery + ' ' + this.state.locationQuery } })
       .then(({ data }) => {
-        console.log('GETTING QUERY RESULTS', data);
+        
         this.setState({ results: data });
         // this.results = data;
       })
@@ -69,7 +69,7 @@ class SearchBarHome extends React.Component {
                 placeholder="Location"
                 onSuggestSelect={(suggest) => {
                   if (suggest) {
-                    console.log(suggest);
+                    
                     this.setState({ locationQuery: suggest.description }, this.search);
                   }
                 }}

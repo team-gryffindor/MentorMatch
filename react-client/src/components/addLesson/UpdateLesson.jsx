@@ -36,9 +36,7 @@ class UpdateLesson extends React.Component {
           // console.log('IN AXIOS THEN', res.data.results[0]);
           // first address components is the most accurate address
           let { city, state } = extractCityState(res.data.results[0].address_components);
-          this.setState({ city, state }, () => {
-            console.log('REVERSE GEOCODE', res.data.results[0].address_components, city, state);
-          });
+          this.setState({ city, state });
         })
         // .then((results) => console.log(results))
         .catch((err) => {
@@ -63,7 +61,7 @@ class UpdateLesson extends React.Component {
       lng,
       price
     } = this.props.lesson.state.lesson;
-    console.log('WHAT IS LSSON', this.props.lesson.state.lesson.locationOfService);
+    
     this.setState({
       id: id,
       title: title,
@@ -82,7 +80,7 @@ class UpdateLesson extends React.Component {
   render() {
     let { title, description, locationOfService, image, difficulty, category, price } = this.state;
     let { lesson } = this.props.lesson.state;
-    console.log('TESTSTESTSEt', this.state.city, this.state.state);
+    
     if (this.state.redirect) {
       return (
         <Redirect
@@ -181,9 +179,6 @@ class UpdateLesson extends React.Component {
                                   locationOfService: suggest.description,
                                   lat: suggest.location.lat,
                                   lng: suggest.location.lng
-                                },
-                                () => {
-                                  console.log(this.state.lat, this.state.lng);
                                 }
                               );
                             }

@@ -23,7 +23,6 @@ class NavSearchBar extends React.Component {
   // handle input onchange event (update stock state)
   handleServiceInputChange = (evt) => {
     this.setState({ serviceQuery: evt.target.value }, this.search);
-    console.log(this.state.serviceQuery);
   };
 
   // handle input onchange event (update stock state)
@@ -32,7 +31,7 @@ class NavSearchBar extends React.Component {
   };
 
   search = () => {
-    console.log('SEARCH TRIGGERED!', this.state.serviceQuery + ' ' + this.state.locationQuery);
+    
     // call this within call to get stock api
     axios
       .get('/search', { params: { q: this.state.serviceQuery + ' ' + this.state.locationQuery } })
@@ -47,8 +46,7 @@ class NavSearchBar extends React.Component {
   };
 
   render() {
-    console.log('HIT BEFORE RENDER', this.state.results);
-    console.log('QUERY TO SEND TO REDISEARCH', typeof this.state.serviceQuery);
+   
     return (
       <div className="w-150 mx-auto order-0">
         <table>
@@ -68,7 +66,7 @@ class NavSearchBar extends React.Component {
                 placeholder="City"
                 onSuggestSelect={(suggest) => {
                   if (suggest) {
-                    console.log(suggest);
+                  
                     this.setState({ locationQuery: suggest.description }, this.search);
                   }
                 }}

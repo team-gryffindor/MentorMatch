@@ -32,10 +32,7 @@ class SignUp extends React.Component {
           // console.log('IN AXIOS THEN', res.data.results[0]);
           // first address components is the most accurate address
           let { city, state } = extractCityState(res.data.results[0].address_components);
-          this.setState({ cityOfResidence: city, stateOfResidence: state }, () => {
-            console.log('DATA', res.data.results[0].address_components);
-            console.log('REVERSE GEOCODE', city, state);
-          });
+          this.setState({ cityOfResidence: city, stateOfResidence: state });
         })
         // .then((results) => console.log(results))
         .catch((err) => {
@@ -54,13 +51,13 @@ class SignUp extends React.Component {
         <Mutation mutation={ADD_USER}>
           {(addUser) => (
             <div>
-              <h1>Sign Up! {console.log('props', this.props.uid)}</h1>
+              <h1>Sign Up!</h1>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
                   this.reverseGeocode()
                     .then(() => {
-                      console.log(this.state.cityOfResidence);
+                      
                       return addUser({
                         variables: {
                           name: this.state.username,
@@ -118,15 +115,12 @@ class SignUp extends React.Component {
                   placeholder={'City of Residence'}
                   onSuggestSelect={(suggest) => {
                     if (suggest) {
-                      console.log('CITY', typeof suggest.description);
+                      
                       this.setState(
                         {
                           locationOfResidence: suggest.description,
                           lat: suggest.location.lat,
                           lng: suggest.location.lng
-                        },
-                        () => {
-                          console.log(this.state.lat, this.state.lng);
                         }
                       );
                     }
@@ -138,7 +132,7 @@ class SignUp extends React.Component {
                 <input
                   value={this.state.image}
                   onChange={(e) => {
-                    console.log('CITY', this.state.locationOfResidence);
+                  
                     this.setState({ image: e.target.value });
                   }}
                 />

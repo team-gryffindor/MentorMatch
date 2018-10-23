@@ -134,7 +134,7 @@ class App extends React.Component {
               <Route
                 path="/lessonContent/:lessonId"
                 render={({ location }) => {
-                  console.log('new lesson data received by redirect from add review', location);
+                  
                   if (this.state.isLoggedIn) {
                     return (
                       <Query query={GET_USER_INFO} className="container">
@@ -174,7 +174,7 @@ class App extends React.Component {
                                     {({ loading, error, data }) => {
                                       if (loading) return <p>Loading...</p>;
                                       if (error) return <p>Error</p>;
-                                      console.log('NEWLY QUERIED DATA FROM DB', data);
+                                      
                                       return (
                                         <LessonContent
                                           userId={currUser.id}

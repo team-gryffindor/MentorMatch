@@ -37,9 +37,7 @@ class AddLesson extends React.Component {
           // console.log('IN AXIOS THEN', res.data.results[0]);
           // first address components is the most accurate address
           let { city, state } = extractCityState(res.data.results[0].address_components);
-          this.setState({ city, state }, () => {
-            console.log('REVERSE GEOCODE', city, state);
-          });
+          this.setState({ city, state });
         })
         // .then((results) => console.log(results))
         .catch((err) => {
@@ -59,7 +57,7 @@ class AddLesson extends React.Component {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :</p>;
             let userID = data.userInfo.userId;
-            console.log('inside addLesson', userID);
+            
             return (
               <Mutation
                 mutation={ADD_LESSON}
@@ -92,7 +90,7 @@ class AddLesson extends React.Component {
                               });
                             })
                             .then((data) => {
-                              console.log(data);
+                              
                               this.setState({
                                 redirect: true
                               });
@@ -143,9 +141,6 @@ class AddLesson extends React.Component {
                                     locationOfService: suggest.description,
                                     lat: suggest.location.lat,
                                     lng: suggest.location.lng
-                                  },
-                                  () => {
-                                    console.log(this.state.lat, this.state.lng);
                                   }
                                 );
                               }
