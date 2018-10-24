@@ -1,4 +1,6 @@
 const graphql = require('graphql');
+// require('node-fetch');
+const { Op } = require('sequelize');
 const Models = require('../db/index.js');
 
 const {
@@ -6,7 +8,8 @@ const {
   LessonType,
   ReviewType,
   FavoriteLessonType,
-  SignupLessonType
+  SignupLessonType,
+  LocationType
 } = require('./types.js');
 
 const {
@@ -25,15 +28,20 @@ const RootQuery = new GraphQLObjectType({
       type: UserType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        // queries to db
         return Models.User.findById(args.id);
+      }
+    },
+    checkUser: {
+      type: UserType,
+      args: { uid: { type: GraphQLID } },
+      resolve(parent, args) {
+        return Models.User.find({ where: { uid: args.uid } });
       }
     },
     users: {
       type: GraphQLList(UserType),
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        // queries to db
         return Models.User.findAll();
       }
     },
@@ -41,7 +49,6 @@ const RootQuery = new GraphQLObjectType({
       type: LessonType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        // queries to db
         return Models.Lesson.findById(args.id);
       }
     },
@@ -49,8 +56,53 @@ const RootQuery = new GraphQLObjectType({
       type: GraphQLList(LessonType),
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        // queries to db
         return Models.Lesson.findAll();
+      }
+    },
+    lessonsFiltered: {
+      type: GraphQLList(LessonType),
+      args: {
+        category: { type: GraphQLString },
+        cityOfService: { type: GraphQLString },
+        stateOfService: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Models.Lesson.findAll({
+          where: {
+            numOfReviews: {
+              [Op.gte]: 10
+            },
+            category: args.category,
+            cityOfService: args.cityOfService,
+            stateOfService: args.stateOfService
+          },
+          include: { model: Models.Review },
+          order: [['avgRating', 'DESC']]
+        })
+          .then((data) => data)
+          .catch((err) => console.error(err));
+      }
+    },
+    lessonsFilteredGuest: {
+      type: GraphQLList(LessonType),
+      args: {
+        cityOfService: { type: GraphQLString },
+        stateOfService: { type: GraphQLString }
+      },
+      resolve(parent, args) {
+        return Models.Lesson.findAll({
+          where: {
+            numOfReviews: {
+              [Op.gte]: 10
+            },
+            cityOfService: args.cityOfService,
+            stateOfService: args.stateOfService
+          },
+          include: { model: Models.Review },
+          order: [['avgRating', 'DESC']]
+        })
+          .then((data) => data)
+          .catch((err) => console.error(err));
       }
     }
   }

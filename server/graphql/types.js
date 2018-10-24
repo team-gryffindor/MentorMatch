@@ -1,6 +1,7 @@
 const graphql = require('graphql');
 const Models = require('../db/index.js');
 const { Op } = require('sequelize');
+const axios = require('axios');
 
 const {
   GraphQLObjectType,
@@ -8,7 +9,8 @@ const {
   GraphQLID,
   GraphQLList,
   GraphQLFloat,
-  GraphQLInt
+  GraphQLInt,
+  GraphQLBoolean
 } = graphql;
 
 // querying multiple tables: TODO: data.dataValues.*
@@ -16,9 +18,14 @@ const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     id: { type: GraphQLID },
+    uid: { type: GraphQLID },
     name: { type: GraphQLString },
     description: { type: GraphQLString },
+    locationOfResidence: { type: GraphQLString },
     cityOfResidence: { type: GraphQLString },
+    stateOfResidence: { type: GraphQLString },
+    lat: { type: GraphQLFloat },
+    lng: { type: GraphQLFloat },
     image: { type: GraphQLString },
     offeredLessons: {
       type: GraphQLList(LessonType),
@@ -69,9 +76,15 @@ const LessonType = new GraphQLObjectType({
     category: { type: GraphQLString },
     avgRating: { type: GraphQLFloat },
     numOfReviews: { type: GraphQLInt },
+    locationOfService: { type: GraphQLString },
     cityOfService: { type: GraphQLString },
+    stateOfService: { type: GraphQLString },
+    lat: { type: GraphQLFloat },
+    lng: { type: GraphQLFloat },
     image: { type: GraphQLString },
     date: { type: GraphQLString },
+    isActive: { type: GraphQLBoolean },
+    price: { type: GraphQLFloat },
     provider: {
       type: UserType,
       resolve(parent, args) {
@@ -100,6 +113,13 @@ const ReviewType = new GraphQLObjectType({
       resolve(parent, args) {
         return Models.Lesson.findById(parent.lessonId);
       }
+    },
+    user: {
+      type: UserType,
+      resolve(parent, args) {
+        console.log('USERID OF REVIEW', parent.userId);
+        return Models.User.findById(parent.userId);
+      }
     }
   })
 });
@@ -121,10 +141,36 @@ const FavoriteLessonType = new GraphQLObjectType({
   })
 });
 
+const LocationType = new GraphQLObjectType({
+  name: 'Location',
+  description: 'Location information of corresponding address from Google Maps Geocode API',
+  fields: () => ({
+    addressComponents: {
+      type: GraphQLList(AddressType),
+      resolve(parent, args) {
+        // console.log('IN LOCATION TYPE', parent.address_components);
+        return parent.address_components;
+      }
+    }
+  })
+});
+
+const AddressType = new GraphQLObjectType({
+  name: 'Address',
+  description: 'Address component from geocode data retrieval',
+  fields: () => ({
+    long_name: { type: GraphQLString },
+    short_name: { type: GraphQLString },
+    types: { type: GraphQLList(GraphQLString) }
+  })
+});
+
 module.exports = {
   UserType: UserType,
   LessonType: LessonType,
   ReviewType: ReviewType,
   SignupLessonType: SignupLessonType,
-  FavoriteLessonType: FavoriteLessonType
+  FavoriteLessonType: FavoriteLessonType,
+  LocationType: LocationType,
+  AddressType: AddressType
 };

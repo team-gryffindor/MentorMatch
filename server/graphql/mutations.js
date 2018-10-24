@@ -25,18 +25,28 @@ const Mutation = new GraphQLObjectType({
     addUser: {
       type: UserType,
       args: {
+        uid: { type: GraphQLID },
         name: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
-        cityOfResidence: { type: GraphQLString }
+        locationOfResidence: { type: GraphQLString },
+        cityOfResidence: { type: GraphQLString },
+        stateOfResidence: { type: GraphQLString },
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat }
       },
       resolve(parent, args) {
         // sequelize to add user
         return Models.User.build({
+          uid: args.uid,
           name: args.name,
           image: args.image,
           description: args.description,
-          cityOfResidence: args.cityOfResidence
+          locationOfResidence: args.locationOfResidence,
+          lat: args.lat,
+          lng: args.lng,
+          cityOfResidence: args.cityOfResidence,
+          stateOfResidence: args.stateOfResidence
         })
           .save()
           .then((data) => data)
@@ -49,10 +59,15 @@ const Mutation = new GraphQLObjectType({
         title: { type: GraphQLString },
         image: { type: GraphQLString },
         description: { type: GraphQLString },
+        locationOfService: { type: GraphQLString },
         cityOfService: { type: GraphQLString },
+        stateOfService: { type: GraphQLString },
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat },
         category: { type: GraphQLString },
         difficulty: { type: GraphQLString },
-        userId: { type: GraphQLString }
+        userId: { type: GraphQLID },
+        price: { type: GraphQLFloat }
       },
       resolve(parent, args) {
         // sequelize to add user
@@ -60,10 +75,15 @@ const Mutation = new GraphQLObjectType({
           title: args.title,
           description: args.description,
           category: args.category,
+          locationOfService: args.locationOfService,
           cityOfService: args.cityOfService,
+          stateOfService: args.stateOfService,
+          lat: args.lat,
+          lng: args.lng,
           difficulty: args.difficulty,
           image: args.image,
-          userId: args.userId
+          userId: args.userId,
+          price: args.price
         })
           .save()
           .then((data) => {
@@ -77,7 +97,7 @@ const Mutation = new GraphQLObjectType({
       args: {
         title: { type: GraphQLString },
         comment: { type: GraphQLString },
-        rating: { type: GraphQLFloat },
+        rating: { type: GraphQLInt },
         lessonId: { type: GraphQLID },
         userId: { type: GraphQLID }
       },
@@ -163,8 +183,115 @@ const Mutation = new GraphQLObjectType({
           .then((data) => data)
           .catch((err) => console.error(err));
       }
+    },
+    deleteSignupLesson: {
+      type: SignupLessonType,
+      args: {
+        userId: { type: GraphQLID },
+        lessonId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Models.Signup.destroy({
+          where: {
+            userId: args.userId,
+            lessonId: args.lessonId
+          }
+        })
+          .then((data) => data)
+          .catch((err) => console.error(err));
+      }
+    },
+    deleteLesson: {
+      type: LessonType,
+      args: {
+        id: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        return Models.Lesson.update({ isActive: false }, { where: { id: args.id } })
+          .then((data) => {
+            console.log('updated lesson', data);
+            return data;
+          })
+          .catch((err) => console.error(err));
+      }
+    },
+    updateUser: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLID },
+        uid: { type: GraphQLID },
+        name: { type: GraphQLString },
+        image: { type: GraphQLString },
+        description: { type: GraphQLString },
+        locationOfResidence: { type: GraphQLString },
+        cityOfResidence: { type: GraphQLString },
+        stateOfResidence: { type: GraphQLString },
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat }
+      },
+      resolve(parent, args) {
+        // sequelize to add user
+        return Models.User.update(
+          {
+            name: args.name,
+            image: args.image,
+            description: args.description,
+            locationOfResidence: args.locationOfResidence,
+            cityOfResidence: args.cityOfResidence,
+            stateOfResidence: args.stateOfResidence,
+            lat: args.lat,
+            lng: args.lng
+          },
+          { where: { id: args.id } }
+        )
+          .then((data) => {
+            console.log('updated lesson', data);
+            return data;
+          })
+          .catch((err) => console.error(err));
+      }
+    },
+    updateLesson: {
+      type: LessonType,
+      args: {
+        id: { type: GraphQLID },
+        title: { type: GraphQLString },
+        image: { type: GraphQLString },
+        description: { type: GraphQLString },
+        locationOfService: { type: GraphQLString },
+        cityOfService: { type: GraphQLString },
+        stateOfService: { type: GraphQLString },
+        lat: { type: GraphQLFloat },
+        lng: { type: GraphQLFloat },
+        category: { type: GraphQLString },
+        difficulty: { type: GraphQLString },
+        price: { type: GraphQLFloat }
+      },
+      resolve(parent, args) {
+        return Models.Lesson.update(
+          {
+            title: args.title,
+            description: args.description,
+            category: args.category,
+            locationOfService: args.locationOfService,
+            cityOfService: args.cityOfService,
+            stateOfService: args.stateOfService,
+            lat: args.lat,
+            lng: args.lng,
+            difficulty: args.difficulty,
+            image: args.image,
+            userId: args.userId,
+            price: args.price
+          },
+          { returning: true, where: { id: args.id } }
+        )
+          .then((data) => {
+            console.log('edit lesson', data[1]);
+            return data;
+          })
+          .catch((err) => console.error(err));
+      }
     }
-    // removeSignupLesson: {}
   }
 });
 

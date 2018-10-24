@@ -7,12 +7,18 @@ const lesson = (sequelize, DataTypes) => {
     // },
     // incrementing INTEGER id for easy development
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    locationOfService: DataTypes.STRING,
     cityOfService: DataTypes.STRING,
+    stateOfService: DataTypes.STRING,
+    lat: DataTypes.FLOAT,
+    lng: DataTypes.FLOAT,
     description: DataTypes.TEXT,
     image: DataTypes.STRING,
     title: DataTypes.STRING,
     difficulty: DataTypes.STRING,
     category: DataTypes.STRING,
+    price: DataTypes.FLOAT,
+    isActive: { type: DataTypes.BOOLEAN, defaultValue: true },
     avgRating: { type: DataTypes.FLOAT, defaultValue: 0 },
     numOfReviews: { type: DataTypes.INTEGER, defaultValue: 0 }
   });
