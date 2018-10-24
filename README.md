@@ -1,6 +1,11 @@
 # Mentor Match
   Welcome to Mentor Match! A web application that allows users to connect with other users offering mentorship/lessons in regards to a specific topic.
 
+  <img src="https://media.giphy.com/media/1Bcxb1ar6iG4hNFqh8/giphy.gif">
+
+  <img src="https://media.giphy.com/media/2voGcQpE13ldrKsh3L/giphy.gif">
+
+  
 ## Built With
 ---
 - **React** - Used to render the client
