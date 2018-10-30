@@ -1,5 +1,5 @@
 # Mentor Match
-  Welcome to Mentor Match! A web application that allows users to connect with other users offering mentorship/lessons in regards to a specific topic.
+Mentor Match is a web application that allows users to connect with other users offering mentorship/lessons in regards to a specific topic.
 
   <img src="https://media.giphy.com/media/1Bcxb1ar6iG4hNFqh8/giphy.gif">
 
@@ -9,17 +9,23 @@
 ## Built With
 ---
 - **[React](https://reactjs.org/)** - Used to render the client
-- **React Router** - Used for front end routes 
-- **Apollo Client** - GraphQl client for iuse with React
-- **GraphQL** - API queries
-- **Sequelize** - ORM
-- **PostgreSQL** - Database
-- **Node.JS** - Server
-- **Axios** - HTTP request with Redis search
-- **Redis Search** - Search functionality
-- **Geo suggest** - Location identificaiton for search functionality
-- **Firebase** - Authentication middleware
-- **Stripe** - Payment functionality (Only sending dummy payments)
+- **[React Router](https://www.npmjs.com/package/react-router)** - Used for front end routes 
+- **[Apollo](https://www.apollographql.com/)** - GraphQl client for iuse with React
+- **[GraphQL](https://graphql.org/)** - API queries
+- **[Sequelize](http://docs.sequelizejs.com/)** - ORM
+- **[PostgreSQL](https://www.postgresql.org/)** - Primary Database
+- **[Node.JS](https://nodejs.org/en/)** - Server
+- **[Express](https://expressjs.com/)** - Server
+- **[Axios](https://github.com/axios/axios)** - HTTP request with Redis search
+- **[Redis Search](https://github.com/RedisLabsModules/RediSearch)** - Search functionality
+- **[Geo suggest](https://github.com/ubilabs/react-geosuggest)** - Location identificaiton for search functionality
+- **[Firebase](https://firebase.google.com/)** - Authentication middleware
+- **[Stripe](https://stripe.com/)** - Payment functionality (Only sending dummy payments)
+
+
+## Screenshots
+---
+
 
 ## Installing Dependencies
 
