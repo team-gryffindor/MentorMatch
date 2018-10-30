@@ -8,7 +8,7 @@
   
 ## Built With
 ---
-- **React** - Used to render the client
+- **[React](https://reactjs.org/)** - Used to render the client
 - **React Router** - Used for front end routes 
 - **Apollo Client** - GraphQl client for iuse with React
 - **GraphQL** - API queries
