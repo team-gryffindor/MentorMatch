@@ -5,9 +5,18 @@ Mentor Match is a web application that allows users to connect with other users 
 
   <img src="https://media.giphy.com/media/2voGcQpE13ldrKsh3L/giphy.gif">
 
-  
+
+## Team
+  - Product Owner: Alexander Charles
+  - Scrum Master: Julie Jung
+  - Developers: Alan Chang, Arjun Logeswaran
+
+## Features
+  - Guest landing page with top rated lessons and full search functionality
+  - Access booking feature and location-based recommendations by signup/login through Firebase
+  - 
+
 ## Built With
----
 - **[React](https://reactjs.org/)** - Used to render the client
 - **[React Router](https://www.npmjs.com/package/react-router)** - Used for front end routes 
 - **[Apollo](https://www.apollographql.com/)** - GraphQl client for iuse with React
@@ -24,7 +33,7 @@ Mentor Match is a web application that allows users to connect with other users 
 
 
 ## Screenshots
----
+
 
 
 ## Installing Dependencies
@@ -33,10 +42,7 @@ Mentor Match is a web application that allows users to connect with other users 
 npm install
 ```
 
-## Team
-  - Product Owner: Alexander Charles
-  - Scrum Master: Julie Jung
-  - Developers: Alan Chang, Arjun Logeswaran
+
 
 
 
