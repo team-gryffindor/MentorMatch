@@ -3,31 +3,40 @@ Mentor Match is a web application that allows users to connect with other users 
 
 ![Main](./readmeImgs/landingScreenshot.png)
 
+## Table of Contents
+1. [Team](#team)
+1. [Features](#features)
+1. [Built With](#built-with)
+1. [Screenshots](#screenshots)
 
 ## Team
   - Product Owner: Alexander Charles
   - Scrum Master: Julie Jung
-  - Developers: Alan Chang, Arjun Logeswaran
+  - Developers: Alan Yang, Arjun Logeswaran
 
 ## Features
-  - Guest landing page with top rated lessons and full search functionality
-  - Access booking feature and location-based recommendations by signup/login through Firebase
-  - 
+  - Guest landing page with top rated lessons and full search functionality.
+  - Google and Facebook sign up and log in.
+  - View scheduled, taken, offerred, and favorite lessons in user profile.
+  - Monthly calendar and list view in user profile to display upcoming lessons
+  - Searching by keywords and location and will display best matches first in the list of results
+  - Home page recommends top rated lessons near user location
+  - Lesson content page displaying detailed information including interactive map
 
 ## Built With
-- **[React](https://reactjs.org/)** - Used to render the client
-- **[React Router](https://www.npmjs.com/package/react-router)** - Used for front end routes 
-- **[Apollo](https://www.apollographql.com/)** - GraphQl client for iuse with React
-- **[GraphQL](https://graphql.org/)** - API queries
-- **[Sequelize](http://docs.sequelizejs.com/)** - ORM
-- **[PostgreSQL](https://www.postgresql.org/)** - Primary Database
-- **[Node.JS](https://nodejs.org/en/)** - Server
-- **[Express](https://expressjs.com/)** - Server
-- **[Axios](https://github.com/axios/axios)** - HTTP request with Redis search
-- **[Redis Search](https://github.com/RedisLabsModules/RediSearch)** - Search functionality
-- **[Geo suggest](https://github.com/ubilabs/react-geosuggest)** - Location identificaiton for search functionality
-- **[Firebase](https://firebase.google.com/)** - Authentication middleware
-- **[Stripe](https://stripe.com/)** - Payment functionality (Only sending dummy payments)
+- [React](https://reactjs.org/)
+- [React Router](https://www.npmjs.com/package/react-router)
+- [Apollo](https://www.apollographql.com/)
+- [GraphQL](https://graphql.org/)
+- [Sequelize](http://docs.sequelizejs.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Node.JS](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [Axios](https://github.com/axios/axios)
+- [Redis Search](https://github.com/RedisLabsModules/RediSearch)
+- [Geo suggest](https://github.com/ubilabs/react-geosuggest)
+- [Firebase](https://firebase.google.com/)
+- [Stripe](https://stripe.com/)
 
 
 ## Screenshots
@@ -44,15 +53,3 @@ MentorMatch can conduct O(1) search with the power of Redisearch and its inverte
 
 ![UserProfile](./readmeImgs/userProfile.gif)
 ![LessonDetails](./readmeImgs/lessonDetails.gif)
-
-## Installing Dependencies
-
-``` 
-npm install
-```
-
-
-
-
-
-
