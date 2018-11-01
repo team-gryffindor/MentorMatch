@@ -1,9 +1,7 @@
 # Mentor Match
 Mentor Match is a web application that allows users to connect with other users offering mentorship/lessons in regards to a specific topic.
 
-  <img src="https://media.giphy.com/media/1Bcxb1ar6iG4hNFqh8/giphy.gif">
-
-  <img src="https://media.giphy.com/media/2voGcQpE13ldrKsh3L/giphy.gif">
+![Main](./readmeImgs/landingScreenshot.png)
 
 
 ## Team
@@ -34,7 +32,18 @@ Mentor Match is a web application that allows users to connect with other users 
 
 ## Screenshots
 
+![RecGuest](./readmeImgs/rec-guest.gif)
+![RecUser](./readmeImgs/rec-user.gif)
 
+Once the user signs in, the recommendations changes according to the user's city of residence.
+
+![Search1](./readmeImgs/search-cookingsteak.gif)
+![Search2](./readmeImgs/search-cookingsteakforbeginners.gif)
+
+MentorMatch can conduct O(1) search with the power of Redisearch and its inverted indexing methods.
+
+![UserProfile](./readmeImgs/userProfile.gif)
+![LessonDetails](./readmeImgs/lessonDetails.gif)
 
 ## Installing Dependencies
 
