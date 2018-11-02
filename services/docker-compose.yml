@@ -5,7 +5,7 @@ services:
     command: npm run server-dev
     container_name: mainserver
     ports:
-      - 3000:3000
+      - 127.0.0.1:3000:3000
     volumes:
       - ./main:/mainServer/
       - /mainServer/node_modules
