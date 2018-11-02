@@ -1,17 +1,19 @@
 version: '3.3'
 services:
   mainserver:
-    build: ./server
+    build: ./main
     command: npm run server-dev
     container_name: mainserver
     ports:
       - 3000:3000
     volumes:
-      - ./server:/mainServer/
+      - ./main:/mainServer/
       - /mainServer/node_modules
   redisearch:
     image: redislabs/redisearch:latest
     container_name: redisearch
+    depends_on:
+      - mainserver
     ports:
       - 6379:6379
     volumes:
@@ -19,9 +21,9 @@ services:
   search:
     build: ./search
     command: npm run search-dev
+    container_name: searchservice
     depends_on:
       - redisearch
-      - mainserver
     ports:
       - 2000:2000
     volumes:
