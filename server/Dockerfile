@@ -4,18 +4,17 @@ LABEL maintainer="myj899@gmail.com"
 # install nodemon onto container
 RUN npm install -g nodemon
 
-COPY ./package.json /searchService/
-WORKDIR /searchService
+COPY ./package.json /mainServer/
+WORKDIR /mainServer
 
 # fetch app specific deps
 RUN npm install
-# ENV PATH /searchService/node_modules/.bin:$PATH
 
 # copy our application code
-ADD . /searchService/app
+ADD . /mainServer/app
 
 # expose port
-EXPOSE 2000
+EXPOSE 3000
 
 # start app
-CMD [ "npm", "search-dev" ]
+CMD [ "npm", "server-dev" ]
