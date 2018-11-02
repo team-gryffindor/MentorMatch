@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  redisearch:
+    image: redislabs/redisearch:latest
+    container_name: redisearch
+    ports:
+      - 6379:6379
+    volumes:
+      - searchdata:/Users/juliejung/Desktop/redisearch/data
+  web:
+    image: myj899/search-server:latest
+    command: nodemon index.js
+    # starts redisearch server before search service
+    depends_on:
+      - redisearch
+    ports:
+      - 2000:2000
+    volumes:
+      - ./search:/searchService
+volumes:
+  searchdata:
+    driver: local

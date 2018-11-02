@@ -4,7 +4,7 @@ const express = require('express'); // simple web server module
 const axios = require('axios');
 
 // const creds = require(argv.connection); // load the JSON specified in the argument
-const client = redis.createClient(); // create a Redis client with the Node_redis connection object
+const client = redis.createClient({ host: 'redisearch', port: 6379 }); // create a Redis client with the Node_redis connection object
 const port = 2000; // load search service on 2000
 
 const initIndex = require('./model/index.js').initIndex;
