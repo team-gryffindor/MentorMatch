@@ -3,6 +3,7 @@ services:
   mainserver:
     build: ./server
     command: npm run server-dev
+    container_name: mainserver
     ports:
       - 3000:3000
     volumes:
@@ -20,6 +21,7 @@ services:
     command: npm run search-dev
     depends_on:
       - redisearch
+      - mainserver
     ports:
       - 2000:2000
     volumes:

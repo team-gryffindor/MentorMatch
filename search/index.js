@@ -20,7 +20,7 @@ let lessons = []; // Initialize lessons to empty
 redsearch.createSearch('lessons', {}, function(err, search) {
   // retrieve all lessons data from main server graphql endpoint
   axios({
-    url: 'http://localhost:3000/graphql',
+    url: 'http://mainserver:3000/graphql',
     method: 'post',
     data: {
       query: `
