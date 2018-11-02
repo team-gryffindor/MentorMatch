@@ -1,6 +1,6 @@
+const express = require('express'); // simple web server module
 const redsearch = require('redredisearch'); // RedRediSearch, syntax compatible with Reds
 const redis = require('redis'); // node_redis module
-const express = require('express'); // simple web server module
 const axios = require('axios');
 
 // const creds = require(argv.connection); // load the JSON specified in the argument

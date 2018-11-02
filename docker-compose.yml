@@ -8,15 +8,15 @@ services:
     volumes:
       - searchdata:/Users/juliejung/Desktop/redisearch/data
   web:
-    image: myj899/search-server:latest
-    command: nodemon index.js
-    # starts redisearch server before search service
+    build: ./search
+    command: npm run search-dev
     depends_on:
       - redisearch
     ports:
       - 2000:2000
     volumes:
-      - ./search:/searchService
+      - ./search:/searchService/
+      - /searchService/node_modules
 volumes:
   searchdata:
     driver: local
