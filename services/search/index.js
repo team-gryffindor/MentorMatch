@@ -1,10 +1,10 @@
+const express = require('express'); // simple web server module
 const redsearch = require('redredisearch'); // RedRediSearch, syntax compatible with Reds
 const redis = require('redis'); // node_redis module
-const express = require('express'); // simple web server module
 const axios = require('axios');
 
 // const creds = require(argv.connection); // load the JSON specified in the argument
-const client = redis.createClient(); // create a Redis client with the Node_redis connection object
+const client = redis.createClient({ host: 'redisearch', port: 6379 }); // create a Redis client with the Node_redis connection object
 const port = 2000; // load search service on 2000
 
 const initIndex = require('./model/index.js').initIndex;
@@ -20,7 +20,7 @@ let lessons = []; // Initialize lessons to empty
 redsearch.createSearch('lessons', {}, function(err, search) {
   // retrieve all lessons data from main server graphql endpoint
   axios({
-    url: 'http://localhost:3000/graphql',
+    url: 'http://mainserver:3000/graphql',
     method: 'post',
     data: {
       query: `
