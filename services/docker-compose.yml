@@ -2,7 +2,7 @@ version: '3.3'
 services:
   mainserver:
     build: ./main
-    command: npm run server-dev
+    command: bash -c "npm run server-dev && npm run build"
     container_name: mainserver
     ports:
       - 127.0.0.1:3000:3000

@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run build && node server/index.js",
+    "build": "NODE_ENV='production' webpack -p",
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js",
-    "search-dev": "nodemon search/index.js"
+    "server-dev": "nodemon server/index.js"
   },
   "author": "Hack Reactor",
   "license": "ISC",
