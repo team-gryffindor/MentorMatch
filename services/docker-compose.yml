@@ -2,7 +2,7 @@ version: '3.3'
 services:
   mainserver:
     build: ./main
-    command: bash -c "npm run server-dev && npm run build"
+    # command: npm run start
     container_name: mainserver
     ports:
       - 127.0.0.1:3000:3000
@@ -23,6 +23,7 @@ services:
     command: npm run search-dev
     container_name: searchservice
     depends_on:
+      - mainserver
       - redisearch
     ports:
       - 2000:2000
