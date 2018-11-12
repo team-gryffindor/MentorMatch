@@ -1,13 +1,14 @@
-version: '3.3'
+version: '3.7'
 services:
   mainserver:
     build: ./services/main
     # command: npm run start
     container_name: mainserver
     ports:
-      - 127.0.0.1:3000:3000
+      - 3000:3000
     volumes:
       - ./services/main:/mainServer/
+      - ./services/main/package.json:/mainServer/package.json
       - /mainServer/node_modules
   redisearch:
     image: redislabs/redisearch:latest
@@ -20,8 +21,8 @@ services:
       - searchdata:/Users/juliejung/Desktop/redisearch/data
   search:
     build: ./services/search
-    command: npm run search-dev
     container_name: searchservice
+    command: npm run search-dev
     depends_on:
       - mainserver
       - redisearch
@@ -29,6 +30,7 @@ services:
       - 2000:2000
     volumes:
       - ./services/search:/searchService/
+      - ./services/search/package.json:/searchService/package.json
       - /searchService/node_modules
 volumes:
   searchdata:

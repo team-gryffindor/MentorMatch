@@ -1,12 +1,9 @@
 FROM node:latest
-LABEL maintainer="myj899@gmail.com"
+LABEL maintainer="Julie Jung <myj899@gmail.com>"
 
 # install nodemon and webpack onto container
 RUN npm install -g nodemon
 
-# COPY ./package.json /mainServer/
-# COPY ./webpack.config.js /mainServer/
-# COPY ./.env /mainServer/
 WORKDIR /mainServer
 
 # copy our application code
