@@ -5,7 +5,7 @@ services:
     # command: npm run start
     container_name: mainserver
     ports:
-      - 3000:3000
+      - 80:80
     volumes:
       - ./services/main:/mainServer/
       - ./services/main/package.json:/mainServer/package.json
