@@ -87,4 +87,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## Licensing
 
-MentorMatch uses the [MIT License](LICENSE.MD)
+MentorMatch uses the [MIT License](LICENSE.md)
