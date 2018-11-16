@@ -2,6 +2,8 @@
 
 Welcome to Mentor Match! A web application that allows users to connect with other users offering mentorship/lessons in regards to a specific topic.
 
+The website can be reached at [mentormatch.host](http://mentormatch.host)
+
 ![Main](./readmeImgs/landingScreenshot.png)
 
 ## Built With
