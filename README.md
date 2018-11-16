@@ -4,9 +4,19 @@ Welcome to Mentor Match! A web application that allows users to connect with oth
 
 ![Main](./readmeImgs/landingScreenshot.png)
 
-## Built With
+## Table of Contents
 
----
+1. [Built With](#built-with)
+1. [Getting Started](#getting-started)
+   1. [Installing Dependencies](#installing-dependencies)
+   1. [Development Environment](#development-environment)
+1. [Authors](#authors)
+1. [Screenshots](#screenshots)
+1. [Styling](#styling)
+1. [Contributing](#contributing)
+1. [Licensing](#licensing)
+
+## Built With
 
 - **React** - Used to render the client
 - **React Router** - Used for front end routes
@@ -21,10 +31,24 @@ Welcome to Mentor Match! A web application that allows users to connect with oth
 - **Firebase** - Authentication middleware
 - **Stripe** - Payment functionality (Only sending dummy payments)
 
-## Installing Dependencies
+## Getting Started
 
+### Installing Dependencies
+
+You must install Docker to be able to run this application. Please reference [Docker](https://www.docker.com/)
+
+### Development Environment
+
+To start up the multi container application, from within the root directory:
+
+```sh
+docker-compose up
 ```
-npm install
+
+To check the containers are running:
+
+```sh
+docker-compose ps
 ```
 
 ## Team
@@ -47,3 +71,15 @@ MentorMatch can conduct O(1) search with the power of Redisearch and its inverte
 
 ![UserProfile](./readmeImgs/userProfile.gif)
 ![LessonDetails](./readmeImgs/lessonDetails.gif)
+
+## Styling
+
+DarWin uses the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript/).
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+## Licensing
+
+DarWin uses the [MIT License](LICENSE.MD)
