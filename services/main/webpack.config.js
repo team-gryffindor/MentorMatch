@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 
 // call dotenv and it will return an Object with a parsed key
 const env = dotenv.config().parsed;
+console.log('ENV IN WEBPACK', env);
 
 // reduce it to a nice object, the same as before
 const envKeys = Object.keys(env).reduce((prev, next) => {
@@ -42,9 +43,9 @@ module.exports = {
         loader: 'url?limit=25000'
       },
       {
-        test: /\.css$/,  
-        include: /node_modules/,  
-        loaders: ['style-loader', 'css-loader'],
+        test: /\.css$/,
+        include: /node_modules/,
+        loaders: ['style-loader', 'css-loader']
       }
     ]
   },

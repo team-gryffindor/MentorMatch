@@ -12,9 +12,9 @@ const keyPublishable = process.env.PUBLISHABLE_KEY;
 const keySecret = process.env.SECRET_KEY;
 const stripe = require('stripe')(keySecret);
 
-app.set("view engine", "pug");
+app.set('view engine', 'pug');
 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/../react-client/dist'));
 app.use(bodyParser.json());
 
@@ -36,26 +36,26 @@ app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname + '/../react-client/dist/index.html'));
 });
 
-// app.get("/", (req, res) => 
+// app.get("/", (req, res) =>
 //   res.render("index.pug", {keyPublishable}));
 
-app.post("/charge", (req, res) => {
-  let amount = (parseInt(req.body.stripePrice) * 100);
-  console.log('AMOUNT:', amount)
-  console.log('price:', req.body.stripePrice)
-  
-  // console.log('STRIPE INFO:', req.body)
-  stripe.charges.create({
-    amount,
-    currency: 'usd',
-    description: 'ExampleCharge',
-    source: req.body.stripeToken,
-    capture: false
-  })
-  .then(() => res.sendStatus(200))
-  .catch((err) => console.log('Error in STRIPE:', err));
-});
+app.post('/charge', (req, res) => {
+  let amount = parseInt(req.body.stripePrice) * 100;
+  console.log('AMOUNT:', amount);
+  console.log('price:', req.body.stripePrice);
 
+  // console.log('STRIPE INFO:', req.body)
+  stripe.charges
+    .create({
+      amount,
+      currency: 'usd',
+      description: 'ExampleCharge',
+      source: req.body.stripeToken,
+      capture: false
+    })
+    .then(() => res.sendStatus(200))
+    .catch((err) => console.log('Error in STRIPE:', err));
+});
 
 models.db
   // For change in schema itself, use the line below
