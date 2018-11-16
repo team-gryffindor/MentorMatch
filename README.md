@@ -70,11 +70,13 @@ Once the user signs in, the recommendations changes according to the user's city
 MentorMatch can conduct O(1) search with the power of Redisearch and its inverted indexing methods.
 
 ![UserProfile](./readmeImgs/userProfile.gif)
+Users can navigate through their profile page for previously booked lessons, upcoming lessons, and lessons that they offer.
 ![LessonDetails](./readmeImgs/lessonDetails.gif)
+Every lesson has a lesson details page where the user can view information on the lesson, the mentor, and the reviews by other users who have taken the lesson in the past.
 
 ## Styling
 
-DarWin uses the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript/).
+MentorMatch uses the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript/).
 
 ## Contributing
 
@@ -82,4 +84,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## Licensing
 
-DarWin uses the [MIT License](LICENSE.MD)
+MentorMatch uses the [MIT License](LICENSE.MD)
