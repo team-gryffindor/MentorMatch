@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "NODE_ENV='production' webpack -p && node server/index.js",
+    "build": "NODE_ENV='production' webpack -p",
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js",
-    "search-dev": "nodemon search/index.js"
+    "server-dev": "nodemon server/index.js"
   },
   "author": "Hack Reactor",
   "license": "ISC",
@@ -55,8 +56,6 @@
     "graphql-tag": "^2.10.0",
     "jquery": "^3.3.1",
     "moment": "^2.22.2",
-    "mongoose": "^4.8.6",
-    "mysql": "^2.13.0",
     "node-fetch": "^2.2.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",

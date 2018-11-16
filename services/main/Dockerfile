@@ -1,20 +1,20 @@
 FROM node:latest
-LABEL maintainer="myj899@gmail.com"
+LABEL maintainer="Julie Jung <myj899@gmail.com>"
 
-# install nodemon onto container
+# install nodemon and webpack onto container
 RUN npm install -g nodemon
 
-COPY ./package.json /mainServer/
 WORKDIR /mainServer
+
+# copy our application code
+ADD . /mainServer/
 
 # fetch app specific deps
 RUN npm install
-
-# copy our application code
-ADD . /mainServer/app
+RUN npm run build
 
 # expose port
-EXPOSE 3000
+EXPOSE 80
 
 # start app
-CMD [ "npm", "server-dev" ]
+CMD [ "npm",  "run", "server-dev" ]
