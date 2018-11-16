@@ -35,7 +35,7 @@ Welcome to Mentor Match! A web application that allows users to connect with oth
 
 ### Installing Dependencies
 
-You must install Docker to be able to run this application. Please reference [Docker](https://www.docker.com/)
+You must install Docker to be able to run this application. Please reference [Docker](https://www.docker.com/) on the installation procedure.
 
 ### Development Environment
 
