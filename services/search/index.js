@@ -20,7 +20,7 @@ let lessons = []; // Initialize lessons to empty
 redsearch.createSearch('lessons', {}, function(err, search) {
   // retrieve all lessons data from main server graphql endpoint
   axios({
-    url: 'http://mainserver:3000/graphql',
+    url: 'http://mainserver:80/graphql',
     method: 'post',
     data: {
       query: `
@@ -54,8 +54,7 @@ redsearch.createSearch('lessons', {}, function(err, search) {
     return searchWithQuery(lessons, search, req.query.q, res);
   });
 
-  app.listen(port, function() {
-    // start at `port`
-    console.log('Listening at', port); // we're loaded - let the console know
+  app.use(express.static('static')).listen(port, function() {
+    console.log('Listening at', port);
   });
 });
