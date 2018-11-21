@@ -88,7 +88,7 @@ const LessonType = new GraphQLObjectType({
     provider: {
       type: UserType,
       resolve(parent, args) {
-        console.log(parent.userId);
+        // console.log(parent.userId);
         return Models.User.findById(parent.userId);
       }
     },
@@ -117,7 +117,7 @@ const ReviewType = new GraphQLObjectType({
     user: {
       type: UserType,
       resolve(parent, args) {
-        console.log('USERID OF REVIEW', parent.userId);
+        // console.log('USERID OF REVIEW', parent.userId);
         return Models.User.findById(parent.userId);
       }
     }

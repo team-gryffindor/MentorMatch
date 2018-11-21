@@ -1,16 +1,20 @@
 module.exports = {
   searchWithQuery: (index, search, query, res) => {
-    search
-      .query(query) // /search?q=[search query]
-      .end(function(err, ids) {
-        if (err) throw err;
-        res.json(
-          ids.map(function(id) {
-            console.log(id);
-            if (index[id]) return index[id].id;
-          })
-        );
-        // res.json(ids);
-      });
+    if (query !== '') {
+      search
+        .query(query) // /search?q=[search query]
+        .end(function(err, ids) {
+          if (err) throw err;
+          res.json(
+            ids.map(function(id) {
+              // console.log(index[id]);
+              if (index[id]) return index[id].id;
+            })
+          );
+          // res.json(ids);
+        });
+    } else {
+      res.json([]);
+    }
   }
 };

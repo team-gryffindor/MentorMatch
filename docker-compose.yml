@@ -1,14 +1,12 @@
-version: '3.7'
+version: '3'
 services:
   mainserver:
     build: ./services/main
-    # command: npm run start
     container_name: mainserver
     ports:
       - 80:80
     volumes:
       - ./services/main:/mainServer/
-      - ./services/main/package.json:/mainServer/package.json
       - /mainServer/node_modules
   redisearch:
     image: redislabs/redisearch:latest
@@ -30,7 +28,6 @@ services:
       - 2000:2000
     volumes:
       - ./services/search:/searchService/
-      - ./services/search/package.json:/searchService/package.json
       - /searchService/node_modules
 volumes:
   searchdata:

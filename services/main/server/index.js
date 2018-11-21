@@ -24,7 +24,7 @@ app.use('/graphql', graphqlHTTP({ schema: schema, graphiql: true }));
 
 // use search endpoint to retrieve from search service server
 app.use('/search', function(req, res) {
-  console.log('SEARCH ENDPOINT MET', req.query.q);
+  // console.log('SEARCH ENDPOINT MET', req.query.q);
   axios
     .get(`${process.env.searchURI}?q=${req.query.q}`)
     .then(({ data }) => res.send(data))
