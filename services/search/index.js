@@ -66,10 +66,10 @@ redsearch.createSearch('lessons', {}, function(err, search) {
       // but reindexing triggers only if a client attempt to search
       // TODO: also incrementally update based on database changes
       let now = new Date();
-      if ((now - lastUpdate) / 1000 > 60) {
+      if ((now - lastUpdate) / 1000 > 300) {
         return retrieveAndAddIndex(search).then(() => {
           console.log(
-            '  indexed %d lessons %ds ago',
+            '  reindexed %d lessons since %ds ago',
             lessons.length,
             ((now - lastUpdate) / 1000).toFixed(2)
           );
