@@ -7,7 +7,7 @@ module.exports = {
           if (err) throw err;
           res.json(
             ids.map(function(id) {
-              console.log(id);
+              // console.log(index[id]);
               if (index[id]) return index[id].id;
             })
           );

@@ -1,11 +1,9 @@
-const express = require('express'); // simple web server module
-const redsearch = require('redredisearch'); // RedRediSearch, syntax compatible with Reds
-const redis = require('redis'); // node_redis module
-const axios = require('axios');
-
-// const creds = require(argv.connection); // load the JSON specified in the argument
-const client = redis.createClient({ host: 'redisearch', port: 6379 }); // create a Redis client with the Node_redis connection object
-const port = 2000; // load search service on 2000
+const express = require('express'), // simple web server module
+  redsearch = require('redredisearch'), // RedRediSearch, syntax compatible with Reds
+  redis = require('redis'), // node_redis module
+  axios = require('axios'),
+  client = redis.createClient({ host: 'redisearch', port: 6379 }), // create a Redis client with the Node_redis connection object
+  port = 2000; // load search service on 2000
 
 const initIndex = require('./model/index.js').initIndex;
 const searchWithQuery = require('./controller/index.js').searchWithQuery;
@@ -15,11 +13,11 @@ const app = express(); // Create server instance
 redsearch.setClient(client); // Associate the correct client.
 
 let lessons = []; // Initialize lessons to empty
+let queue = [];
 
-// create instance of redisearch
-redsearch.createSearch('lessons', {}, function(err, search) {
-  // retrieve all lessons data from main server graphql endpoint
-  axios({
+const retrieveAndAddIndex = (search) => {
+  let start = new Date();
+  return axios({
     url: 'http://mainserver:80/graphql',
     method: 'post',
     data: {
@@ -40,21 +38,50 @@ redsearch.createSearch('lessons', {}, function(err, search) {
       // console.log(JSON.stringify(result.data.data.lessons));
       lessons = result.data.data.lessons;
       initIndex(search, lessons); // index the lessons with their titles and descriptions
+      console.log(
+        '  indexed %d lessons in %ds',
+        lessons.length,
+        ((new Date() - start) / 1000).toFixed(2)
+      );
     })
     .catch((err) => {
-      console.log('ERROR IN HERE');
+      console.log('ERROR IN FETCHING DATA');
       // console.error(err)
     });
+};
 
-  // initIndex(search, lessons);
-
+// create instance of redisearch
+redsearch.createSearch('lessons', {}, function(err, search) {
+  // retrieve all lessons data from main server graphql endpoint
+  retrieveAndAddIndex(search);
+  let lastUpdate = new Date();
   // handle /search endpoint
   app.get('/search', function(req, res) {
     console.log(req.query.q);
-    return searchWithQuery(lessons, search, req.query.q, res);
+    if (err) {
+      next(err);
+    } else {
+      // update index database incrementally over time
+      // arbitrarily set time to 5 minutes
+      // but reindexing triggers only if a client attempt to search
+      // TODO: also incrementally update based on database changes
+      let now = new Date();
+      if ((now - lastUpdate) / 1000 > 60) {
+        return retrieveAndAddIndex(search).then(() => {
+          console.log(
+            '  indexed %d lessons %ds ago',
+            lessons.length,
+            ((now - lastUpdate) / 1000).toFixed(2)
+          );
+          lastUpdate = new Date();
+          searchWithQuery(lessons, search, req.query.q, res);
+        });
+      }
+      return searchWithQuery(lessons, search, req.query.q, res);
+    }
   });
 
-  app.use(express.static('static')).listen(port, function() {
+  app.listen(port, function() {
     console.log('Listening at', port);
   });
 });
