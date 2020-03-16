@@ -24,9 +24,7 @@ class SignUp extends React.Component {
     return (
       axios
         .get(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${
-            this.state.lng
-          }&result_type=locality&key=${process.env.MAP_API_KEY}`
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&result_type=locality&key=${process.env.MAP_API_KEY}`
         )
         .then((res) => {
           // console.log('IN AXIOS THEN', res.data.results[0]);
@@ -57,7 +55,6 @@ class SignUp extends React.Component {
                   e.preventDefault();
                   this.reverseGeocode()
                     .then(() => {
-                      
                       return addUser({
                         variables: {
                           name: this.state.username,
@@ -112,17 +109,14 @@ class SignUp extends React.Component {
                 />
                 City:
                 <Geosuggest
-                  placeholder={'City of Residence'}
+                  placeholder={'City of Shit'}
                   onSuggestSelect={(suggest) => {
                     if (suggest) {
-                      
-                      this.setState(
-                        {
-                          locationOfResidence: suggest.description,
-                          lat: suggest.location.lat,
-                          lng: suggest.location.lng
-                        }
-                      );
+                      this.setState({
+                        locationOfResidence: suggest.description,
+                        lat: suggest.location.lat,
+                        lng: suggest.location.lng
+                      });
                     }
                   }}
                   types={['geocode']}
@@ -132,7 +126,6 @@ class SignUp extends React.Component {
                 <input
                   value={this.state.image}
                   onChange={(e) => {
-                  
                     this.setState({ image: e.target.value });
                   }}
                 />
