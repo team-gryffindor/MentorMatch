@@ -10,7 +10,6 @@ WORKDIR /mainServer
 ADD . /mainServer/
 
 # fetch app specific deps
-RUN npm install
 RUN npm install grpc@1.20.2
 RUN npm run build
 
