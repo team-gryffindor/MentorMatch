@@ -2,27 +2,6 @@ const Sequelize = require('sequelize');
 require('dotenv').config();
 
 // Connect to AWS RDS
-/*
-const db = new Sequelize(process.env.database, process.env.dbuser, process.env.dbpassword, {
-  dialect: 'postgres',
-  host: process.env.host,
-  logging: false,
-  port: process.env.dbport,
-  protocol: null, //change for heroku maybe?
-
-  operatorsAliases: false,
-  dialectOptions: {
-    ssl: 'Amazon RDS'
-  },
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
-  language: 'en'
-});
-*/
 const db = new Sequelize(process.env.database, process.env.dbuser, process.env.dbpassword, {
   dialect: 'postgres',
   host: process.env.host2,

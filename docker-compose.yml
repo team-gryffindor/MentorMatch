@@ -1,15 +1,25 @@
 version: '3'
 services:
   mainserver:
-    build: ./services/main
+    build: ./services/main/server
     # command: npm run start
     container_name: mainserver
     ports:
       - 80:80
     volumes:
-      - ./services/main:/mainServer/
-      - ./services/main/package.json:/mainServer/package.json
-      - /mainServer/node_modules
+      - ./services/main/server/:/usr/app
+      - /usr/app/node_modules
+  client:
+    build:
+      context: ./services/main/react-client
+    command: npm start
+    volumes:
+      - ./services/main/react-client:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - mainserver
+    ports:
+      - 3000:3000
   redisearch:
     image: redislabs/redisearch:latest
     container_name: redisearch

@@ -12,10 +12,12 @@ const keyPublishable = process.env.PUBLISHABLE_KEY;
 const keySecret = process.env.SECRET_KEY;
 const stripe = require('stripe')(keySecret);
 
+const CLIENT_BUILD_PATH = path.join(__dirname, '../react-client/dist');
+
 app.set('view engine', 'pug');
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static(CLIENT_BUILD_PATH));
 app.use(bodyParser.json());
 
 app.use(cors());
@@ -33,7 +35,7 @@ app.use('/search', function(req, res) {
 
 // handle react router cases
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/../react-client/dist/index.html'));
+  res.sendFile(path.join(CLIENT_BUILD_PATH, 'index.html'));
 });
 
 // app.get("/", (req, res) =>
