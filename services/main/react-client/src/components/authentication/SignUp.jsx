@@ -109,7 +109,7 @@ class SignUp extends React.Component {
                 />
                 City:
                 <Geosuggest
-                  placeholder={'City of Shit'}
+                  placeholder={'City of Residence'}
                   onSuggestSelect={(suggest) => {
                     if (suggest) {
                       this.setState({

@@ -2,8 +2,7 @@ version: '3'
 services:
   mainserver:
     build: ./services/main/server
-    # command: npm run start
-    container_name: mainserver
+    # command: /usr/app/node_modules/.bin/nodemon index.js
     ports:
       - 80:80
     volumes:

@@ -16,7 +16,7 @@ class AddLesson extends React.Component {
     difficulty: 'Beginner',
     userId: '',
     category: 'Music',
-    categories: ['Music', 'Sports', 'Cooking', 'Academic'],
+    categories: ['Music', 'Art', 'Sports', 'Cooking', 'Academic'],
     lng: 0,
     lat: 0,
     city: '',
@@ -29,9 +29,7 @@ class AddLesson extends React.Component {
     return (
       axios
         .get(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${
-            this.state.lng
-          }&result_type=locality&key=${process.env.MAP_API_KEY}`
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&result_type=locality&key=${process.env.MAP_API_KEY}`
         )
         .then((res) => {
           // console.log('IN AXIOS THEN', res.data.results[0]);
@@ -41,7 +39,12 @@ class AddLesson extends React.Component {
         })
         // .then((results) => console.log(results))
         .catch((err) => {
-          console.log('ERROR!~');
+          console.log(
+            'ERROR with reverseGeocode: ',
+            this.state.lat,
+            this.state.lng,
+            process.env.MAP_API_KEY
+          );
           console.error(err);
         })
     );
@@ -57,7 +60,7 @@ class AddLesson extends React.Component {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error :</p>;
             let userID = data.userInfo.userId;
-            
+
             return (
               <Mutation
                 mutation={ADD_LESSON}
@@ -90,7 +93,6 @@ class AddLesson extends React.Component {
                               });
                             })
                             .then((data) => {
-                              
                               this.setState({
                                 redirect: true
                               });
@@ -136,13 +138,12 @@ class AddLesson extends React.Component {
                           <Geosuggest
                             onSuggestSelect={(suggest) => {
                               if (suggest) {
-                                this.setState(
-                                  {
-                                    locationOfService: suggest.description,
-                                    lat: suggest.location.lat,
-                                    lng: suggest.location.lng
-                                  }
-                                );
+                                console.log('SUGGESTED LOCATION:', suggest);
+                                this.setState({
+                                  locationOfService: suggest.description,
+                                  lat: suggest.location.lat,
+                                  lng: suggest.location.lng
+                                });
                               }
                             }}
                           />
