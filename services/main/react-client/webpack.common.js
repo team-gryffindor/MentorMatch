@@ -1,8 +1,11 @@
 var path = require('path');
-var SRC_DIR = path.join(__dirname, '/src');
-var DIST_DIR = path.join(__dirname, '/dist');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
+
+var SRC_DIR = path.join(__dirname, '/src');
+var DIST_DIR = path.join(__dirname, '/dist');
 
 // call dotenv and it will return an Object with a parsed key
 const env = dotenv.config().parsed;
@@ -14,7 +17,7 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
   return prev;
 }, {});
 
-console.log('envKEYS', envKeys);
+// console.log('envKEYS', envKeys);
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
@@ -49,5 +52,12 @@ module.exports = {
       }
     ]
   },
-  plugins: [new webpack.DefinePlugin(envKeys)]
+  plugins: [
+    new webpack.DefinePlugin(envKeys),
+    // new CleanWebpackPlugin(['dist/*']) for < v2 versions of CleanWebpackPlugin
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Production'
+    })
+  ]
 };
