@@ -1,15 +1,17 @@
 FROM node:latest
 LABEL maintainer="Julie Jung <moonyouj889@gmail.com>"
 
-# install nodemon and webpack onto container
-RUN npm install -g nodemon
-
+RUN mkdir -p /usr/app
 WORKDIR /usr/app
+# install nodemon and webpack onto container
+RUN npm install -g webpack
+
+
 
 COPY package*.json ./
 RUN npm ci -qy
 # copy our application code
-ADD . .
+COPY . .
 
 # fetch app specific deps
 # RUN npm install grpc@1.20.2
