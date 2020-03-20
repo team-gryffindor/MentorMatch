@@ -48,20 +48,18 @@ class Login extends React.Component {
             // With user retrieved from database
             .then((data) => {
               let userInDB = data[0].data.checkUser;
-              
+
               // If new user
               if (!userInDB) {
                 // Mark the flag and save the firebase uid
-                this.setState(
-                  {
-                    isNewUser: true,
-                    uid: data[1]
-                  }
-                );
+                this.setState({
+                  isNewUser: true,
+                  uid: data[1]
+                });
                 return <Redirect to="/signUp" uid={data[1]} />;
               }
               // Cache the user information
-              return this.props.apolloClient.writeData({
+              return this.props.apolloClient.writeFragment({
                 data: {
                   userInfo: {
                     __typename: 'userInfo',
@@ -81,7 +79,7 @@ class Login extends React.Component {
             })
             .then((redirect) => {
               // TODO: Cleanup--what's is the purpose of this redirect? never gets used
-              
+
               if (redirect) {
                 return redirect;
               }

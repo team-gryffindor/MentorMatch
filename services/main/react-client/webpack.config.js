@@ -1,11 +1,8 @@
 var path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack');
-const dotenv = require('dotenv');
-
 var SRC_DIR = path.join(__dirname, '/src');
 var DIST_DIR = path.join(__dirname, '/dist');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
 
 // call dotenv and it will return an Object with a parsed key
 const env = dotenv.config().parsed;
@@ -28,20 +25,18 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
-      },
-      {
-        test: /\.graphql$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'graphql-tag/loader'
-          }
-        ]
+        test: /\.jsx?/,
+        include: SRC_DIR,
+        loader: 'babel-loader'
+        // query: {
+        //   presets: ['react', 'es2015']
+        //   // plugins: [
+        //   //   'transform-decorators-legacy',
+        //   //   'transform-es2015-destructuring',
+        //   //   'transform-object-rest-spread',
+        //   //   'transform-class-properties'
+        //   // ]
+        // }
       },
       {
         test: /\.(png|jpg)$/,
@@ -54,12 +49,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    // new CleanWebpackPlugin(['dist/*']) for < v2 versions of CleanWebpackPlugin
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'Production'
-    }),
-    new webpack.DefinePlugin(envKeys)
-  ]
+  plugins: [new webpack.DefinePlugin(envKeys)]
 };

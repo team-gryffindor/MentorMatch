@@ -8,13 +8,13 @@ RUN npm install -g webpack
 
 
 
-COPY package*.json ./
-RUN npm ci -qy
+# COPY package*.json ./
+# RUN npm ci -qy
 # copy our application code
 COPY . .
 
 # fetch app specific deps
-# RUN npm install grpc@1.20.2
+RUN npm install
 
 # expose port
 EXPOSE 3000

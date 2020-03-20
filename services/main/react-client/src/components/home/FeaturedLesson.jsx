@@ -7,13 +7,12 @@ import StarRatings from 'react-star-ratings';
 
 const FeaturedLesson = (props) => {
   return (
-    <Query query={GET_LESSON} variables={{ id: 242 }}>
+    <Query query={GET_LESSON} variables={{ id: 426 }}>
       {({ loading, error, data }) => {
         if (error) return <h1>error</h1>;
         if (loading) {
           return null;
         } else if (data.lesson) {
-          
           let { lesson } = data;
           // let { city, state } = extractCityState(lesson.location.addressComponents);
           return (
