@@ -112,7 +112,7 @@ const Mutation = new GraphQLObjectType({
         })
           .save()
           .then((data) => {
-            return Promise.all([Models.Lesson.findById(data.dataValues.lessonId), data]);
+            return Promise.all([Models.Lesson.findByPk(data.dataValues.lessonId), data]);
           })
           .then((data) => {
             let lesson = data[0];

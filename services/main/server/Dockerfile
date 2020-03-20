@@ -2,8 +2,8 @@ FROM node:latest
 LABEL maintainer="Julie Jung <moonyouj889@gmail.com>"
 
 # install nodemon and webpack onto container
-# RUN npm install -g nodemon
-
+RUN npm install -g nodemon
+RUN mkdir -p /usr/app
 WORKDIR /usr/app
 
 COPY package*.json ./
@@ -13,7 +13,7 @@ COPY package*.json ./
 RUN npm ci -qy
 
 # copy our application code
-ADD . .
+COPY . .
 
 # expose port
 EXPOSE 80

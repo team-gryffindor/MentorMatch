@@ -28,7 +28,7 @@ const RootQuery = new GraphQLObjectType({
       type: UserType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return Models.User.findById(args.id);
+        return Models.User.findByPk(args.id);
       }
     },
     checkUser: {
@@ -49,7 +49,7 @@ const RootQuery = new GraphQLObjectType({
       type: LessonType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return Models.Lesson.findById(args.id);
+        return Models.Lesson.findByPk(args.id);
       }
     },
     lessons: {
