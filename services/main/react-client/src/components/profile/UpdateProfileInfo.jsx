@@ -39,14 +39,13 @@ class UpdateProfileInfo extends React.Component {
     return (
       axios
         .get(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${
-            this.state.lng
-          }&result_type=locality&key=${process.env.MAP_API_KEY}`
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.state.lat},${this.state.lng}&result_type=locality&key=${process.env.MAP_API_KEY}`
         )
         .then((res) => {
           // console.log('IN AXIOS THEN', res.data.results[0]);
           // first address components is the most accurate address
           let { city, state } = extractCityState(res.data.results[0].address_components);
+          console.log(`UPDATED CITY, STATE to ${city}, ${state}`);
           this.setState({ cityOfResidence: city, stateOfResidence: state });
         })
         // .then((results) => console.log(results))
@@ -157,7 +156,6 @@ class UpdateProfileInfo extends React.Component {
                     placeholder={'City of Residence'}
                     onSuggestSelect={(suggest) => {
                       if (suggest) {
-                        
                         this.setState(
                           {
                             locationOfResidence: suggest.description,
@@ -165,7 +163,6 @@ class UpdateProfileInfo extends React.Component {
                             lng: suggest.location.lng
                           },
                           () => {
-                           
                             this.reverseGeocode();
                           }
                         );

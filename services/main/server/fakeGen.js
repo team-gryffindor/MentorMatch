@@ -245,8 +245,8 @@ const addUsers = () => {
     });
 };
 
-var categories = ['Music', 'Sports', 'Cooking', 'Academic', 'Gaming', 'Arts', 'Miscellaneous'];
-var difficulty = ['Beginner', 'Intermediate', 'Expert'];
+var CATEGORIES = ['Music', 'Sports', 'Cooking', 'Academic', 'Gaming', 'Arts', 'Miscellaneous'];
+var DIFFICULTY = ['Beginner', 'Intermediate', 'Expert'];
 
 const addFakeLessons = () => {
   var lessons = {
@@ -263,10 +263,10 @@ const addFakeLessons = () => {
       lesson.cityOfService = users.variables[i].cityOfResidence;
       lesson.stateOfService = users.variables[i].stateOfResidence;
       lesson.image = `https://picsum.photos/1200/600?image=${800 + j + i * 20}`;
-      lesson.difficulty = difficulty[Math.floor(Math.random() * 3)];
+      lesson.DIFFICULTY = DIFFICULTY[Math.floor(Math.random() * 3)];
       // adjust for testing
       lesson.userId = i + 1;
-      lesson.category = categories[Math.floor(Math.random() * categories.length)];
+      lesson.category = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
       lesson.price = Math.round(Math.random() * 40) + 10;
       lesson.avgRating = Math.random() * 2 + 3;
       lesson.numOfReviews = Math.floor(Math.random() * 10) + 10;

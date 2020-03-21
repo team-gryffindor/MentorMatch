@@ -59,7 +59,7 @@ class Login extends React.Component {
                 return <Redirect to="/signUp" uid={data[1]} />;
               }
               // Cache the user information
-              return this.props.apolloClient.writeFragment({
+              return this.props.apolloClient.writeData({
                 data: {
                   userInfo: {
                     __typename: 'userInfo',

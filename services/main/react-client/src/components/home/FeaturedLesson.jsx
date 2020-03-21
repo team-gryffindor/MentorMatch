@@ -7,7 +7,7 @@ import StarRatings from 'react-star-ratings';
 
 const FeaturedLesson = (props) => {
   return (
-    <Query query={GET_LESSON} variables={{ id: 426 }}>
+    <Query query={GET_LESSON} variables={{ id: 724 }}>
       {({ loading, error, data }) => {
         if (error) return <h1>error</h1>;
         if (loading) {
