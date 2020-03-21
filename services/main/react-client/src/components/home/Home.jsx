@@ -80,31 +80,41 @@ class Home extends React.Component {
               </div>
               <div>
                 <h4 id="featuredTitle">Recommendations</h4>
-                {this.state.cities.map((city) => (
-                  <Query
-                    query={GET_LESSONS_FILTERED_GUEST}
-                    variables={{
-                      cityOfService: city[0],
-                      stateOfService: city[1]
-                    }}
-                  >
-                    {({ loading, error, data }) => {
-                      if (error) return <small>ERROR</small>;
-                      if (loading || !data) return null;
+                {this.state.cities.map((city) => {
+                  console.log(`querying for city, ${city[0]} -- ${city[1]}`);
+                  return (
+                    <Query
+                      query={GET_LESSONS_FILTERED_GUEST}
+                      variables={{
+                        cityOfService: city[0],
+                        stateOfService: city[1]
+                      }}
+                    >
+                      {({ loading, error, data }) => {
+                        if (error) return <small>ERROR</small>;
+                        if (loading) {
+                          console.log(`loading home lessons...`);
+                          return null;
+                        }
+                        if (!data) {
+                          console.log(`cannot retrieve data for some reason`);
+                          return null;
+                        }
 
-                      let lessonIds = data.lessonsFilteredGuest.map((lesson) => lesson.id);
-                      if (lessonIds.length >= 17) {
-                        lessonIds = lessonIds.slice(0, 18);
-                      }
-                      return (
-                        <React.Fragment>
-                          <h3>{city[0]}</h3>
-                          <HorizontalLessons lessonIds={lessonIds} />
-                        </React.Fragment>
-                      );
-                    }}
-                  </Query>
-                ))}
+                        let lessonIds = data.lessonsFilteredGuest.map((lesson) => lesson.id);
+                        if (lessonIds.length >= 17) {
+                          lessonIds = lessonIds.slice(0, 18);
+                        }
+                        return (
+                          <React.Fragment>
+                            <h3>{city[0]}</h3>
+                            <HorizontalLessons lessonIds={lessonIds} />
+                          </React.Fragment>
+                        );
+                      }}
+                    </Query>
+                  );
+                })}
               </div>
             </div>
           )}

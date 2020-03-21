@@ -7,7 +7,7 @@ const LessonList = ({ lessonIds }) => {
   return (
     <div className="scrolling-wrapper-flexbox">
       {lessonIds.map((lessonId) => {
-        // console.log(lessonId);
+        console.log(`Displaying lesson at home for lesson: ${lessonId}`);
         return <HorizontalLessonItem lessonId={lessonId} key={lessonId} />;
       })}
     </div>

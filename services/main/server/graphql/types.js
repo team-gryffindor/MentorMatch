@@ -52,14 +52,16 @@ const UserType = new GraphQLObjectType({
     favoriteLessons: {
       type: GraphQLList(LessonType),
       resolve(parent, args) {
-        return Models.User.find({
+        return Models.User.findOne({
           where: { id: parent.id },
           include: {
             model: Models.Lesson,
             required: false
           }
         })
-          .then((data) => data.dataValues.lessons)
+          .then((data) => {
+            return data.dataValues.lessons;
+          })
           .catch((err) => console.error(err));
       }
     }

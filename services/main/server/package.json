@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "author": "Julie Jung",
   "license": "ISC",
@@ -14,7 +14,7 @@
     "react-transform-hmr": "^1.0.4"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "body-parser": "^1.18.3",
     "booster": "^2.2.1",
     "commitizen": "^4.0.3",

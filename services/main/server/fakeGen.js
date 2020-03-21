@@ -1,61 +1,7 @@
 const Models = require('./db/index.js');
 const faker = require('faker');
 
-// const ADD_USER = gql`
-//   mutation(
-//     $name: String!
-//     $description: String!
-//     $locationOfResidence: String!
-//     $image: String!
-//     $uid: ID!
-//     $lat: Float!
-//     $lng: Float!
-//     $cityOfResidence: String!
-//     $stateOfResidence: String!
-//   ) {
-//     addUser(
-//       name: $name
-//       description: $description
-//       locationOfResidence: $locationOfResidence
-//       cityOfResidence: $cityOfResidence
-//       stateOfResidence: $stateOfResidence
-//       image: $image
-//       uid: $uid
-//       lat: $lat
-//       lng: $lng
-//     ) {
-//       name
-//       description
-//       locationOfResidence
-//       cityOfResidence
-//       stateOfResidence
-//       image
-//       id
-//       uid
-//       lat
-//       lng
-//     }
-//   }
-// `;
-//  addUser({
-//   variables: {
-//     name: this.state.username,
-//     description: this.state.description,
-//     locationOfResidence: this.state.locationOfResidence,
-//     cityOfResidence: this.state.cityOfResidence,
-//     stateOfResidence: this.state.stateOfResidence,
-//     lat: this.state.lat,
-//     lng: this.state.lng,
-//     image: this.state.image,
-//     uid: this.props.uid
-//   }
-// });
-
-// var randomName = faker.name.findName(); // Rowan Nikolaus
-// var randomEmail = faker.internet.email(); // Kassandra.Haley@erich.biz
-// var randomCard = faker.helpers.createCard(); // random contact card containing many properties
-
-const users = {
+const USERS = {
   variables: [
     {
       name: 'Jeanette Walter DDS',
@@ -192,13 +138,112 @@ const users = {
   ]
 };
 
-// Models.User.bulkCreate(users.variables)
-//   .then((data) => {
-//     console.log('DATA', data);
-//   })
-//   .catch((err) => {
-//     console.log('Error in fake/data/users', err);
-//   });
+const STATES = [
+  'AL',
+  'AK',
+  'AZ',
+  'AR',
+  'CA',
+  'CO',
+  'CT',
+  'DE',
+  'FL',
+  'GA',
+  'HI',
+  'ID',
+  'IL',
+  'IN',
+  'IA',
+  'KS',
+  'KY',
+  'LA',
+  'ME',
+  'MD',
+  'MA',
+  'MI',
+  'MN',
+  'MS',
+  'MO',
+  'MT',
+  'NE',
+  'NV',
+  'NH',
+  'NJ',
+  'NM',
+  'NY',
+  'NC',
+  'ND',
+  'OH',
+  'OK',
+  'OR',
+  'PA',
+  'RI',
+  'SC',
+  'SD',
+  'TN',
+  'TX',
+  'UT',
+  'VT',
+  'VA',
+  'WA',
+  'WV',
+  'WI',
+  'WY'
+];
+
+const addUsers = () => {
+  let users = [];
+  for (var i = 0; i < 500; i++) {
+    /* User Card format
+{
+  "name": faker.Name.findName(),
+  "username": faker.Internet.userName(),
+  "email": faker.Internet.email(),
+  "address": {
+      "street": faker.Address.streetName(true),
+      "suite": faker.Address.secondaryAddress(),
+      "city": faker.Address.city(),
+      "zipcode": faker.Address.zipCode(),
+      "geo": {
+          "lat": faker.Address.latitude(),
+          "lng": faker.Address.longitude()
+      }
+  },
+  "phone": faker.PhoneNumber.phoneNumber(),
+  "website": faker.Internet.domainName(),
+  "company": {
+      "name": faker.Company.companyName(),
+      "catchPhrase": faker.Company.catchPhrase(),
+      "bs": faker.Company.bs()
+  }
+};
+*/
+    userCard = faker.helpers.userCard();
+    user = {
+      name: userCard.name,
+      description: faker.lorem.paragraph(),
+      locationOfResidence: userCard.address.street,
+      cityOfResidence: userCard.address.city,
+      stateOfResidence: STATES[Math.floor(Math.random() * STATES.length)],
+      lat: userCard.address.geo.lat,
+      lng: userCard.address.geo.lng,
+      image: faker.image.avatar(),
+      // fake user doesn't need correct uid.
+      // only used to check if in firebase
+      uid: userCard.username
+    };
+    users.push(user);
+    // console.log(`User with image, ${user.image}`);
+    // console.log(`User, ${JSON.stringify(user)}, got created`);
+  }
+  Models.User.bulkCreate(users)
+    .then((data) => {
+      console.log('Added users: ', data);
+    })
+    .catch((err) => {
+      console.log('Error in fake/data/users', err);
+    });
+};
 
 var categories = ['Music', 'Sports', 'Cooking', 'Academic', 'Gaming', 'Arts', 'Miscellaneous'];
 var difficulty = ['Beginner', 'Intermediate', 'Expert'];
@@ -244,6 +289,8 @@ function getRandomInt(max) {
 }
 
 const addFakeReviews = () => {
+  // for every lesson
+  // for every user, check if user left review and then add random review
   let reviews = [];
   for (var i = 0; i < 400; i++) {
     let review = {};
@@ -263,9 +310,6 @@ const addFakeReviews = () => {
       console.log('Error in fake/data/reviews');
     });
 };
-
-// addFakeReviews();
-// addFakeLessons(users);
 
 // console.log(addFakeLessons(users));
 
@@ -314,6 +358,9 @@ const fixReviews = () => {
     .catch((e) => console.error("can't find all lessons"));
 };
 
-fixReviews();
+addUsers();
+// addFakeReviews();
+// addFakeLessons(users);
+// fixReviews();
 
 // console.log(lessons.every((lesson) => lesson instanceof Models.Lesson));
