@@ -289,8 +289,6 @@ function getRandomInt(max) {
 }
 
 const addFakeReviews = () => {
-  // for every lesson
-  // for every user, check if user left review and then add random review
   let reviews = [];
   for (var i = 0; i < 400; i++) {
     let review = {};
@@ -311,24 +309,71 @@ const addFakeReviews = () => {
     });
 };
 
-// console.log(addFakeLessons(users));
+function didUserLeaveReview(userId, lessonId) {
+  return Models.Review.count({
+    where: {
+      lessonId: lessonId,
+      userId: userId
+    }
+  })
+    .then((count) => {
+      return count != 0 ? true : false;
+    })
+    .catch((e) => console.error("Couldn't search Review table properly"));
+}
 
-// return addLesson({
-//   variables: {
-//     title: this.state.title,
-//     description: this.state.description,
-//     locationOfService: this.state.locationOfService,
-//     lat: this.state.lat,
-//     lng: this.state.lng,
-//     cityOfService: this.state.city,
-//     stateOfService: this.state.state,
-//     image: this.state.image,
-//     difficulty: this.state.difficulty,
-//     userId: userID,
-//     category: this.state.category,
-//     price: Number(this.state.price)
-//   }
-// });
+const addReview = (userId, lessonId) => {
+  return Models.Review.create({
+    title: faker.company.catchPhrase(),
+    comment: faker.lorem.sentences(),
+    lessonId: lessonId,
+    rating: Math.floor(Math.random() * 3) + 3,
+    userId: userId
+  });
+};
+
+const addReviews = async (users) => {
+  const reviews = await Promise.all(
+    users.map((user) => {
+      let lessonId = getRandomInt(239) + 481;
+      addReview(user.id), lessonId;
+      // didUserLeaveReview(user.id, lessonId).then((leftReview) => {
+      //   if (!leftReview) {
+      //     addReview(user.id, lessonId);
+      //   } else {
+      //     console.log('USER LEFT A REVIEW BEFORE');
+      //   }
+      // });
+    })
+  ).then((results) => console.log(`SOMETHING`));
+};
+
+const addFakeReviewsByUser = () => {
+  // for every user
+  // pick 10 random lessons to leave reviews
+  // make sure to check if user left a review before
+  return Models.User.findAll()
+    .then((dbUsers) => {
+      users = dbUsers.reduce((res, curr) => {
+        return res.concat([curr, curr, curr]);
+      }, []);
+      var promises = users.map((user) => addReview(user.id, getRandomInt(239) + 481));
+      Promise.all(promises).then(function(results) {
+        console.log(results);
+      });
+      // console.log(`${users.length}`);
+      // addReviews(users);
+      // console.log(`${reviews}`);
+      // Models.Review.bulkCreate(reviews)
+      //   .then((data) => {
+      //     console.log('Reviews are in.');
+      //   })
+      //   .catch((err) => {
+      //     console.log('Error in fake/data/reviews');
+      //   });
+    })
+    .catch((e) => console.error("Couldn't retrieve all users to add reviews"));
+};
 
 // match numOfReviews from lessons with actual reviews
 const fixReviews = () => {
@@ -358,9 +403,10 @@ const fixReviews = () => {
     .catch((e) => console.error("can't find all lessons"));
 };
 
-addUsers();
-// addFakeReviews();
+// addUsers();
 // addFakeLessons(users);
-// fixReviews();
+// addFakeReviews();
+// addFakeReviewsByUser();
+fixReviews();
 
 // console.log(lessons.every((lesson) => lesson instanceof Models.Lesson));
