@@ -11,6 +11,7 @@ const app = express();
 const keyPublishable = process.env.PUBLISHABLE_KEY;
 const keySecret = process.env.SECRET_KEY;
 const stripe = require('stripe')(keySecret);
+const Cookies = requre('cookies');
 
 const CLIENT_BUILD_PATH = path.join(__dirname, '../react-client/dist');
 
@@ -21,6 +22,11 @@ app.use(express.static(CLIENT_BUILD_PATH));
 app.use(bodyParser.json());
 
 app.use(cors());
+app.use((req, res, next) => {
+  const options = { keys: [COOKIE_SECRET_KEY] };
+  req.cookies = new Cookies(req, res, options);
+  next();
+});
 
 app.use('/graphql', graphqlHTTP({ schema: schema, graphiql: true }));
 

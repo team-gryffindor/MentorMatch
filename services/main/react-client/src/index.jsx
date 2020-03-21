@@ -12,8 +12,6 @@ import { StripeProvider } from 'react-stripe-elements';
 
 import App from './components/App.jsx';
 
-const cache = new InMemoryCache();
-
 const stateLink = withClientState({
   cache,
   defaults: localStateDefaults,
@@ -51,16 +49,19 @@ const stateLink = withClientState({
   }
 });
 
+const token = await auth.currentUser.getIdToken(true);
+
 const client = new ApolloClient({
+  headers: { token: token },
   link: ApolloLink.from([
     stateLink,
     new HttpLink({
-      url: 'http:localhost:3000/',
+      url: 'http:localhost:' + process.env.SERVER_PORT,
       uri: '/graphql',
       credentials: 'same-origin'
     })
   ]),
-  cache: cache
+  cache: new InMemoryCache()
 });
 
 ReactDOM.render(
