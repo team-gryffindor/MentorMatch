@@ -264,7 +264,7 @@ const addFakeReviews = () => {
     });
 };
 
-addFakeReviews();
+// addFakeReviews();
 // addFakeLessons(users);
 
 // console.log(addFakeLessons(users));
@@ -285,3 +285,35 @@ addFakeReviews();
 //     price: Number(this.state.price)
 //   }
 // });
+
+// match numOfReviews from lessons with actual reviews
+const fixReviews = () => {
+  return Models.Lesson.findAll()
+    .then((lessons) => {
+      lessons.forEach((lesson) => {
+        console.log(`counting reviews for lesson: ${lesson.id}`);
+        Models.Review.count({
+          where: {
+            lessonId: lesson.id
+          }
+        })
+          .then((reviewCount) => {
+            console.log(`updating for lesson: ${lesson.id}, reviewCount: ${reviewCount}`);
+            Models.Lesson.update(
+              { numOfReviews: reviewCount },
+              {
+                where: {
+                  id: lesson.id
+                }
+              }
+            ).catch((e) => console.error(`Can't update properly for Lesson: ${lesson.id}`));
+          })
+          .catch((e) => console.error("can't count reviews"));
+      });
+    })
+    .catch((e) => console.error("can't find all lessons"));
+};
+
+fixReviews();
+
+// console.log(lessons.every((lesson) => lesson instanceof Models.Lesson));

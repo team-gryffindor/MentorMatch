@@ -16,7 +16,12 @@ class Home extends React.Component {
   state = {
     topLessons: [],
     categories: ['Music', 'Sports', 'Cooking', 'Arts'],
-    cities: [['New York', 'NY'], ['Boston', 'MA'], ['Houston', 'TX'], ['San Francisco', 'CA']]
+    cities: [
+      ['New York', 'NY'],
+      ['Boston', 'MA'],
+      ['Houston', 'TX'],
+      ['San Francisco', 'CA']
+    ]
   };
 
   render() {
@@ -86,7 +91,7 @@ class Home extends React.Component {
                     {({ loading, error, data }) => {
                       if (error) return <small>ERROR</small>;
                       if (loading || !data) return null;
-                      
+
                       let lessonIds = data.lessonsFilteredGuest.map((lesson) => lesson.id);
                       if (lessonIds.length >= 17) {
                         lessonIds = lessonIds.slice(0, 18);
