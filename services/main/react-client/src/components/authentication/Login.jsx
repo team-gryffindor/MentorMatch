@@ -57,6 +57,12 @@ class Login extends React.Component {
                   uid: data[1]
                 });
                 return <Redirect to="/signUp" uid={data[1]} />;
+              } else {
+                localStorage.setItem('token', data[1]);
+                console.log(
+                  `USERINFO IN LOCALSTORAGE: ${JSON.stringify({ ...userInDB, uid: data[1] })}`
+                );
+                localStorage.setItem('userInfo', JSON.stringify({ ...userInDB, uid: data[1] }));
               }
               // Cache the user information
               return this.props.apolloClient.writeData({

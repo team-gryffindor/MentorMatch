@@ -49,7 +49,9 @@ const NavUserOpt = (props) => (
                 .auth()
                 .signOut()
                 .then(() => props.handleLogin(false))
-                .then(() => props.apolloClient.resetStore());
+                .then(() => props.apolloClient.resetStore())
+                .then(() => localStorage.clear())
+                .catch((e) => console.error('FAILED AT LOGOUT'));
             }}
           >
             <i className="fas fa-sign-out-alt" />

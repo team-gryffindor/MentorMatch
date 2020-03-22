@@ -11,7 +11,10 @@ const app = express();
 const keyPublishable = process.env.PUBLISHABLE_KEY;
 const keySecret = process.env.SECRET_KEY;
 const stripe = require('stripe')(keySecret);
-const Cookies = requre('cookies');
+
+// const Cookies = requre('cookies');
+// import { COOKIE_KEY, COOKIE_SECRET_KEY } from './constants';
+// import renderEngine from './renderEngine';
 
 const CLIENT_BUILD_PATH = path.join(__dirname, '../react-client/dist');
 
@@ -22,12 +25,27 @@ app.use(express.static(CLIENT_BUILD_PATH));
 app.use(bodyParser.json());
 
 app.use(cors());
+/*
 app.use((req, res, next) => {
   const options = { keys: [COOKIE_SECRET_KEY] };
   req.cookies = new Cookies(req, res, options);
   next();
 });
 
+app.use((req, res, next) => renderEngine()(req, res, next));
+
+app.post('/credentialCookie', (req, res) => {
+  let currentDate = new Date();
+  currentDate.setDate(currentDate.getDate() + req.body.expiryInDays);
+  req.cookies.set(COOKIE_KEY, req.body.token, { signed: true, expires: currentDate });
+  res.send('OK').end();
+});
+
+app.delete('/credentialCookie', (req, res) => {
+  req.cookies.set(COOKIE_KEY);
+  res.send('OK').end();
+});
+*/
 app.use('/graphql', graphqlHTTP({ schema: schema, graphiql: true }));
 
 // use search endpoint to retrieve from search service server

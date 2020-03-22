@@ -36,6 +36,7 @@ class Home extends React.Component {
                 if (error) return <small>ERROR</small>;
                 if (loading || !data) return null;
                 let user = data.userInfo;
+                console.log(`HERE's the USER, ${user}`);
                 return (
                   <div>
                     <div>

@@ -50,6 +50,7 @@ class App extends React.Component {
 
   render() {
     let { isLoggedIn, loginModal, eventToSchedule, events } = this.state;
+    if (localStorage.getItem('token')) isLoggedIn = true;
     return (
       <ApolloConsumer>
         {(apolloClient) => {
@@ -62,8 +63,12 @@ class App extends React.Component {
                     return (
                       <Query query={GET_USER_INFO} className="container">
                         {({ loading, error, data }) => {
-                          if (error) return <small>Error...</small>;
+                          if (error) return <small>Error...!!</small>;
                           if (loading || !data) return <small>Loading...</small>;
+                          console.log(`What's the data: ${JSON.stringify(data)}`);
+                          let image;
+                          if (JSON.stringify(data) == '{}') image = '';
+                          else image = data.userInfo.image;
                           return (
                             <NavBarMain
                               apolloClient={apolloClient}
@@ -71,7 +76,7 @@ class App extends React.Component {
                               handleLogin={this.handleLogin}
                               handleGuestOpt={this.handleGuestOpt}
                               currentPath={location.pathname}
-                              userImg={data.userInfo.image}
+                              userImg={image}
                             />
                           );
                         }}
@@ -134,17 +139,16 @@ class App extends React.Component {
               <Route
                 path="/lessonContent/:lessonId"
                 render={({ location }) => {
-                  
                   if (this.state.isLoggedIn) {
                     return (
                       <Query query={GET_USER_INFO} className="container">
                         {({ loading, error, data }) => {
-                          if (error) return <small>Error...</small>;
+                          if (error) return <small>Error...!!!</small>;
                           if (loading || !data) return <small>Loading...</small>;
                           return (
                             <Query query={GET_USER} variables={{ id: data.userInfo.userId }}>
                               {({ loading, error, data }) => {
-                                if (error) return <small>Error...</small>;
+                                if (error) return <small>Error... :(</small>;
                                 if (loading || !data) return <small>Loading...</small>;
                                 let favorite = false;
                                 let userFavorites = data.user.favoriteLessons;
@@ -174,7 +178,7 @@ class App extends React.Component {
                                     {({ loading, error, data }) => {
                                       if (loading) return <p>Loading...</p>;
                                       if (error) return <p>Error</p>;
-                                      
+
                                       return (
                                         <LessonContent
                                           userId={currUser.id}
