@@ -24,6 +24,15 @@ class Home extends React.Component {
     ]
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.isLoggedIn !== this.props.isLoggedIn) {
+      console.log('Now Logged out');
+    } else {
+      console.log('State changed but isLoggedin did not');
+    }
+    window.location.reload();
+  }
+
   render() {
     return (
       <div>

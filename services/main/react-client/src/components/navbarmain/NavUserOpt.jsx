@@ -43,14 +43,14 @@ const NavUserOpt = (props) => (
           <div className="dropdown-divider" />
           <Link
             className="dropdown-item"
-            to="/"
+            to={{ pathname: '/', state: 'desiredState' }}
             onClick={() => {
               firebase
                 .auth()
                 .signOut()
                 .then(() => props.handleLogin(false))
-                .then(() => props.apolloClient.resetStore())
                 .then(() => localStorage.clear())
+                .then(() => props.apolloClient.resetStore())
                 .catch((e) => console.error('FAILED AT LOGOUT'));
             }}
           >

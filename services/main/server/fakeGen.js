@@ -252,16 +252,16 @@ const addFakeLessons = () => {
   var lessons = {
     variables: []
   };
-  for (var i = 0; i < users.variables.length; i++) {
+  for (var i = 0; i < USERS.variables.length; i++) {
     for (var j = 0; j < 20; j++) {
       let lesson = {};
       lesson.title = faker.lorem.words();
       lesson.description = faker.lorem.paragraph();
-      lesson.locationOfService = users.variables[i].locationOfResidence;
-      lesson.lat = users.variables[i].lat;
-      lesson.lng = users.variables[i].lng;
-      lesson.cityOfService = users.variables[i].cityOfResidence;
-      lesson.stateOfService = users.variables[i].stateOfResidence;
+      lesson.locationOfService = USERS.variables[i].locationOfResidence;
+      lesson.lat = USERS.variables[i].lat;
+      lesson.lng = USERS.variables[i].lng;
+      lesson.cityOfService = USERS.variables[i].cityOfResidence;
+      lesson.stateOfService = USERS.variables[i].stateOfResidence;
       lesson.image = `https://picsum.photos/1200/600?image=${800 + j + i * 20}`;
       lesson.DIFFICULTY = DIFFICULTY[Math.floor(Math.random() * 3)];
       // adjust for testing

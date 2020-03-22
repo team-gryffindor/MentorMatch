@@ -82,10 +82,14 @@ class SignUp extends React.Component {
                             cityOfResidence: userInDB.cityOfResidence,
                             stateOfResidence: userInDB.stateOfResidence,
                             image: userInDB.image,
-                            uid: userInDB.uid
+                            uid: userInDB.uid,
+                            lat: userInDB.lat,
+                            lng: userInDB.lng
                           }
                         }
                       });
+                      localStorage.setItem('userInfo', JSON.stringify({ ...userInDB }));
+                      localStorage.setItem('token', userInDB.uid);
                     })
                     .then(() => {
                       this.setState({ redirect: true }, () => this.props.handleLogin(true));
@@ -129,7 +133,14 @@ class SignUp extends React.Component {
                     this.setState({ image: e.target.value });
                   }}
                 />
-                <button type="submit">Sign Up!</button>
+                <button
+                  type="submit"
+                  onSubmit={(e) => {
+                    localStorage.setItem('token', userInDB.uid);
+                  }}
+                >
+                  Sign Up!
+                </button>
               </form>
             </div>
           )}
