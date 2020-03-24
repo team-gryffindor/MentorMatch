@@ -18,7 +18,7 @@ let queue = [];
 const retrieveAndAddIndex = (search) => {
   let start = new Date();
   return axios({
-    url: 'http://mainserver:80/graphql',
+    url: 'http://mainserver:8080/graphql',
     method: 'post',
     data: {
       query: `
