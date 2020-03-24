@@ -84,5 +84,6 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "proxy": "http://server:8080"
 }

@@ -4,7 +4,9 @@ services:
     build: ./services/main/server
     # command: /usr/app/node_modules/.bin/nodemon index.js
     ports:
-      - 80:80
+      - 8080:8080
+    expose:
+      - 8080
     volumes:
       - ./services/main/server/:/usr/app
       - /usr/app/node_modules
@@ -15,8 +17,12 @@ services:
     volumes:
       - ./services/main/react-client:/usr/app
       - /usr/app/node_modules
+    links:
+      - mainserver
     depends_on:
       - mainserver
+    expose:
+      - 3000
     ports:
       - 3000:3000
   redisearch:
