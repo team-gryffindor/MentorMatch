@@ -13,6 +13,7 @@ import { StripeProvider } from 'react-stripe-elements';
 
 import { GET_USER_INFO } from './apollo/resolvers/clientSideQueries';
 
+import './style.css';
 import App from './components/App.jsx';
 
 const cache = new InMemoryCache();
@@ -30,81 +31,14 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const httpLink = new createHttpLink({
-  url: 'http:localhost:3000',
-  uri: '/graphql',
-  credentials: 'same-origin'
+  uri: 'http://localhost:8080/graphql'
+  // credentials: 'same-origin'
 });
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: cache,
-  resolvers: {
-    // GetUserInfo: {
-    //   userInfo() {
-    //     console.log('RESOLVER FOR GETUSERINFO TRIGGERED');
-    //     return {
-    //       userInfo: {
-    //         __typename: 'userInfo',
-    //         id: localStorage.getItem('userInfo').id,
-    //         name: localStorage.getItem('userInfo').name,
-    //         description: localStorage.getItem('userInfo').description,
-    //         locationOfResidence: localStorage.getItem('userInfo').locationOfResidence,
-    //         cityOfResidence: localStorage.getItem('userInfo').cityOfResidence,
-    //         stateOfResidence: localStorage.getItem('userInfo').stateOfResidence,
-    //         image: localStorage.getItem('userInfo').image,
-    //         uid: localStorage.getItem('userInfo').uid,
-    //         lat: localStorage.getItem('userInfo').lat,
-    //         lng: localStorage.getItem('userInfo').lng
-    //       }
-    // };
-    // const userInfo = localStorage.getItem('userInfo');
-    // console.log(`RESOLVER getting USERINFO, ${userInfo}`);
-    // return {
-    //   __typename: 'userInfo',
-    //   userId: userInfo.id,
-    //   username: userInfo.name,
-    //   description: userInfo.description,
-    //   locationOfResidence: userInfo.locationOfResidence,
-    //   cityOfResidence: userInfo.cityOfResidence,
-    //   stateOfResidence: userInfo.stateOfResidence,
-    //   image: userInfo.image,
-    //   uid: userInfo.uid,
-    //   lat: userInfo.lat,
-    //   lng: userInfo.lng
-    // };
-    //   }
-    // },
-    // Mutation: {
-    //   updateUserInfo: (
-    //     _,
-    //     {
-    //       theUserId,
-    //       theUserName,
-    //       theDescription,
-    //       theLocationOfResidence,
-    //       theCityOfResidence,
-    //       theStateOfResidence,
-    //       theImage
-    //     },
-    //     { cache }
-    //   ) => {
-    //     cache.writeData({
-    //       data: {
-    //         userInfo: {
-    //           __typename: 'userInfo',
-    //           userId: theUserId,
-    //           username: theUserName,
-    //           description: theDescription,
-    //           locationOfResidence: theLocationOfResidence,
-    //           cityOfResidence: theCityOfResidence,
-    //           stateOfResidence: theStateOfResidence,
-    //           image: theImage
-    //         }
-    //       }
-    //     });
-    //   }
-    // }
-  }
+  resolvers: {}
 });
 
 // Check if userInfo saved from last use

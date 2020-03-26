@@ -21,8 +21,6 @@ services:
       - mainserver
     depends_on:
       - mainserver
-    expose:
-      - 3000
     ports:
       - 3000:3000
   redisearch:
@@ -37,7 +35,7 @@ services:
   search:
     build: ./services/search
     container_name: searchservice
-    command: npm run search-dev
+    command: npm start
     depends_on:
       - mainserver
       - redisearch

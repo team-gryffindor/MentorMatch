@@ -12,7 +12,7 @@ const keyPublishable = process.env.PUBLISHABLE_KEY;
 const keySecret = process.env.SECRET_KEY;
 const stripe = require('stripe')(keySecret);
 
-const CLIENT_BUILD_PATH = path.join(__dirname, '../react-client/dist');
+const CLIENT_BUILD_PATH = path.join(__dirname, '../react-client/public');
 
 app.set('view engine', 'pug');
 

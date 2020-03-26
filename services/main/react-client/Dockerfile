@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:10
 LABEL maintainer="Julie Jung <moonyouj889@gmail.com>"
 
 RUN mkdir -p /usr/app
@@ -6,10 +6,6 @@ WORKDIR /usr/app
 # install nodemon and webpack onto container
 RUN npm install -g webpack
 
-
-
-# COPY package*.json ./
-# RUN npm ci -qy
 # copy our application code
 COPY . .
 

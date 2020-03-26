@@ -16,5 +16,5 @@ RUN npm install
 EXPOSE 2000
 
 # start app
-CMD [ "npm", "run", "search-dev" ]
+CMD [ "npm", "start"]
 # CMD ["nodemon", "index.js"]

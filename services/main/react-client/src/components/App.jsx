@@ -139,7 +139,7 @@ class App extends React.Component {
               <Route
                 path="/lessonContent/:lessonId"
                 render={({ location }) => {
-                  if (this.state.isLoggedIn) {
+                  if (isLoggedIn) {
                     return (
                       <Query query={GET_USER_INFO} className="container">
                         {({ loading, error, data }) => {
@@ -183,7 +183,7 @@ class App extends React.Component {
                                         <LessonContent
                                           userId={currUser.id}
                                           lesson={data.lesson}
-                                          isLoggedIn={this.state.isLoggedIn}
+                                          isLoggedIn={isLoggedIn}
                                           isFavorite={favorite}
                                           isBooked={booked}
                                         />
@@ -207,7 +207,7 @@ class App extends React.Component {
                             <LessonContent
                               userId={0}
                               lesson={location.state.lesson}
-                              isLoggedIn={this.state.isLoggedIn}
+                              isLoggedIn={isLoggedIn}
                               isFavorite={false}
                               isBooked={false}
                             />

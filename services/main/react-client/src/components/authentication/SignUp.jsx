@@ -48,100 +48,132 @@ class SignUp extends React.Component {
       return (
         <Mutation mutation={ADD_USER}>
           {(addUser) => (
-            <div>
-              <h1>Sign Up!</h1>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  this.reverseGeocode()
-                    .then(() => {
-                      return addUser({
-                        variables: {
-                          name: this.state.username,
-                          description: this.state.description,
-                          locationOfResidence: this.state.locationOfResidence,
-                          cityOfResidence: this.state.cityOfResidence,
-                          stateOfResidence: this.state.stateOfResidence,
-                          lat: this.state.lat,
-                          lng: this.state.lng,
-                          image: this.state.image,
-                          uid: this.props.uid
+            <div className="container signin-container">
+              <div className="signin-button-comp">
+                <img
+                  className="signin-img"
+                  style={{
+                    display: 'block',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    width: '100px'
+                  }}
+                  src={'../../MM-Logotype.png'}
+                />
+                <div className="d-flex justify-content-center">
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      this.reverseGeocode()
+                        .then(() => {
+                          return addUser({
+                            variables: {
+                              name: this.state.username,
+                              description: this.state.description,
+                              locationOfResidence: this.state.locationOfResidence,
+                              cityOfResidence: this.state.cityOfResidence,
+                              stateOfResidence: this.state.stateOfResidence,
+                              lat: this.state.lat,
+                              lng: this.state.lng,
+                              image: this.state.image,
+                              uid: this.props.uid
+                            }
+                          });
+                        }) // Cache the new user
+                        .then(({ data }) => {
+                          let userInDB = data.addUser;
+                          this.props.apolloClient.writeData({
+                            data: {
+                              userInfo: {
+                                __typename: 'userInfo',
+                                userId: userInDB.id,
+                                username: userInDB.name,
+                                description: userInDB.description,
+                                locationOfResidence: userInDB.locationOfResidence,
+                                cityOfResidence: userInDB.cityOfResidence,
+                                stateOfResidence: userInDB.stateOfResidence,
+                                image: userInDB.image,
+                                uid: userInDB.uid,
+                                lat: userInDB.lat,
+                                lng: userInDB.lng
+                              }
+                            }
+                          });
+                          localStorage.setItem('userInfo', JSON.stringify({ ...userInDB }));
+                          localStorage.setItem('token', userInDB.uid);
+                        })
+                        .then(() => {
+                          this.setState({ redirect: true }, () => this.props.handleLogin(true));
+                        })
+                        .catch((err) => console.error(err));
+                    }}
+                  >
+                    <input
+                      className="geosuggest__input"
+                      placeholder="NAME"
+                      style={{
+                        marginBottom: '10px'
+                      }}
+                      value={this.state.username}
+                      onChange={(e) => {
+                        this.setState({ username: e.target.value });
+                      }}
+                    />
+                    <input
+                      className="geosuggest__input"
+                      placeholder="DESCRIPTION"
+                      style={{
+                        marginBottom: '10px'
+                      }}
+                      value={this.state.description}
+                      onChange={(e) => {
+                        this.setState({ description: e.target.value });
+                      }}
+                    />
+                    <Geosuggest
+                      placeholder={'CITY OF RESIDENCE'}
+                      onSuggestSelect={(suggest) => {
+                        if (suggest) {
+                          this.setState({
+                            locationOfResidence: suggest.description,
+                            lat: suggest.location.lat,
+                            lng: suggest.location.lng
+                          });
                         }
-                      });
-                    }) // Cache the new user
-                    .then(({ data }) => {
-                      let userInDB = data.addUser;
-                      this.props.apolloClient.writeData({
-                        data: {
-                          userInfo: {
-                            __typename: 'userInfo',
-                            userId: userInDB.id,
-                            username: userInDB.name,
-                            description: userInDB.description,
-                            locationOfResidence: userInDB.locationOfResidence,
-                            cityOfResidence: userInDB.cityOfResidence,
-                            stateOfResidence: userInDB.stateOfResidence,
-                            image: userInDB.image,
-                            uid: userInDB.uid,
-                            lat: userInDB.lat,
-                            lng: userInDB.lng
-                          }
-                        }
-                      });
-                      localStorage.setItem('userInfo', JSON.stringify({ ...userInDB }));
-                      localStorage.setItem('token', userInDB.uid);
-                    })
-                    .then(() => {
-                      this.setState({ redirect: true }, () => this.props.handleLogin(true));
-                    })
-                    .catch((err) => console.error(err));
-                }}
-              >
-                Name:
-                <input
-                  value={this.state.username}
-                  onChange={(e) => {
-                    this.setState({ username: e.target.value });
-                  }}
-                />
-                Description:
-                <input
-                  value={this.state.description}
-                  onChange={(e) => {
-                    this.setState({ description: e.target.value });
-                  }}
-                />
-                City:
-                <Geosuggest
-                  placeholder={'City of Residence'}
-                  onSuggestSelect={(suggest) => {
-                    if (suggest) {
-                      this.setState({
-                        locationOfResidence: suggest.description,
-                        lat: suggest.location.lat,
-                        lng: suggest.location.lng
-                      });
-                    }
-                  }}
-                  types={['geocode']}
-                  value={this.state.locationOfResidence}
-                />
-                Link to your image:
-                <input
-                  value={this.state.image}
-                  onChange={(e) => {
-                    this.setState({ image: e.target.value });
-                  }}
-                />
-                <button
-                  type="submit"
-                  onSubmit={(e) => {
-                    localStorage.setItem('token', userInDB.uid);
-                  }}
-                >
-                  Sign Up!
-                </button>
-              </form>
+                      }}
+                      types={['geocode']}
+                      value={this.state.locationOfResidence}
+                    />
+                    <input
+                      className="geosuggest__input"
+                      placeholder="LINK TO PROFILE PICTURE"
+                      style={{
+                        marginBottom: '30px',
+                        marginTop: '10px'
+                      }}
+                      value={this.state.image}
+                      onChange={(e) => {
+                        this.setState({ image: e.target.value });
+                      }}
+                    />
+                    <button
+                      className="btn btn-primary my-2 my-sm-0"
+                      type="submit"
+                      style={{
+                        display: 'block',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                        width: '100px'
+                      }}
+                      onSubmit={(e) => {
+                        localStorage.setItem('token', userInDB.uid);
+                      }}
+                    >
+                      Sign Up!
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
           )}
         </Mutation>

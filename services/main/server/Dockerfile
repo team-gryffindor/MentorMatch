@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:10
 LABEL maintainer="Julie Jung <moonyouj889@gmail.com>"
 
 # install nodemon and webpack onto container
