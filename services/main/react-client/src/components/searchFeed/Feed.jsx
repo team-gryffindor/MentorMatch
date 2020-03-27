@@ -6,12 +6,12 @@ const Feed = ({ location }) => {
     <div className="container">
       <h1>
         {location.state.locationQuery
-          ? `Search Results for "${location.state.serviceQuery}" near ${
-              location.state.locationQuery
-            }`
+          ? `Search Results for "${location.state.serviceQuery}" near ${location.state.locationQuery}`
           : `Search Results for "${location.state.serviceQuery}"`}{' '}
       </h1>
-      <LessonList lessonIds={location.state.lessonIds} />
+      {localStorage.getItem('searchResults') ? (
+        <LessonList lessonIds={location.state.lessonIds} />
+      ) : null}
     </div>
   );
 };

@@ -16,6 +16,8 @@ class SearchBarHome extends React.Component {
     this.initResults();
   }
 
+  componentWillUnmount() {}
+
   initResults = () => {
     this.setState({ results: [] });
   };
@@ -23,7 +25,6 @@ class SearchBarHome extends React.Component {
   // handle input onchange event (update stock state)
   handleServiceInputChange = (evt) => {
     this.setState({ serviceQuery: evt.target.value }, this.search);
-    
   };
 
   // handle input onchange event (update stock state)
@@ -32,14 +33,13 @@ class SearchBarHome extends React.Component {
   };
 
   search = () => {
-    
-    // call this within call to get stock api
-    axios
-      .get('/search', { params: { q: this.state.serviceQuery + ' ' + this.state.locationQuery } })
+    axios({
+      method: 'get',
+      url: 'http://localhost:8080/search',
+      params: { q: this.state.serviceQuery + ' ' + this.state.locationQuery }
+    })
       .then(({ data }) => {
-        
-        this.setState({ results: data });
-        // this.results = data;
+        this.setState({ results: data }, localStorage.setItem('searchResults', data));
       })
       .catch((err) => {
         console.error(err);
@@ -47,9 +47,6 @@ class SearchBarHome extends React.Component {
   };
 
   render() {
-    console.log('lesson query', this.state.serviceQuery);
-    console.log('location query', this.state.locationQuery);
-    console.log('HIT BEFORE RENDER', this.state.results);
     return (
       <React.Fragment>
         <table className="home-search-table">
@@ -61,7 +58,7 @@ class SearchBarHome extends React.Component {
                 placeholder="Lesson"
                 aria-label="Lesson"
                 value={this.state.service}
-                onChange={this.handleServiceInputChange}
+                onChange={(evt) => this.setState({ serviceQuery: evt.target.value })}
               />
             </td>
             <td>
@@ -69,8 +66,7 @@ class SearchBarHome extends React.Component {
                 placeholder="Location"
                 onSuggestSelect={(suggest) => {
                   if (suggest) {
-                    
-                    this.setState({ locationQuery: suggest.description }, this.search);
+                    this.setState({ locationQuery: suggest.description });
                   }
                 }}
                 value={this.state.locationQuery}
@@ -88,7 +84,20 @@ class SearchBarHome extends React.Component {
                 }}
                 style={{ textDecoration: 'none', color: 'white' }}
               >
-                <button className="btn btn-primary" type="submit">
+                <button
+                  className="btn btn-primary"
+                  type="submit"
+                  onClick={() => {
+                    console.log(
+                      'HOME QUERIES: ',
+                      this.state.serviceQuery,
+                      this.state.locationQuery
+                    );
+                    localStorage.setItem('serviceQuery', this.state.serviceQuery);
+                    localStorage.setItem('locationQuery', this.state.locationQuery);
+                    this.search();
+                  }}
+                >
                   <span className="fas fa-search fa-2x" />
                 </button>
               </Link>

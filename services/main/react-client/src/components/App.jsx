@@ -65,7 +65,7 @@ class App extends React.Component {
                         {({ loading, error, data }) => {
                           if (error) return <small>Error...!!</small>;
                           if (loading || !data) return <small>Loading...</small>;
-                          console.log(`What's the data: ${JSON.stringify(data)}`);
+                          // console.log(`What's the data: ${JSON.stringify(data)}`);
                           let image;
                           if (JSON.stringify(data) == '{}') image = '';
                           else image = data.userInfo.image;

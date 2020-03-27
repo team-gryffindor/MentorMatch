@@ -9,13 +9,12 @@ const LessonListItem = ({ lessonId }) => {
   return (
     <Query query={GET_LESSON} variables={{ id: lessonId }}>
       {({ loading, error, data }) => {
-        if (error) return <p>Error! Could not retrieve the lesson.</p>;
-        if (loading || !data) return null;
+        if (error) return <p>{{ lessonId }}Error! Could not retrieve the lesson.</p>;
+        if (loading || !data) return <p>loading...</p>;
         let { lesson } = data;
         let [breakPt, endPt] = [70, 70];
         let displayedDescription = lesson.description.slice(0, breakPt);
         while (lesson.description[endPt] !== ' ' && lesson.description[endPt] !== undefined) {
-          
           endPt++;
         }
         displayedDescription += lesson.description.slice(breakPt, endPt) + '...';
