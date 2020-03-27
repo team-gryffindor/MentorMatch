@@ -21,6 +21,7 @@
     "express-graphql": "^0.9.0",
     "faker": "^4.1.0",
     "graphql": "^14.0.2",
+    "pg": "^7.18.2",
     "sequelize": "^4.39.0",
     "stripe": "^6.12.1"
   },
