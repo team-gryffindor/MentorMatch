@@ -1,0 +1,33 @@
+version: '3'
+services:
+  web:
+    build: ./services/main/
+    ports:
+      - '80:8080'
+    restart: always
+    # env_file: ./server/.env # TODO - uncomment this to auto-load your .env file!
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+  redisearch:
+    image: redislabs/redisearch:latest
+    container_name: redisearch
+    depends_on:
+      - mainserver
+    ports:
+      - 6379:6379
+    volumes:
+      - searchdata:/Users/juliejung/Desktop/redisearch/data
+  search:
+    build: ./services/search
+    container_name: searchservice
+    command: npm start
+    depends_on:
+      - mainserver
+      - redisearch
+    ports:
+      - 2000:2000
+    volumes:
+      - ./services/search:/searchService/
+      - ./services/search/package.json:/searchService/package.json
+      - /searchService/node_modules
