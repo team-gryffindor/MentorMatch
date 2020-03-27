@@ -10,7 +10,8 @@ COPY package*.json ./
 
 # fetch app specific deps
 # RUN npm install grpc@1.20.2
-RUN npm ci -qy
+# RUN npm ci -qy
+RUN npm install
 
 # copy our application code
 COPY . .
