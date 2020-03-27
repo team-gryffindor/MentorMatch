@@ -12,7 +12,7 @@ RUN npm install
 
 COPY react-client .
 
-RUN npm start
+RUN npm build
 
 # Setup the server
 FROM node:10
