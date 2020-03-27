@@ -6,7 +6,7 @@ WORKDIR /usr/app/client
 
 RUN npm install -g webpack
 
-COPY package*.json ./
+COPY react-client/package*.json ./
 # RUN npm install -qy
 RUN npm install
 
