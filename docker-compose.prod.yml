@@ -13,7 +13,7 @@ services:
     image: redislabs/redisearch:latest
     container_name: redisearch
     depends_on:
-      - mainserver
+      - web
     ports:
       - 6379:6379
     volumes:
@@ -23,7 +23,7 @@ services:
     container_name: searchservice
     command: npm start
     depends_on:
-      - mainserver
+      - web
       - redisearch
     ports:
       - 2000:2000
