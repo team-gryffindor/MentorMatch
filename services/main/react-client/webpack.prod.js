@@ -19,6 +19,7 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
   mode: 'production',
+  devtool: 'source-map',
   module: {
     rules: [
       {

@@ -19,7 +19,7 @@ FROM node:10
 
 RUN npm install -g nodemon
 WORKDIR /usr/app/
-COPY --from=client /usr/app/client/build/ ./client/build/
+COPY --from=client /usr/app/client/dist/ ./client/dist/
 
 WORKDIR /usr/app/server/
 COPY server/package*.json ./
