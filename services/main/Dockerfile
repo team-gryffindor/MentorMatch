@@ -4,6 +4,7 @@ LABEL maintainer="Julie Jung <moonyouj889@gmail.com>"
 
 WORKDIR /usr/app/client
 
+RUN npm update
 RUN npm install -g webpack
 
 COPY react-client/package*.json ./
