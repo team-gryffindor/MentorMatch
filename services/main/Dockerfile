@@ -29,6 +29,6 @@ RUN npm install
 COPY server/ .
 
 # expose port
-EXPOSE 80
+EXPOSE 8080
 
 CMD [ "npm", "run", "deploy-start" ]

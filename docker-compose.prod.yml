@@ -3,12 +3,12 @@ services:
   web:
     build: ./services/main/
     ports:
-      - '80:80'
+      - '8080:8080'
     restart: always
     # env_file: ./server/.env # TODO - uncomment this to auto-load your .env file!
     environment:
       NODE_ENV: production
-      PORT: 80
+      PORT: 8080
     volumes:
       - ./services/main:/mainServer/
       - ./services/main/package.json:/mainServer/package.json
